@@ -2,7 +2,7 @@ package org.smartly.application.desktopgap.impl.app.utils;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.launcher.IAppInstanceListener;
+import org.smartly.application.desktopgap.impl.app.IAppInstanceListener;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;

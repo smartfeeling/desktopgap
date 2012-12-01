@@ -1,8 +1,8 @@
-package org.smartly.application.desktopgap.impl.app.launcher;
+package org.smartly.application.desktopgap.impl.app;
 
 import org.json.JSONObject;
 import org.smartly.Smartly;
-import org.smartly.application.desktopgap.impl.app.launcher.application.AppManifest;
+import org.smartly.application.desktopgap.impl.app.launcher.window.AppManifest;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;

@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.launcher.application;
+package org.smartly.application.desktopgap.impl.app.launcher.window;
 
 import org.smartly.IConstants;
 import org.smartly.Smartly;

@@ -1,6 +1,6 @@
-package org.smartly.application.desktopgap.impl.app.launcher.application;
+package org.smartly.application.desktopgap.impl.app.launcher.window;
 
-import org.smartly.application.desktopgap.impl.app.launcher.IAppInstanceListener;
+import org.smartly.application.desktopgap.impl.app.IAppInstanceListener;
 import org.smartly.commons.util.PathUtils;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.launcher.application;
+package org.smartly.application.desktopgap.impl.app.launcher.window;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -6,16 +6,13 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.PopupFeatures;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
-import org.smartly.application.desktopgap.impl.app.utils.fx.Draggable;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 
 import java.net.URL;

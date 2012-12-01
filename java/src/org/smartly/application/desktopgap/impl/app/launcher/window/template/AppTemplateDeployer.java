@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.launcher.application.template;
+package org.smartly.application.desktopgap.impl.app.launcher.window.template;
 
 /**
  *

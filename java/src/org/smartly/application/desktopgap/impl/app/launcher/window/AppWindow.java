@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.launcher.application;
+package org.smartly.application.desktopgap.impl.app.launcher.window;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.smartly.Smartly;
-import org.smartly.application.desktopgap.impl.app.launcher.application.template.AppTemplateDeployer;
+import org.smartly.application.desktopgap.impl.app.launcher.window.template.AppTemplateDeployer;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
