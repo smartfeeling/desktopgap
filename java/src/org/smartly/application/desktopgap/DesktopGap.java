@@ -1,0 +1,119 @@
+package org.smartly.application.desktopgap;
+
+import org.smartly.Smartly;
+import org.smartly.application.desktopgap.config.Deployer;
+import org.smartly.application.desktopgap.impl.app.AppController;
+import org.smartly.commons.logging.Level;
+import org.smartly.packages.AbstractPackage;
+
+import java.util.Map;
+
+/**
+ * DesktopGAp main package class
+ */
+public class DesktopGap extends AbstractPackage {
+
+    public static final String NAME = "DESKTOP_GAP";
+
+    public DesktopGap() {
+        super(NAME, 100);
+        super.setDescription("Desktop Gap");
+        super.setMaintainerName("Gian Angelo Geminiani");
+        super.setMaintainerMail("angelo.geminiani@gmail.com");
+        super.setMaintainerUrl("http://www.smartfeeling.org");
+
+        //-- module dependencies --//
+        /*super.addDependency(SmartlyHtmlDeployer.NAME, "");
+        super.addDependency(SmartlyHttp.NAME, "");
+        super.addDependency(SmartlyHttpCms.NAME, "");
+        super.addDependency(SmartlyMail.NAME, "");
+        super.addDependency(SmartlyMongo.NAME, "");
+        super.addDependency(SmartlyRemoting.NAME, "");
+        super.addDependency(SmartlyVelocity.NAME, ""); // all versions
+        super.addDependency(SmartlyHtmlAsset.NAME, "");
+        */
+
+        //-- lib dependencies --//
+        /*
+        super.addDependency("org.eclipse.jetty.aggregate:jetty-all:8.1.4.v20120524", "");
+        super.addDependency("com.sun.mail:javax.mail:1.4.5", "");
+        super.addDependency("org.mongodb:mongo-java-driver:2.7.3", "");
+        super.addDependency("org.apache.velocity:velocity:1.7", "");*/
+    }
+
+    @Override
+    public void load() {
+        Smartly.register(new Deployer(Smartly.getConfigurationPath(), Smartly.isSilent()));
+    }
+
+    @Override
+    public void ready() {
+        this.init();
+        try {
+            AppController.open();
+        } catch (Throwable t) {
+            super.getLogger().log(Level.SEVERE, null, t);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    //                      p r i v a t e
+    // ------------------------------------------------------------------------
+
+    private void init() {
+        // deploy html files
+        this.deployHtml();
+
+        this.initDictionary();
+
+        // init velocity tools
+        this.initVelocity();
+    }
+
+    private void deployHtml() {
+        // final HtmlDeployer deployer = new HtmlDeployer();
+        // deployer.deploy();
+    }
+
+    private void initDictionary() {
+        /**/
+        // DictionaryRegistry.register(i18nWidgets.class);
+
+    }
+
+    private void initVelocity() {
+        // App
+        //VLCManager.getInstance().getToolbox().replace(AppTool.NAME, AppTool.class, null, true);
+
+        // Db
+        //VLCManager.getInstance().getToolbox().replace(DbTool.NAME, DbTool.class, null, true);
+
+        // System
+        //VLCManager.getInstance().getToolbox().replace(SysTool.NAME, SysTool.class, null, true);
+
+        // Dictionary
+        //VLCManager.getInstance().getToolbox().replace(DicTool.NAME, DicTool.class, null, true);
+    }
+
+
+    // --------------------------------------------------------------------
+    //               S T A T I C
+    // --------------------------------------------------------------------
+
+    /**
+     * Returns port for internal communication
+     *
+     * @return internal socket port
+     */
+    public static int getPort() {
+        return Smartly.getConfiguration().getInt("application.desktopgap.port");
+    }
+
+    public static Map<String, Object> getLauncherArgs() {
+        return Smartly.getLauncherArgs();
+    }
+
+    public static String[] getLauncherRemainArgs() {
+        return Smartly.getLauncherRemainArgs();
+    }
+}

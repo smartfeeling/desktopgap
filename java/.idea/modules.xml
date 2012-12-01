@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/desktopgap.iml" filepath="$PROJECT_DIR$/desktopgap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../smartly/smartly_core/smartly_core.iml" filepath="$PROJECT_DIR$/../../../smartly/smartly_core/smartly_core.iml" />
+    </modules>
+  </component>
+</project>
+
