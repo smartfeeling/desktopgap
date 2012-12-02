@@ -6,7 +6,7 @@
     <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Smartfeeling.org" ValueLocId="*"/>
     <ROW Property="ProductCode" Value="1040:{773237DB-6A90-4942-9DAE-01DACE7F98C2} " Type="16"/>
-    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductLanguage" Value="1040"/>
     <ROW Property="ProductName" Value="DesktopGap" ValueLocId="*"/>
     <ROW Property="ProductVersion" Value="1.0.0"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -23,7 +23,6 @@
     <ROW Directory="Asia_Dir" Directory_Parent="zi_Dir" DefaultDir="Asia"/>
     <ROW Directory="Atlantic_Dir" Directory_Parent="zi_Dir" DefaultDir="Atlantic"/>
     <ROW Directory="Australia_Dir" Directory_Parent="zi_Dir" DefaultDir="Austra~1|Australia"/>
-    <ROW Directory="DESKTOP_GAP_Dir" Directory_Parent="packages_Dir" DefaultDir="DESKTO~1|DESKTOP_GAP"/>
     <ROW Directory="Etc_Dir" Directory_Parent="zi_Dir" DefaultDir="Etc"/>
     <ROW Directory="Europe_Dir" Directory_Parent="zi_Dir" DefaultDir="Europe"/>
     <ROW Directory="Indian_Dir" Directory_Parent="zi_Dir" DefaultDir="Indian"/>
@@ -34,15 +33,8 @@
     <ROW Directory="SystemV_Dir" Directory_Parent="zi_Dir" DefaultDir="SystemV"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
     <ROW Directory="amd64_Dir" Directory_Parent="lib_1_Dir" DefaultDir="amd64"/>
-    <ROW Directory="app_Dir" Directory_Parent="testApp_Dir" DefaultDir="app"/>
-    <ROW Directory="app_install_Dir" Directory_Parent="APPDIR" DefaultDir="app_in~1|app_install"/>
-    <ROW Directory="app_installed_Dir" Directory_Parent="APPDIR" DefaultDir="app_in~2|app_installed"/>
-    <ROW Directory="app_tmp_Dir" Directory_Parent="APPDIR" DefaultDir="app_tmp"/>
-    <ROW Directory="application_Dir" Directory_Parent="config_Dir" DefaultDir="applic~1|application"/>
     <ROW Directory="bin_Dir" Directory_Parent="jre64_Dir" DefaultDir="bin"/>
     <ROW Directory="cmm_Dir" Directory_Parent="lib_1_Dir" DefaultDir="cmm"/>
-    <ROW Directory="config_Dir" Directory_Parent="APPDIR" DefaultDir="config"/>
-    <ROW Directory="css_Dir" Directory_Parent="app_Dir" DefaultDir="css"/>
     <ROW Directory="cursors_Dir" Directory_Parent="images_Dir" DefaultDir="cursors"/>
     <ROW Directory="deploy_Dir" Directory_Parent="lib_1_Dir" DefaultDir="deploy"/>
     <ROW Directory="dtplugin_Dir" Directory_Parent="bin_Dir" DefaultDir="dtplugin"/>
@@ -50,17 +42,12 @@
     <ROW Directory="fonts_Dir" Directory_Parent="lib_1_Dir" DefaultDir="fonts"/>
     <ROW Directory="images_Dir" Directory_Parent="lib_1_Dir" DefaultDir="images"/>
     <ROW Directory="jre64_Dir" Directory_Parent="APPDIR" DefaultDir="jre64"/>
-    <ROW Directory="languages_Dir" Directory_Parent="config_Dir" DefaultDir="langua~1|languages"/>
     <ROW Directory="lib_1_Dir" Directory_Parent="jre64_Dir" DefaultDir="lib"/>
-    <ROW Directory="lib_Dir" Directory_Parent="APPDIR" DefaultDir="lib"/>
-    <ROW Directory="logs_Dir" Directory_Parent="APPDIR" DefaultDir="logs"/>
     <ROW Directory="management_Dir" Directory_Parent="lib_1_Dir" DefaultDir="manage~1|management"/>
-    <ROW Directory="packages_Dir" Directory_Parent="APPDIR" DefaultDir="packages"/>
     <ROW Directory="plugin2_Dir" Directory_Parent="bin_Dir" DefaultDir="plugin2"/>
     <ROW Directory="security_Dir" Directory_Parent="lib_1_Dir" DefaultDir="security"/>
     <ROW Directory="server_Dir" Directory_Parent="bin_Dir" DefaultDir="server"/>
     <ROW Directory="servicetag_Dir" Directory_Parent="lib_1_Dir" DefaultDir="servic~1|servicetag"/>
-    <ROW Directory="testApp_Dir" Directory_Parent="app_installed_Dir" DefaultDir="testApp"/>
     <ROW Directory="zi_Dir" Directory_Parent="lib_1_Dir" DefaultDir="zi"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
@@ -91,16 +78,12 @@
     <ROW Component="WindowsAccessBridge64.dll" ComponentId="{6D86117C-8137-4131-902D-F01A541BA936}" Directory_="bin_Dir" Attributes="256" KeyPath="WindowsAccessBridge64.dll"/>
     <ROW Component="accessbridge64.jar" ComponentId="{09FBACD4-4F2E-4EDE-8582-54EF5A3A97C2}" Directory_="ext_Dir" Attributes="0" KeyPath="accessbridge64.jar" Type="0"/>
     <ROW Component="accessibility.properties" ComponentId="{6FB8DCCE-E0FD-4FC7-8B7F-586878FCE47A}" Directory_="lib_1_Dir" Attributes="0" KeyPath="accessibility.properties" Type="0"/>
-    <ROW Component="app_install" ComponentId="{A1B264B6-39E3-4328-88EF-404C631184BF}" Directory_="app_install_Dir" Attributes="0"/>
-    <ROW Component="app_tmp" ComponentId="{8CBB68FA-CAD3-4CFF-81F4-B57763FB9DB6}" Directory_="app_tmp_Dir" Attributes="0"/>
     <ROW Component="attach.dll" ComponentId="{711C7E05-735B-4C5A-B532-242A13894AFF}" Directory_="bin_Dir" Attributes="256" KeyPath="attach.dll"/>
-    <ROW Component="autorun.json" ComponentId="{7E9AAC0D-18B4-4744-8601-81E686EC181C}" Directory_="application_Dir" Attributes="0" KeyPath="autorun.json" Type="0"/>
     <ROW Component="awt.dll" ComponentId="{E5F72E71-DF9A-4955-93E1-A0610430DE34}" Directory_="bin_Dir" Attributes="256" KeyPath="awt.dll"/>
     <ROW Component="blacklist" ComponentId="{52992EFF-6139-4796-98BA-CA5CE082EA3B}" Directory_="security_Dir" Attributes="0" KeyPath="blacklist" Type="0"/>
     <ROW Component="classes.jsa" ComponentId="{C163EDD8-7DFD-4E39-9B00-32A95C5F73C7}" Directory_="server_Dir" Attributes="0" KeyPath="classes.jsa" Type="0"/>
     <ROW Component="cursors.properties" ComponentId="{F21BDA1B-71ED-4D7F-AE4B-F125FBC6296B}" Directory_="cursors_Dir" Attributes="0" KeyPath="cursors.properties" Type="0"/>
     <ROW Component="dcpr.dll" ComponentId="{7639CD48-2C62-4B06-8D74-E8B281E21CAC}" Directory_="bin_Dir" Attributes="256" KeyPath="dcpr.dll"/>
-    <ROW Component="de.json" ComponentId="{AB3E3D88-A212-4367-89C2-CCD7E5E21E31}" Directory_="languages_Dir" Attributes="0" KeyPath="de.json" Type="0"/>
     <ROW Component="decorad3d.dll" ComponentId="{F9F9CDCA-11C2-4F8E-A3E6-D82B467CD574}" Directory_="bin_Dir" Attributes="256" KeyPath="decorad3d.dll"/>
     <ROW Component="decorasse.dll" ComponentId="{B10B5F8A-3A58-42F0-8C67-99EB92376332}" Directory_="bin_Dir" Attributes="256" KeyPath="decorasse.dll"/>
     <ROW Component="deploy.dll" ComponentId="{1587CFE4-B48D-45F7-9D90-FD93F037BE4E}" Directory_="bin_Dir" Attributes="256" KeyPath="deploy.dll"/>
@@ -117,8 +100,6 @@
     <ROW Component="gliblite.dll" ComponentId="{7FC0D3C5-4CC0-47B0-B50A-D7F16920C210}" Directory_="bin_Dir" Attributes="256" KeyPath="gliblite.dll"/>
     <ROW Component="gstreamerlite.dll" ComponentId="{BB6AB896-14BE-459E-A7AB-765CAFB5BD68}" Directory_="bin_Dir" Attributes="256" KeyPath="gstreamerlite.dll"/>
     <ROW Component="hprof.dll" ComponentId="{687588F9-15B0-4A6C-9AFA-A430BA3322DC}" Directory_="bin_Dir" Attributes="256" KeyPath="hprof.dll"/>
-    <ROW Component="icon.png" ComponentId="{34068FA9-D9DC-4E16-896E-0A977EE853FD}" Directory_="testApp_Dir" Attributes="0" KeyPath="icon.png" Type="0"/>
-    <ROW Component="index.html" ComponentId="{DCD80694-9B2C-4760-8D10-2E844F30F1CC}" Directory_="app_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
     <ROW Component="instrument.dll" ComponentId="{3DCD14A7-A88F-4E92-8DD5-D556FE407BA9}" Directory_="bin_Dir" Attributes="256" KeyPath="instrument.dll"/>
     <ROW Component="j2pcsc.dll" ComponentId="{0F231445-1EE6-4565-B256-A14DBB75AFF5}" Directory_="bin_Dir" Attributes="256" KeyPath="j2pcsc.dll"/>
     <ROW Component="jaas_nt.dll" ComponentId="{0CE8834A-4DA6-411E-A7E6-E1B7B419FB2C}" Directory_="bin_Dir" Attributes="256" KeyPath="jaas_nt.dll"/>
@@ -157,10 +138,8 @@
     <ROW Component="klist.exe" ComponentId="{5CFECB1D-5911-4D68-8D8A-E72F5B8944D7}" Directory_="bin_Dir" Attributes="256" KeyPath="klist.exe"/>
     <ROW Component="ktab.exe" ComponentId="{B5F44A32-28E8-431F-B426-F5B7A9C874CE}" Directory_="bin_Dir" Attributes="256" KeyPath="ktab.exe"/>
     <ROW Component="launcher.exe" ComponentId="{F2208EB7-56AF-41CE-898D-A71751BA14D4}" Directory_="lib_1_Dir" Attributes="256" KeyPath="launcher.exe"/>
-    <ROW Component="lib" ComponentId="{EE98A697-EE7D-40C4-A020-0F36BC7FDD50}" Directory_="lib_Dir" Attributes="0"/>
     <ROW Component="libxml2.dll" ComponentId="{9D46C737-23FA-478A-A2A0-43CF984047A5}" Directory_="bin_Dir" Attributes="256" KeyPath="libxml2.dll"/>
     <ROW Component="libxslt.dll" ComponentId="{5980AA4B-8487-4342-90FE-3A4F6D0A3050}" Directory_="bin_Dir" Attributes="256" KeyPath="libxslt.dll"/>
-    <ROW Component="main.css" ComponentId="{76A23647-B8FF-4C2B-8DEA-256AA17578F7}" Directory_="css_Dir" Attributes="0" KeyPath="main.css" Type="0"/>
     <ROW Component="management.dll" ComponentId="{3B828685-4AB2-48E1-922B-232B702B19ED}" Directory_="bin_Dir" Attributes="256" KeyPath="management.dll"/>
     <ROW Component="mlib_image.dll" ComponentId="{1A04ECB1-9791-4F5C-8D15-1C42CC3137FD}" Directory_="bin_Dir" Attributes="256" KeyPath="mlib_image.dll"/>
     <ROW Component="msvcr100.dll" ComponentId="{FCDB2114-B726-4891-B299-02149B40F100}" Directory_="bin_Dir" Attributes="256" KeyPath="msvcr100.dll"/>
@@ -172,7 +151,6 @@
     <ROW Component="npt.dll" ComponentId="{2E31297A-E75F-4D83-9544-179B93A743DA}" Directory_="bin_Dir" Attributes="256" KeyPath="npt.dll"/>
     <ROW Component="orbd.exe" ComponentId="{64D7979E-658B-4CC7-B5A1-A3B88FF24CE4}" Directory_="bin_Dir" Attributes="256" KeyPath="orbd.exe"/>
     <ROW Component="pack200.exe" ComponentId="{3F796A8B-81D9-4D93-889C-0343B3F76EFA}" Directory_="bin_Dir" Attributes="256" KeyPath="pack200.exe"/>
-    <ROW Component="package.json" ComponentId="{DB72F04B-57D6-4922-B872-8EF189CA9234}" Directory_="DESKTOP_GAP_Dir" Attributes="0" KeyPath="package.json" Type="0"/>
     <ROW Component="policytool.exe" ComponentId="{60AB3BD9-6519-47B6-BF1B-957199A4D1AF}" Directory_="bin_Dir" Attributes="256" KeyPath="policytool.exe"/>
     <ROW Component="prismd3d.dll" ComponentId="{5E336285-841E-4BE8-B420-E5610929EFE6}" Directory_="bin_Dir" Attributes="256" KeyPath="prismd3d.dll"/>
     <ROW Component="rmi.dll" ComponentId="{C859815C-86DE-4E9A-A8C8-BCA7E98ADAA0}" Directory_="bin_Dir" Attributes="256" KeyPath="rmi.dll"/>
@@ -180,8 +158,6 @@
     <ROW Component="rmiregistry.exe" ComponentId="{D543E3A7-3355-411E-9F57-9D7E63D9286A}" Directory_="bin_Dir" Attributes="256" KeyPath="rmiregistry.exe"/>
     <ROW Component="sawindbg.dll" ComponentId="{DEE00263-7BD5-47B7-8245-1BF0D9910DB2}" Directory_="bin_Dir" Attributes="256" KeyPath="sawindbg.dll"/>
     <ROW Component="servertool.exe" ComponentId="{5E996A3F-16FF-4027-B079-61596B0E441D}" Directory_="bin_Dir" Attributes="256" KeyPath="servertool.exe"/>
-    <ROW Component="smartly.json" ComponentId="{271945E8-51C6-4DED-882A-466CFB5AFDA6}" Directory_="config_Dir" Attributes="0" KeyPath="smartly.json" Type="0"/>
-    <ROW Component="smartly.log" ComponentId="{50F492B1-E3C4-45FB-89F3-BEC026B295DE}" Directory_="logs_Dir" Attributes="0" KeyPath="smartly.log" Type="0"/>
     <ROW Component="splashscreen.dll" ComponentId="{A21019EC-3429-47CA-9C62-4886B1EFD005}" Directory_="bin_Dir" Attributes="256" KeyPath="splashscreen.dll"/>
     <ROW Component="ssv.dll" ComponentId="{DA8FA0DF-30B2-408A-ADC8-06D3C32402C3}" Directory_="bin_Dir" Attributes="256" KeyPath="ssv.dll"/>
     <ROW Component="ssvagent.exe" ComponentId="{9911315A-CDEC-4B28-A794-FB879D30BA5D}" Directory_="bin_Dir" Attributes="256" KeyPath="ssvagent.exe"/>
@@ -197,7 +173,7 @@
     <ROW Component="zip.dll" ComponentId="{63B5101A-A6C7-4A54-87C8-941E52FC0977}" Directory_="bin_Dir" Attributes="256" KeyPath="zip.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="ApplicationDescription ProductInformation app_install app_tmp autorun.json de.json desktopgap.exe desktopgap.jar icon.png index.html lib main.css package.json smartly.json smartly.log"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="ApplicationDescription ProductInformation desktopgap.exe desktopgap.jar"/>
     <ROW Feature="bitJREBundle" Title="64-bit JRE Bundle" Description="This feature contains the 64-bit JRE bundle." Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="AST4 Abidjan Adak Adelaide Aden Amsterdam Antananarivo Apia Azores Beulah Buenos_Aires CET CIEXYZ.pf COPYRIGHT Casey GMT Indianapolis JAWTAccessBridge64.dll JavaAccessBridge64.dll JdbcOdbc.dll Louisville LucidaBrightDemiBold.ttf WindowsAccessBridge64.dll accessbridge64.jar accessibility.properties attach.dll awt.dll blacklist classes.jsa cursors.properties dcpr.dll decorad3d.dll decorasse.dll deploy.dll deployJava1.dll dt_shmem.dll dt_socket.dll eula.dll ffjcext.zip fontmanager.dll fxplugins.dll glass.dll gliblite.dll gstreamerlite.dll hprof.dll instrument.dll j2pcsc.dll jaas_nt.dll jabswitch.exe java.dll java.exe java_crw_demo.dll javacpl.cpl javacpl.exe javafxfont.dll javafxiio.dll javarmi.exe javaw.exe javaws.exe jawt.dll jdk_header.png jdwp.dll jfr.dll jfxmedia.dll jfxwebkit.dll jli.dll jmxremote.access jp2iexp.dll jp2launcher.exe jp2native.dll jp2ssv.dll jpeg.dll jsdt.dll jsound.dll jsoundds.dll jvm.cfg jvm.dll kcms.dll keytool.exe kinit.exe klist.exe ktab.exe launcher.exe libxml2.dll libxslt.dll management.dll mlib_image.dll msvcr100.dll msvcr100.dll_1 net.dll nio.dll npdeployJava1.dll npjp2.dll npt.dll orbd.exe pack200.exe policytool.exe prismd3d.dll rmi.dll rmid.exe rmiregistry.exe sawindbg.dll servertool.exe splashscreen.dll ssv.dll ssvagent.exe sunec.dll sunmscapi.dll t2k.dll tnameserv.exe unpack.dll unpack200.exe verify.dll w2k_lsa_auth.dll wsdetect.dll zip.dll" Builds="DefaultBuild"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
@@ -466,7 +442,6 @@
     <ROW File="LucidaTypewriterRegular.ttf" Component_="LucidaBrightDemiBold.ttf" FileName="Lucida~8.ttf|LucidaTypewriterRegular.ttf" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\fonts\LucidaTypewriterRegular.ttf" SelfReg="false" NextFile="cursors.properties"/>
     <ROW File="Lusaka" Component_="Abidjan" FileName="Lusaka" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\zi\Africa\Lusaka" SelfReg="false" NextFile="Malabo"/>
     <ROW File="Luxembourg" Component_="Amsterdam" FileName="Luxemb~1|Luxembourg" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\zi\Europe\Luxembourg" SelfReg="false" NextFile="Madrid"/>
-    <ROW File="MANIFEST.json" Component_="icon.png" FileName="MANIFE~1.jso|MANIFEST.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\app_installed\testApp\MANIFEST.json" SelfReg="false" NextFile="autorun.json"/>
     <ROW File="MET" Component_="CET" FileName="MET" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\zi\MET" SelfReg="false" NextFile="MST"/>
     <ROW File="MST" Component_="CET" FileName="MST" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\zi\MST" SelfReg="false" NextFile="MST7MDT"/>
     <ROW File="MST7" Component_="AST4" FileName="MST7" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\zi\SystemV\MST7" SelfReg="false" NextFile="MST7MDT_1"/>
@@ -685,7 +660,6 @@
     <ROW File="accessibility.properties" Component_="accessibility.properties" FileName="access~1.pro|accessibility.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\accessibility.properties" SelfReg="false" NextFile="altrt.jar"/>
     <ROW File="altrt.jar" Component_="accessibility.properties" FileName="alt-rt.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\alt-rt.jar" SelfReg="false" NextFile="jvm.cfg"/>
     <ROW File="attach.dll" Component_="attach.dll" FileName="attach.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\attach.dll" SelfReg="false" NextFile="awt.dll"/>
-    <ROW File="autorun.json" Component_="autorun.json" FileName="autoru~1.jso|autorun.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\application\autorun.json" SelfReg="false" NextFile="desktopgap.json"/>
     <ROW File="awt.dll" Component_="awt.dll" FileName="awt.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\awt.dll" SelfReg="false" NextFile="dcpr.dll"/>
     <ROW File="blacklist" Component_="blacklist" FileName="blackl~1|blacklist" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\security\blacklist" SelfReg="false" NextFile="cacerts"/>
     <ROW File="cacerts" Component_="blacklist" FileName="cacerts" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\security\cacerts" SelfReg="false" NextFile="java.policy"/>
@@ -697,37 +671,29 @@
     <ROW File="currency.data" Component_="accessibility.properties" FileName="curren~1.dat|currency.data" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\currency.data" SelfReg="false" NextFile="ffjcext.zip"/>
     <ROW File="cursors.properties" Component_="cursors.properties" FileName="cursor~1.pro|cursors.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\images\cursors\cursors.properties" SelfReg="false" NextFile="invalid32x32.gif"/>
     <ROW File="dcpr.dll" Component_="dcpr.dll" FileName="dcpr.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\dcpr.dll" SelfReg="false" NextFile="decorad3d.dll"/>
-    <ROW File="de.json" Component_="de.json" FileName="de~1.jso|de.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\languages\de.json" SelfReg="false" NextFile="en.json"/>
     <ROW File="decorad3d.dll" Component_="decorad3d.dll" FileName="decora~1.dll|decora-d3d.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\decora-d3d.dll" SelfReg="false" NextFile="decorasse.dll"/>
     <ROW File="decorasse.dll" Component_="decorasse.dll" FileName="decora~2.dll|decora-sse.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\decora-sse.dll" SelfReg="false" NextFile="deploy.dll"/>
     <ROW File="deploy.dll" Component_="deploy.dll" FileName="deploy.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\deploy.dll" SelfReg="false" NextFile="deployJava1.dll"/>
     <ROW File="deploy.jar" Component_="accessibility.properties" FileName="deploy.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\deploy.jar" SelfReg="false" NextFile="accessbridge64.jar"/>
     <ROW File="deployJava1.dll" Component_="deployJava1.dll" FileName="deploy~1.dll|deployJava1.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\dtplugin\deployJava1.dll" SelfReg="false" NextFile="npdeployJava1.dll"/>
     <ROW File="desktopgap.exe" Component_="desktopgap.exe" FileName="deskto~1.exe|desktopgap.exe" Attributes="0" SourcePath="&lt;AI_STUBS_64&gt;aijclw.exe" SelfReg="false" NextFile="attach.dll" DigSign="true"/>
-    <ROW File="desktopgap.jar" Component_="desktopgap.jar" FileName="deskto~1.jar|desktopgap.jar" Attributes="0" SourcePath="..\..\java\out\artifacts\desktopgap_jar\desktopgap.jar" SelfReg="false" NextFile="main.css"/>
-    <ROW File="desktopgap.json" Component_="autorun.json" FileName="deskto~1.jso|desktopgap.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\application\desktopgap.json" SelfReg="false" NextFile="de.json"/>
+    <ROW File="desktopgap.jar" Component_="desktopgap.jar" FileName="deskto~1.jar|desktopgap.jar" Attributes="0" SourcePath="..\..\java\out\artifacts\desktopgap_jar\desktopgap.jar" SelfReg="false" NextFile="desktopgap.exe"/>
     <ROW File="dnsns.jar" Component_="accessbridge64.jar" FileName="dnsns.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\ext\dnsns.jar" SelfReg="false" NextFile="jaccess.jar"/>
     <ROW File="dt_shmem.dll" Component_="dt_shmem.dll" FileName="dt_shmem.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\dt_shmem.dll" SelfReg="false" NextFile="dt_socket.dll"/>
     <ROW File="dt_socket.dll" Component_="dt_socket.dll" FileName="dt_soc~1.dll|dt_socket.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\dt_socket.dll" SelfReg="false" NextFile="eula.dll"/>
-    <ROW File="en.json" Component_="de.json" FileName="en~1.jso|en.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\languages\en.json" SelfReg="false" NextFile="es.json"/>
-    <ROW File="es.json" Component_="de.json" FileName="es~1.jso|es.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\languages\es.json" SelfReg="false" NextFile="fr.json"/>
     <ROW File="eula.dll" Component_="eula.dll" FileName="eula.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\eula.dll" SelfReg="false" NextFile="fontmanager.dll"/>
     <ROW File="ffjcext.zip" Component_="ffjcext.zip" FileName="ffjcext.zip" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\deploy\ffjcext.zip" SelfReg="false" NextFile="messages.properties"/>
     <ROW File="flavormap.properties" Component_="accessibility.properties" FileName="flavor~1.pro|flavormap.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\flavormap.properties" SelfReg="false" NextFile="fontconfig.bfc"/>
     <ROW File="fontconfig.bfc" Component_="accessibility.properties" FileName="fontco~1.bfc|fontconfig.bfc" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\fontconfig.bfc" SelfReg="false" NextFile="fontconfig.properties.src"/>
     <ROW File="fontconfig.properties.src" Component_="accessibility.properties" FileName="fontco~1.src|fontconfig.properties.src" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\fontconfig.properties.src" SelfReg="false" NextFile="LucidaBrightDemiBold.ttf"/>
     <ROW File="fontmanager.dll" Component_="fontmanager.dll" FileName="fontma~1.dll|fontmanager.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\fontmanager.dll" SelfReg="false" NextFile="fxplugins.dll"/>
-    <ROW File="fr.json" Component_="de.json" FileName="fr~1.jso|fr.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\languages\fr.json" SelfReg="false" NextFile="it.json"/>
     <ROW File="fxplugins.dll" Component_="fxplugins.dll" FileName="fxplug~1.dll|fxplugins.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\fxplugins.dll" SelfReg="false" NextFile="glass.dll"/>
     <ROW File="glass.dll" Component_="glass.dll" FileName="glass.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\glass.dll" SelfReg="false" NextFile="gliblite.dll"/>
     <ROW File="gliblite.dll" Component_="gliblite.dll" FileName="glib-l~1.dll|glib-lite.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\glib-lite.dll" SelfReg="false" NextFile="gstreamerlite.dll"/>
     <ROW File="gstreamerlite.dll" Component_="gstreamerlite.dll" FileName="gstrea~1.dll|gstreamer-lite.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\gstreamer-lite.dll" SelfReg="false" NextFile="hprof.dll"/>
     <ROW File="hprof.dll" Component_="hprof.dll" FileName="hprof.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\hprof.dll" SelfReg="false" NextFile="instrument.dll"/>
-    <ROW File="icon.png" Component_="icon.png" FileName="icon.png" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\app_installed\testApp\icon.png" SelfReg="false" NextFile="MANIFEST.json"/>
-    <ROW File="index.html" Component_="index.html" FileName="index~1.htm|index.html" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\app_installed\testApp\app\index.html" SelfReg="false" NextFile="icon.png"/>
     <ROW File="instrument.dll" Component_="instrument.dll" FileName="instru~1.dll|instrument.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\instrument.dll" SelfReg="false" NextFile="j2pcsc.dll"/>
     <ROW File="invalid32x32.gif" Component_="cursors.properties" FileName="invali~1.gif|invalid32x32.gif" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\images\cursors\invalid32x32.gif" SelfReg="false" NextFile="win32_CopyDrop32x32.gif"/>
-    <ROW File="it.json" Component_="de.json" FileName="it~1.jso|it.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\languages\it.json" SelfReg="false" NextFile="smartly.json"/>
     <ROW File="j2pcsc.dll" Component_="j2pcsc.dll" FileName="j2pcsc.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\j2pcsc.dll" SelfReg="false" NextFile="jaas_nt.dll"/>
     <ROW File="jaas_nt.dll" Component_="jaas_nt.dll" FileName="jaas_nt.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\jaas_nt.dll" SelfReg="false" NextFile="jabswitch.exe"/>
     <ROW File="jabswitch.exe" Component_="jabswitch.exe" FileName="jabswi~1.exe|jabswitch.exe" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\jabswitch.exe" SelfReg="false" NextFile="javarmi.exe"/>
@@ -783,7 +749,6 @@
     <ROW File="local_policy.jar" Component_="blacklist" FileName="local_~1.jar|local_policy.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\security\local_policy.jar" SelfReg="false" NextFile="trusted.libraries"/>
     <ROW File="localedata.jar" Component_="accessbridge64.jar" FileName="locale~1.jar|localedata.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\ext\localedata.jar" SelfReg="false" NextFile="metaindex"/>
     <ROW File="logging.properties" Component_="accessibility.properties" FileName="loggin~1.pro|logging.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\logging.properties" SelfReg="false" NextFile="jmxremote.access"/>
-    <ROW File="main.css" Component_="main.css" FileName="main.css" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\app_installed\testApp\app\css\main.css" SelfReg="false" NextFile="normalize.css"/>
     <ROW File="management.dll" Component_="management.dll" FileName="manage~1.dll|management.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\management.dll" SelfReg="false" NextFile="mlib_image.dll"/>
     <ROW File="management.properties" Component_="jmxremote.access" FileName="manage~1.pro|management.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\management\management.properties" SelfReg="false" NextFile="snmp.acl.template"/>
     <ROW File="managementagent.jar" Component_="accessibility.properties" FileName="manage~1.jar|management-agent.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\management-agent.jar" SelfReg="false" NextFile="metaindex_1"/>
@@ -807,13 +772,11 @@
     <ROW File="net.dll" Component_="net.dll" FileName="net.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\net.dll" SelfReg="false" NextFile="nio.dll"/>
     <ROW File="net.properties" Component_="accessibility.properties" FileName="net~1.pro|net.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\net.properties" SelfReg="false" NextFile="plugin.jar"/>
     <ROW File="nio.dll" Component_="nio.dll" FileName="nio.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\nio.dll" SelfReg="false" NextFile="npt.dll"/>
-    <ROW File="normalize.css" Component_="main.css" FileName="normal~1.css|normalize.css" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\app_installed\testApp\app\css\normalize.css" SelfReg="false" NextFile="index.html"/>
     <ROW File="npdeployJava1.dll" Component_="npdeployJava1.dll" FileName="npdepl~1.dll|npdeployJava1.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\dtplugin\npdeployJava1.dll" SelfReg="false" NextFile="dt_shmem.dll"/>
     <ROW File="npjp2.dll" Component_="npjp2.dll" FileName="npjp2.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\plugin2\npjp2.dll" SelfReg="false" NextFile="policytool.exe"/>
     <ROW File="npt.dll" Component_="npt.dll" FileName="npt.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\npt.dll" SelfReg="false" NextFile="orbd.exe"/>
     <ROW File="orbd.exe" Component_="orbd.exe" FileName="orbd.exe" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\orbd.exe" SelfReg="false" NextFile="pack200.exe"/>
     <ROW File="pack200.exe" Component_="pack200.exe" FileName="pack200.exe" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\pack200.exe" SelfReg="false" NextFile="msvcr100.dll_1"/>
-    <ROW File="package.json" Component_="package.json" FileName="packag~1.jso|package.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\packages\DESKTOP_GAP\package.json" SelfReg="false" NextFile="smartly.log"/>
     <ROW File="plugin.jar" Component_="accessibility.properties" FileName="plugin.jar" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\plugin.jar" SelfReg="false" NextFile="psfont.properties.ja"/>
     <ROW File="policytool.exe" Component_="policytool.exe" FileName="policy~1.exe|policytool.exe" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\policytool.exe" SelfReg="false" NextFile="prismd3d.dll"/>
     <ROW File="prismd3d.dll" Component_="prismd3d.dll" FileName="prism-~1.dll|prism-d3d.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\prism-d3d.dll" SelfReg="false" NextFile="rmi.dll"/>
@@ -828,8 +791,6 @@
     <ROW File="sRGB.pf" Component_="CIEXYZ.pf" FileName="sRGB.pf" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\cmm\sRGB.pf" SelfReg="false" NextFile="contenttypes.properties"/>
     <ROW File="sawindbg.dll" Component_="sawindbg.dll" FileName="sawindbg.dll" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\sawindbg.dll" SelfReg="false" NextFile="classes.jsa"/>
     <ROW File="servertool.exe" Component_="servertool.exe" FileName="server~1.exe|servertool.exe" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\bin\servertool.exe" SelfReg="false" NextFile="splashscreen.dll"/>
-    <ROW File="smartly.json" Component_="smartly.json" FileName="smartl~1.jso|smartly.json" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\config\smartly.json" SelfReg="false" NextFile="package.json"/>
-    <ROW File="smartly.log" Component_="smartly.log" FileName="smartly.log" Attributes="0" SourcePath="..\..\..\..\..\..\_smartly_desktopgap\logs\smartly.log" SelfReg="false" NextFile="desktopgap.exe"/>
     <ROW File="snmp.acl.template" Component_="jmxremote.access" FileName="snmpac~1.tem|snmp.acl.template" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\management\snmp.acl.template" SelfReg="false" NextFile="managementagent.jar"/>
     <ROW File="sound.properties" Component_="accessibility.properties" FileName="sound~1.pro|sound.properties" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\sound.properties" SelfReg="false" NextFile="tzmappings"/>
     <ROW File="splash.gif" Component_="ffjcext.zip" FileName="splash.gif" Attributes="0" SourcePath="C:\Program Files\Java\jdk1.7.0_09\jre\lib\deploy\splash.gif" SelfReg="false" NextFile="deploy.jar"/>
@@ -911,11 +872,6 @@
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
     <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
   </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
-    <ROW Directory_="app_install_Dir" Component_="app_install"/>
-    <ROW Directory_="app_tmp_Dir" Component_="app_tmp"/>
-    <ROW Directory_="lib_Dir" Component_="lib"/>
-  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_BACKUP_DEFAULTS" Type="1" Source="defaultPrograms.dll" Target="GetAllOldDefaults" AdditionalSeq="AI_DATA_SETTER_1"/>
     <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="DesktopGap&#2;dga"/>
@@ -943,6 +899,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIniFileComponent">
     <ROW IniFile="ApplicationType" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="desktopgap.exe"/>
     <ROW IniFile="ClassPath" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#desktopgap.jar];" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="Cmd" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Cmd" Value="&quot;-w USERHOME/DesktopGap&quot;" Action="0" Component_="desktopgap.exe"/>
     <ROW IniFile="FailureCheck" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="desktopgap.exe"/>
     <ROW IniFile="MainClass" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="org.smartly.application.desktopgap.launcher.Main" Action="0" Component_="desktopgap.exe"/>
     <ROW IniFile="MaximumVersion" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="desktopgap.exe"/>
@@ -966,7 +923,7 @@
     <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiJavaComponent">
-    <ROW Name="desktopgap.exe" Launcher="desktopgap.exe" MainClass="MainClass" ClassPath="ClassPath" JREMin="MinimumVersion" JREMax="MaximumVersion" IconPath="..\redist\icon.ico" AppType="ApplicationType" PlusList="APPDIR;" MinusList="#desktopgap.exe;" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2012" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" FailureCheck="FailureCheck" UACExecutionLevel="0" Platform64="true"/>
+    <ROW Name="desktopgap.exe" Launcher="desktopgap.exe" MainClass="MainClass" ClassPath="ClassPath" JREMin="MinimumVersion" JREMax="MaximumVersion" IconPath="..\redist\icon.ico" AppType="ApplicationType" PlusList="APPDIR;" MinusList="#desktopgap.exe;" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2012" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" FailureCheck="FailureCheck" UACExecutionLevel="0" Platform64="true" CommandLineArguments="Cmd"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>

@@ -1,0 +1,52 @@
+{
+    "name": "DESKTOP_GAP",
+    "main": "org.smartly.application.desktopgap.DesktopGap",
+    "version": "0.0.1",
+    "description": "Desktop Gap",
+    "keywords": [
+        "package"
+    ],
+    "maintainers": [
+        {
+            "name": "Gian Angelo Geminiani",
+            "email": "angelo.geminiani@gmail.com",
+            "web": "http://www.smartfeeling.org"
+        }
+    ],
+    "contributors": [
+
+    ],
+    "bugs": {
+        "mail": "",
+        "web": ""
+    },
+    "licenses": [
+        {
+            "type": "GPLv2",
+            "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": ""
+        }
+    ],
+    "dependencies": {
+    },
+    "implements": [],
+    "os": ["linux", "macos", "win"],
+    "cpu": ["x86", "ppc", "x86_64"],
+    "engines": [],
+    "scripts": {
+        "install": "",
+        "uninstall": "",
+        "build": "",
+        "test": ""
+    },
+    "directories": {
+        "lib": "lib",
+        "bin": "lib",
+        "jars": "lib"
+    }
+}

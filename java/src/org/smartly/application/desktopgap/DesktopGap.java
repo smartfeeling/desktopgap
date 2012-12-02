@@ -2,7 +2,7 @@ package org.smartly.application.desktopgap;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.config.Deployer;
-import org.smartly.application.desktopgap.impl.app.AppController;
+import org.smartly.application.desktopgap.impl.app.applications.AppController;
 import org.smartly.commons.logging.Level;
 import org.smartly.packages.AbstractPackage;
 

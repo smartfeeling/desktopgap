@@ -2,7 +2,7 @@ package org.smartly.application.desktopgap.impl.app.utils;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.IAppInstanceListener;
+import org.smartly.application.desktopgap.impl.app.applications.IAppInstanceListener;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
@@ -67,7 +67,8 @@ public class Utils {
         return files;
     }
 
-    public static void copyToInstallFolder(final String fileName, final boolean move) throws IOException {
+    public static void copyToInstallFolder(final String fileName,
+                                           final boolean move) throws IOException {
         final String destination = PathUtils.concat(Smartly.getAbsolutePath(INSTALL_DIR),
                 PathUtils.getFilename(fileName, true));
         final File source = new File(fileName);
