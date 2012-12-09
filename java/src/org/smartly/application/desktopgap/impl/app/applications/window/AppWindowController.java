@@ -7,10 +7,13 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.PopupFeatures;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
@@ -40,6 +43,16 @@ public class AppWindowController implements Initializable {
     @FXML
     private Label win_title;
 
+    //-- win buttons --//
+    @FXML
+    private ImageView btn_close;
+
+    // --------------------------------------------------------------------
+    //               fields
+    // --------------------------------------------------------------------
+
+    private AppWindow _window;
+
     // --------------------------------------------------------------------
     //               Constructor
     // --------------------------------------------------------------------
@@ -56,8 +69,26 @@ public class AppWindowController implements Initializable {
     }
 
     // --------------------------------------------------------------------
+    //               event handlers
+    // --------------------------------------------------------------------
+
+    @FXML
+    private void btn_close_click(MouseEvent event) {
+        //System.out.println("You clicked me!");
+        Stage stage = (Stage) btn_close.getScene().getWindow();
+        //stage.close();
+        if (null != _window) {
+            _window.close();
+        }
+    }
+
+    // --------------------------------------------------------------------
     //               Properties
     // --------------------------------------------------------------------
+
+    public void setWindow(final AppWindow window) {
+        _window = window;
+    }
 
     public void navigate(final String url) {
         if (null != win_browser) {

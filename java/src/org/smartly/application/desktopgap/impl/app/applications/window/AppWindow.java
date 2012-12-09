@@ -84,6 +84,7 @@ public final class AppWindow {
         this.addHandlers(_stage);
 
         //-- initialize window controller --//
+        _winctrl.setWindow(this);
         _winctrl.setTitle(this.getTitle());
         _winctrl.navigate(_app.getAbsolutePath(_app.getManifest().getIndex()));
         _winctrl.setStyle(stageStyle);
@@ -99,6 +100,7 @@ public final class AppWindow {
 
     public void close() {
         // close stage and trigger event
+        this.onClose(_stage);
         _stage.close();
     }
 

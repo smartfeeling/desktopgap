@@ -19,6 +19,7 @@ public class AppManifest {
     private final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private final String INSTALLED_DIR = IDesktopConstants.INSTALLED_DIR;
 
+    private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
     private static final String MF_VERSION = "version";
     private static final String MF_RESIZABLE = "resizable";
@@ -212,9 +213,10 @@ public class AppManifest {
     }
 
     private void generateId() {
-        final JsonWrapper clone = _manifest.clone();
-        clone.remove(MF_REGISTRY);
-        _appId = MD5.encode(clone.toString());
+        final String name = _manifest.optString(MF_NAME);
+        final String title = _manifest.optString(MF_TITLE);
+        final String version = _manifest.optString(MF_VERSION);
+        _appId = MD5.encode(StringUtils.concatDot(name, title, version));
     }
 
 }

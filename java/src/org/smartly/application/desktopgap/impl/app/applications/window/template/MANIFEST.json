@@ -1,5 +1,6 @@
 {
-    "title":"test",
+    "name":"test",
+    "title":"test APP",
     "version":"0.1",
     "resizable":false,
     "index":"./app/index.html",
