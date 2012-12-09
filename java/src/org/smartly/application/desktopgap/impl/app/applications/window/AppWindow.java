@@ -14,6 +14,8 @@ import javafx.stage.WindowEvent;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.applications.window.template.AppTemplateDeployer;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
+import org.smartly.commons.logging.Level;
+import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
 
@@ -90,6 +92,8 @@ public final class AppWindow {
 
         //-- notify open --//
         this.onOpen();
+
+        _app.getLogger().info("App Window Opened: " + _app.getId());
     }
 
 
@@ -152,8 +156,8 @@ public final class AppWindow {
                     icons.add(new Image("file:".concat(icon)));
                 }
             }
-        } catch (Throwable ignored) {
-            System.out.println(ignored);
+        } catch (Throwable t) {
+            _app.getLogger().log(Level.WARNING, FormatUtils.format("Error searching Icon: '{0}'. Default Icone will be used.", t), t);
         }
         if (icons.isEmpty()) {
             icons.add(new Image(AppTemplateDeployer.class.getResourceAsStream("icon.png")));

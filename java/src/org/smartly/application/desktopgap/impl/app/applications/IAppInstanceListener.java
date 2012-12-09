@@ -7,7 +7,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppInstan
  */
 public interface IAppInstanceListener {
 
-    void open(AppInstance app);
-    void close(AppInstance app);
+    void onOpen(AppInstance app);
+    void onClose(AppInstance app);
 
 }

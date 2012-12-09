@@ -50,15 +50,9 @@ public class AppWindowController implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                FX.draggable(win_top);
-                FX.sizable(container);
-
-                init(win_browser);
-            }
-        });
+        FX.draggable(win_top);
+        FX.sizable(container);
+        init(win_browser);
     }
 
     // --------------------------------------------------------------------
@@ -67,7 +61,12 @@ public class AppWindowController implements Initializable {
 
     public void navigate(final String url) {
         if (null != win_browser) {
-            win_browser.getEngine().load("file:" + url);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    win_browser.getEngine().load("file:///" + url);
+                }
+            });
         }
     }
 
@@ -90,7 +89,6 @@ public class AppWindowController implements Initializable {
     }
 
 
-
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
@@ -103,6 +101,10 @@ public class AppWindowController implements Initializable {
         final WebEngine engine = browser.getEngine();
         this.handleLoading(engine);
         this.handlePopups(engine);
+
+        final URL loading = getClass().getResource("loading.html");
+        final String url = loading.toExternalForm();
+        win_browser.getEngine().load(url);
     }
 
     private void handleLoading(final WebEngine engine) {
@@ -113,7 +115,7 @@ public class AppWindowController implements Initializable {
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
-                        System.out.println(newState);
+                        // System.out.println(newState);
 
                         if (newState == Worker.State.SUCCEEDED) {
 
@@ -121,6 +123,7 @@ public class AppWindowController implements Initializable {
                             //-- get reference to javascript window object --//
                             final JSObject win = (JSObject) engine.executeScript("window");
                             // can add custom java objects
+
                         }
                     }
                 }

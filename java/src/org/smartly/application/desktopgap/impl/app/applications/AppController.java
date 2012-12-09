@@ -113,33 +113,23 @@ public class AppController
     // ------------------------------------------------------------------------
 
     @Override
-    public void open(final AppInstance app) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (_registry_running) {
-                    if (!_registry_running.containsKey(app.getId())) {
-                        // register new app instance
-                        _registry_running.put(app.getId(), app);
-                    }
-                }
+    public void onOpen(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (!_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.put(app.getId(), app);
             }
-        });
+        }
     }
 
     @Override
-    public void close(final AppInstance app) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (_registry_running) {
-                    if (_registry_running.containsKey(app.getId())) {
-                        // register new app instance
-                        _registry_running.remove(app.getId());
-                    }
-                }
+    public void onClose(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.remove(app.getId());
             }
-        });
+        }
     }
 
     // ------------------------------------------------------------------------
