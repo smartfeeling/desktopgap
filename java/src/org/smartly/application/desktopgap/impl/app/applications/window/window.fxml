@@ -4,10 +4,10 @@
 <?import java.util.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.web.*?>
-<?scenebuilder-stylesheet window.css?>
 
 <AnchorPane fx:id="external" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.smartly.application.desktopgap.impl.app.applications.window.AppWindowController">
   <children>
@@ -22,6 +22,23 @@
               <center>
                 <Label fx:id="win_title" text="Label" />
               </center>
+              <left>
+                <HBox prefHeight="27.0" prefWidth="100.0" />
+              </left>
+              <right>
+                <HBox prefHeight="27.0" prefWidth="100.0">
+                  <children>
+                    <ImageView fx:id="btn_close" onMouseClicked="#btn_close_click" fitHeight="24.0" fitWidth="32.000000744331174" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                      <image>
+                        <Image url="file:/Z:/ARCHIVIO/Graphics/ICON_SET/air/Adobe%20AIR%20Installer%20Package_file_document.png" preserveRatio="false" smooth="false" />
+                      </image>
+                      <HBox.margin>
+                        <Insets />
+                      </HBox.margin>
+                    </ImageView>
+                  </children>
+                </HBox>
+              </right>
             </BorderPane>
           </top>
         </BorderPane>

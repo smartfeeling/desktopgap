@@ -67,7 +67,7 @@ public class AppController
 
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        /**/
+        /*
         _text = new Text("Transparent!");
         _text.setFont(new Font(40));
         StackPane root = new StackPane();
@@ -78,7 +78,7 @@ public class AppController
 
         primaryStage.setScene(scene);
 
-        primaryStage.show();
+        primaryStage.show();*/
 
         this.startApplication();
     }
@@ -113,37 +113,27 @@ public class AppController
     // ------------------------------------------------------------------------
 
     @Override
-    public void open(final AppInstance app) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (_registry_running) {
-                    if (!_registry_running.containsKey(app.getId())) {
-                        // register new app instance
-                        _registry_running.put(app.getId(), app);
-                    }
-                }
+    public void onOpen(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (!_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.put(app.getId(), app);
             }
-        });
+        }
     }
 
     @Override
-    public void close(final AppInstance app) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (_registry_running) {
-                    if (_registry_running.containsKey(app.getId())) {
-                        // register new app instance
-                        _registry_running.remove(app.getId());
-                    }
-                }
+    public void onClose(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.remove(app.getId());
             }
-        });
+        }
     }
 
     // ------------------------------------------------------------------------
-    //                      IFileObserverListener
+    //                      IFileObserverListener (install dir)
     // ------------------------------------------------------------------------
 
     @Override
@@ -153,7 +143,10 @@ public class AppController
             public void run() {
                 try {
                     final String clean = PathUtils.toUnixPath(path);
-                    launchPackage(clean);
+                    if(launchPackage(clean)){
+                        // remove package
+                        FileUtils.delete(clean);
+                    }
                 } catch (Throwable t) {
                     log(Level.SEVERE, null, t);
                 }
@@ -253,17 +246,19 @@ public class AppController
      *
      * @param packagePath Application Package Path. i.e. "c:/myapp/app.dga"
      */
-    private void launchPackage(final String packagePath) throws IOException {
+    private boolean launchPackage(final String packagePath) throws IOException {
         final AppInstance app_instance = this.installPackage(packagePath);
 
         //-- ready to run app --//
-        this.launchApp(app_instance.getId());
+        return this.launchApp(app_instance.getId());
     }
 
-    private void launchApp(final String appId) throws IOException {
+    private boolean launchApp(final String appId) throws IOException {
         if (_registry_installed.containsKey(appId)) {
             _registry_installed.get(appId).open();
+            return true;
         }
+        return false;
     }
 
 
@@ -300,11 +295,11 @@ public class AppController
                 Utils.copyToInstallFolder(PathUtils.toUnixPath(file), s_app_args.isInstall());
             }
         }
-        LoggingUtils.getLogger(AppController.class).info("FILES: " + files.toString());
+        // LoggingUtils.getLogger(AppController.class).info("FILES: " + files.toString());
     }
 
     public static void open() throws Exception {
-        LoggingUtils.getLogger(AppController.class).info("OPENING");
+        // LoggingUtils.getLogger(AppController.class).info("OPENING");
         //-- check if abother instance is already running and start main --//
         if (!isAlreadyRunning()) {
             AppController.launch(AppController.class);

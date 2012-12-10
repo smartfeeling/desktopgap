@@ -16,6 +16,8 @@ import java.util.List;
  */
 public final class AppAutorunManager {
 
+    private static final String APP_ID = "app_id";
+
     private final JsonWrapper _data;
 
     public AppAutorunManager() throws IOException {
@@ -38,9 +40,8 @@ public final class AppAutorunManager {
 
     private void run(final IAutorunListener listener, final Object item) throws IOException {
         if (null != listener && item instanceof JSONObject) {
-            final String name = JsonWrapper.getString((JSONObject) item, "app");
-            final AppManifest manifest = new AppManifest(name);
-            listener.listen(manifest.getAppId());
+            final String id = JsonWrapper.getString(item, "APP_ID");
+            listener.listen(id);
         }
     }
 

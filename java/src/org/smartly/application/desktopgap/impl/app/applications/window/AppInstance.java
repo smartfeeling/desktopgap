@@ -1,6 +1,9 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
 import org.smartly.application.desktopgap.impl.app.applications.IAppInstanceListener;
+import org.smartly.commons.logging.Logger;
+import org.smartly.commons.logging.LoggingRepository;
+import org.smartly.commons.logging.util.LoggingUtils;
 import org.smartly.commons.util.PathUtils;
 
 import java.io.IOException;
@@ -19,6 +22,8 @@ public class AppInstance {
                        final AppManifest manifest) throws IOException {
         _listener = listener;
         _manifest = manifest;
+
+        this.initLogger();
     }
 
     @Override
@@ -69,11 +74,15 @@ public class AppInstance {
     }
 
     void stageClosing(){
-        _listener.close(this);
+        _listener.onClose(this);
     }
 
     void stageOpening(){
-        _listener.open(this);
+        _listener.onOpen(this);
+    }
+
+    public Logger getLogger(){
+        return LoggingUtils.getLogger(this.getId());
     }
 
     // ------------------------------------------------------------------------
@@ -86,5 +95,13 @@ public class AppInstance {
         }
         return __window;
     }
+
+    private void initLogger(){
+        final String id = _manifest.getAppId();
+        final String installDir = _manifest.getInstallDir();
+        LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, "application.log"));
+    }
+
+
 
 }
