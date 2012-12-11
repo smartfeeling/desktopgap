@@ -162,7 +162,4 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /java/out
-/java/.idea
-/java/.idea
-/java/.idea
 .idea
