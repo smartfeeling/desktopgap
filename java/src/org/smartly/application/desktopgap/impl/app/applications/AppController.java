@@ -2,9 +2,6 @@ package org.smartly.application.desktopgap.impl.app.applications;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.smartly.Smartly;
@@ -20,7 +17,6 @@ import org.smartly.application.desktopgap.impl.app.utils.Utils;
 import org.smartly.commons.io.FileObserver;
 import org.smartly.commons.io.IFileObserverListener;
 import org.smartly.commons.logging.Level;
-import org.smartly.commons.logging.util.LoggingUtils;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 
@@ -38,14 +34,16 @@ public class AppController
         implements IAppInstanceListener, IFileObserverListener, IAutorunListener {
 
     private static final String AUTORUN_DIR = IDesktopConstants.AUTORUN_DIR;
-    private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_DIR;
+    private static final String INSTALLED_STORE_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
+    private static final String INSTALLED_SYSTEM_DIR = IDesktopConstants.INSTALLED_SYSTEM_DIR;
     private static final String INSTALL_DIR = IDesktopConstants.INSTALL_DIR;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private static final String APP_EXT = IDesktopConstants.APP_EXT;
 
     private final AppAutorunManager _autorun;
     private final String _root_install;     // auto-install root
-    private final String _root_installed;   // installed apps
+    private final String _root_installed_store;   // installed apps
+    private final String _root_installed_system;
     private final String _root_temp;        // temp
     private final Map<String, AppInstance> _registry_running;
     private final Map<String, AppInstance> _registry_installed;
@@ -55,7 +53,8 @@ public class AppController
 
     public AppController() throws IOException {
         _root_install = Smartly.getAbsolutePath(INSTALL_DIR);
-        _root_installed = Smartly.getAbsolutePath(INSTALLED_DIR);
+        _root_installed_store = Smartly.getAbsolutePath(INSTALLED_STORE_DIR);
+        _root_installed_system = Smartly.getAbsolutePath(INSTALLED_SYSTEM_DIR);
         _root_temp = Smartly.getAbsolutePath(TEMP_DIR);
         _autorun = new AppAutorunManager();
         _registry_running = Collections.synchronizedMap(new HashMap<String, AppInstance>());
@@ -185,7 +184,8 @@ public class AppController
     private void startApplication() throws IOException {
         //-- ensure for program files folder --//
         FileUtils.mkdirs(_root_install);
-        FileUtils.mkdirs(_root_installed);
+        FileUtils.mkdirs(_root_installed_store);
+        FileUtils.mkdirs(_root_installed_system);
         FileUtils.mkdirs(_root_temp);
 
         //-- observer --//
@@ -199,7 +199,7 @@ public class AppController
         }
 
         //-- scan installed folder and creates registry --//
-        final Set<String> installed = Utils.getDirectories(_root_installed);
+        final Set<String> installed = Utils.getDirectories(_root_installed_store);
         for (final String file : installed) {
             final AppInstance app = new AppInstance(this, new AppManifest(file));
             _registry_installed.put(app.getId(), app);

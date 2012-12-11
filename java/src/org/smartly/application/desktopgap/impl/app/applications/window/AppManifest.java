@@ -17,7 +17,7 @@ public class AppManifest {
 
     private final String MANIFEST = IDesktopConstants.MANIFEST;
     private final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
-    private final String INSTALLED_DIR = IDesktopConstants.INSTALLED_DIR;
+    private final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
 
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
