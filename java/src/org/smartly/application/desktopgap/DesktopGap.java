@@ -2,7 +2,9 @@ package org.smartly.application.desktopgap;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.config.Deployer;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.AppController;
+import org.smartly.application.desktopgap.impl.app_system.DeployerAppSystem;
 import org.smartly.commons.logging.Level;
 import org.smartly.packages.AbstractPackage;
 
@@ -43,6 +45,7 @@ public class DesktopGap extends AbstractPackage {
 
     @Override
     public void load() {
+        //-- register configuration deployer --//
         Smartly.register(new Deployer(Smartly.getConfigurationPath(), Smartly.isSilent()));
     }
 
@@ -62,7 +65,7 @@ public class DesktopGap extends AbstractPackage {
 
     private void init() {
         // deploy html files
-        this.deployHtml();
+        this.deploySysApps();
 
         this.initDictionary();
 
@@ -70,9 +73,10 @@ public class DesktopGap extends AbstractPackage {
         this.initVelocity();
     }
 
-    private void deployHtml() {
-        // final HtmlDeployer deployer = new HtmlDeployer();
-        // deployer.deploy();
+    private void deploySysApps() {
+        final DeployerAppSystem deployer = new DeployerAppSystem(
+                Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_SYSTEM_DIR), true);
+        deployer.deploy();
     }
 
     private void initDictionary() {

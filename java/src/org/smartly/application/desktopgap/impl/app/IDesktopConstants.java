@@ -13,6 +13,6 @@ public interface IDesktopConstants {
     public static final String INSTALL_DIR = "./app_install"; // install app and run
     public static final String TEMP_DIR = "./app_tmp";
     public static final String APP_EXT = ".dga";
-    public static final String MANIFEST = "MANIFEST.json";
+    public static final String MANIFEST = "manifest.json";
 
 }
