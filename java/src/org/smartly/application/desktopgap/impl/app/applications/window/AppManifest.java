@@ -4,6 +4,7 @@ import org.smartly.IConstants;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
+import org.smartly.commons.cryptograph.GUID;
 import org.smartly.commons.cryptograph.MD5;
 import org.smartly.commons.util.*;
 
@@ -33,12 +34,12 @@ public class AppManifest {
     private static final String MF_REGISTRY_Y = StringUtils.concatDot(MF_REGISTRY, "y");
 
 
-    private final String _install_dir;
     private final String _temp_dir;
     private final JsonWrapper _manifest;
-
-    private String _filePath;
+    private final String _install_dir;
     private final String _appName;
+    private String _install_root; // system or store
+    private String _filePath;
     private String _appId;
 
     /**
@@ -48,11 +49,15 @@ public class AppManifest {
      * @throws IOException
      */
     public AppManifest(final String path) throws IOException {
-        _appName = PathUtils.getFilename(path, false);
-        _install_dir = PathUtils.concat(Smartly.getAbsolutePath(INSTALLED_DIR), _appName);
-        _temp_dir = PathUtils.concat(Smartly.getAbsolutePath(TEMP_DIR), _appName);
-
+        _temp_dir = PathUtils.concat(Smartly.getAbsolutePath(TEMP_DIR), GUID.create(false, true));
         _manifest = this.getManifest(path);
+        if (!_manifest.isEmpty()) {
+            _appName = _manifest.optString(MF_NAME);
+            _install_dir = PathUtils.concat(_install_root, _appName);
+        } else {
+            _appName = "";
+            _install_dir = "";
+        }
     }
 
     public JsonWrapper getJson() {
@@ -194,20 +199,34 @@ public class AppManifest {
     // ------------------------------------------------------------------------
 
     private JsonWrapper getManifest(final String path) throws IOException {
+        _install_root = Smartly.getAbsolutePath(INSTALLED_DIR); // default
         final String manifestJson;
         if (Utils.isPackage(path)) {
+            // PACKAGE
             // unzip temp
             ZipUtils.unzip(path, _temp_dir);
             _filePath = PathUtils.concat(_temp_dir, MANIFEST);
             manifestJson = FileUtils.readFileToString(new File(_filePath));
             // remove temp
             FileUtils.delete(_temp_dir);
+        } else if (Utils.isManifest(path)) {
+            // MANIFEST FILE
+            _filePath = path;
+            manifestJson = FileUtils.readFileToString(new File(_filePath));
+            _install_root = PathUtils.getParent(PathUtils.getParent(_filePath)); // overwrite default
+        } else if (Utils.isAppFolder(path)) {
+            // APP FOLDER
+            _filePath = PathUtils.concat(path, MANIFEST);
+            manifestJson = FileUtils.readFileToString(new File(_filePath));
+            _install_root = PathUtils.getParent(path);  // overwrite default
         } else if (path.indexOf(IConstants.FOLDER_SEPARATOR) > 0) {
             _filePath = PathUtils.concat(path, MANIFEST);
             manifestJson = FileUtils.readFileToString(new File(_filePath));
+            _install_root = PathUtils.getParent(path);  // overwrite default
         } else {
-            _filePath = PathUtils.concat(_install_dir, MANIFEST);
-            manifestJson = FileUtils.readFileToString(new File(_filePath));
+            // INVALID PATH
+            _filePath = "";
+            manifestJson = "{}";
         }
         return new JsonWrapper(manifestJson);
     }

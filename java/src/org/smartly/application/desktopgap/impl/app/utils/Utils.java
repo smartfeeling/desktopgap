@@ -33,6 +33,37 @@ public class Utils {
     //                      f i l e s
     // ------------------------------------------------------------------------
 
+    public static boolean isManifest(final String path) {
+        return PathUtils.getFilename(path).equalsIgnoreCase(MANIFEST);
+    }
+
+    public static boolean isAppFolder(final String path) {
+        final String manifest = PathUtils.concat(path, MANIFEST);
+        return PathUtils.exists(manifest);
+    }
+
+    public static Set<String> getAppDirectories(final String root) throws IOException {
+        final Set<String> files = new HashSet<String>();
+        if (isAppFolder(root)) {
+            files.add(root);
+        } else {
+            final Set<FileVisitOption> options = new HashSet<FileVisitOption>();
+            options.add(FileVisitOption.FOLLOW_LINKS);
+            Files.walkFileTree(Paths.get(root), options, 2, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult preVisitDirectory(final Path file, final BasicFileAttributes attrs)
+                        throws IOException {
+                    final String path = PathUtils.toUnixPath(file.toString());
+                    if (!path.equalsIgnoreCase(root) && isAppFolder(path)) {
+                        files.add(path);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
+        return files;
+    }
+
     public static Set<String> getDirectories(final String root) throws IOException {
         final Set<String> files = new HashSet<String>();
         final Set<FileVisitOption> options = new HashSet<FileVisitOption>();

@@ -23,7 +23,7 @@ public class DeployerAppSystem extends FileDeployer {
                              final boolean silent) {
         super("", targetFolder,
                 silent, false, false, false);
-        super.setOverwrite(false);
+        super.setOverwrite(true);
 
         _context = new HashMap<String, Object>();
 
@@ -64,17 +64,17 @@ public class DeployerAppSystem extends FileDeployer {
 
     private void init() {
         // pre-process
-        FileDeployer.getPreProcessorFiles().add(".less");
-        FileDeployer.getPreProcessorFiles().add(".js");
-        FileDeployer.getPreProcessorFiles().add(".css");
-        FileDeployer.getPreProcessorFiles().add(".html");
+        this.getSettings().getPreProcessorFiles().add(".less");
+        this.getSettings().getPreProcessorFiles().add(".js");
+        this.getSettings().getPreProcessorFiles().add(".css");
+        this.getSettings().getPreProcessorFiles().add(".html");
         // compile
-        FileDeployer.getCompileFiles().put(".less", ".css");    // less-js compiler
-        FileDeployer.getCompileFiles().put(".js", ".js");       // closure compiler
-        FileDeployer.getCompileFiles().put(".html", ".html");   // template compiler
+        this.getSettings().getCompileFiles().put(".less", ".css");    // less-js compiler
+        this.getSettings().getCompileFiles().put(".js", ".js");       // closure compiler
+        this.getSettings().getCompileFiles().put(".html", ".html");   // template compiler
         // compress
-        FileDeployer.getCompressFiles().add(".js");
-        FileDeployer.getCompressFiles().add(".css");
+        this.getSettings().getCompressFiles().add(".js");
+        this.getSettings().getCompressFiles().add(".css");
 
         //-- add compilers --//
         CompilerRegistry.register(".less", CompilerLess.class);
