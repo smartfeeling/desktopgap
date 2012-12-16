@@ -13,6 +13,9 @@
       <element id="extracted-dir" path="C:/Program Files/Java/jdk1.7.0_09/jre/lib/plugin.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/junit-4.9.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/hamcrest-core-1.1.jar" path-in-jar="/" />
+      <element id="module-output" name="smartly_package_01_htmldeployer" />
+      <element id="module-output" name="smartly_package_01_htmlparser" />
+      <element id="module-output" name="smartly_package_01_velocity" />
     </root>
   </artifact>
 </component>
