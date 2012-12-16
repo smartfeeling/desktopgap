@@ -19,4 +19,7 @@ public interface IDesktopConstants {
     public static final String FRAME_STANDARD = "standard";
     public static final String FRAME_TOOL = "tool";
 
+    //-- PRE-COMPILE --//
+    public static final String PRE_INDEX_PAGE = "[INDEX_PAGE]";
+
 }

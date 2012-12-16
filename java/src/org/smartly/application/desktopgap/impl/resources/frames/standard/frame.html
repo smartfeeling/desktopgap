@@ -33,9 +33,25 @@
 </body>
 
 <script type="text/javascript">
+
+    window.initdg = function(){
+        alert('app: '  + foo.toString());
+        $("#app").html('<object data="[INDEX_PAGE]" />');
+    };
+
     !(function ($) {
 
-        $("#app").html('<object data="index.html">');
+        $(function(){
+            if(typeof foo != 'undefined'){
+                alert('app: '  + foo.toString());
+            } else {
+                alert('app: '  + 'NULL');
+            }
+
+        });
+
+
+
 
     })(jQuery);
 </script>
@@ -48,7 +64,7 @@
             event.cancelBubble = true;
             if (event.stopPropagation)
                 event.stopPropagation();
-            pokki.frameButtonClicked(buttonName);
+            desktopgap.frameButtonClicked(buttonName);
         };
     }
 

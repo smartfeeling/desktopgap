@@ -4,19 +4,18 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.web.PopupFeatures;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.web.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 
 import java.net.URL;
@@ -65,7 +64,7 @@ public class AppWindowController implements Initializable {
     public void initialize(final URL url, final ResourceBundle rb) {
         FX.draggable(win_top);
         FX.sizable(container);
-        init(win_browser);
+
     }
 
     // --------------------------------------------------------------------
@@ -86,12 +85,21 @@ public class AppWindowController implements Initializable {
     //               Properties
     // --------------------------------------------------------------------
 
-    public void setWindow(final AppWindow window) {
+    public void initialize(final AppWindow window) {
         _window = window;
-        window.close();
+
+        this.initBrowser(win_browser);
+
+        this.setTitle(_window.getTitle());
+        this.navigate(_window.getRunPage());
     }
 
-    public void navigate(final String url) {
+
+    // ------------------------------------------------------------------------
+    //                      p r i v a t e
+    // ------------------------------------------------------------------------
+
+    private void navigate(final String url) {
         if (null != win_browser) {
             Platform.runLater(new Runnable() {
                 @Override
@@ -102,41 +110,55 @@ public class AppWindowController implements Initializable {
         }
     }
 
-    public void setTitle(final String title) {
+    private void setTitle(final String title) {
         if (null != win_title) {
             win_title.setText(title);
         }
     }
 
-    public void setStyle(final StageStyle style) {
-        if (StageStyle.DECORATED.equals(style)) {
-
-        } else if (StageStyle.UNDECORATED.equals(style)) {
-
-        } else if (StageStyle.UTILITY.equals(style)) {
-
-        } else if (StageStyle.TRANSPARENT.equals(style)) {
-
-        }
-    }
-
-
-    // ------------------------------------------------------------------------
-    //                      p r i v a t e
-    // ------------------------------------------------------------------------
-
-    private void init(final WebView browser) {
+    private void initBrowser(final WebView browser) {
         // disable context menu
         browser.setContextMenuEnabled(false);
 
         //-- handlers --//
         final WebEngine engine = browser.getEngine();
+        this.initJavascript(engine);
+        this.handleAlert(engine);
+        this.handlePrompt(engine);
         this.handleLoading(engine);
         this.handlePopups(engine);
 
         final URL loading = getClass().getResource("loading.html");
         final String url = loading.toExternalForm();
         win_browser.getEngine().load(url);
+    }
+
+    private void initJavascript(final WebEngine engine){
+        //-- get reference to javascript window object --//
+        final JSObject win = (JSObject) engine.executeScript("window");
+        // can add custom java objects
+        win.setMember(AppBridge.NAME, new AppBridge());
+    }
+
+    private void handleAlert(final WebEngine engine) {
+        engine.setOnAlert(new EventHandler<WebEvent<String>>() {
+            @Override
+            public void handle(final WebEvent<String> stringWebEvent) {
+                if (null != stringWebEvent) {
+                    final String data = stringWebEvent.getData();
+                    System.out.println(data);
+                }
+            }
+        });
+    }
+
+    private void handlePrompt(final WebEngine engine) {
+        engine.setPromptHandler(new Callback<PromptData, String>() {
+            @Override
+            public String call(final PromptData promptData) {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
     }
 
     private void handleLoading(final WebEngine engine) {
@@ -147,15 +169,23 @@ public class AppWindowController implements Initializable {
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
-                        // System.out.println(newState);
+                        System.out.println(newState);
 
-                        if (newState == Worker.State.SUCCEEDED) {
-
-                        } else if (newState == Worker.State.READY) {
-                            //-- get reference to javascript window object --//
+                        if (newState == Worker.State.CANCELLED) {
                             final JSObject win = (JSObject) engine.executeScript("window");
-                            // can add custom java objects
-
+                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                        } else if (newState == Worker.State.READY) {
+                            final JSObject win = (JSObject) engine.executeScript("window");
+                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                        } else if (newState == Worker.State.SCHEDULED) {
+                            final JSObject win = (JSObject) engine.executeScript("window");
+                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                        } else if (newState == Worker.State.RUNNING) {
+                            final JSObject win = (JSObject) engine.executeScript("window");
+                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                        } else if (newState == Worker.State.SUCCEEDED) {
+                            initJavascript(engine);
+                            engine.executeScript("initdg()");
                         }
                     }
                 }

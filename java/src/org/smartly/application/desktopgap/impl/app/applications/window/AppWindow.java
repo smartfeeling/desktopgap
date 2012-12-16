@@ -61,16 +61,23 @@ public final class AppWindow {
     public String getRunPage() {
         try {
             if (null != _app) {
-                return _app.getManifest().getRunPage();
+                return _app.getManifest().getAbsoluteRunPage();
             }
         } catch (Throwable ignored) {
         }
         return AppResources.getPageUri_BLANK();
     }
 
+    public String getTitle() {
+        return _app.getManifest().getTitle();
+    }
+
+    public AppManifest getManifest() {
+        return null != _app ? _app.getManifest() : null;
+    }
+
     public void open() {
         final Size2D size = this.getSize();
-        final StageStyle stageStyle = this.getStyle();
 
         _stage.setTitle(this.getTitle());
         _stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
@@ -94,10 +101,7 @@ public final class AppWindow {
         this.addHandlers(_stage);
 
         //-- initialize window controller --//
-        _winctrl.setWindow(this);
-        _winctrl.setTitle(this.getTitle());
-        _winctrl.navigate(_app.getManifest().getRunPage());
-        _winctrl.setStyle(stageStyle);
+        _winctrl.initialize(this);
 
         _stage.show();
 
@@ -137,9 +141,6 @@ public final class AppWindow {
         return _app.getManifest().isResizable();
     }
 
-    private String getTitle() {
-        return _app.getManifest().getTitle();
-    }
 
     private StageStyle getStyle() {
         try {
@@ -152,11 +153,7 @@ public final class AppWindow {
     }
 
     private String getStyleSheet() {
-        final String stylesheet = _app.getAbsolutePath(STYLE_SHEET);
-        if (PathUtils.exists(stylesheet)) {
-            return stylesheet;
-        }
-        return AppResources.getAppTemplateUri(STYLE_SHEET);
+        return AppResources.getAppFrameUri(STYLE_SHEET);
     }
 
     private List<Image> getIcons() {

@@ -20,6 +20,7 @@ public class AppManifest {
     private static final String RUN_PAGE = IDesktopConstants.RUN_PAGE;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
+    private static final String APP_DIR = "./app";
 
     private static final String MF_SYS_ID = "sys_id";
     private static final String MF_NAME = "name";
@@ -43,11 +44,12 @@ public class AppManifest {
     private final String _temp_dir;
     private final JsonWrapper _manifest;
     private final String _install_dir;
+    private final String _app_docroot;
     private final String _appName;
     private String _install_root; // system or store
     private String _filePath;
     private String _appId;
-    private String _app_index;
+
 
     /**
      * Generate manifest
@@ -61,14 +63,14 @@ public class AppManifest {
         if (!_manifest.isEmpty()) {
             _appName = _manifest.optString(MF_NAME);
             _install_dir = PathUtils.concat(_install_root, _appName);
-            _app_index = PathUtils.merge(_install_dir, _manifest.optString(MF_INDEX));
-            if(system){
-               _appId = _manifest.optString(MF_SYS_ID, null);
+            _app_docroot = PathUtils.merge(_install_dir, APP_DIR);
+            if (system) {
+                _appId = _manifest.optString(MF_SYS_ID, null);
             }
         } else {
             _appName = "";
-            _app_index = "";
             _install_dir = "";
+            _app_docroot = "";
         }
     }
 
@@ -80,6 +82,21 @@ public class AppManifest {
         return null != _manifest && !_manifest.isEmpty();
     }
 
+    public String getAbsolutePath(final String path) {
+        return PathUtils.concat(_install_dir, path);
+    }
+
+    public String getAbsoluteAppPath(final String path) {
+        return PathUtils.concat(_app_docroot, path);
+    }
+
+    public String getAppId() {
+        if (!StringUtils.hasText(_appId)) {
+            this.generateId();
+        }
+        return _appId;
+    }
+
     public String getAppName() {
         return _appName;
     }
@@ -88,11 +105,16 @@ public class AppManifest {
         return _install_dir;
     }
 
-    public String getAppId() {
-        if (!StringUtils.hasText(_appId)) {
-            this.generateId();
-        }
-        return _appId;
+    public String getAppIndex() {
+        return PathUtils.concat(APP_DIR, this.getIndex());
+    }
+
+    public String getAbsoluteRunPage() {
+        return this.getAbsoluteAppPath(RUN_PAGE);
+    }
+
+    public String getAbsoluteIndex() {
+        return this.getAbsolutePath(this.getIndex());
     }
 
     public boolean isGreaterThan(final AppManifest other) {
@@ -112,17 +134,6 @@ public class AppManifest {
         return true;
     }
 
-    public String getDocRoot() {
-        return PathUtils.getParent(_app_index);
-    }
-
-    public String getAbsolutePath(final String path) {
-        return PathUtils.concat(this.getDocRoot(), PathUtils.getFilename(path));
-    }
-
-    public String getRunPage() {
-        return this.getAbsolutePath(RUN_PAGE);
-    }
 
     // --------------------------------------------------------------------
     //               P r o p e r t i e s
@@ -169,12 +180,11 @@ public class AppManifest {
     }
 
     public String getIndex() {
-        return this.getAbsolutePath(_app_index);
+        return _manifest.optString(MF_INDEX);
     }
 
     public void setIndex(final String value) {
         _manifest.putSilent(MF_INDEX, value);
-        _app_index = value;
         this.generateId();
         this.save();
     }

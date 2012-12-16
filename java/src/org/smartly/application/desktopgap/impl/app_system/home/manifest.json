@@ -4,7 +4,7 @@
     "title":"DesktopGap Menu",
     "version":"0.1",
     "resizable":false,
-    "index":"./app/index.html",
+    "index":"index.html",
     "frame":"standard",
     "stage":{
         "style":"decorated"

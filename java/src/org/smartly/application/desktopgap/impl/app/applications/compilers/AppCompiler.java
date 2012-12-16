@@ -59,10 +59,10 @@ public class AppCompiler {
     // ------------------------------------------------------------------------
 
     private void make(final AppManifest manifest) throws IOException {
-        final String app_dir = manifest.getDocRoot();
+        final String app_dir = manifest.getAbsoluteAppPath("");
 
         //-- deploy frame --//
-        AppResources.deploy_FRAMES(manifest.getFrame(), app_dir);
+        AppResources.deploy_FRAMES(manifest, app_dir);
     }
 
     // ------------------------------------------------------------------------
