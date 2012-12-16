@@ -198,10 +198,17 @@ public class AppController
             this.installPackage(file);
         }
 
-        //-- scan installed folder and creates registry --//
+        //-- STORE: scan installed folder and creates registry --//
         final Set<String> installed = Utils.getDirectories(_root_installed_store);
         for (final String file : installed) {
-            final AppInstance app = new AppInstance(this, new AppManifest(file));
+            final AppInstance app = new AppInstance(this, new AppManifest(file, false));
+            _registry_installed.put(app.getId(), app);
+        }
+
+        //-- SYSTEM: scan installed folder and creates registry --//
+        final Set<String> installed_sys = Utils.getDirectories(_root_installed_system);
+        for (final String file : installed_sys) {
+            final AppInstance app = new AppInstance(this, new AppManifest(file, true));
             _registry_installed.put(app.getId(), app);
         }
 
@@ -214,12 +221,12 @@ public class AppController
 
     private AppInstance installPackage(final String packagePath) throws IOException {
         synchronized (_registry_installed) {
-            final AppManifest manifest = new AppManifest(packagePath);
+            final AppManifest manifest = new AppManifest(packagePath, false);
             final String appId = manifest.getAppId();
             // check if installed and update or install from scratch
             if (_registry_installed.containsKey(appId)) {
                 //-- update --//
-                final AppManifest old_manifest = new AppManifest(manifest.getInstallDir());
+                final AppManifest old_manifest = new AppManifest(manifest.getInstallDir(), false);
                 if (manifest.isGreaterThan(old_manifest)) {
                     // close existing instance
                     _registry_installed.get(appId).close();

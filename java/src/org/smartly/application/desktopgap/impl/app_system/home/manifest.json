@@ -1,9 +1,11 @@
 {
+    "sys_id": "system_home",
     "name":"home",
     "title":"DesktopGap Menu",
     "version":"0.1",
     "resizable":false,
     "index":"./app/index.html",
+    "frame":"standard",
     "stage":{
         "style":"decorated"
     },

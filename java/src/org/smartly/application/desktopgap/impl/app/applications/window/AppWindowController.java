@@ -88,6 +88,7 @@ public class AppWindowController implements Initializable {
 
     public void setWindow(final AppWindow window) {
         _window = window;
+        window.close();
     }
 
     public void navigate(final String url) {

@@ -16,15 +16,18 @@ import java.io.IOException;
  */
 public class AppManifest {
 
-    private final String MANIFEST = IDesktopConstants.MANIFEST;
-    private final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
-    private final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
+    private static final String MANIFEST = IDesktopConstants.MANIFEST;
+    private static final String RUN_PAGE = IDesktopConstants.RUN_PAGE;
+    private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
+    private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
 
+    private static final String MF_SYS_ID = "sys_id";
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
     private static final String MF_VERSION = "version";
     private static final String MF_RESIZABLE = "resizable";
     private static final String MF_INDEX = "index";
+    private static final String MF_FRAME = "frame";  // standard, tool
     private static final String MF_STAGE = "stage";
     private static final String MF_STAGE_STYLE = StringUtils.concatDot(MF_STAGE, "style");
     private static final String MF_REGISTRY = "registry";
@@ -32,6 +35,9 @@ public class AppManifest {
     private static final String MF_REGISTRY_HEIGHT = StringUtils.concatDot(MF_REGISTRY, "height");
     private static final String MF_REGISTRY_X = StringUtils.concatDot(MF_REGISTRY, "x");
     private static final String MF_REGISTRY_Y = StringUtils.concatDot(MF_REGISTRY, "y");
+
+    private static final String MF_FRAME_STANDARD = IDesktopConstants.FRAME_STANDARD;
+    private static final String MF_FRAME_TOOL = IDesktopConstants.FRAME_TOOL;
 
 
     private final String _temp_dir;
@@ -41,6 +47,7 @@ public class AppManifest {
     private String _install_root; // system or store
     private String _filePath;
     private String _appId;
+    private String _app_index;
 
     /**
      * Generate manifest
@@ -48,14 +55,19 @@ public class AppManifest {
      * @param path App Path or Package Name
      * @throws IOException
      */
-    public AppManifest(final String path) throws IOException {
+    public AppManifest(final String path, final boolean system) throws IOException {
         _temp_dir = PathUtils.concat(Smartly.getAbsolutePath(TEMP_DIR), GUID.create(false, true));
         _manifest = this.getManifest(path);
         if (!_manifest.isEmpty()) {
             _appName = _manifest.optString(MF_NAME);
             _install_dir = PathUtils.concat(_install_root, _appName);
+            _app_index = PathUtils.merge(_install_dir, _manifest.optString(MF_INDEX));
+            if(system){
+               _appId = _manifest.optString(MF_SYS_ID, null);
+            }
         } else {
             _appName = "";
+            _app_index = "";
             _install_dir = "";
         }
     }
@@ -100,6 +112,18 @@ public class AppManifest {
         return true;
     }
 
+    public String getDocRoot() {
+        return PathUtils.getParent(_app_index);
+    }
+
+    public String getAbsolutePath(final String path) {
+        return PathUtils.concat(this.getDocRoot(), PathUtils.getFilename(path));
+    }
+
+    public String getRunPage() {
+        return this.getAbsolutePath(RUN_PAGE);
+    }
+
     // --------------------------------------------------------------------
     //               P r o p e r t i e s
     // --------------------------------------------------------------------
@@ -134,12 +158,23 @@ public class AppManifest {
         this.save();
     }
 
+    public String getFrame() {
+        return _manifest.optString(MF_FRAME, MF_FRAME_STANDARD);
+    }
+
+    public void setFrame(final String value) {
+        _manifest.putSilent(MF_FRAME, value);
+        this.generateId();
+        this.save();
+    }
+
     public String getIndex() {
-        return _manifest.optString(MF_INDEX);
+        return this.getAbsolutePath(_app_index);
     }
 
     public void setIndex(final String value) {
         _manifest.putSilent(MF_INDEX, value);
+        _app_index = value;
         this.generateId();
         this.save();
     }

@@ -1,5 +1,5 @@
 !(function(){
 
-    alert('APP LOADED');
+    $('#app_content').html('APPLICATION LOADED!!');
 
 })();

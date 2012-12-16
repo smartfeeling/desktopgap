@@ -4,7 +4,7 @@ import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.exceptions.InvalidManifestException;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
-import org.smartly.application.desktopgap.impl.resources.window.DeployerFrame;
+import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
@@ -46,7 +46,7 @@ public class AppCompiler {
             throw new FileNotFoundException(manifestPath);
         }
 
-        final AppManifest manifest = new AppManifest(manifestPath);
+        final AppManifest manifest = new AppManifest(manifestPath, false);
         if (!manifest.isValid()) {
             throw new InvalidManifestException(manifestPath);
         }
@@ -59,15 +59,10 @@ public class AppCompiler {
     // ------------------------------------------------------------------------
 
     private void make(final AppManifest manifest) throws IOException {
-        final String install_dir = manifest.getInstallDir();
-        final String index = manifest.getIndex();
-        final String index_file = PathUtils.merge(install_dir, index);
-        final String app_dir = PathUtils.getParent(index_file);
-        final String run_file = PathUtils.concat(app_dir, RUN_PAGE);
+        final String app_dir = manifest.getDocRoot();
 
-        final String index_html = FileUtils.readFileToString(new File(index_file));
-        final String run_html = DeployerFrame.wrap(index_html, app_dir);
-        FileUtils.writeStringToFile(new File(run_file), run_html, Smartly.getCharset());
+        //-- deploy frame --//
+        AppResources.deploy_FRAMES(manifest.getFrame(), app_dir);
     }
 
     // ------------------------------------------------------------------------

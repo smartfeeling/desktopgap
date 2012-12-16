@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.smartly.Smartly;
-import org.smartly.application.desktopgap.impl.app.applications.window.template.AppTemplateDeployer;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
+import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
@@ -58,6 +58,16 @@ public final class AppWindow {
         return _app;
     }
 
+    public String getRunPage() {
+        try {
+            if (null != _app) {
+                return _app.getManifest().getRunPage();
+            }
+        } catch (Throwable ignored) {
+        }
+        return AppResources.getPageUri_BLANK();
+    }
+
     public void open() {
         final Size2D size = this.getSize();
         final StageStyle stageStyle = this.getStyle();
@@ -86,7 +96,7 @@ public final class AppWindow {
         //-- initialize window controller --//
         _winctrl.setWindow(this);
         _winctrl.setTitle(this.getTitle());
-        _winctrl.navigate(_app.getAbsolutePath(_app.getManifest().getIndex()));
+        _winctrl.navigate(_app.getManifest().getRunPage());
         _winctrl.setStyle(stageStyle);
 
         _stage.show();
@@ -146,7 +156,7 @@ public final class AppWindow {
         if (PathUtils.exists(stylesheet)) {
             return stylesheet;
         }
-        return AppTemplateDeployer.class.getResource(STYLE_SHEET).toExternalForm();
+        return AppResources.getAppTemplateUri(STYLE_SHEET);
     }
 
     private List<Image> getIcons() {
@@ -162,7 +172,7 @@ public final class AppWindow {
             _app.getLogger().log(Level.WARNING, FormatUtils.format("Error searching Icon: '{0}'. Default Icone will be used.", t), t);
         }
         if (icons.isEmpty()) {
-            icons.add(new Image(AppTemplateDeployer.class.getResourceAsStream("icon.png")));
+            icons.add(new Image(AppResources.getAppTemplateIcon()));
         }
         return icons;
     }

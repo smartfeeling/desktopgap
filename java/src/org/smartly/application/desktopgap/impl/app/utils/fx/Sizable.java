@@ -237,6 +237,7 @@ public class Sizable {
         stack.setId(ID_TOP);
         stack.setPrefHeight(AREA_HEIGHT);
         stack.setAlignment(Pos.TOP_CENTER);
+
         AnchorPane.setTopAnchor(stack, -(AREA_HEIGHT/2));
         AnchorPane.setRightAnchor(stack, 0.0);
         AnchorPane.setLeftAnchor(stack, 0.0);
@@ -289,6 +290,7 @@ public class Sizable {
         stack.setId(ID_RIGHT);
         stack.setPrefWidth(AREA_HEIGHT);
         stack.setAlignment(Pos.CENTER);
+
         AnchorPane.setRightAnchor(stack, -5.0);
         AnchorPane.setTopAnchor(stack, 0.0);
         AnchorPane.setBottomAnchor(stack, 0.0);
@@ -340,6 +342,7 @@ public class Sizable {
         stack.setId(ID_BOTTOM);
         stack.setPrefHeight(AREA_HEIGHT);
         stack.setAlignment(Pos.BOTTOM_CENTER);
+
         AnchorPane.setBottomAnchor(stack, -5.0);
         AnchorPane.setRightAnchor(stack, 0.0);
         AnchorPane.setLeftAnchor(stack, 0.0);

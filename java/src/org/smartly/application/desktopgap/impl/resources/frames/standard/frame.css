@@ -1,0 +1,200 @@
+
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url(frame/OpenSans-Semibold.ttf);
+}
+
+/**
+    LAYOUT
+-------------------------------------------------------*/
+
+html {
+    height: 100%;
+    -webkit-user-select: none;
+    cursor: default;
+}
+
+body {
+    overflow: hidden;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+#content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.085);
+}
+
+#content.inactive {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#content.maximized {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border: 0 !important;
+}
+
+#titlebar {
+    position: fixed;
+    height: 26px;
+    width: 100%;
+    background-image: -webkit-linear-gradient(top, rgba(248, 248, 248, 1) 50%, rgba(234, 234, 234, 1) 95%, rgba(180, 180, 180, 1) 100%);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    user-select: none;
+    z-index: 0;
+}
+
+#titlebar.inactive {
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 50%, rgba(251, 251, 251, 1) 95%, rgba(220, 220, 220, 1) 100%);
+}
+
+#titlebar.maximized {
+    padding-top: 1px;
+}
+
+#title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 26px;
+    line-height: 25px;
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: #333233;
+    opacity: 0.999;
+    text-align: center;
+    cursor: default;
+    z-index: 1;
+}
+
+.inactive #title {
+    opacity: 0.7;
+}
+
+#app {
+    position: absolute;
+    top: 26px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /*-webkit-calc(100% -26px); */
+}
+
+#app object {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+/**
+    CONTROLS
+-------------------------------------------------------*/
+
+.control {
+    z-index: 3;
+}
+
+.control, .control img {
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.control:hover {
+}
+
+.control:active {
+}
+
+.control.inactive {
+    opacity: 0.75;
+}
+
+#close {
+    width: 41px;
+    height: 19px;
+    position: relative;
+    float: right;
+    margin-right: 6px;
+    background: url(frame/bg-max-reg.png) top right no-repeat;
+}
+
+#close:hover, #close.control.inactive:hover {
+    background-image: url(frame/bg-hov.png);
+}
+
+#close:active, #close.control.inactive:active {
+    background-image: url(frame/bg-down.png);
+}
+
+#close.control.inactive {
+    background-image: url(frame/bg-reg.png);
+}
+
+#minimize {
+    width: 26px;
+    height: 19px;
+    position: relative;
+    float: right;
+    background: url(frame/bg-max-reg.png) top left no-repeat;
+}
+
+.minimize:hover {
+    background: url(frame/bg-max-hov.png) top left no-repeat !important;
+}
+
+.minimize:active {
+    background: url(frame/bg-max-down.png) top left no-repeat !important;
+}
+
+#maximize {
+    width: 27px;
+    height: 19px;
+    position: relative;
+    float: right;
+    background: url(frame/bg-max-reg.png) -26px 0px no-repeat;
+    display: none;
+}
+
+.maximize:hover {
+    background-image: url(frame/bg-max-hov.png) !important;
+}
+
+.maximize:active {
+    background-image: url(frame/bg-max-down.png) !important;
+}
+
+#fullscreen {
+    width: 21px;
+    height: 18px;
+    position: relative;
+    top: 0;
+    float: left;
+    margin-top: 3px;
+    margin-left: 4px;
+    visibility: hidden;
+    background: transparent url(frame/control-fullscreen.png) 0 0 no-repeat;
+}
+
+.fullscreen:hover {
+    background: transparent url(frame/control-fullscreen-hover.png) 0 0 no-repeat !important;
+}
+
+.fullscreen:active {
+    background: transparent url(frame/control-fullscreen-down.png) 0 0 no-repeat !important;
+}

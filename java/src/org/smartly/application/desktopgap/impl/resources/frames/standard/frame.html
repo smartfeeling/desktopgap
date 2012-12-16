@@ -1,5 +1,5 @@
 <!doctype html>
-<html style="background-color:Transparent">
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <title>Frame</title>
@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="content">
+    <!-- TITLE BAR -->
     <div id="titlebar">
         <div id="fullscreen" class="control fullscreen"></div>
         <span id="title">Welcome</span>
@@ -22,9 +23,9 @@
             <img src="frame/glyph-minimize.png"/>
         </div>
     </div>
-    <div id="app">
 
-    </div>
+    <!-- APP -->
+    <div id="app"></div>
 </div>
 
 <script src="js/vendor/jquery/jquery-1.8.2.min.js"></script>
@@ -32,9 +33,9 @@
 </body>
 
 <script type="text/javascript">
-    !(function($){
+    !(function ($) {
 
-        $("#app").html('<object data="index.html" style="width: 100%; height: 100%;">');
+        $("#app").html('<object data="index.html">');
 
     })(jQuery);
 </script>
@@ -157,7 +158,8 @@
     function init() {
         var imgs = [
             'frame/bg-reg.png', 'frame/bg-hov.png', 'frame/bg-down.png',
-            'frame/bg-max-hov.png', 'frame/bg-max-reg.png', 'frame/bg-max-down.png', 'frame/control-fullscreen-hover.png', 'frame/control-fullscreen-down.png'
+            'frame/bg-max-hov.png', 'frame/bg-max-reg.png', 'frame/bg-max-down.png',
+            'frame/control-fullscreen-hover.png', 'frame/control-fullscreen-down.png'
         ];
         for (var i = 0, l = imgs.length; i < l; i++) {
             var img = new Image();
