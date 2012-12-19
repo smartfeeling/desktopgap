@@ -1,15 +1,12 @@
 package org.smartly.application.desktopgap.impl.app.applications.compilers;
 
-import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.exceptions.InvalidManifestException;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
-import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
@@ -20,7 +17,7 @@ import java.util.Set;
 public class AppCompiler {
 
     private static final String MANIFEST = IDesktopConstants.MANIFEST;
-    private static final String RUN_PAGE = IDesktopConstants.RUN_PAGE;
+    private static final String RUN_PAGE = IDesktopConstants.PAGE_FRAME;
 
     public AppCompiler() {
 

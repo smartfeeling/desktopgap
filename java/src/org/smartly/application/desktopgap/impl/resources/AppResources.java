@@ -1,11 +1,17 @@
 package org.smartly.application.desktopgap.impl.resources;
 
+import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.commons.io.repository.deploy.FileDeployer;
+import org.smartly.commons.lang.compilers.CompilerRegistry;
+import org.smartly.commons.lang.compilers.ICompiler;
 import org.smartly.commons.util.ClassLoaderUtils;
+import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.StringUtils;
 
+import java.io.File;
 import java.io.InputStream;
 
 /**
@@ -18,6 +24,8 @@ public final class AppResources {
     private static final String PATH_APP_FRAME = "/app_frame";
     private static final String PATH_BLANK = "/blank";
 
+    private static final String FILE_DESKTOPGAPJS = "desktopgap.js";
+
     private static final String PRE_INDEX_PAGE = IDesktopConstants.PRE_INDEX_PAGE;
 
     private AppResources() {
@@ -25,6 +33,10 @@ public final class AppResources {
 
     public InputStream getResourceAsStream(final String resourceName) {
         return ClassLoaderUtils.getResourceAsStream(resourceName);
+    }
+
+    public String getResourceAsString(final String resourceName) {
+        return ClassLoaderUtils.getResourceAsString(resourceName);
     }
 
     public String toExternalForm(final String resourceName) {
@@ -48,6 +60,28 @@ public final class AppResources {
             __instance = new AppResources();
         }
         return __instance;
+    }
+
+    private static String compileJs(final String script) {
+        try {
+            if (StringUtils.hasText(script)) {
+                final ICompiler compiler = CompilerRegistry.get(".js");
+                if (null != compiler) {
+                    final byte[] data = compiler.compile(script.getBytes());
+                    return new String(data, Smartly.getCharset());
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        return script;
+    }
+
+    private static void save(final String content, final String file_name) {
+        try {
+            FileUtils.writeStringToFile(new File(file_name), content, Smartly.getCharset());
+        } catch (Throwable ignored) {
+
+        }
     }
 
     //-- PAGES --//
@@ -102,5 +136,10 @@ public final class AppResources {
         deployer.getSettings().getPreProcessorFiles().add(".html");
         deployer.getSettings().getPreprocessorValues().put(PRE_INDEX_PAGE, index);
         deployer.deployChildren();
+
+        //-- deploy desktopgap.js--//
+        final String script = compileJs(getInstance().getResourceAsString(PathUtils.concat(
+                _root, FILE_DESKTOPGAPJS)));
+        save(script, PathUtils.concat(target, FILE_DESKTOPGAPJS));
     }
 }

@@ -5,6 +5,9 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
  */
 public class AppBridge {
 
+    public static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
+    public static final String DESKTOPGAP_INIT_FUNC = DESKTOPGAP_INSTANCE + ".callbacks.notify()";
+
     public static final String NAME = "foo";
 
     public AppBridge() {

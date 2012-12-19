@@ -2,6 +2,8 @@
 
     $('#app_content').html('APPLICATION LOADED!!');
 
-    alert("FROM APPLICATION ->");
-    alert("SUB: " + foo.toString());
+    desktopgap.callbacks.add(function(){
+        alert('STARTED DESKTOP GAP!! ' + desktopgap.foo.toString());
+    });
+
 })();
