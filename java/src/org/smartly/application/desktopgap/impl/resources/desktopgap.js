@@ -4,12 +4,19 @@
     //                      initialization
     // ------------------------------------------------------------------------
 
+    function defined(property){
+        if (typeof desktopgap != 'undefined') {
+            return !!property ? null!=desktopgap[property]:true;
+        }
+        return false;
+    }
+
     function makeClickHandler(buttonName) {
         return function (event, element) {
             event.cancelBubble = true;
             if (event.stopPropagation)
                 event.stopPropagation();
-            desktopgap.frameButtonClicked(buttonName);
+            desktopgap.frame.buttonClicked(buttonName);
         };
     }
 
@@ -22,7 +29,7 @@
 
     function updateAreas() {
 
-        if (typeof desktopgap != 'undefined') {
+        if (defined()) {
             var content = document.getElementById('content');
             var fullscreen = document.getElementById('fullscreen');
             var minimize = document.getElementById('minimize');
@@ -117,7 +124,7 @@
 
 
     function init() {
-        var  imgs = [
+        var imgs = [
             'frame/bg-reg.png', 'frame/bg-hov.png', 'frame/bg-down.png',
             'frame/bg-max-hov.png', 'frame/bg-max-reg.png', 'frame/bg-max-down.png',
             'frame/control-fullscreen-hover.png', 'frame/control-fullscreen-down.png'
@@ -127,8 +134,6 @@
             img.src = imgs[i];
         }
 
-
-
         disableContextMenu();
         disableDragAndDrop();
         fixButtonFocus();
@@ -136,33 +141,59 @@
         updateAreas();
     }
 
-    window.initdg = function(){
-        alert('app: '  + foo.toString());
-    };
-
     // ------------------------------------------------------------------------
-    //                      listeners
+    //                      E V E N T S
     // ------------------------------------------------------------------------
 
-    var listeners = {
+    var events = {
 
         init: function () {
-            this._listeners = [];
+            this._listeners = {};
+
+            //-- declare main events --//
+            this._listeners['ready'] = [];
+            this._listeners['exit'] = [];
 
             return this;
         },
 
-        add: function (callback) {
-            this._listeners.push(callback);
+        on: function (event, callback) {
+            // ensure event repo exists
+            this._listeners[event] = this._listeners[event] || [];
+            // add listener
+            this._listeners[event].push(callback);
         },
 
-        notify: function () {
-            var self = this;
+        trigger: function (event, opt_args) {
+            var self = this
+                , listeners = this._listeners[event] || [];
             try {
-                for (var i = 0; i < this._listeners.length; i++) {
-                    try{ this._listeners[i].apply(self) }catch (err){}
+                for (var i = 0; i < listeners.length; i++) {
+                    try {
+                        listeners[i].apply(self)
+                    } catch (err) {
+                    }
                 }
             } catch (ignored) {
+            }
+        }
+
+    };
+
+    // ------------------------------------------------------------------------
+    //                      F R A M E
+    // ------------------------------------------------------------------------
+
+    var frame = {
+
+        init: function () {
+
+            return this;
+        },
+
+        buttonClicked: function (name) {
+            if (defined('bridge')) {
+                 desktopgap['bridge'].buttonClicked(name);
             }
         }
 
@@ -174,7 +205,16 @@
 
     var exports = window.desktopgap = window.dg = {};
 
-    exports.callbacks = listeners.init();
+    exports.events = events.init();
 
+    exports.frame = frame.init();
+
+    // ------------------------------------------------------------------------
+    //                  i n i t i a l i z a t i o n
+    // ------------------------------------------------------------------------
+
+    exports.events.on('ready', function () {
+        init();
+    });
 
 })(this);

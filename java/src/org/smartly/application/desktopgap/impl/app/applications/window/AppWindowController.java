@@ -37,13 +37,7 @@ public class AppWindowController implements Initializable {
     private Pane container;
 
     @FXML
-    private Pane win_top;
-
-    @FXML
     private WebView win_browser;
-
-    @FXML
-    private Label win_title;
 
     //-- win buttons --//
     @FXML
@@ -65,7 +59,7 @@ public class AppWindowController implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        FX.draggable(win_top);
+        // FX.draggable(win_top);
         FX.sizable(container);
 
     }
@@ -92,8 +86,6 @@ public class AppWindowController implements Initializable {
         _window = window;
 
         this.initBrowser(win_browser);
-
-        this.setTitle(_window.getTitle());
         this.navigate(_window.getIndex());
     }
 
@@ -125,12 +117,6 @@ public class AppWindowController implements Initializable {
         }
     }
 
-    private void setTitle(final String title) {
-        if (null != win_title) {
-            win_title.setText(title);
-        }
-    }
-
     private void initBrowser(final WebView browser) {
         // disable context menu
         browser.setContextMenuEnabled(false);
@@ -155,7 +141,7 @@ public class AppWindowController implements Initializable {
             if(obj instanceof JSObject){
                 final JSObject win = (JSObject) obj;
                 // can add custom java objects
-                win.setMember(AppBridge.NAME, new AppBridge());
+                win.setMember(AppBridge.NAME, new AppBridge(_window));
             }
         } catch (Throwable t) {
             _window.getApp().getLogger().log(Level.SEVERE, null, t);

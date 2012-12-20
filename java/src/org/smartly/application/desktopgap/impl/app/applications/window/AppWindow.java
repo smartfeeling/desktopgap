@@ -128,6 +128,10 @@ public final class AppWindow {
         _stage.close();
     }
 
+    public void minimize() {
+        _stage.setIconified(true);
+    }
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------

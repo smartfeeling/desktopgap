@@ -2,8 +2,8 @@
 
     $('#app_content').html('APPLICATION LOADED!!');
 
-    desktopgap.callbacks.add(function(){
-        alert('STARTED DESKTOP GAP!! ' + desktopgap.foo.toString());
+    desktopgap.events.on('ready', function(){
+        alert('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
     });
 
 })();
