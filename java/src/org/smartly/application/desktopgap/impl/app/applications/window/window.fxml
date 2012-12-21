@@ -13,35 +13,7 @@
   <children>
     <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
       <children>
-        <BorderPane id="" prefHeight="440.0" prefWidth="580.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
-          <center>
-            <WebView fx:id="win_browser" prefHeight="200.0" prefWidth="200.0" />
-          </center>
-          <top>
-            <BorderPane fx:id="win_top" prefHeight="27.0" prefWidth="600.0">
-              <center>
-                <Label fx:id="win_title" text="Label" />
-              </center>
-              <left>
-                <HBox prefHeight="27.0" prefWidth="100.0" />
-              </left>
-              <right>
-                <HBox prefHeight="27.0" prefWidth="100.0">
-                  <children>
-                    <ImageView fx:id="btn_close" onMouseClicked="#btn_close_click" fitHeight="24.0" fitWidth="32.000000744331174" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                      <image>
-                        <Image url="file:/Z:/ARCHIVIO/Graphics/ICON_SET/air/Adobe%20AIR%20Installer%20Package_file_document.png" preserveRatio="false" smooth="false" />
-                      </image>
-                      <HBox.margin>
-                        <Insets />
-                      </HBox.margin>
-                    </ImageView>
-                  </children>
-                </HBox>
-              </right>
-            </BorderPane>
-          </top>
-        </BorderPane>
+        <WebView fx:id="win_browser" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       </children>
     </AnchorPane>
   </children>

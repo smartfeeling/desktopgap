@@ -2,6 +2,8 @@
 
     $('#app_content').html('APPLICATION LOADED!!');
 
-    alert("FROM APPLICATION ->");
-    alert("SUB: " + foo.toString());
+    desktopgap.events.on('ready', function(){
+        alert('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
+    });
+
 })();

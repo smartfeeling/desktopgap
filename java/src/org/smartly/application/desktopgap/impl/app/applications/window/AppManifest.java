@@ -17,7 +17,7 @@ import java.io.IOException;
 public class AppManifest {
 
     private static final String MANIFEST = IDesktopConstants.MANIFEST;
-    private static final String RUN_PAGE = IDesktopConstants.RUN_PAGE;
+    private static final String PAGE_FRAME = IDesktopConstants.PAGE_FRAME;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
     private static final String APP_DIR = "./app";
@@ -109,12 +109,12 @@ public class AppManifest {
         return PathUtils.concat(APP_DIR, this.getIndex());
     }
 
-    public String getAbsoluteRunPage() {
-        return this.getAbsoluteAppPath(RUN_PAGE);
+    public String getAbsolutePageFrame() {
+        return this.getAbsoluteAppPath(PAGE_FRAME);
     }
 
     public String getAbsoluteIndex() {
-        return this.getAbsolutePath(this.getIndex());
+        return this.getAbsoluteAppPath(this.getIndex());
     }
 
     public boolean isGreaterThan(final AppManifest other) {

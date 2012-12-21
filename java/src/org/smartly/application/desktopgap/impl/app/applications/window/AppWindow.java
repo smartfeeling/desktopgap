@@ -58,10 +58,20 @@ public final class AppWindow {
         return _app;
     }
 
-    public String getRunPage() {
+    public String getFrame() {
         try {
             if (null != _app) {
-                return _app.getManifest().getAbsoluteRunPage();
+                return _app.getManifest().getAbsolutePageFrame();
+            }
+        } catch (Throwable ignored) {
+        }
+        return AppResources.getPageUri_BLANK();
+    }
+
+    public String getIndex() {
+        try {
+            if (null != _app) {
+                return _app.getManifest().getAbsoluteIndex();
             }
         } catch (Throwable ignored) {
         }
@@ -116,6 +126,10 @@ public final class AppWindow {
         // close stage and trigger event
         this.onClose(_stage);
         _stage.close();
+    }
+
+    public void minimize() {
+        _stage.setIconified(true);
     }
 
     // ------------------------------------------------------------------------

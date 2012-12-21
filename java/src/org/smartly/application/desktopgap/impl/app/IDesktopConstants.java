@@ -14,7 +14,7 @@ public interface IDesktopConstants {
     public static final String TEMP_DIR = "./app_tmp";
     public static final String APP_EXT = ".dga";
     public static final String MANIFEST = "manifest.json";
-    public static final String RUN_PAGE = "frame.html";
+    public static final String PAGE_FRAME = "frame.html";
 
     public static final String FRAME_STANDARD = "standard";
     public static final String FRAME_TOOL = "tool";

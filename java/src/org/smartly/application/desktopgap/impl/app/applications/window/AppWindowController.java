@@ -16,7 +16,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
+import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
+import org.smartly.commons.cryptograph.MD5;
+import org.smartly.commons.logging.Level;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,13 +37,7 @@ public class AppWindowController implements Initializable {
     private Pane container;
 
     @FXML
-    private Pane win_top;
-
-    @FXML
     private WebView win_browser;
-
-    @FXML
-    private Label win_title;
 
     //-- win buttons --//
     @FXML
@@ -62,7 +59,7 @@ public class AppWindowController implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        FX.draggable(win_top);
+        // FX.draggable(win_top);
         FX.sizable(container);
 
     }
@@ -89,9 +86,7 @@ public class AppWindowController implements Initializable {
         _window = window;
 
         this.initBrowser(win_browser);
-
-        this.setTitle(_window.getTitle());
-        this.navigate(_window.getRunPage());
+        this.navigate(_window.getIndex());
     }
 
 
@@ -104,15 +99,21 @@ public class AppWindowController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    win_browser.getEngine().load("file:///" + url);
+                    try {
+                        final AppManifest manifest = _window.getManifest();
+                        final String frame = _window.getFrame();
+                        //-- creates navigation page name --//
+                        final String md5 = MD5.encode(url);
+                        final String output_file = manifest.getAbsoluteAppPath(md5.concat(".html"));
+                        //-- insert page into frame --//
+                        DOM.insertInFrame(manifest, frame, url, output_file);
+                        // navigate page
+                        win_browser.getEngine().load("file:///" + output_file);
+                    } catch (Throwable t) {
+                        // TODO: manage navigation error
+                    }
                 }
             });
-        }
-    }
-
-    private void setTitle(final String title) {
-        if (null != win_title) {
-            win_title.setText(title);
         }
     }
 
@@ -133,11 +134,18 @@ public class AppWindowController implements Initializable {
         win_browser.getEngine().load(url);
     }
 
-    private void initJavascript(final WebEngine engine){
-        //-- get reference to javascript window object --//
-        final JSObject win = (JSObject) engine.executeScript("window");
-        // can add custom java objects
-        win.setMember(AppBridge.NAME, new AppBridge());
+    private void initJavascript(final WebEngine engine) {
+        try {
+            //-- get reference to javascript window object --//
+            final Object obj = engine.executeScript(AppBridge.DESKTOPGAP_INSTANCE);
+            if(obj instanceof JSObject){
+                final JSObject win = (JSObject) obj;
+                // can add custom java objects
+                win.setMember(AppBridge.NAME, new AppBridge(_window));
+            }
+        } catch (Throwable t) {
+            _window.getApp().getLogger().log(Level.SEVERE, null, t);
+        }
     }
 
     private void handleAlert(final WebEngine engine) {
@@ -169,23 +177,19 @@ public class AppWindowController implements Initializable {
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
-                        System.out.println(newState);
+                        // System.out.println(newState);
 
                         if (newState == Worker.State.CANCELLED) {
-                            final JSObject win = (JSObject) engine.executeScript("window");
-                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                            // navigation cancelled by user
                         } else if (newState == Worker.State.READY) {
-                            final JSObject win = (JSObject) engine.executeScript("window");
-                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                            // browser ready
                         } else if (newState == Worker.State.SCHEDULED) {
-                            final JSObject win = (JSObject) engine.executeScript("window");
-                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                            // browser scheduled navigation
                         } else if (newState == Worker.State.RUNNING) {
-                            final JSObject win = (JSObject) engine.executeScript("window");
-                            System.out.println(newState + ": " + win.getMember(AppBridge.NAME));
+                            // browser is loading data
                         } else if (newState == Worker.State.SUCCEEDED) {
                             initJavascript(engine);
-                            engine.executeScript("initdg()");
+                            engine.executeScript(AppBridge.DESKTOPGAP_INIT_FUNC);
                         }
                     }
                 }
