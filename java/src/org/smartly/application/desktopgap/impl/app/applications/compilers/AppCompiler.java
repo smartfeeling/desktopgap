@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class AppCompiler {
 
-    private static final String MANIFEST = IDesktopConstants.MANIFEST;
+    private static final String MANIFEST = IDesktopConstants.FILE_MANIFEST;
     private static final String RUN_PAGE = IDesktopConstants.PAGE_FRAME;
 
     public AppCompiler() {

@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class AppManifest {
 
-    private static final String MANIFEST = IDesktopConstants.MANIFEST;
+    private static final String MANIFEST = IDesktopConstants.FILE_MANIFEST;
     private static final String PAGE_FRAME = IDesktopConstants.PAGE_FRAME;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
@@ -28,14 +28,12 @@ public class AppManifest {
     private static final String MF_VERSION = "version";
     private static final String MF_RESIZABLE = "resizable";
     private static final String MF_INDEX = "index";
-    private static final String MF_FRAME = "frame";  // standard, tool
-    private static final String MF_STAGE = "stage";
-    private static final String MF_STAGE_STYLE = StringUtils.concatDot(MF_STAGE, "style");
-    private static final String MF_REGISTRY = "registry";
-    private static final String MF_REGISTRY_WIDTH = StringUtils.concatDot(MF_REGISTRY, "width");
-    private static final String MF_REGISTRY_HEIGHT = StringUtils.concatDot(MF_REGISTRY, "height");
-    private static final String MF_REGISTRY_X = StringUtils.concatDot(MF_REGISTRY, "x");
-    private static final String MF_REGISTRY_Y = StringUtils.concatDot(MF_REGISTRY, "y");
+    private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
+    private static final String MF_FRAME_TYPE = StringUtils.concatDot(MF_FRAME, "type");  // standard, tool
+    private static final String MF_FRAME_WIDTH = IDesktopConstants.MF_FRAME_WIDTH;
+    private static final String MF_FRAME_HEIGHT = IDesktopConstants.MF_FRAME_HEIGHT;
+    private static final String MF_FRAME_X = IDesktopConstants.MF_FRAME_X;
+    private static final String MF_FRAME_Y = IDesktopConstants.MF_FRAME_Y;
 
     private static final String MF_FRAME_STANDARD = IDesktopConstants.FRAME_STANDARD;
     private static final String MF_FRAME_TOOL = IDesktopConstants.FRAME_TOOL;
@@ -169,12 +167,12 @@ public class AppManifest {
         this.save();
     }
 
-    public String getFrame() {
-        return _manifest.optString(MF_FRAME, MF_FRAME_STANDARD);
+    public String getFrameType() {
+        return _manifest.optString(MF_FRAME_TYPE, MF_FRAME_STANDARD);
     }
 
-    public void setFrame(final String value) {
-        _manifest.putSilent(MF_FRAME, value);
+    public void setFrameType(final String value) {
+        _manifest.putSilent(MF_FRAME_TYPE, value);
         this.generateId();
         this.save();
     }
@@ -189,52 +187,41 @@ public class AppManifest {
         this.save();
     }
 
-    //-- stage --//
-
-    public String getStyle() {
-        return _manifest.deepString(MF_STAGE_STYLE);
-    }
-
-    public void setStyle(final String value) {
-        _manifest.putDeep(MF_STAGE_STYLE, value);
-        this.save();
-    }
-
     //-- registry --//
 
     public double getWidth() {
-        return _manifest.deepDouble(MF_REGISTRY_WIDTH);
+        return _manifest.deepDouble(MF_FRAME_WIDTH);
     }
 
     public void setWidth(final double value) {
-        _manifest.putDeep(MF_REGISTRY_WIDTH, value);
+        _manifest.putDeep(MF_FRAME_WIDTH, value);
         this.save();
     }
 
     public double getHeight() {
-        return _manifest.deepDouble(MF_REGISTRY_HEIGHT);
+        return _manifest.deepDouble(MF_FRAME_HEIGHT);
     }
 
     public void setHeight(final double value) {
-        _manifest.putDeep(MF_REGISTRY_HEIGHT, value);
+        _manifest.putDeep(MF_FRAME_HEIGHT, value);
         this.save();
     }
 
     public double getX() {
-        return _manifest.deepDouble(MF_REGISTRY_X);
+        return _manifest.deepDouble(MF_FRAME_X);
     }
 
     public void setX(final double value) {
-        _manifest.putDeep(MF_REGISTRY_X, value);
+        _manifest.putDeep(MF_FRAME_X, value);
         this.save();
     }
 
     public double getY() {
-        return _manifest.deepDouble(MF_REGISTRY_Y);
+        return _manifest.deepDouble(MF_FRAME_Y);
     }
 
     public void setY(final double value) {
-        _manifest.putDeep(MF_REGISTRY_Y, value);
+        _manifest.putDeep(MF_FRAME_Y, value);
         this.save();
     }
 

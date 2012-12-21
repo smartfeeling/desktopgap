@@ -1,5 +1,7 @@
 package org.smartly.application.desktopgap.impl.app;
 
+import org.smartly.commons.util.StringUtils;
+
 /**
  *
  */
@@ -13,11 +15,18 @@ public interface IDesktopConstants {
     public static final String INSTALL_DIR = "./app_install"; // install app and run
     public static final String TEMP_DIR = "./app_tmp";
     public static final String APP_EXT = ".dga";
-    public static final String MANIFEST = "manifest.json";
+    public static final String FILE_MANIFEST = "manifest.json";
+    public static final String FILE_REGISTRY = "registry.json";
     public static final String PAGE_FRAME = "frame.html";
 
     public static final String FRAME_STANDARD = "standard";
     public static final String FRAME_TOOL = "tool";
+
+    public static final String MF_FRAME = "frame";
+    public static final String MF_FRAME_WIDTH = StringUtils.concatDot(MF_FRAME, "width");
+    public static final String MF_FRAME_HEIGHT = StringUtils.concatDot(MF_FRAME, "height");
+    public static final String MF_FRAME_X = StringUtils.concatDot(MF_FRAME, "x");
+    public static final String MF_FRAME_Y = StringUtils.concatDot(MF_FRAME, "y");
 
     //-- PRE-COMPILE --//
     public static final String PRE_INDEX_PAGE = "[INDEX_PAGE]";

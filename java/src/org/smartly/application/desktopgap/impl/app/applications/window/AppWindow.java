@@ -155,17 +155,6 @@ public final class AppWindow {
         return _app.getManifest().isResizable();
     }
 
-
-    private StageStyle getStyle() {
-        try {
-            //-- decoration --//
-            final String style = _app.getManifest().getStyle();
-            return StringUtils.hasText(style) ? StageStyle.valueOf(style.toUpperCase()) : StageStyle.DECORATED;
-        } catch (Throwable t) {
-            return StageStyle.DECORATED;
-        }
-    }
-
     private String getStyleSheet() {
         return AppResources.getAppFrameUri(STYLE_SHEET);
     }
@@ -189,12 +178,14 @@ public final class AppWindow {
     }
 
     private Size2D getSize() {
-        return new Size2D(_app.getManifest().getHeight(), _app.getManifest().getWidth());
+        final double height = _app.getRegistry().getHeight();
+        final double width = _app.getRegistry().getWidth();
+        return new Size2D(height, width);
     }
 
     private void setPosition(final Stage stage) {
-        double x = _app.getManifest().getX();
-        double y = _app.getManifest().getY();
+        double x = _app.getRegistry().getX();
+        double y = _app.getRegistry().getY();
         if (x > -1) {
             stage.setX(x);
         }
@@ -219,10 +210,11 @@ public final class AppWindow {
     }
 
     private void onClose(final Stage stage) {
-        _app.getManifest().setX(stage.getX());
-        _app.getManifest().setY(stage.getY());
-        _app.getManifest().setWidth(stage.getScene().getWidth());
-        _app.getManifest().setHeight(stage.getScene().getHeight());
+        // set frame properties (auto saved)
+        _app.getRegistry().setX(stage.getX());
+        _app.getRegistry().setY(stage.getY());
+        _app.getRegistry().setWidth(stage.getScene().getWidth());
+        _app.getRegistry().setHeight(stage.getScene().getHeight());
 
         _app.stageClosing();
     }

@@ -5,11 +5,8 @@
     "version":"0.1",
     "resizable":false,
     "index":"index.html",
-    "frame":"standard",
-    "stage":{
-        "style":"decorated"
-    },
-    "registry":{
+    "frame": {
+        "type":"standard",
         "width":445,
         "height":598,
         "y":156,

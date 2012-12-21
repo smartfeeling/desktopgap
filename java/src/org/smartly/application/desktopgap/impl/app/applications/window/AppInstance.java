@@ -15,6 +15,7 @@ public class AppInstance {
 
     private final IAppInstanceListener _listener;
     private final AppManifest _manifest;
+    private final AppRegistry _registry;
     private AppWindow __window;
 
 
@@ -22,6 +23,7 @@ public class AppInstance {
                        final AppManifest manifest) throws IOException {
         _listener = listener;
         _manifest = manifest;
+        _registry = new AppRegistry(_manifest);
 
         this.initLogger();
     }
@@ -43,6 +45,10 @@ public class AppInstance {
             return path;
         }
         return PathUtils.merge(this.getInstallDir(), path);
+    }
+
+    public AppRegistry getRegistry() {
+        return _registry;
     }
 
     public AppManifest getManifest() {
@@ -73,15 +79,15 @@ public class AppInstance {
         this.getWindow().close();
     }
 
-    void stageClosing(){
+    void stageClosing() {
         _listener.onClose(this);
     }
 
-    void stageOpening(){
+    void stageOpening() {
         _listener.onOpen(this);
     }
 
-    public Logger getLogger(){
+    public Logger getLogger() {
         return LoggingUtils.getLogger(this.getId());
     }
 
@@ -96,12 +102,11 @@ public class AppInstance {
         return __window;
     }
 
-    private void initLogger(){
+    private void initLogger() {
         final String id = _manifest.getAppId();
         final String installDir = _manifest.getInstallDir();
         LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, "application.log"));
     }
-
 
 
 }

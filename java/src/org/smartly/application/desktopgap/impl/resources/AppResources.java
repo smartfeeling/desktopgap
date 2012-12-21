@@ -115,7 +115,7 @@ public final class AppResources {
     public static void deploy_FRAMES(final AppManifest manifest,
                                      final String target) {
         final String index = manifest.getIndex(); // used to customize run page
-        final String frame = manifest.getFrame();
+        final String frame = manifest.getFrameType();
         final String source = PathUtils.concat(PATH_FRAMES, frame);
         final FileDeployer deployer = new FileDeployer(source, target, true, false, false, false) {
             @Override

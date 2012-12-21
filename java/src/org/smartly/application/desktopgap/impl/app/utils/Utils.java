@@ -25,7 +25,7 @@ public class Utils {
     // ------------------------------------------------------------------------
 
     private static final String APP_EXT = IDesktopConstants.APP_EXT;
-    private static final String MANIFEST = IDesktopConstants.MANIFEST;
+    private static final String MANIFEST = IDesktopConstants.FILE_MANIFEST;
     private static final String INSTALL_DIR = IDesktopConstants.INSTALL_DIR;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
 
