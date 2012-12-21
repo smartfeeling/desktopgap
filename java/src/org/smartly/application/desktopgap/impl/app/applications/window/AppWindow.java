@@ -17,7 +17,6 @@ import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
-import org.smartly.commons.util.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -121,6 +120,9 @@ public final class AppWindow {
         _app.getLogger().info("App Window Opened: " + _app.getId());
     }
 
+    // --------------------------------------------------------------------
+    //               frame
+    // --------------------------------------------------------------------
 
     public void close() {
         // close stage and trigger event
@@ -130,6 +132,13 @@ public final class AppWindow {
 
     public void minimize() {
         _stage.setIconified(true);
+    }
+
+    public void setArea(final String name,
+                        final double left, final double top, final double right, final double height) {
+        if(null!=_winctrl){
+            _winctrl.getAreas().setArea(name, left, top, right, height);
+        }
     }
 
     // ------------------------------------------------------------------------

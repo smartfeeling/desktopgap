@@ -1,6 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.commons.util.ConversionUtils;
 
 /**
  * Javascript-Java Bridge.
@@ -16,6 +17,8 @@ public class AppBridge {
     private static final String BUTTON_MINIMIZE = "minimize";
     private static final String BUTTON_MAXIMIZE = "maximize";
     private static final String BUTTON_FULLSCREEN = "fullscreen";
+
+    private static final String UNDEFINED = "undefined";
 
     private AppWindow _window;
 
@@ -33,6 +36,9 @@ public class AppBridge {
         return result.toString();
     }
 
+    // --------------------------------------------------------------------
+    //               F R A M E
+    // --------------------------------------------------------------------
 
     public void buttonClicked(final Object name) {
         if (name instanceof String) {
@@ -42,6 +48,17 @@ public class AppBridge {
             } else if (BUTTON_MINIMIZE.equalsIgnoreCase(button_name)) {
                 _window.minimize();
             }
+        }
+    }
+
+    public void setArea(final Object name,
+                        final Object left, final Object top, final Object right, final Object height) {
+        if (name instanceof String && !name.toString().equalsIgnoreCase(UNDEFINED)) {
+            final double d_left = ConversionUtils.toDouble(left);
+            final double d_top = ConversionUtils.toDouble(top);
+            final double d_right = ConversionUtils.toDouble(right);
+            final double d_height = ConversionUtils.toDouble(height);
+            _window.setArea((String)name, d_left, d_top, d_right, d_height);
         }
     }
 

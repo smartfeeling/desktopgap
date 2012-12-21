@@ -47,6 +47,9 @@ public class DOM {
             this.addTo(frame_head, scripts);
             this.addTo(frame_head, styles);
 
+            //-- add handler to all hyperlinks --//
+
+
             // get #app div
             final Element frame_app = elements.first();
             // add BODY to FRAME
@@ -72,6 +75,10 @@ public class DOM {
                 head.append(element.outerHtml());
             }
         }
+    }
+
+    private void wrapHyperlinks(final Element body){
+
     }
 
     // --------------------------------------------------------------------

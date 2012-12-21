@@ -50,24 +50,13 @@
             }
 
             // Setup title bar drag region
-            desktopgap.setFrameArea('dragbar',
+            // left, top, right, height
+            desktopgap.frame.setArea('dragbar',
                 margin + leftOffset,
                 margin,
                 margin + rightOffset,
                 height);
-            // left, top, right, height
 
-            // Setup app container region
-            desktopgap.setFrameArea('app', margin + 1, height, margin + 1, margin + 1); // left, top, right, bottom
-
-            // Setup app container region when app is maximized
-            desktopgap.setFrameArea('appmaximized', margin, height - 1, margin, margin); // left, top, right, bottom
-
-            desktopgap.setFrameArea('sizemargin', margin, margin, margin, margin);
-            desktopgap.setFrameArea('sizetl', margin, 10, margin, 10);
-            desktopgap.setFrameArea('sizetr', margin, 10, margin, 10);
-            desktopgap.setFrameArea('sizebr', margin, 14, margin, 14);
-            desktopgap.setFrameArea('sizebl', margin, 14, margin, 14);
         }
     }
 
@@ -194,6 +183,17 @@
         buttonClicked: function (name) {
             if (defined('bridge')) {
                  desktopgap['bridge'].buttonClicked(name);
+            }
+        },
+
+        setArea: function (name, left, top, right, height){
+            if (defined('bridge')) {
+                name = name||'undefined';
+                left = parseFloat(left);
+                top = parseFloat(top);
+                right = parseFloat(right);
+                height = parseFloat(height);
+                desktopgap['bridge'].setArea(name, left, top, right, height);
             }
         }
 

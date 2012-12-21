@@ -7,10 +7,9 @@ import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -20,6 +19,9 @@ import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.cryptograph.MD5;
 import org.smartly.commons.logging.Level;
+import org.smartly.commons.logging.Logger;
+import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.StringUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +36,7 @@ public class AppWindowController implements Initializable {
     // --------------------------------------------------------------------
 
     @FXML
-    private Pane container;
+    private AnchorPane container;
 
     @FXML
     private WebView win_browser;
@@ -48,6 +50,9 @@ public class AppWindowController implements Initializable {
     // --------------------------------------------------------------------
 
     private AppWindow _window;
+    private AppWindowAreaManager _areaManager;
+    private String _location;
+    private String _old_location;
 
     // --------------------------------------------------------------------
     //               Constructor
@@ -84,38 +89,55 @@ public class AppWindowController implements Initializable {
 
     public void initialize(final AppWindow window) {
         _window = window;
+        _areaManager = new AppWindowAreaManager(container);
 
         this.initBrowser(win_browser);
         this.navigate(_window.getIndex());
     }
 
-
+    public AppWindowAreaManager getAreas() {
+        return _areaManager;
+    }
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
+
+    private Logger getLogger() {
+        return _window.getApp().getLogger();
+    }
 
     private void navigate(final String url) {
         if (null != win_browser) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        final AppManifest manifest = _window.getManifest();
-                        final String frame = _window.getFrame();
-                        //-- creates navigation page name --//
-                        final String md5 = MD5.encode(url);
-                        final String output_file = manifest.getAbsoluteAppPath(md5.concat(".html"));
-                        //-- insert page into frame --//
-                        DOM.insertInFrame(manifest, frame, url, output_file);
-                        // navigate page
-                        win_browser.getEngine().load("file:///" + output_file);
-                    } catch (Throwable t) {
-                        // TODO: manage navigation error
-                    }
+                    setLocation(url);
                 }
             });
         }
     }
+
+    private void setLocation(final String url) {
+        if (null != win_browser) {
+            try {
+                final String uri = stripProtocol(url);
+                final AppManifest manifest = _window.getManifest();
+                final String frame = _window.getFrame();
+                //-- creates navigation page name --//
+                final String md5 = MD5.encode(uri);
+                final String output_file = manifest.getAbsoluteAppPath(md5.concat(".html"));
+
+                //-- insert page into frame --//
+                DOM.insertInFrame(manifest, frame, uri, output_file);
+
+                // navigate page
+                win_browser.getEngine().load("file:///" + output_file);
+            } catch (Throwable t) {
+                this.getLogger().log(Level.SEVERE, null, t);
+            }
+        }
+    }
+
 
     private void initBrowser(final WebView browser) {
         // disable context menu
@@ -138,7 +160,7 @@ public class AppWindowController implements Initializable {
         try {
             //-- get reference to javascript window object --//
             final Object obj = engine.executeScript(AppBridge.DESKTOPGAP_INSTANCE);
-            if(obj instanceof JSObject){
+            if (obj instanceof JSObject) {
                 final JSObject win = (JSObject) obj;
                 // can add custom java objects
                 win.setMember(AppBridge.NAME, new AppBridge(_window));
@@ -177,16 +199,31 @@ public class AppWindowController implements Initializable {
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
-                        // System.out.println(newState);
+                        System.out.println(newState);
 
                         if (newState == Worker.State.CANCELLED) {
                             // navigation cancelled by user
+                            _location = _old_location;
+                        } else if (newState == Worker.State.FAILED) {
+                            // navigation failed
+                            _location = _old_location;
                         } else if (newState == Worker.State.READY) {
                             // browser ready
+                            //System.out.println(engine.getLocation());
                         } else if (newState == Worker.State.SCHEDULED) {
                             // browser scheduled navigation
+                            //System.out.println(engine.getLocation());
                         } else if (newState == Worker.State.RUNNING) {
                             // browser is loading data
+                            //System.out.println(engine.getLocation());
+                            _old_location = stripProtocol(_location);
+                            _location = stripProtocol(engine.getLocation());
+                            if (null != _old_location && !_old_location.equalsIgnoreCase(_location)) {
+                                //-- changing page --//
+                                // System.out.println("FROM: " + _old_location + " TO: " + _location);
+                               LOOP
+                                setLocation(_location);
+                            }
                         } else if (newState == Worker.State.SUCCEEDED) {
                             initJavascript(engine);
                             engine.executeScript(AppBridge.DESKTOPGAP_INIT_FUNC);
@@ -217,5 +254,14 @@ public class AppWindowController implements Initializable {
 
     }
 
+    // --------------------------------------------------------------------
+    //               S T A T I C
+    // --------------------------------------------------------------------
 
+    private static String stripProtocol(final String url) {
+        if (StringUtils.hasText(url)) {
+            return PathUtils.toUnixPath(url).replace("file:///", "");
+        }
+        return "";
+    }
 }
