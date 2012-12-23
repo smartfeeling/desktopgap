@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications.window;
+package org.smartly.application.desktopgap.impl.app.applications.window.controller;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -14,14 +14,12 @@ import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import netscape.javascript.JSObject;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
-import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
-import org.smartly.commons.cryptograph.MD5;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
-import org.smartly.commons.util.PathUtils;
-import org.smartly.commons.util.StringUtils;
+import org.smartly.commons.util.FileUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -120,18 +118,13 @@ public class AppWindowController implements Initializable {
     private void setLocation(final String url) {
         if (null != win_browser) {
             try {
-                final String uri = stripProtocol(url);
-                final AppManifest manifest = _window.getManifest();
-                final String frame = _window.getFrame();
-                //-- creates navigation page name --//
-                final String md5 = MD5.encode(uri);
-                final String output_file = manifest.getAbsoluteAppPath(md5.concat(".html"));
+                // remove old
+                AppWindowUrl.delete(_old_location);
 
-                //-- insert page into frame --//
-                DOM.insertInFrame(manifest, frame, uri, output_file);
-
+                final AppWindowUrl uri = new AppWindowUrl(_window, url);
                 // navigate page
-                win_browser.getEngine().load("file:///" + output_file);
+                _location = uri.getUrl();
+                win_browser.getEngine().load(_location);
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
             }
@@ -150,10 +143,6 @@ public class AppWindowController implements Initializable {
         this.handlePrompt(engine);
         this.handleLoading(engine);
         this.handlePopups(engine);
-
-        final URL loading = getClass().getResource("loading.html");
-        final String url = loading.toExternalForm();
-        win_browser.getEngine().load(url);
     }
 
     private void initJavascript(final WebEngine engine) {
@@ -199,11 +188,11 @@ public class AppWindowController implements Initializable {
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
-                        System.out.println(newState);
+                        //System.out.println(newState);
 
                         if (newState == Worker.State.CANCELLED) {
                             // navigation cancelled by user
-                            _location = _old_location;
+                            //_location = _old_location;
                         } else if (newState == Worker.State.FAILED) {
                             // navigation failed
                             _location = _old_location;
@@ -216,17 +205,20 @@ public class AppWindowController implements Initializable {
                         } else if (newState == Worker.State.RUNNING) {
                             // browser is loading data
                             //System.out.println(engine.getLocation());
-                            _old_location = stripProtocol(_location);
-                            _location = stripProtocol(engine.getLocation());
-                            if (null != _old_location && !_old_location.equalsIgnoreCase(_location)) {
+                            _old_location = _location;
+                            _location = engine.getLocation();
+                            if (!AppWindowUrl.equals(_old_location, _location)) {
                                 //-- changing page --//
                                 // System.out.println("FROM: " + _old_location + " TO: " + _location);
-                               LOOP
-                                setLocation(_location);
+
+                                navigate(_location);
                             }
                         } else if (newState == Worker.State.SUCCEEDED) {
                             initJavascript(engine);
                             engine.executeScript(AppBridge.DESKTOPGAP_INIT_FUNC);
+
+                            //-- remove page --//
+                            AppWindowUrl.delete(_location);
                         }
                     }
                 }
@@ -258,10 +250,5 @@ public class AppWindowController implements Initializable {
     //               S T A T I C
     // --------------------------------------------------------------------
 
-    private static String stripProtocol(final String url) {
-        if (StringUtils.hasText(url)) {
-            return PathUtils.toUnixPath(url).replace("file:///", "");
-        }
-        return "";
-    }
+
 }

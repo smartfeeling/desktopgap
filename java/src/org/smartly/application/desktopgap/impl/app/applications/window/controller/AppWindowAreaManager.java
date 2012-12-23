@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications.window;
+package org.smartly.application.desktopgap.impl.app.applications.window.controller;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;

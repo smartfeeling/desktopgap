@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.logging.Level;
