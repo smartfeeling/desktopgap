@@ -8,7 +8,7 @@ import org.smartly.commons.util.FormatUtils;
 public class InvalidManifestException extends Exception {
 
     public InvalidManifestException(final String manifestPath) {
-         super(FormatUtils.format("Invalid Manifest: '{0}'", manifestPath));
+        super(FormatUtils.format("Invalid Manifest: '{0}'", manifestPath));
     }
 
     // ------------------------------------------------------------------------

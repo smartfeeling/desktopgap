@@ -79,16 +79,16 @@ public class Sizable {
         this.addBottom(anchorPane);
     }
 
-    public double getThresholdX(){
-        if(null!=_parent){
-            return (_parent.getLayoutX() - _parent.getScene().getX())*2;
+    public double getThresholdX() {
+        if (null != _parent) {
+            return (_parent.getLayoutX() - _parent.getScene().getX()) * 2;
         }
         return 0.0;
     }
 
-    public double getThresholdY(){
-        if(null!=_parent){
-            return (_parent.getLayoutY() - _parent.getScene().getY())*2;
+    public double getThresholdY() {
+        if (null != _parent) {
+            return (_parent.getLayoutY() - _parent.getScene().getY()) * 2;
         }
         return 0.0;
     }
@@ -121,29 +121,29 @@ public class Sizable {
         return Direction.UNDEFINED;
     }
 
-    private void setCursor(final Node stack, final Direction direction){
+    private void setCursor(final Node stack, final Direction direction) {
         if (Direction.N.equals(direction)) {
             stack.setCursor(Cursor.N_RESIZE);
         } else if (Direction.NE.equals(direction)) {
             stack.setCursor(Cursor.NE_RESIZE);
         } else if (Direction.E.equals(direction)) {
             stack.setCursor(Cursor.E_RESIZE);
-        }else if (Direction.SE.equals(direction)) {
+        } else if (Direction.SE.equals(direction)) {
             stack.setCursor(Cursor.SE_RESIZE);
-        }else if (Direction.S.equals(direction)) {
+        } else if (Direction.S.equals(direction)) {
             stack.setCursor(Cursor.S_RESIZE);
-        }else if (Direction.SW.equals(direction)) {
+        } else if (Direction.SW.equals(direction)) {
             stack.setCursor(Cursor.SW_RESIZE);
-        }else if (Direction.W.equals(direction)) {
+        } else if (Direction.W.equals(direction)) {
             stack.setCursor(Cursor.W_RESIZE);
-        }else if (Direction.NW.equals(direction)) {
+        } else if (Direction.NW.equals(direction)) {
             stack.setCursor(Cursor.NW_RESIZE);
         }
     }
 
     private void handleFocus(final Node stack,
-                               final MouseEvent me){
-        if(!_dragging){
+                             final MouseEvent me) {
+        if (!_dragging) {
             final double x = me.getSceneX();
             final double y = me.getSceneY();
             _direction = getDirection(stack, x, y);
@@ -191,33 +191,33 @@ public class Sizable {
                 } else if (Direction.E.equals(_direction)) {
                     //-- EAST --//
                     stack.getScene().getWindow().setWidth(_initialWidth + deltaX);
-                }else if (Direction.SE.equals(_direction)) {
+                } else if (Direction.SE.equals(_direction)) {
                     //-- SOUTH-EAST --//
                     stack.getScene().getWindow().setHeight(_initialHeight + deltaY);
                     stack.getScene().getWindow().setWidth(_initialWidth + deltaX);
                     // move window on Y axis
                     //stack.getScene().getWindow().setX(me.getScreenX() - _initialSceneX);
-                }else if (Direction.S.equals(_direction)) {
+                } else if (Direction.S.equals(_direction)) {
                     //-- SOUTH --//
                     stack.getScene().getWindow().setHeight(_initialHeight + deltaY);
-                }else if (Direction.SW.equals(_direction)) {
+                } else if (Direction.SW.equals(_direction)) {
                     //-- SOUTH_WEST --//
                     stack.getScene().getWindow().setHeight(_initialHeight + deltaY);
                     stack.getScene().getWindow().setWidth(_initialWidth - deltaX);
                     // move window on Y axis
                     stack.getScene().getWindow().setX(me.getScreenX() - _initialSceneX);
-                }else if (Direction.W.equals(_direction)) {
+                } else if (Direction.W.equals(_direction)) {
                     //-- WEST --//
                     final double x = this.getThresholdX();
                     // move window on X axis
-                    stack.getScene().getWindow().setX(me.getScreenX()-x + _initialSceneX);
+                    stack.getScene().getWindow().setX(me.getScreenX() - x + _initialSceneX);
                     // resize Width
                     stack.getScene().getWindow().setWidth(_initialWidth - deltaX);
-                }else if (Direction.NW.equals(_direction)) {
+                } else if (Direction.NW.equals(_direction)) {
                     //-- NORTH-WEST --//
                     final double x = this.getThresholdX();
                     // move window on X axis
-                    stack.getScene().getWindow().setX(me.getScreenX()-x + _initialSceneX);
+                    stack.getScene().getWindow().setX(me.getScreenX() - x + _initialSceneX);
                     // move window on Y axis
                     stack.getScene().getWindow().setY(me.getScreenY() - _initialSceneY);
                     // resize
@@ -238,7 +238,7 @@ public class Sizable {
         stack.setPrefHeight(AREA_HEIGHT);
         stack.setAlignment(Pos.TOP_CENTER);
 
-        AnchorPane.setTopAnchor(stack, -(AREA_HEIGHT/2));
+        AnchorPane.setTopAnchor(stack, -(AREA_HEIGHT / 2));
         AnchorPane.setRightAnchor(stack, 0.0);
         AnchorPane.setLeftAnchor(stack, 0.0);
         anchorPane.getChildren().add(stack);

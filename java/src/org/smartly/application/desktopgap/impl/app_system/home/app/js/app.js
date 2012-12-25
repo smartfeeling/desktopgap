@@ -1,9 +1,9 @@
-!(function(){
+!(function () {
 
     $('#app_content').html('APPLICATION LOADED!!');
 
-    navigator.events.on('ready', function(){
+    document.addEventListener('deviceready', function () {
         alert('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
-    });
+    }, false);
 
 })();

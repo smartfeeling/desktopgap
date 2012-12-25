@@ -2,7 +2,6 @@ package org.smartly.application.desktopgap.impl.app.command;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.DesktopGap;
-import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.logging.util.LoggingUtils;
 import org.smartly.commons.network.socket.client.Client;

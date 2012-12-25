@@ -22,7 +22,7 @@ public final class AppControllerArgs {
         _files = new HashSet<String>();
     }
 
-    public void parse(final String[] args){
+    public void parse(final String[] args) {
         if (!CollectionUtils.isEmpty(args)) {
             //-- move packages to install folder --//
             for (final String arg : args) {

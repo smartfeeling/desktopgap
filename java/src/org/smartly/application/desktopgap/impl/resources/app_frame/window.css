@@ -1,9 +1,8 @@
-
 #container {
     -fx-font: 16px "Serif";
     -fx-padding: 0;
-    -fx-background-color: linear-gradient(#D3D3D3,#DDDDDD);
-    -fx-effect: dropshadow(two-pass-box , darkgray, 10, 0.0 , 4, 5);
+    -fx-background-color: linear-gradient(#D3D3D3, #DDDDDD);
+    -fx-effect: dropshadow(two-pass-box, darkgray, 10, 0.0, 4, 5);
     -fx-background-insets: 0, 1, 2;
     /*-fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;*/
 }

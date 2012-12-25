@@ -4,6 +4,7 @@
       <w>autorun</w>
       <w>deployer</w>
       <w>desktopgap</w>
+      <w>deviceready</w>
       <w>fxml</w>
       <w>resizable</w>
       <w>winctrl</w>

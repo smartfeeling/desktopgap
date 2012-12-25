@@ -1,13 +1,9 @@
 package org.smartly.application.desktopgap.impl.app.command;
 
 import org.smartly.application.desktopgap.DesktopGap;
-import org.smartly.application.desktopgap.impl.app.command.ICommandConstants;
 import org.smartly.commons.network.socket.client.Client;
 import org.smartly.commons.network.socket.server.Server;
 import org.smartly.commons.network.socket.server.handler.ISocketHandler;
-
-
-import java.io.IOException;
 
 /**
  * Command server

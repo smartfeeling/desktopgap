@@ -9,10 +9,10 @@ import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.AppAutorunManager;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.IAutorunListener;
-import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
-import org.smartly.application.desktopgap.impl.app.command.CommandSender;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
+import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
+import org.smartly.application.desktopgap.impl.app.command.CommandSender;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
 import org.smartly.commons.io.FileObserver;
 import org.smartly.commons.io.IFileObserverListener;
@@ -142,7 +142,7 @@ public class AppController
             public void run() {
                 try {
                     final String clean = PathUtils.toUnixPath(path);
-                    if(launchPackage(clean)){
+                    if (launchPackage(clean)) {
                         // remove package
                         FileUtils.delete(clean);
                     }
@@ -176,7 +176,7 @@ public class AppController
     // ------------------------------------------------------------------------
 
     private void log(final Level level, final String msg, final Throwable t) {
-        if(null!=_text){
+        if (null != _text) {
             _text.setText(msg);
         }
     }
@@ -314,8 +314,6 @@ public class AppController
             launchArgFiles();
         }
     }
-
-
 
 
 }

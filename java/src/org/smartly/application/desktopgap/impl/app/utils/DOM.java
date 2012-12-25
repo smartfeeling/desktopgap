@@ -77,7 +77,7 @@ public class DOM {
         }
     }
 
-    private void wrapHyperlinks(final Element body){
+    private void wrapHyperlinks(final Element body) {
 
     }
 

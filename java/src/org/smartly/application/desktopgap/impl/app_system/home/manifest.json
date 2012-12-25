@@ -1,15 +1,15 @@
 {
     "sys_id": "system_home",
-    "name":"home",
-    "title":"DesktopGap Menu",
-    "version":"0.1",
-    "resizable":false,
-    "index":"index.html",
+    "name": "home",
+    "title": "DesktopGap Menu",
+    "version": "0.1",
+    "resizable": false,
+    "index": "index.html",
     "frame": {
-        "type":"standard",
-        "width":445,
-        "height":598,
-        "y":156,
-        "x":112
+        "type": "standard",
+        "width": 445,
+        "height": 598,
+        "y": 156,
+        "x": 112
     }
 }

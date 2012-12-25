@@ -137,7 +137,7 @@ public final class AppWindow {
 
     public void setArea(final String name,
                         final double left, final double top, final double right, final double height) {
-        if(null!=_winctrl){
+        if (null != _winctrl) {
             _winctrl.getAreas().setArea(name, left, top, right, height);
         }
     }

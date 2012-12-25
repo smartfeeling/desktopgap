@@ -4,9 +4,9 @@
     //                      initialization
     // ------------------------------------------------------------------------
 
-    function defined(property){
+    function defined(property) {
         if (typeof desktopgap != 'undefined') {
-            return !!property ? null!=desktopgap[property]:true;
+            return !!property ? desktopgap[property] : desktopgap;
         }
         return false;
     }
@@ -111,7 +111,6 @@
         }, false);
     }
 
-
     function init() {
         var imgs = [
             'frame/bg-reg.png', 'frame/bg-hov.png', 'frame/bg-down.png',
@@ -131,45 +130,6 @@
     }
 
     // ------------------------------------------------------------------------
-    //                      E V E N T S
-    // ------------------------------------------------------------------------
-
-    var events = {
-
-        init: function () {
-            this._listeners = {};
-
-            //-- declare main events --//
-            this._listeners['ready'] = [];
-            this._listeners['exit'] = [];
-
-            return this;
-        },
-
-        on: function (event, callback) {
-            // ensure event repo exists
-            this._listeners[event] = this._listeners[event] || [];
-            // add listener
-            this._listeners[event].push(callback);
-        },
-
-        trigger: function (event, opt_args) {
-            var self = this
-                , listeners = this._listeners[event] || [];
-            try {
-                for (var i = 0; i < listeners.length; i++) {
-                    try {
-                        listeners[i].apply(self)
-                    } catch (err) {
-                    }
-                }
-            } catch (ignored) {
-            }
-        }
-
-    };
-
-    // ------------------------------------------------------------------------
     //                      F R A M E
     // ------------------------------------------------------------------------
 
@@ -182,13 +142,13 @@
 
         buttonClicked: function (name) {
             if (defined('bridge')) {
-                 desktopgap['bridge'].buttonClicked(name);
+                desktopgap['bridge'].buttonClicked(name);
             }
         },
 
-        setArea: function (name, left, top, right, height){
+        setArea: function (name, left, top, right, height) {
             if (defined('bridge')) {
-                name = name||'undefined';
+                name = name || 'undefined';
                 left = parseFloat(left);
                 top = parseFloat(top);
                 right = parseFloat(right);
@@ -200,31 +160,85 @@
     };
 
     // ------------------------------------------------------------------------
+    //                      D E V I C E
+    // ------------------------------------------------------------------------
+
+    /**
+     * The device object describes the device's hardware and software
+     * <p/>
+     * Properties
+     * <p/>
+     * <ul>
+     *     <li>device.name</li>
+     *     <li>device.platform</li>
+     *     <li>device.uuid</li>
+     *     <li>device.version</li>
+     * </ul>
+     * Variable Scope
+     * <p/>
+     * Since device is assigned to the window object, it is implicitly in the global scope.
+     * <p/>
+     * // These reference the same `device`
+     * var phoneName = window.device.name;
+     * var phoneName = device.name;
+     */
+    var device = {
+
+        init: function () {
+
+            return this;
+        },
+
+        name: getDevice('name'),
+
+        platform: getDevice('platform'),
+
+        uuid: getDevice('uuid'),
+
+        version: getDevice('version')
+
+    };
+
+    function getDevice(property){
+        var bridge = defined('bridge');
+        if (!!bridge) {
+           bridge.device().get(property);
+        }
+        return 'undefined';
+    }
+
+    // ------------------------------------------------------------------------
     //                      e x p o r t s
     // ------------------------------------------------------------------------
 
     var exports = window.desktopgap = window.dg = {};
 
-    exports.events = events.init();
-
     exports.frame = frame.init();
+
+    exports.device = device.init();
 
     // ------------------------------------------------------------------------
     //                      -> n a v i g a t o r
     // ------------------------------------------------------------------------
 
-    window.navigator = window.navigator||{};
+    window.navigator = window.navigator || {};
 
     for (var key in exports) {
         window.navigator[key] = exports[key];
     }
 
     // ------------------------------------------------------------------------
+    //                      -> window
+    // ------------------------------------------------------------------------
+
+    window.device = exports.device;
+
+    // ------------------------------------------------------------------------
     //                  i n i t i a l i z a t i o n
     // ------------------------------------------------------------------------
 
-    exports.events.on('ready', function () {
+    document.addEventListener('deviceready', function () {
         init();
-    });
+    }, false);
 
 })(this);

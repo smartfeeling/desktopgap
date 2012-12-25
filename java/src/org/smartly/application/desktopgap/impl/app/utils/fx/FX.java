@@ -1,7 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.utils.fx;
 
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 /**

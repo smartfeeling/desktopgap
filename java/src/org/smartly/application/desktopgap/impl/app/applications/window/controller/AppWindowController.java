@@ -13,13 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import netscape.javascript.JSObject;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
-import org.smartly.commons.util.FileUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +47,7 @@ public class AppWindowController implements Initializable {
 
     private AppWindow _window;
     private AppWindowAreaManager _areaManager;
+    private JsEngine _jsengine;
     private String _location;
     private String _old_location;
 
@@ -138,25 +137,13 @@ public class AppWindowController implements Initializable {
 
         //-- handlers --//
         final WebEngine engine = browser.getEngine();
-        this.initJavascript(engine);
+        _jsengine = new JsEngine(_window, engine);
+        _jsengine.init();
+
         this.handleAlert(engine);
         this.handlePrompt(engine);
         this.handleLoading(engine);
         this.handlePopups(engine);
-    }
-
-    private void initJavascript(final WebEngine engine) {
-        try {
-            //-- get reference to javascript window object --//
-            final Object obj = engine.executeScript(AppBridge.DESKTOPGAP_INSTANCE);
-            if (obj instanceof JSObject) {
-                final JSObject win = (JSObject) obj;
-                // can add custom java objects
-                win.setMember(AppBridge.NAME, new AppBridge(_window));
-            }
-        } catch (Throwable t) {
-            _window.getApp().getLogger().log(Level.SEVERE, null, t);
-        }
     }
 
     private void handleAlert(final WebEngine engine) {
@@ -214,8 +201,8 @@ public class AppWindowController implements Initializable {
                                 navigate(_location);
                             }
                         } else if (newState == Worker.State.SUCCEEDED) {
-                            initJavascript(engine);
-                            engine.executeScript(AppBridge.DESKTOPGAP_INIT_FUNC);
+                            _jsengine.init();
+                            _jsengine.dispatchReady();
 
                             //-- remove page --//
                             AppWindowUrl.delete(_location);

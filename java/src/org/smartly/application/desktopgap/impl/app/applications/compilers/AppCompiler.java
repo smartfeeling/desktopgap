@@ -3,8 +3,8 @@ package org.smartly.application.desktopgap.impl.app.applications.compilers;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.exceptions.InvalidManifestException;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
-import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
+import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.util.PathUtils;
 
 import java.io.FileNotFoundException;
