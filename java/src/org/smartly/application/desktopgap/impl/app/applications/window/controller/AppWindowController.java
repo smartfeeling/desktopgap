@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.logging.Level;
@@ -45,7 +45,7 @@ public class AppWindowController implements Initializable {
     //               fields
     // --------------------------------------------------------------------
 
-    private AppWindow _window;
+    private AppFrame _frame;
     private AppWindowAreaManager _areaManager;
     private JsEngine _jsengine;
     private String _location;
@@ -75,8 +75,8 @@ public class AppWindowController implements Initializable {
         //System.out.println("You clicked me!");
         Stage stage = (Stage) btn_close.getScene().getWindow();
         //stage.close();
-        if (null != _window) {
-            _window.close();
+        if (null != _frame) {
+            _frame.close();
         }
     }
 
@@ -84,12 +84,12 @@ public class AppWindowController implements Initializable {
     //               Properties
     // --------------------------------------------------------------------
 
-    public void initialize(final AppWindow window) {
-        _window = window;
+    public void initialize(final AppFrame frame) {
+        _frame = frame;
         _areaManager = new AppWindowAreaManager(container);
 
         this.initBrowser(win_browser);
-        this.navigate(_window.getIndex());
+        this.navigate(_frame.getIndex());
     }
 
     public AppWindowAreaManager getAreas() {
@@ -100,7 +100,7 @@ public class AppWindowController implements Initializable {
     // ------------------------------------------------------------------------
 
     private Logger getLogger() {
-        return _window.getApp().getLogger();
+        return _frame.getApp().getLogger();
     }
 
     private void navigate(final String url) {
@@ -120,7 +120,7 @@ public class AppWindowController implements Initializable {
                 // remove old
                 AppWindowUrl.delete(_old_location);
 
-                final AppWindowUrl uri = new AppWindowUrl(_window, url);
+                final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
                 _location = uri.getUrl();
                 win_browser.getEngine().load(_location);
@@ -137,7 +137,7 @@ public class AppWindowController implements Initializable {
 
         //-- handlers --//
         final WebEngine engine = browser.getEngine();
-        _jsengine = new JsEngine(_window, engine);
+        _jsengine = new JsEngine(_frame, engine);
         _jsengine.init();
 
         this.handleAlert(engine);

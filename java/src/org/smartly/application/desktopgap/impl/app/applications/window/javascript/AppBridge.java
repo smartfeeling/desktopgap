@@ -1,6 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
-import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection.ToolConnection;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
@@ -20,18 +20,18 @@ public class AppBridge {
 
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 
-    private final AppWindow _window;
+    private final AppFrame _frame;
     // tools
     private final ToolDevice _device;
     private final ToolConnection _connection;
     private final ToolConsole _console;
 
-    public AppBridge(final AppWindow window) {
-        _window = window;
+    public AppBridge(final AppFrame window) {
+        _frame = window;
         // tools
         _device = new ToolDevice();
         _connection = new ToolConnection();
-        _console = ToolConsole.getConsole(_window.getApp());
+        _console = ToolConsole.getConsole(_frame.getApp());
     }
 
     @Override
@@ -60,9 +60,9 @@ public class AppBridge {
         if (name instanceof String) {
             final String button_name = (String) name;
             if (BUTTON_CLOSE.equalsIgnoreCase(button_name)) {
-                _window.close();
+                _frame.close();
             } else if (BUTTON_MINIMIZE.equalsIgnoreCase(button_name)) {
-                _window.minimize();
+                _frame.minimize();
             }
         }
     }
@@ -74,7 +74,7 @@ public class AppBridge {
             final double d_top = ConversionUtils.toDouble(top);
             final double d_right = ConversionUtils.toDouble(right);
             final double d_height = ConversionUtils.toDouble(height);
-            _window.setArea((String) name, d_left, d_top, d_right, d_height);
+            _frame.setArea((String) name, d_left, d_top, d_right, d_height);
         }
     }
 

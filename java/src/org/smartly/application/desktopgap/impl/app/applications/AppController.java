@@ -9,11 +9,15 @@ import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.AppAutorunManager;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.IAutorunListener;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
 import org.smartly.application.desktopgap.impl.app.command.CommandSender;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
+import org.smartly.commons.event.Event;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.io.FileObserver;
 import org.smartly.commons.io.IFileObserverListener;
 import org.smartly.commons.logging.Level;
@@ -31,7 +35,7 @@ import java.util.Set;
  */
 public class AppController
         extends Application
-        implements IAppInstanceListener, IFileObserverListener, IAutorunListener {
+        implements IEventListener, IFileObserverListener, IAutorunListener {
 
     private static final String AUTORUN_DIR = IDesktopConstants.AUTORUN_DIR;
     private static final String INSTALLED_STORE_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
@@ -93,43 +97,34 @@ public class AppController
         }
     }
 
-
     /**
      * Install and Launch Application
      *
      * @param path Application file path. i.e. "c:\app\my_app.dga", or Application folder path.
      */
-    public void launch(final String path) throws IOException {
+    public AppInstance launch(final String path) throws IOException {
         if (Utils.isPackage(path)) {
-            this.launchPackage(path);
+            return this.launchPackage(path);
         } else {
-            this.launchApp(path);
+            return this.launchApp(path);
         }
     }
 
     // ------------------------------------------------------------------------
-    //                      app listener
+    //                      IEventListener
     // ------------------------------------------------------------------------
 
     @Override
-    public void onOpen(final AppInstance app) {
-        synchronized (_registry_running) {
-            if (!_registry_running.containsKey(app.getId())) {
-                // register new app instance
-                _registry_running.put(app.getId(), app);
-            }
+    public void on(final Event event) {
+        if (event instanceof FrameCloseEvent) {
+            // FRAME CLOSE
+            this.handleCloseApp((AppInstance) event.getSender());
+        } else if (event instanceof FrameOpenEvent) {
+            // FRAME OPEN
+            this.handleOpenApp((AppInstance) event.getSender());
         }
     }
 
-    @Override
-    public void onClose(final AppInstance app) {
-        synchronized (_registry_running) {
-            if (_registry_running.containsKey(app.getId())) {
-                // register new app instance
-                _registry_running.remove(app.getId());
-            }
-        }
-    }
 
     // ------------------------------------------------------------------------
     //                      IFileObserverListener (install dir)
@@ -141,10 +136,10 @@ public class AppController
             @Override
             public void run() {
                 try {
-                    final String clean = PathUtils.toUnixPath(path);
-                    if (launchPackage(clean)) {
+                    final String clean_path = PathUtils.toUnixPath(path);
+                    if (null!=launchPackage(clean_path)) {
                         // remove package
-                        FileUtils.delete(clean);
+                        FileUtils.delete(clean_path);
                     }
                 } catch (Throwable t) {
                     log(Level.SEVERE, null, t);
@@ -201,14 +196,14 @@ public class AppController
         //-- STORE: scan installed folder and creates registry --//
         final Set<String> installed = Utils.getDirectories(_root_installed_store);
         for (final String file : installed) {
-            final AppInstance app = new AppInstance(this, new AppManifest(file, false));
+            final AppInstance app = this.createApp(new AppManifest(file, false));
             _registry_installed.put(app.getId(), app);
         }
 
         //-- SYSTEM: scan installed folder and creates registry --//
         final Set<String> installed_sys = Utils.getDirectories(_root_installed_system);
         for (final String file : installed_sys) {
-            final AppInstance app = new AppInstance(this, new AppManifest(file, true));
+            final AppInstance app = this.createApp(new AppManifest(file, true));
             _registry_installed.put(app.getId(), app);
         }
 
@@ -231,8 +226,8 @@ public class AppController
                     // close existing instance
                     _registry_installed.get(appId).close();
                     // overwrite
-                    Utils.install(this, packagePath, manifest.getInstallDir());
-                    _registry_installed.put(appId, new AppInstance(this, manifest)); // REGISTER NEW
+                    Utils.install(packagePath, manifest.getInstallDir());
+                    _registry_installed.put(appId, this.createApp(manifest)); // REGISTER NEW
                 } else {
                     // returns existing app instance
                     return _registry_installed.get(appId);
@@ -240,12 +235,18 @@ public class AppController
 
             } else {
                 //-- install --//
-                Utils.install(this, packagePath, manifest.getInstallDir());
-                _registry_installed.put(appId, new AppInstance(this, manifest));  // REGISTER NEW
+                Utils.install(packagePath, manifest.getInstallDir());
+                _registry_installed.put(appId, this.createApp(manifest));  // REGISTER NEW
             }
 
             return _registry_installed.get(appId);
         }
+    }
+
+    private AppInstance createApp(final AppManifest manifest) throws IOException {
+        final AppInstance app = new AppInstance(this, manifest);
+        app.addEventListener(this);
+        return app;
     }
 
     /**
@@ -253,21 +254,37 @@ public class AppController
      *
      * @param packagePath Application Package Path. i.e. "c:/myapp/app.dga"
      */
-    private boolean launchPackage(final String packagePath) throws IOException {
+    private AppInstance launchPackage(final String packagePath) throws IOException {
         final AppInstance app_instance = this.installPackage(packagePath);
 
         //-- ready to run app --//
         return this.launchApp(app_instance.getId());
     }
 
-    private boolean launchApp(final String appId) throws IOException {
+    private AppInstance launchApp(final String appId) throws IOException {
         if (_registry_installed.containsKey(appId)) {
-            _registry_installed.get(appId).open();
-            return true;
+            return _registry_installed.get(appId).open();
         }
-        return false;
+        return null;
     }
 
+    private void handleOpenApp(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (!_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.put(app.getId(), app);
+            }
+        }
+    }
+
+    private void handleCloseApp(final AppInstance app) {
+        synchronized (_registry_running) {
+            if (_registry_running.containsKey(app.getId())) {
+                // register new app instance
+                _registry_running.remove(app.getId());
+            }
+        }
+    }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e

@@ -8,6 +8,8 @@
         console.log(device.uuid);
 
         console.log(navigator.connection.type);
+
+        console.open();
     }, false);
 
 })();

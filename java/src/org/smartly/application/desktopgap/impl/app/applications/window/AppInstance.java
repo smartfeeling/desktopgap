@@ -1,6 +1,14 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
-import org.smartly.application.desktopgap.impl.app.applications.IAppInstanceListener;
+import org.smartly.application.desktopgap.impl.app.applications.AppController;
+import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.commons.event.Event;
+import org.smartly.commons.event.EventEmitter;
+import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.logging.LoggingRepository;
 import org.smartly.commons.logging.util.LoggingUtils;
@@ -11,19 +19,23 @@ import java.io.IOException;
 /**
  * Application Wrapper
  */
-public class AppInstance {
+public class AppInstance
+        extends EventEmitter
+        implements IEventListener {
 
-    private final IAppInstanceListener _listener;
+    private final AppController _controller;
     private final AppManifest _manifest;
     private final AppRegistry _registry;
-    private AppWindow __window;
+    private final AppWindows _windows; // frames manager
 
 
-    public AppInstance(final IAppInstanceListener listener,
+    public AppInstance(final AppController controller,
                        final AppManifest manifest) throws IOException {
-        _listener = listener;
+        _controller = controller;
         _manifest = manifest;
         _registry = new AppRegistry(_manifest);
+        _windows = new AppWindows(this);
+        _windows.addEventListener(this);
 
         this.initLogger();
     }
@@ -71,36 +83,55 @@ public class AppInstance {
         return _manifest.getInstallDir();
     }
 
-    public void open() {
-        this.getWindow().open();
+    public AppInstance open() {
+        _windows.open(null); // open main
+        return this;
     }
 
     public void close() {
-        this.getWindow().close();
-    }
-
-    void stageClosing() {
-        _listener.onClose(this);
-    }
-
-    void stageOpening() {
-        _listener.onOpen(this);
+        _windows.close(null); // close all
     }
 
     public Logger getLogger() {
         return LoggingUtils.getLogger(this.getId());
     }
 
+    /**
+     * Launch another app and returns instance
+     *
+     * @param appId App identifier
+     * @return AppInstance
+     */
+    public AppInstance launchApp(final String appId) {
+        try {
+            if (null != _controller) {
+                return _controller.launch(appId);
+            }
+        } catch (Throwable t) {
+            this.getLogger().log(Level.SEVERE, null, t);
+        }
+        return null;
+    }
+
+    // --------------------------------------------------------------------
+    //                      IEventListener
+    // --------------------------------------------------------------------
+
+    @Override
+    public void on(final Event event) {
+        if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_CLOSE)) {
+            // CLOSE
+            this.handleCloseFrame((AppFrame) event.getSender());
+        } else if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_OPEN)) {
+            // OPEN
+            this.handleOpenFrame((AppFrame) event.getSender());
+        }
+    }
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private AppWindow getWindow() {
-        if (null == __window) {
-            __window = new AppWindow(this);
-        }
-        return __window;
-    }
 
     private void initLogger() {
         final String id = _manifest.getAppId();
@@ -108,5 +139,23 @@ public class AppInstance {
         LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, "application.log"));
     }
 
+    private void handleCloseFrame(final AppFrame frame) {
+        // set frame properties (auto saved)
+        this.getRegistry().setX(frame.getId(), frame.getX());
+        this.getRegistry().setY(frame.getId(), frame.getY());
+        this.getRegistry().setWidth(frame.getId(), frame.getWidth());
+        this.getRegistry().setHeight(frame.getId(), frame.getHeight());
+
+        // is last frame?
+        if (_windows.isEmpty()) {
+            this.emit(new AppCloseEvent(this));
+        }
+    }
+
+    private void handleOpenFrame(final AppFrame frame) {
+        if (frame.isMain()) {
+            this.emit(new AppOpenEvent(this));
+        }
+    }
 
 }

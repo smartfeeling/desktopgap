@@ -5,6 +5,7 @@ import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.StringUtils;
 
 import java.io.File;
 
@@ -21,50 +22,52 @@ public class AppRegistry {
     private static final String MF_FRAME_Y = IDesktopConstants.MF_FRAME_Y;
 
     private final String _root;
+    private final String _appId;
     private final JsonWrapper _repository;
     private final String _file_name;
 
     public AppRegistry(final AppManifest manifest) {
         _root = manifest.getInstallDir();
+        _appId = manifest.getAppId();
         _repository = new JsonWrapper(new JSONObject());
         _file_name = PathUtils.concat(_root, FILE_NAME);
 
         this.init(manifest);
     }
 
-    public double getWidth() {
-        return _repository.deepDouble(MF_FRAME_WIDTH);
+    public double getWidth(final String winId) {
+        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_WIDTH));
     }
 
-    public void setWidth(final double value) {
-        _repository.putDeep(MF_FRAME_WIDTH, value);
+    public void setWidth(final String winId, final double value) {
+        _repository.putDeep(StringUtils.concatDot(winId, MF_FRAME_WIDTH), value);
         this.save();
     }
 
-    public double getHeight() {
-        return _repository.deepDouble(MF_FRAME_HEIGHT);
+    public double getHeight(final String winId) {
+        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_HEIGHT));
     }
 
-    public void setHeight(final double value) {
-        _repository.putDeep(MF_FRAME_HEIGHT, value);
+    public void setHeight(final String winId, final double value) {
+        _repository.putDeep(StringUtils.concatDot(winId, MF_FRAME_HEIGHT), value);
         this.save();
     }
 
-    public double getX() {
-        return _repository.deepDouble(MF_FRAME_X);
+    public double getX(final String winId) {
+        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_X));
     }
 
-    public void setX(final double value) {
-        _repository.putDeep(MF_FRAME_X, value);
+    public void setX(final String winId, final double value) {
+        _repository.putDeep(StringUtils.concatDot(winId, MF_FRAME_X), value);
         this.save();
     }
 
-    public double getY() {
-        return _repository.deepDouble(MF_FRAME_Y);
+    public double getY(final String winId) {
+        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_Y));
     }
 
-    public void setY(final double value) {
-        _repository.putDeep(MF_FRAME_Y, value);
+    public void setY(final String winId, final double value) {
+        _repository.putDeep(StringUtils.concatDot(winId, MF_FRAME_Y), value);
         this.save();
     }
 
@@ -80,10 +83,10 @@ public class AppRegistry {
             _repository.parse(content);
         } else {
             // creates new
-            this.setHeight(manifest.getHeight());
-            this.setWidth(manifest.getWidth());
-            this.setX(manifest.getX());
-            this.setY(manifest.getY());
+            this.setHeight(_appId, manifest.getHeight());
+            this.setWidth(_appId, manifest.getWidth());
+            this.setX(_appId, manifest.getX());
+            this.setY(_appId, manifest.getY());
         }
     }
 

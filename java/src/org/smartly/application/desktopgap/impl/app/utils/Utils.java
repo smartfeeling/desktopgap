@@ -2,7 +2,6 @@ package org.smartly.application.desktopgap.impl.app.utils;
 
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.applications.IAppInstanceListener;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
@@ -117,8 +116,7 @@ public class Utils {
         return APP_EXT.equalsIgnoreCase(PathUtils.getFilenameExtension(packagePath, true));
     }
 
-    public static boolean install(final IAppInstanceListener listener,
-                                  final String packagePath,
+    public static boolean install(final String packagePath,
                                   final String appFolder) throws IOException {
         if (StringUtils.hasText(packagePath) && StringUtils.hasText(appFolder)) {
             // remove old (need keep clean between versions)

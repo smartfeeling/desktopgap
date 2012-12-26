@@ -1,6 +1,6 @@
-package org.smartly.application.desktopgap.impl.app.applications.window;
+package org.smartly.application.desktopgap.impl.app.applications.window.frame;
 
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -10,11 +10,16 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
+import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
@@ -26,7 +31,7 @@ import java.util.List;
 /**
  * Window
  */
-public final class AppWindow {
+public final class AppFrame extends EventEmitter {
 
     private final static String STYLE_SHEET = "window.css";
 
@@ -38,24 +43,36 @@ public final class AppWindow {
             "icon_125.png"
     };
 
+    private final AppWindows _windows;
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
     private final AppWindowController _winctrl;
+    private final String _id;
     private Stage _stage;
     private Scene _scene;
 
 
-    public AppWindow(final AppInstance app) {
-        _app = app;
+    public AppFrame(final AppWindows windows, final String id) {
+        _windows = windows;
+        _app = _windows.getApp();
         _stage = new Stage(StageStyle.UTILITY);
         _loader = new FXMLLoader();
         _fxml = getContent(_loader);
         _winctrl = _loader.getController();
+        _id = id;
+    }
+
+    public String getId() {
+        return _id;
     }
 
     public AppInstance getApp() {
         return _app;
+    }
+
+    public boolean isMain() {
+        return this.getId().equalsIgnoreCase(_app.getId());
     }
 
     public String getFrame() {
@@ -86,39 +103,42 @@ public final class AppWindow {
         return null != _app ? _app.getManifest() : null;
     }
 
-    public void open() {
-        final Size2D size = this.getSize();
-
-        _stage.setTitle(this.getTitle());
-        _stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
-        _stage.getIcons().addAll(this.getIcons());
-
-        _stage.setScene(this.createScene(_fxml, size));
-
-        //-- size --//
-        if (size.getHeight() < 1 || size.getWidth() < 1) {
-            final Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-            _stage.setHeight(screen.getHeight());
-            _stage.setWidth(screen.getWidth());
-            _stage.setX(screen.getMinX());
-            _stage.setY(screen.getMinY());
-        } else {
-            this.setPosition(_stage);
+    public double getX() {
+        if (null != _stage) {
+            return _stage.getX();
         }
+        return 0.0;
+    }
 
-        _stage.setResizable(this.isResizable());
+    public double getY() {
+        if (null != _stage) {
+            return _stage.getY();
+        }
+        return 0.0;
+    }
 
-        this.addHandlers(_stage);
+    public double getWidth() {
+        if (null != _stage) {
+            return _stage.getScene().getWidth();
+        }
+        return 0.0;
+    }
 
-        //-- initialize window controller --//
-        _winctrl.initialize(this);
+    public double getHeight() {
+        if (null != _stage) {
+            return _stage.getScene().getHeight();
+        }
+        return 0.0;
+    }
 
-        _stage.show();
+    public void open() {
+        openOrFocus();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 
-        //-- notify open --//
-        this.onOpen();
-
-        _app.getLogger().info("App Window Opened: " + _app.getId());
+            }
+        });
     }
 
     // --------------------------------------------------------------------
@@ -127,7 +147,7 @@ public final class AppWindow {
 
     public void close() {
         // close stage and trigger event
-        this.onClose(_stage);
+        this.emit(new FrameCloseEvent(this));
         _stage.close();
     }
 
@@ -145,6 +165,47 @@ public final class AppWindow {
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
+
+    private void openOrFocus() {
+        if (_stage.isShowing()) {
+            _stage.requestFocus();
+
+        } else {
+            final Size2D size = this.getSize();
+
+            _stage.setTitle(this.getTitle());
+            _stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
+            _stage.getIcons().addAll(this.getIcons());
+
+            _stage.setScene(this.createScene(_fxml, size));
+
+            //-- size --//
+            if (size.getHeight() < 1 || size.getWidth() < 1) {
+                final Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+                _stage.setHeight(screen.getHeight());
+                _stage.setWidth(screen.getWidth());
+                _stage.setX(screen.getMinX());
+                _stage.setY(screen.getMinY());
+            } else {
+                this.setPosition(_stage);
+            }
+
+            _stage.setResizable(this.isResizable());
+
+            this.addStageHandlers();
+
+            //-- initialize window controller --//
+            _winctrl.initialize(this);
+
+            _stage.show();
+
+            //-- notify open --//
+            this.onOpen();
+
+            _app.getLogger().info("App Window Opened: " + _app.getId());
+        }
+
+    }
 
     private Scene createScene(final Parent parent, final Size2D size) {
         //final AppBrowser parent = new AppBrowser(this);
@@ -188,14 +249,14 @@ public final class AppWindow {
     }
 
     private Size2D getSize() {
-        final double height = _app.getRegistry().getHeight();
-        final double width = _app.getRegistry().getWidth();
+        final double height = _app.getRegistry().getHeight(this.getId());
+        final double width = _app.getRegistry().getWidth(this.getId());
         return new Size2D(height, width);
     }
 
     private void setPosition(final Stage stage) {
-        double x = _app.getRegistry().getX();
-        double y = _app.getRegistry().getY();
+        double x = _app.getRegistry().getX(this.getId());
+        double y = _app.getRegistry().getY(this.getId());
         if (x > -1) {
             stage.setX(x);
         }
@@ -204,40 +265,30 @@ public final class AppWindow {
         }
     }
 
-
-    private void addHandlers(final Stage stage) {
+    private void addStageHandlers() {
+        /*final AppFrame self = this;
         //-- close event --//
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        _stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
-                onClose(stage);
+                self.emit(new FrameCloseEvent(self));
             }
-        });
+        }); */
     }
 
     private void onOpen() {
-        _app.stageOpening();
-    }
-
-    private void onClose(final Stage stage) {
-        // set frame properties (auto saved)
-        _app.getRegistry().setX(stage.getX());
-        _app.getRegistry().setY(stage.getY());
-        _app.getRegistry().setWidth(stage.getScene().getWidth());
-        _app.getRegistry().setHeight(stage.getScene().getHeight());
-
-        _app.stageClosing();
+        this.emit(new FrameOpenEvent(this));
     }
 
     // --------------------------------------------------------------------
     //               S T A T I C
     // --------------------------------------------------------------------
 
-    public static Parent getContent(final FXMLLoader loader) {
+    private static Parent getContent(final FXMLLoader loader) {
         try {
-            return (Parent) loader.load(AppWindow.class.getResource("window.fxml").openStream());
+            return (Parent) loader.load(AppFrame.class.getResource("frame.fxml").openStream());
         } catch (Throwable t) {
-            Smartly.getLogger(AppWindow.class).severe(t);
+            Smartly.getLogger(AppFrame.class).severe(t);
             return new Pane(); // should return error message
         }
     }

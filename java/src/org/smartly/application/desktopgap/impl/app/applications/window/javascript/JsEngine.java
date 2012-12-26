@@ -2,7 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
 
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
-import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.commons.logging.Level;
 
@@ -19,9 +19,9 @@ public class JsEngine {
     private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
 
     private final WebEngine _engine;
-    private final AppWindow _window;
+    private final AppFrame _window;
 
-    public JsEngine(final AppWindow window, final WebEngine engine) {
+    public JsEngine(final AppFrame window, final WebEngine engine) {
         _window = window;
         _engine = engine;
     }

@@ -17,6 +17,8 @@ import java.util.Map;
  */
 public class ToolConsole {
 
+    private static final String APP_CONSOLE_ID = "system_console";
+
     private final AppInstance _app;
     private final String _id;
 
@@ -29,6 +31,17 @@ public class ToolConsole {
     public String getId() {
         return _id;
     }
+
+    /**
+     * Open console window
+     */
+    public void open(){
+       _app.launchApp(APP_CONSOLE_ID);
+    }
+
+    // --------------------------------------------------------------------
+    //                  L O G
+    // --------------------------------------------------------------------
 
     public void log(final Object message) {
         if (null != message) {

@@ -1,7 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.controller;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
-import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.commons.cryptograph.MD5;
 import org.smartly.commons.util.CompareUtils;
@@ -23,7 +23,7 @@ public class AppWindowUrl {
     private final String _app_docroot;
     private final String _url;
 
-    public AppWindowUrl(final AppWindow window,
+    public AppWindowUrl(final AppFrame window,
                         final String url) throws IOException {
         _app_docroot = window.getManifest().getAbsoluteAppPath("");
         if (isTemp(url)) {

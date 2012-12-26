@@ -142,6 +142,13 @@
             return this;
         },
 
+        open: function (){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().open();
+            }
+        },
+
         log: function (message){
             var bridge = defined('bridge');
             if (!!bridge) {
