@@ -1,5 +1,7 @@
 !(function (window) {
 
+    var document = window.document;
+
     // ------------------------------------------------------------------------
     //                      initialization
     // ------------------------------------------------------------------------
@@ -185,24 +187,30 @@
     var device = {
 
         init: function () {
-
-            return this;
+            var self = this;
+            document.addEventListener('deviceready', function () {
+                self['name'] = getDevice('name');
+                self['platform'] = getDevice('platform');
+                self['uuid'] = getDevice('uuid');
+                self['version'] = getDevice('version');
+            }, false);
+            return self;
         },
 
-        name: getDevice('name'),
+        name: 'undefined',
 
-        platform: getDevice('platform'),
+        platform: 'undefined',
 
-        uuid: getDevice('uuid'),
+        uuid: 'undefined',
 
-        version: getDevice('version')
+        version: 'undefined'
 
     };
 
-    function getDevice(property){
+    function getDevice(property) {
         var bridge = defined('bridge');
         if (!!bridge) {
-           bridge.device().get(property);
+            return bridge.device(property);
         }
         return 'undefined';
     }
