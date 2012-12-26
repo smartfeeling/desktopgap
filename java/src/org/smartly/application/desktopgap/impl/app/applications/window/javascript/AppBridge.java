@@ -1,6 +1,8 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindow;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection.ToolConnection;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
 import org.smartly.commons.util.ConversionUtils;
 
@@ -21,11 +23,15 @@ public class AppBridge {
     private final AppWindow _window;
     // tools
     private final ToolDevice _device;
+    private final ToolConnection _connection;
+    private final ToolConsole _console;
 
     public AppBridge(final AppWindow window) {
         _window = window;
         // tools
         _device = new ToolDevice();
+        _connection = new ToolConnection();
+        _console = ToolConsole.getConsole(_window.getApp());
     }
 
     @Override
@@ -36,6 +42,14 @@ public class AppBridge {
         result.append("}");
 
         return result.toString();
+    }
+
+    // --------------------------------------------------------------------
+    //               C O N S O L E
+    // --------------------------------------------------------------------
+
+    public ToolConsole console() {
+        return _console;
     }
 
     // --------------------------------------------------------------------
@@ -68,11 +82,23 @@ public class AppBridge {
     //               D E V I C E
     // --------------------------------------------------------------------
 
-    public Object device(final Object property){
-        if(property instanceof String){
-            return _device.get((String)property);
+    public ToolDevice device() {
+        return _device;
+    }
+
+    public Object device(final Object property) {
+        if (property instanceof String) {
+            return _device.get((String) property);
         }
         return UNDEFINED;
+    }
+
+    // --------------------------------------------------------------------
+    //               C O N N E C T I O N
+    // --------------------------------------------------------------------
+
+    public ToolConnection connection() {
+        return _connection;
     }
 
     // ------------------------------------------------------------------------

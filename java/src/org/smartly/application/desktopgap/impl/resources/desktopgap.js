@@ -132,6 +132,53 @@
     }
 
     // ------------------------------------------------------------------------
+    //                      C O N S O L E
+    // ------------------------------------------------------------------------
+
+    var console = {
+
+        init: function () {
+
+            return this;
+        },
+
+        log: function (message){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().log(message);
+            }
+        },
+
+        error: function (message){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().error(message);
+            }
+        },
+
+        warn: function (message){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().warn(message);
+            }
+        },
+
+        info: function (message){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().info(message);
+            }
+        },
+
+        debug: function (message){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                bridge.console().debug(message);
+            }
+        }
+    };
+
+    // ------------------------------------------------------------------------
     //                      F R A M E
     // ------------------------------------------------------------------------
 
@@ -216,12 +263,62 @@
     }
 
     // ------------------------------------------------------------------------
+    //                      C O N N E C T I O N
+    // ------------------------------------------------------------------------
+
+    var Connections = {
+        UNKNOWN: 'UNKNOWN',
+        ETHERNET:'ETHERNET',
+        NONE:'NONE'
+    };
+
+    var connection = {
+
+        init: function () {
+            var self = this;
+            document.addEventListener('deviceready', function () {
+                self.refresh();
+            }, false);
+            return self;
+        },
+
+        type: Connections.UNKNOWN,
+
+        refresh: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                this['type'] = bridge.connection().getType();
+            }
+        }
+
+    };
+
+    function getConnection(){
+        var bridge = defined('bridge');
+        if (!!bridge) {
+            return bridge.connection().getType();
+        }
+        return Connections.UNKNOWN;
+    }
+
+    // ------------------------------------------------------------------------
+    //                      F I L E
+    // ------------------------------------------------------------------------
+
+
+
+    // ------------------------------------------------------------------------
     //                      e x p o r t s
     // ------------------------------------------------------------------------
 
     var exports = window.desktopgap = window.dg = {};
 
+    exports.console = console.init();
+
     exports.frame = frame.init();
+
+    exports.connection = connection.init();
+    exports.Connections = Connections;
 
     exports.device = device.init();
 
@@ -239,7 +336,11 @@
     //                      -> window
     // ------------------------------------------------------------------------
 
+    window.console = exports.console;
+
     window.device = exports.device;
+
+    window.Connections = exports.Connections;
 
     // ------------------------------------------------------------------------
     //                  i n i t i a l i z a t i o n

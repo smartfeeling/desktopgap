@@ -3,9 +3,11 @@
     $('#app_content').html('APPLICATION LOADED!!');
 
     document.addEventListener('deviceready', function () {
-        alert('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
+        console.log('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
 
-        alert(device.uuid);
+        console.log(device.uuid);
+
+        console.log(navigator.connection.type);
     }, false);
 
 })();
