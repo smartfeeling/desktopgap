@@ -13,41 +13,115 @@
         return false;
     }
 
-    function makeClickHandler(buttonName) {
+    //-- buttons --//
+
+    var normal = 'NORMAL'
+        , clicked = 'CLICKED'
+        ;
+
+    function initButtons() {
+        var buttons = desktopgap.frame.buttons
+            , close = buttons.close = document.getElementById('close')
+            , fullscreen = buttons.fullscreen = document.getElementById('fullscreen')
+            , minimize = buttons.minimize = document.getElementById('minimize')
+            , maximize = buttons.maximize = document.getElementById('maximize')
+            , maximize_glyph = document.getElementById('maximize-glyph');
+
+        //-- fix focus bug --//
+        fixButtonFocus(fullscreen, minimize, maximize);
+
+        //-- buttons style --//
+        fullscreen['data-state'] = normal;
+        maximize['data-state'] = normal;
+
+        //-- handle buttons click --//
+        close.onclick = makeClickHandler('close');
+        minimize.onclick = makeClickHandler('minimize');
+        maximize.onclick = makeClickHandler('maximize', function () {
+            console.log(maximize.src);
+            if (maximize['data-state'] == normal) {
+                maximize['data-state'] = clicked;
+                maximize_glyph.src = './frame/glyph-exit-maximize.png';
+            } else {
+                maximize['data-state'] = normal;
+                maximize_glyph.src = 'frame/glyph-maximize.png';
+            }
+        });
+        fullscreen.onclick = makeClickHandler('fullscreen', function () {
+            if (fullscreen['data-state'] == normal) {
+                fullscreen['data-state'] = clicked;
+                fullscreen.classList.remove('fullscreen');
+                fullscreen.classList.add('fullscreen-clicked');
+            } else {
+                fullscreen['data-state'] = normal;
+                fullscreen.classList.remove('fullscreen-clicked');
+                fullscreen.classList.add('fullscreen');
+            }
+        });
+    }
+
+    function makeClickHandler(buttonName, callback) {
         return function (event, element) {
             event.cancelBubble = true;
             if (event.stopPropagation)
                 event.stopPropagation();
             desktopgap.frame.buttonClicked(buttonName);
+            if (!!callback) {
+                callback();
+            }
         };
     }
 
-    function setupButtonHandlers() {
-        document.getElementById('close').onclick = makeClickHandler('close');
-        document.getElementById('minimize').onclick = makeClickHandler('minimize');
-        document.getElementById('maximize').onclick = makeClickHandler('maximize');
-        document.getElementById('fullscreen').onclick = makeClickHandler('fullscreen');
+    function fixButtonFocus(fullscreen, minimize, maximize) {
+        // fix focus bug
+        fullscreen.addEventListener('click', function () {
+            fullscreen.classList.remove('fullscreen');
+            document.body.addEventListener('mouseover', function () {
+                fullscreen.classList.add('fullscreen');
+                document.body.removeEventListener('mouseover', arguments.callee, false);
+            }, false);
+        }, false);
+
+        minimize.addEventListener('click', function () {
+            minimize.classList.remove('minimize');
+            document.body.addEventListener('mouseover', function () {
+                minimize.classList.add('minimize');
+                document.body.removeEventListener('mouseover', arguments.callee, false);
+            }, false);
+        }, false);
+
+        maximize.addEventListener('click', function () {
+            maximize.classList.remove('maximize');
+            document.body.addEventListener('mouseover', function () {
+                maximize.classList.add('maximize');
+                document.body.removeEventListener('mouseover', arguments.callee, false);
+            }, false);
+        }, false);
     }
+
+    //-- drag&drop, area and context menu --//
 
     function updateAreas() {
 
         if (defined()) {
-            var content = document.getElementById('content');
-            var fullscreen = document.getElementById('fullscreen');
-            var minimize = document.getElementById('minimize');
-            var maximize = document.getElementById('maximize');
-            var close = document.getElementById('close');
+            var content = document.getElementById('content') || {};
+            var fullscreen = document.getElementById('fullscreen') || {};
+            var minimize = document.getElementById('minimize') || {};
+            var maximize = document.getElementById('maximize') || {};
+            var close = document.getElementById('close') || {};
             var height = 27;
             var buttonPadding = 6;
-            var margin = content.offsetLeft;
+            var margin = content.offsetLeft || 0;
             var leftOffset = 0;
-            var rightOffset = close.offsetWidth + minimize.offsetWidth + buttonPadding; // 6 pixels of padding
+            var closeOffset = close.offsetWidth || 0;
+            var miniOffset = minimize.offsetWidth || 0;
+            var rightOffset = closeOffset + miniOffset + buttonPadding; // 6 pixels of padding
 
             if (fullscreen.style.visibility == 'visible') {
                 leftOffset = fullscreen.offsetWidth + buttonPadding;
             }
 
-            if (maximize.style.display == 'block') {
+            if (maximize.style.visibility == 'visible') {
                 rightOffset += maximize.offsetWidth;
             }
 
@@ -82,52 +156,10 @@
         }, false);
     }
 
-    function fixButtonFocus() {
-        var fullscreen = document.getElementById('fullscreen');
-        var minimize = document.getElementById('minimize');
-        var maximize = document.getElementById('maximize');
-
-        // fix focus bug
-        fullscreen.addEventListener('click', function () {
-            fullscreen.classList.remove('fullscreen');
-            document.body.addEventListener('mouseover', function () {
-                fullscreen.classList.add('fullscreen');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
-            }, false);
-        }, false);
-
-        minimize.addEventListener('click', function () {
-            minimize.classList.remove('minimize');
-            document.body.addEventListener('mouseover', function () {
-                minimize.classList.add('minimize');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
-            }, false);
-        }, false);
-
-        maximize.addEventListener('click', function () {
-            maximize.classList.remove('maximize');
-            document.body.addEventListener('mouseover', function () {
-                maximize.classList.add('maximize');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
-            }, false);
-        }, false);
-    }
-
     function init() {
-        var imgs = [
-            'frame/bg-reg.png', 'frame/bg-hov.png', 'frame/bg-down.png',
-            'frame/bg-max-hov.png', 'frame/bg-max-reg.png', 'frame/bg-max-down.png',
-            'frame/control-fullscreen-hover.png', 'frame/control-fullscreen-down.png'
-        ];
-        for (var i = 0, l = imgs.length; i < l; i++) {
-            var img = new Image();
-            img.src = imgs[i];
-        }
-
         disableContextMenu();
         disableDragAndDrop();
-        fixButtonFocus();
-        setupButtonHandlers();
+        initButtons();
         updateAreas();
     }
 
@@ -142,42 +174,42 @@
             return this;
         },
 
-        open: function (){
+        open: function () {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().open();
             }
         },
 
-        log: function (message){
+        log: function (message) {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().log(message);
             }
         },
 
-        error: function (message){
+        error: function (message) {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().error(message);
             }
         },
 
-        warn: function (message){
+        warn: function (message) {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().warn(message);
             }
         },
 
-        info: function (message){
+        info: function (message) {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().info(message);
             }
         },
 
-        debug: function (message){
+        debug: function (message) {
             var bridge = defined('bridge');
             if (!!bridge) {
                 bridge.console().debug(message);
@@ -195,6 +227,8 @@
 
             return this;
         },
+
+        buttons: {},
 
         buttonClicked: function (name) {
             if (defined('bridge')) {
@@ -275,8 +309,8 @@
 
     var Connections = {
         UNKNOWN: 'UNKNOWN',
-        ETHERNET:'ETHERNET',
-        NONE:'NONE'
+        ETHERNET: 'ETHERNET',
+        NONE: 'NONE'
     };
 
     var connection = {
@@ -291,7 +325,7 @@
 
         type: Connections.UNKNOWN,
 
-        refresh: function(){
+        refresh: function () {
             var bridge = defined('bridge');
             if (!!bridge) {
                 this['type'] = bridge.connection().getType();
@@ -300,7 +334,7 @@
 
     };
 
-    function getConnection(){
+    function getConnection() {
         var bridge = defined('bridge');
         if (!!bridge) {
             return bridge.connection().getType();
@@ -311,7 +345,6 @@
     // ------------------------------------------------------------------------
     //                      F I L E
     // ------------------------------------------------------------------------
-
 
 
     // ------------------------------------------------------------------------
@@ -343,6 +376,8 @@
     //                      -> window
     // ------------------------------------------------------------------------
 
+    window.deviceready = false;
+
     window.console = exports.console;
 
     window.device = exports.device;
@@ -355,6 +390,10 @@
 
     document.addEventListener('deviceready', function () {
         init();
+
+        //-- set ready state --//
+        window.deviceready = true;
+
     }, false);
 
 })(this);

@@ -95,6 +95,11 @@ public class AppWindowController implements Initializable {
     public AppWindowAreaManager getAreas() {
         return _areaManager;
     }
+
+    public JsEngine getJsEngine() {
+        return _jsengine;
+    }
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
@@ -138,7 +143,7 @@ public class AppWindowController implements Initializable {
         //-- handlers --//
         final WebEngine engine = browser.getEngine();
         _jsengine = new JsEngine(_frame, engine);
-        _jsengine.init();
+        // _jsengine.init();
 
         this.handleAlert(engine);
         this.handlePrompt(engine);
@@ -201,8 +206,9 @@ public class AppWindowController implements Initializable {
                                 navigate(_location);
                             }
                         } else if (newState == Worker.State.SUCCEEDED) {
-                            _jsengine.init();
-                            _jsengine.dispatchReady();
+                            //_jsengine.init();
+                            //_jsengine.showHideElem(_frame.getManifest().getButtonsMap());
+                            //_jsengine.dispatchReady();
 
                             //-- remove page --//
                             AppWindowUrl.delete(_location);

@@ -10,6 +10,8 @@ import org.smartly.commons.util.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Manifest wrapper
@@ -34,6 +36,10 @@ public class AppManifest {
     private static final String MF_FRAME_HEIGHT = IDesktopConstants.MF_FRAME_HEIGHT;
     private static final String MF_FRAME_X = IDesktopConstants.MF_FRAME_X;
     private static final String MF_FRAME_Y = IDesktopConstants.MF_FRAME_Y;
+    private static final String MF_BUTTONS = IDesktopConstants.MF_BUTTONS;
+    private static final String MF_BUTTONS_FULLSCREEN = IDesktopConstants.MF_BUTTONS_FULLSCREEN;
+    private static final String MF_BUTTONS_MAXIMIZE = IDesktopConstants.MF_BUTTONS_MAXIMIZE;
+    private static final String MF_BUTTONS_MINIMIZE = IDesktopConstants.MF_BUTTONS_MINIMIZE;
 
     private static final String MF_FRAME_STANDARD = IDesktopConstants.FRAME_STANDARD;
     private static final String MF_FRAME_TOOL = IDesktopConstants.FRAME_TOOL;
@@ -225,6 +231,46 @@ public class AppManifest {
         this.save();
     }
 
+    //-- buttons --//
+
+    public Map<String, Boolean> getButtonsMap() {
+        final Map<String, Boolean> buttons = new HashMap<String, Boolean>();
+        buttons.put(IDesktopConstants.BTN_FULLSCREEN, getButtonFullscreen());
+        buttons.put(IDesktopConstants.BTN_MAXIMIZE, getButtonMaximize());
+        buttons.put(IDesktopConstants.BTN_MINIMIZE, getButtonMinimize());
+
+        return buttons;
+    }
+
+    public boolean getButtonFullscreen() {
+        return _manifest.deepBoolean(MF_BUTTONS_FULLSCREEN);
+    }
+
+    public void setButtonFullscreen(final boolean value) {
+        _manifest.putSilent(MF_BUTTONS_FULLSCREEN, value);
+        this.generateId();
+        this.save();
+    }
+
+    public boolean getButtonMaximize() {
+        return _manifest.deepBoolean(MF_BUTTONS_MAXIMIZE);
+    }
+
+    public void setButtonMaximize(final boolean value) {
+        _manifest.putSilent(MF_BUTTONS_MAXIMIZE, value);
+        this.generateId();
+        this.save();
+    }
+
+    public boolean getButtonMinimize() {
+        return _manifest.deepBoolean(MF_BUTTONS_MINIMIZE);
+    }
+
+    public void setButtonsMinimize(final boolean value) {
+        _manifest.putSilent(MF_BUTTONS_MINIMIZE, value);
+        this.generateId();
+        this.save();
+    }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e
@@ -269,5 +315,6 @@ public class AppManifest {
         final String version = _manifest.optString(MF_VERSION);
         _appId = MD5.encode(StringUtils.concatDot(name, title, version));
     }
+
 
 }

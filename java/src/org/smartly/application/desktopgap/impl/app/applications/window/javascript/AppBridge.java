@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection.ToolConnection;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
@@ -13,10 +14,10 @@ public class AppBridge {
 
     public static final String NAME = "bridge";
 
-    private static final String BUTTON_CLOSE = "close";
-    private static final String BUTTON_MINIMIZE = "minimize";
-    private static final String BUTTON_MAXIMIZE = "maximize";
-    private static final String BUTTON_FULLSCREEN = "fullscreen";
+    private static final String BUTTON_CLOSE = IDesktopConstants.BTN_CLOSE;
+    private static final String BUTTON_MINIMIZE = IDesktopConstants.BTN_MINIMIZE;
+    private static final String BUTTON_MAXIMIZE = IDesktopConstants.BTN_MAXIMIZE;
+    private static final String BUTTON_FULLSCREEN = IDesktopConstants.BTN_FULLSCREEN;
 
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 

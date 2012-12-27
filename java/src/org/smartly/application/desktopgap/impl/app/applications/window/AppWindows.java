@@ -42,9 +42,9 @@ public final class AppWindows
     //               frame
     // --------------------------------------------------------------------
 
-    public void open(final String winId) {
+    public AppFrame open(final String winId) {
         final String id = this.createWinId(winId);
-        this.openById(id);
+        return this.openById(id);
     }
 
     public void close(final String winId) {
@@ -97,7 +97,7 @@ public final class AppWindows
         return StringUtils.hasText(winId) ? appId.concat(winId) : appId;
     }
 
-    private void openById(final String id) {
+    private AppFrame openById(final String id) {
         final AppFrame frame;
         if (_frames.contains(id)) {
             frame = _frames.get(id);
@@ -107,6 +107,7 @@ public final class AppWindows
 
         }
         frame.open();
+        return frame;
     }
 
     private void closeAll() {

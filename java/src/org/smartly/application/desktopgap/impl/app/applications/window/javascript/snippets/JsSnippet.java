@@ -18,10 +18,15 @@ public class JsSnippet {
     private static final String TPL_SUFFIX = "]";
 
     //-- script template parameters--//
-    private static final String PARAM_EVENT_NAME = "EVENT_NAME";
+    private static final String PARAM_EVENT_NAME = "EVENT_NAME"; // string
+    private static final String PARAM_SHOW = "SHOW"; // boolean
+    private static final String PARAM_ELEMENT = "ELEMENT"; // string
+    private static final String PARAM_VALUE = "VALUE"; // string
 
     //-- script shortcuts --//
-    private static final String SCRIPT_DISPATCH_EVENT = "dispatchEvent.js";
+    private static final String SCRIPT_DISPATCH_EVENT = "/js/dispatchEvent.js";
+    private static final String SCRIPT_SHOW_HIDE_ELEM = "/js/showHideElem.js";
+    private static final String SCRIPT_SET_ELEM_VALUE = "/js/setElemValue.js";
 
     private JsSnippet() {
     }
@@ -49,10 +54,26 @@ public class JsSnippet {
         return __instance;
     }
 
-    public static String getDispatchEvent(final String eventName){
+    public static String getDispatchEvent(final String eventName) {
         final Map<String, Object> params = new HashMap<String, Object>();
         params.put(PARAM_EVENT_NAME, eventName);
 
-        return  getInstance().getScript(SCRIPT_DISPATCH_EVENT, params);
+        return getInstance().getScript(SCRIPT_DISPATCH_EVENT, params);
+    }
+
+    public static String getShowHideElem(final String elementId, final boolean visible) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        params.put(PARAM_ELEMENT, elementId);
+        params.put(PARAM_SHOW, visible);
+
+        return getInstance().getScript(SCRIPT_SHOW_HIDE_ELEM, params);
+    }
+
+    public static String getSetElemValue(final String elementId, final String value) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        params.put(PARAM_ELEMENT, elementId);
+        params.put(PARAM_VALUE, value);
+
+        return getInstance().getScript(SCRIPT_SET_ELEM_VALUE, params);
     }
 }

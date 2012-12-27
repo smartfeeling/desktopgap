@@ -11,5 +11,10 @@
         "height": 598,
         "y": 156,
         "x": 112
+    },
+    "buttons": {
+        "fullscreen": false,
+        "minimize": true,
+        "maximize": true
     }
 }

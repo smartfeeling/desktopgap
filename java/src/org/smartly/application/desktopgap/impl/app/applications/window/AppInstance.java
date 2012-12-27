@@ -15,6 +15,8 @@ import org.smartly.commons.logging.util.LoggingUtils;
 import org.smartly.commons.util.PathUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Application Wrapper
@@ -27,6 +29,7 @@ public class AppInstance
     private final AppManifest _manifest;
     private final AppRegistry _registry;
     private final AppWindows _windows; // frames manager
+    private final List<AppFrame> _children; // children frames
 
 
     public AppInstance(final AppController controller,
@@ -36,6 +39,7 @@ public class AppInstance
         _registry = new AppRegistry(_manifest);
         _windows = new AppWindows(this);
         _windows.addEventListener(this);
+        _children = new ArrayList<AppFrame>();
 
         this.initLogger();
     }
@@ -83,6 +87,10 @@ public class AppInstance
         return _manifest.getInstallDir();
     }
 
+    public AppFrame open(final String winId) {
+        return _windows.open(winId);
+    }
+
     public AppInstance open() {
         _windows.open(null); // open main
         return this;
@@ -100,17 +108,31 @@ public class AppInstance
      * Launch another app and returns instance
      *
      * @param appId App identifier
+     * @param winId (Optional) window instance identifier (only for multiple instance of same frame)
      * @return AppInstance
      */
-    public AppInstance launchApp(final String appId) {
+    public AppFrame launchApp(final String appId,
+                              final String winId,
+                              final String title,
+                              final boolean isChild) {
+        AppFrame child = null;
         try {
             if (null != _controller) {
-                return _controller.launch(appId);
+                child = _controller.launch(appId, winId);
             }
         } catch (Throwable t) {
             this.getLogger().log(Level.SEVERE, null, t);
         }
-        return null;
+
+        // add child to internal child list
+        if (null != child && isChild) {
+            child.setTitle(title);
+            if(isChild){
+                _children.add(child);
+            }
+        }
+
+        return child;
     }
 
     // --------------------------------------------------------------------
@@ -145,6 +167,14 @@ public class AppInstance
         this.getRegistry().setY(frame.getId(), frame.getY());
         this.getRegistry().setWidth(frame.getId(), frame.getWidth());
         this.getRegistry().setHeight(frame.getId(), frame.getHeight());
+
+        // close children
+        for(final AppFrame child:_children){
+           try{
+             child.close();
+           }catch(Throwable ignored){
+           }
+        }
 
         // is last frame?
         if (_windows.isEmpty()) {

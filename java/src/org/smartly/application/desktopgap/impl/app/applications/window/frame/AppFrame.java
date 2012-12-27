@@ -1,6 +1,5 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.frame;
 
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppInstan
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.event.EventEmitter;
@@ -44,16 +44,18 @@ public final class AppFrame extends EventEmitter {
     };
 
     private final AppWindows _windows;
+    private final AppWindowController _winctrl;
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
-    private final AppWindowController _winctrl;
+
     private final String _id;
     private Stage _stage;
     private Scene _scene;
+    private String _title;
 
-
-    public AppFrame(final AppWindows windows, final String id) {
+    public AppFrame(final AppWindows windows,
+                    final String id) {
         _windows = windows;
         _app = _windows.getApp();
         _stage = new Stage(StageStyle.UTILITY);
@@ -61,6 +63,8 @@ public final class AppFrame extends EventEmitter {
         _fxml = getContent(_loader);
         _winctrl = _loader.getController();
         _id = id;
+
+        _title = _app.getManifest().getTitle();
     }
 
     public String getId() {
@@ -93,10 +97,6 @@ public final class AppFrame extends EventEmitter {
         } catch (Throwable ignored) {
         }
         return AppResources.getPageUri_BLANK();
-    }
-
-    public String getTitle() {
-        return _app.getManifest().getTitle();
     }
 
     public AppManifest getManifest() {
@@ -133,17 +133,23 @@ public final class AppFrame extends EventEmitter {
 
     public void open() {
         openOrFocus();
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
     }
 
     // --------------------------------------------------------------------
     //               frame
     // --------------------------------------------------------------------
+
+    public String getTitle() {
+        return _title;
+    }
+
+    public void setTitle(final String title) {
+        _title = null != title ? title : "";
+
+        if(null!=_winctrl){
+            _winctrl.getJsEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
+        }
+    }
 
     public void close() {
         // close stage and trigger event
@@ -159,6 +165,12 @@ public final class AppFrame extends EventEmitter {
                         final double left, final double top, final double right, final double height) {
         if (null != _winctrl) {
             _winctrl.getAreas().setArea(name, left, top, right, height);
+        }
+    }
+
+    public void showHideElem(final String elementId, final boolean visible) {
+        if (null != _winctrl) {
+            _winctrl.getJsEngine().whenReady(JsSnippet.getShowHideElem(elementId, visible));
         }
     }
 

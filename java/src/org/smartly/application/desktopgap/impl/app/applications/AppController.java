@@ -13,6 +13,7 @@ import org.smartly.application.desktopgap.impl.app.applications.events.FrameClos
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
 import org.smartly.application.desktopgap.impl.app.command.CommandSender;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
@@ -102,11 +103,11 @@ public class AppController
      *
      * @param path Application file path. i.e. "c:\app\my_app.dga", or Application folder path.
      */
-    public AppInstance launch(final String path) throws IOException {
+    public AppFrame launch(final String path, final String winId) throws IOException {
         if (Utils.isPackage(path)) {
-            return this.launchPackage(path);
+            return this.launchPackage(path, winId);
         } else {
-            return this.launchApp(path);
+            return this.launchApp(path, winId);
         }
     }
 
@@ -137,7 +138,7 @@ public class AppController
             public void run() {
                 try {
                     final String clean_path = PathUtils.toUnixPath(path);
-                    if (null!=launchPackage(clean_path)) {
+                    if (null!=launchPackage(clean_path, null)) {
                         // remove package
                         FileUtils.delete(clean_path);
                     }
@@ -158,7 +159,7 @@ public class AppController
             @Override
             public void run() {
                 try {
-                    launchApp(appId);
+                    launchApp(appId, null);
                 } catch (Throwable t) {
                     log(Level.SEVERE, null, t);
                 }
@@ -254,16 +255,18 @@ public class AppController
      *
      * @param packagePath Application Package Path. i.e. "c:/myapp/app.dga"
      */
-    private AppInstance launchPackage(final String packagePath) throws IOException {
+    private AppFrame launchPackage(final String packagePath,
+                                      final String winId) throws IOException {
         final AppInstance app_instance = this.installPackage(packagePath);
 
         //-- ready to run app --//
-        return this.launchApp(app_instance.getId());
+        return this.launchApp(app_instance.getId(), winId);
     }
 
-    private AppInstance launchApp(final String appId) throws IOException {
+    private AppFrame launchApp(final String appId,
+                                  final String winId) throws IOException {
         if (_registry_installed.containsKey(appId)) {
-            return _registry_installed.get(appId).open();
+            return _registry_installed.get(appId).open(winId);
         }
         return null;
     }

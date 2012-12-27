@@ -24,8 +24,8 @@ public class ToolConsole {
 
     private ToolConsole(final AppInstance app) {
         _app = app;
-        _id = getConsoleId(app);
-        this.initLogger();
+        _id = getConsoleId(app); // multiple instances for same app
+        this.initLogger(_id);
     }
 
     public String getId() {
@@ -36,7 +36,8 @@ public class ToolConsole {
      * Open console window
      */
     public void open(){
-       _app.launchApp(APP_CONSOLE_ID);
+        final String title = _app.getManifest().getTitle().concat(" (console)");
+       _app.launchApp(APP_CONSOLE_ID, _id, title, true);
     }
 
     // --------------------------------------------------------------------
@@ -90,9 +91,10 @@ public class ToolConsole {
         return LoggingUtils.getLogger(this.getId());
     }
 
-    private void initLogger() {
+    private void initLogger(final String id) {
         final String installDir = _app.getInstallDir();
-        LoggingRepository.getInstance().setAbsoluteLogFileName(this.getId(), PathUtils.concat(installDir, "console.log"));
+        final String fileName = "console.log";
+        LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, fileName));
     }
 
     private String toString(final Object obj){
