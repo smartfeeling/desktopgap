@@ -15,9 +15,9 @@
             view:false
         });
 
-        this['_items'] = options['items'];
+        this['_items'] =  [];
 
-        // add listeners
+            // add listeners
         this.on('init', _init);
     }
 

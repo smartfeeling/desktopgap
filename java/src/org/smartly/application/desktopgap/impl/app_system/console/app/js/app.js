@@ -36,6 +36,8 @@
             require('./js/components/level/level.js');
             require('./js/components/message/message.js');
 
+            console.log('components imported');
+
             imported = true;
         }
     }
@@ -45,8 +47,6 @@
      * @param data
      */
     function onData(data) {
-
-
         try {
             if (!console_comp) {
                 console_comp = new desktopgap.gui.console.Console({
@@ -57,7 +57,7 @@
                 appendDataToConsole(data);
             }
         } catch (err) {
-            console.error(err);
+            console.error('(app.js) - ' + err);
         }
     }
 

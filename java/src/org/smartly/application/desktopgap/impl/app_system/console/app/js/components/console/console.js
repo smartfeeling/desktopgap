@@ -12,15 +12,17 @@
         ;
 
     function Console(options) {
-        var self = this;
+        var self = this
+            ;
 
-        ly.base(this, {
+        ly.base(self, {
             template: load('./js/components/console/console.html'),
-            model:false,
-            view:false
+            model: false,
+            view: false
         });
 
         this['_items'] = options['items'];
+        this['_panels'] = {};
 
         // add listeners
         this.on('init', _init);
@@ -45,7 +47,7 @@
             , $tab = $(self.template(sel_tabs))
             ;
 
-        ly.el.click($tab, function(){
+        ly.el.click($tab, function () {
             $(this).tab('show');
         });
 
@@ -54,12 +56,47 @@
 
     function _refresh() {
         var self = this
-            , $self = $(self.template(sel_self))
+
+        // items
             , items = self['_items']
+            , ALL = items['ALL'] || []
+            , INFO = items['INFO'] || []
+            , WARN = items['WARNING'] || []
+            , ERR = items['ERROR'] || []
+
+        // selectors
+            , tab_all = self.template(sel_tab_all)
+            , tab_info = self.template(sel_tab_info)
+            , tab_warn = self.template(sel_tab_warn)
+            , tab_err = self.template(sel_tab_err)
             ;
 
+        try{
+            //-- ALL --//
+            self.bindTo(getPanel)(tab_all).items(ALL);
 
-        $self.fadeIn();
+        } catch(err){
+            console.error('(console.js) Error loading items: ' + err);
+        }
+
+
+        $(self.template(sel_self)).fadeIn();
+    }
+
+    function getPanel(tab_selector) {
+        var self = this
+            , panels = self['_panels']
+            ;
+
+        console.info('(console.js) Getting panel: ' + tab_selector);
+
+        if (!panels[tab_selector]) {
+            console.info('(console.js) Creating panel: ' + tab_selector);
+            $(tab_selector).html('');
+            panels[tab_selector] = new desktopgap.gui.level.Level({});
+            panels[tab_selector].appendTo(tab_selector);
+        }
+        return panels[tab_selector];
     }
 
     // ------------------------------------------------------------------------
