@@ -60,6 +60,9 @@ public class AppCompiler {
 
         //-- deploy frame --//
         AppResources.deploy_FRAMES(manifest, app_dir);
+
+        //-- deploy framework --//
+        AppResources.deploy_JsFramework(app_dir);
     }
 
     // ------------------------------------------------------------------------

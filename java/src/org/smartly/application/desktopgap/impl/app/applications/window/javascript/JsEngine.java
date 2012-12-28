@@ -16,10 +16,12 @@ import java.util.*;
  */
 public class JsEngine {
 
+    public static final String UNDEFINED = "undefined";
+
+    //-- js events --//
     public static final String EVENT_READY = "ready";
     public static final String EVENT_DEVICEREADY = "deviceready";
-
-    public static final String UNDEFINED = "undefined";
+    public static final String EVENT_DATA = "data";
 
     private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
 
@@ -56,8 +58,8 @@ public class JsEngine {
 
     //-- EVENTS --//
 
-    protected void dispatchEvent(final String eventName) {
-        final String script = JsSnippet.getDispatchEvent(eventName);
+    protected void dispatchEvent(final String eventName, final Object data) {
+        final String script = JsSnippet.getDispatchEvent(eventName, data);
         this.executeScript(script);
     }
 
@@ -66,10 +68,10 @@ public class JsEngine {
      */
     protected void dispatchReady() {
         // ready
-        final String script_ready = JsSnippet.getDispatchEvent(EVENT_READY);
+        final String script_ready = JsSnippet.getDispatchEvent(EVENT_READY, null);
         this.executeScript(script_ready);
         // deviceready
-        final String script_deviceready = JsSnippet.getDispatchEvent(EVENT_DEVICEREADY);
+        final String script_deviceready = JsSnippet.getDispatchEvent(EVENT_DEVICEREADY, null);
         this.executeScript(script_deviceready);
     }
 

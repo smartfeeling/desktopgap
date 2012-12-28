@@ -1,15 +1,17 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.logging.LoggingRepository;
 import org.smartly.commons.logging.util.LoggingUtils;
+import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The console object is a helper tool for debug.<br>
@@ -19,12 +21,19 @@ public class ToolConsole {
 
     private static final String APP_CONSOLE_ID = "system_console";
 
+    private static final String ALL = "ALL";
+
     private final AppInstance _app;
     private final String _id;
+    private final Map<String, ConsoleMessage> _messages;
+
+    private AppFrame _frame;
 
     private ToolConsole(final AppInstance app) {
         _app = app;
         _id = getConsoleId(app); // multiple instances for same app
+        _messages = new LinkedHashMap<String, ConsoleMessage>();
+
         this.initLogger(_id);
     }
 
@@ -33,11 +42,42 @@ public class ToolConsole {
     }
 
     /**
+     * Wrap all messages into JSON structure
+     * @return JSON structure with messages
+     */
+    public JSONObject getMessages() {
+        final JsonWrapper json = new JsonWrapper(new JSONObject());
+        json.putSilent(ALL, new JSONArray());
+        final Set<String> keys = _messages.keySet();
+        for (final String key : keys) {
+            final JSONObject message = _messages.get(key).toJSON();
+            json.putSilent(key, message);
+            json.optJSONArray(ALL).put(message);
+        }
+        return json.getJSONObject();
+    }
+
+    /**
+     * Wrap single message into messages structure
+     * @param message Message
+     * @return JSON structure with message
+     */
+    public JSONObject getMessages(final ConsoleMessage message) {
+        final JsonWrapper json = new JsonWrapper(new JSONObject());
+        json.putSilent(ALL, new JSONArray());
+
+        json.putSilent(message.level(), message);
+        json.optJSONArray(ALL).put(message);
+
+        return json.getJSONObject();
+    }
+
+    /**
      * Open console window
      */
-    public void open(){
+    public void open() {
         final String title = _app.getManifest().getTitle().concat(" (console)");
-       _app.launchApp(APP_CONSOLE_ID, _id, title, true);
+        _frame = _app.launchApp(APP_CONSOLE_ID, _id, title, this.getMessages(), true);
     }
 
     // --------------------------------------------------------------------
@@ -46,41 +86,61 @@ public class ToolConsole {
 
     public void log(final Object message) {
         if (null != message) {
-
+            final Level level = Level.INFO;
+            final ConsoleMessage cm = new ConsoleMessage(this, level, message);
+            _messages.put(level.toString(), cm);
             //-- delegate to logger --//
-            this.getLogger().log(Level.INFO, this.toString(message));
+            this.getLogger().log(level, cm.toString());
+            //-- send to frame if any--//
+            this.sendToFrame(cm);
         }
     }
 
     public void error(final Object message) {
         if (null != message) {
-
+            final Level level = Level.SEVERE;
+            final ConsoleMessage cm = new ConsoleMessage(this, level, message);
+            _messages.put(level.toString(), cm);
             //-- delegate to logger --//
-            this.getLogger().log(Level.SEVERE, this.toString(message));
+            this.getLogger().log(level, cm.toString());
+            //-- send to frame if any--//
+            this.sendToFrame(cm);
         }
     }
 
     public void warn(final Object message) {
         if (null != message) {
-
+            final Level level = Level.WARNING;
+            final ConsoleMessage cm = new ConsoleMessage(this, level, message);
+            _messages.put(level.toString(), cm);
             //-- delegate to logger --//
-            this.getLogger().log(Level.WARNING, this.toString(message));
+            this.getLogger().log(level, cm.toString());
+            //-- send to frame if any--//
+            this.sendToFrame(cm);
         }
     }
 
     public void info(final Object message) {
         if (null != message) {
-
+            final Level level = Level.INFO;
+            final ConsoleMessage cm = new ConsoleMessage(this, level, message);
+            _messages.put(level.toString(), cm);
             //-- delegate to logger --//
-            this.getLogger().log(Level.INFO, this.toString(message));
+            this.getLogger().log(level, cm.toString());
+            //-- send to frame if any--//
+            this.sendToFrame(cm);
         }
     }
 
     public void debug(final Object message) {
         if (null != message) {
-
+            final Level level = Level.FINE;
+            final ConsoleMessage cm = new ConsoleMessage(this, level, message);
+            _messages.put(level.toString(), cm);
             //-- delegate to logger --//
-            this.getLogger().log(Level.FINE, this.toString(message));
+            this.getLogger().log(level, cm.toString());
+            //-- send to frame if any--//
+            this.sendToFrame(cm);
         }
     }
     // ------------------------------------------------------------------------
@@ -97,12 +157,10 @@ public class ToolConsole {
         LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, fileName));
     }
 
-    private String toString(final Object obj){
-        if(null!=obj){
-
-            return obj.toString();
+    private void sendToFrame(final ConsoleMessage message) {
+        if (null != _frame) {
+            _frame.putArguments(this.getMessages(message));
         }
-        return "";
     }
 
     // --------------------------------------------------------------------

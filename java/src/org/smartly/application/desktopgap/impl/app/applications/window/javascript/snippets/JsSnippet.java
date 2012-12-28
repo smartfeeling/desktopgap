@@ -19,6 +19,7 @@ public class JsSnippet {
 
     //-- script template parameters--//
     private static final String PARAM_EVENT_NAME = "EVENT_NAME"; // string
+    private static final String PARAM_EVENT_DATA = "EVENT_DATA"; // json string
     private static final String PARAM_SHOW = "SHOW"; // boolean
     private static final String PARAM_ELEMENT = "ELEMENT"; // string
     private static final String PARAM_VALUE = "VALUE"; // string
@@ -54,9 +55,10 @@ public class JsSnippet {
         return __instance;
     }
 
-    public static String getDispatchEvent(final String eventName) {
+    public static String getDispatchEvent(final String eventName, final Object data) {
         final Map<String, Object> params = new HashMap<String, Object>();
         params.put(PARAM_EVENT_NAME, eventName);
+        params.put(PARAM_EVENT_DATA, null!=data ? data.toString() : "");
 
         return getInstance().getScript(SCRIPT_DISPATCH_EVENT, params);
     }

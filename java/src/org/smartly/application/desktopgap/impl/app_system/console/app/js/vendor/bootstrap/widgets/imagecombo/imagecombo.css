@@ -1,0 +1,44 @@
+.imagecombo-balloon {
+    position: relative;
+    min-height: 70px;
+    clear: both;
+    padding: 15px;
+    margin: 8px 0 0.5em;
+    color: #333;
+    background: #d0e5f5;
+    display: block;
+    /* css3 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.imagecombo-balloon p {
+    font-size: 15px;
+    line-height: 1.25em;
+}
+
+.imagecombo-balloon img {
+    float: left;
+    padding-right: 5px;
+}
+
+/* creates the triangle */
+.imagecombo-balloon:after {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 50px;
+    border: 15px solid transparent;
+    border-bottom-color: #d0e5f5;
+    /* reduce the damage in FF3.0 */
+    display: block;
+    width: 0;
+}
+
+/* display of quote author (alternatively use a class on the element following the blockquote) */
+.imagecombo-balloon + p {
+    padding-left: 15px;
+    font: 14px Arial, sans-serif;
+    clear: both;
+}

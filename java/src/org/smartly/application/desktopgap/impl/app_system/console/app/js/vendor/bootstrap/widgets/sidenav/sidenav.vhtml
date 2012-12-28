@@ -1,0 +1,11 @@
+<script id="li-<%= cid %>" type="text/template">
+    <li>
+        <a data-set="{_id}" data-idx="{idx}"
+           href="#{_id}"><i
+                class="icon-chevron-right"></i>{label}</a>
+    </li>
+</script>
+
+<ul id="<%= cid %>" class="nav nav-list sidenav">
+
+</ul>

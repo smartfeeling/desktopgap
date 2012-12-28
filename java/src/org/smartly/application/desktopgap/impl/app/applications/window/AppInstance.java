@@ -114,6 +114,7 @@ public class AppInstance
     public AppFrame launchApp(final String appId,
                               final String winId,
                               final String title,
+                              final Object args,
                               final boolean isChild) {
         AppFrame child = null;
         try {
@@ -127,6 +128,7 @@ public class AppInstance
         // add child to internal child list
         if (null != child && isChild) {
             child.setTitle(title);
+            child.putArguments(args);
             if(isChild){
                 _children.add(child);
             }

@@ -19,19 +19,12 @@ import java.io.InputStream;
  */
 public final class AppResources {
 
+    private static final String PATH_JSDESKTOPGAP = "/desktopgap";
     private static final String PATH_FRAMES = "/frames";
     private static final String PATH_APP_TEMPLATE = "/app_template";
     private static final String PATH_APP_FRAME = "/app_frame";
     private static final String PATH_BLANK = "/blank";
 
-    private static final String[] DG_FILES = new String[]{
-            "desktopgap.js",
-            "desktopgap_connection.js",
-            "desktopgap_console.js",
-            "desktopgap_device.js",
-            "desktopgap_file.js",
-            "desktopgap_frame.js"
-    };
 
     private static final String PRE_INDEX_PAGE = IDesktopConstants.PRE_INDEX_PAGE;
 
@@ -149,12 +142,29 @@ public final class AppResources {
         deployer.getSettings().getPreProcessorFiles().add(".html");
         deployer.getSettings().getPreprocessorValues().put(PRE_INDEX_PAGE, index);
         deployer.deployChildren();
-
-        //-- deploy desktopgap.js--//
-        for(final String file:DG_FILES){
-            deployScriptFile(file, target);
-        }
     }
 
+    public static void deploy_JsFramework(final String target) {
+        final String source = PATH_JSDESKTOPGAP;
+        final FileDeployer deployer = new FileDeployer(source, target, true, false, false, false) {
+            @Override
+            public byte[] compress(byte[] data, String filename) {
+                return null;
+            }
+
+            @Override
+            public byte[] compile(byte[] data, String filename) {
+                return null;
+            }
+        };
+        deployer.setOverwrite(true);
+        deployer.getSettings().clear();
+        // exclude
+        deployer.getSettings().getExcludeFiles().add(".class");
+        // pre-process
+        deployer.getSettings().getPreProcessorFiles().add(".html");
+        //deployer.getSettings().getPreprocessorValues().put(PRE_INDEX_PAGE, index);
+        deployer.deployChildren();
+    }
 
 }

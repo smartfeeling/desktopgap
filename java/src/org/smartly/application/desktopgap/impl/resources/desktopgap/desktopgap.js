@@ -47,7 +47,7 @@
         return xhr.responseText;
     }
 
-    function require(url) {
+    window.require = function require(url) {
         try {
             var script = getUrl(url);
             if (!!script) {
@@ -59,7 +59,20 @@
             };
         }
         return {};
-    }
+    };
+
+    window.load = function load(url) {
+        // console.log('load: ' + url);
+        try {
+            var text = getUrl(url);
+            if (!!text) {
+                return text;
+            }
+        } catch (err) {
+            return err.toString();
+        }
+        return undefined;
+    };
 
     // ------------------------------------------------------------------------
     //                      initialization
@@ -70,7 +83,7 @@
             return !!property ? desktopgap[property] : desktopgap;
         }
         return false;
-    }
+    };
 
     //-- buttons --//
 

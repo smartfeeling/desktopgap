@@ -7,8 +7,10 @@ import org.smartly.application.desktopgap.impl.app.applications.AppController;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.AppCompiler;
 import org.smartly.application.desktopgap.impl.app_system.DeployerAppSystem;
 import org.smartly.commons.logging.Level;
+import org.smartly.commons.util.LocaleUtils;
 import org.smartly.packages.AbstractPackage;
 
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -128,5 +130,14 @@ public class DesktopGap extends AbstractPackage {
 
     public static String[] getLauncherRemainArgs() {
         return Smartly.getLauncherRemainArgs();
+    }
+
+    public static String getLang() {
+        final Locale locale = getLocale();
+        return locale.getLanguage();
+    }
+
+    public static Locale getLocale() {
+        return LocaleUtils.getCurrent();
     }
 }

@@ -16,6 +16,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppInstan
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.utils.Size2D;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
@@ -171,6 +172,16 @@ public final class AppFrame extends EventEmitter {
     public void showHideElem(final String elementId, final boolean visible) {
         if (null != _winctrl) {
             _winctrl.getJsEngine().whenReady(JsSnippet.getShowHideElem(elementId, visible));
+        }
+    }
+
+    /**
+     * Pass custom arguments (data) to javascript.
+     * @param data Custom data to pass to javascript engine.
+     */
+    public void putArguments(final Object data){
+        if (null != _winctrl) {
+            _winctrl.getJsEngine().whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
         }
     }
 
