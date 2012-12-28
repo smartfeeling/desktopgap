@@ -5,9 +5,9 @@
     document.addEventListener('deviceready', function () {
         console.log('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
 
-        console.log(device.uuid);
+        console.log('device.uuid: ' + device.uuid);
 
-        console.log(navigator.connection.type);
+        console.log('navigator.connection.type: ' + navigator.connection.type);
 
         console.open();
     }, false);

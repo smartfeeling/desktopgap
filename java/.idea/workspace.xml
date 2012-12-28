@@ -58,14 +58,14 @@
     <file path="/frame.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356617638293" ignored="false" />
     <file path="/Sizable.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355589815812" ignored="false" />
     <file path="/blank.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355648895167" ignored="false" />
-    <file path="/AppResources.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355935484146" ignored="false" />
+    <file path="/AppResources.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356688044567" ignored="false" />
     <file path="/FileItem.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355656959340" ignored="false" />
     <file path="/frame.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356617709188" ignored="false" />
     <file path="/AppResourcesTest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355673420711" ignored="false" />
     <file path="/JSProxy.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355678427108" ignored="false" />
     <file path="/DOM.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356104836893" ignored="false" />
     <file path="/HtmlParser.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355932185000" ignored="false" />
-    <file path="/desktopgap.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356624807531" ignored="false" />
+    <file path="/desktopgap.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356690254880" ignored="false" />
     <file path="/AppBridge.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356620442970" ignored="false" />
     <file path="/AppRegistry.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356535600960" ignored="false" />
     <file path="/AppWindowAreaManager.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356099507229" ignored="false" />
@@ -87,8 +87,6 @@
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/vendor/backbone/backbone.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428442987" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/command/CommandHandler.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443324" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/command/CommandSender.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443324" ignored="false" />
-    <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/css/main.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443324" ignored="false" />
-    <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/css/normalize.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443324" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/compilers/exceptions/InvalidManifestException.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443608" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/config/languages/en.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443892" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/config/languages/es.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443892" ignored="false" />
@@ -119,6 +117,9 @@
     <file path="/IDesktopGapEvents.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541844041" ignored="false" />
     <file path="/showHideElem.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356624231330" ignored="false" />
     <file path="/setElemValue.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356626774068" ignored="false" />
+    <file path="/desktopgap_console.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356688632973" ignored="false" />
+    <file path="/desktopgap_connection.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356689087367" ignored="false" />
+    <file path="/desktopgap_device.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356689929228" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +147,7 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -181,7 +182,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -192,15 +193,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="desktopgap.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="desktopgap.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="378" column="31" selection-start="11866" selection-end="11866" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#2759#3886#0" expanded="false" />
-                <element signature="e#5266#5457#0" expanded="false" />
-                <element signature="e#5493#5773#0" expanded="false" />
-              </folding>
+            <state line="243" column="21" selection-start="8104" selection-end="8104" vertical-scroll-proportion="0.7795389">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -214,10 +211,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsEngine.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="JsEngine.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="68" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.22876713">
+            <state line="65" column="26" selection-start="2038" selection-end="2038" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -227,33 +224,6 @@
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/controller/AppWindowController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="98" column="26" selection-start="3060" selection-end="3071" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppWindows.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppWindows.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="21" selection-start="3499" selection-end="3499" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppInstance.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppInstance.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="23" selection-start="3920" selection-end="3920" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ToolConsole.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/console/ToolConsole.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="16" selection-start="1197" selection-end="1197" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -269,22 +239,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/manifest.json" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/IDesktopConstants.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/AppBridge.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppManifest.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/AppController.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppWindows.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/console/ToolConsole.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/dispatchEvent.js" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/JsSnippet.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppInstance.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/showHideElem.js" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap.js" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/setElemValue.js" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/controller/AppWindowController.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppFrame.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_frame.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_console.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_connection.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/page2.html" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/app.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/AppResources.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_device.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap.js" />
       </list>
     </option>
   </component>
@@ -326,6 +296,26 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="desktopgap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1658,37 +1648,17 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="Repository.Attach.JavaDocs" value="true" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../smartly/smartly_package_01_htmlparser/smartly_package_01_htmlparser.iml" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -1705,17 +1675,17 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="org.smartly.commons.util" />
       <recent name="org.smartly.application.desktopgap.impl.resources" />
       <recent name="org.smartly.commons.network.socket.server" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.smartly.application.desktopgap.impl.app.applications.window.events" />
@@ -1725,11 +1695,11 @@
       <recent name="org.smartly.application.desktopgap" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\resources" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\home" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\console" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\home\app\js\vendor" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\resources\window" />
-      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\resources\window\frame" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app\applications\window\javascript\snippets\js" />
@@ -1916,19 +1886,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1955,6 +1912,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2055,31 +2025,31 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="false" />
+    <frame x="54" y="-8" width="1874" height="1096" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258547" sideWeight="0.4089404" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.72863245" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.72863245" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23076923" sideWeight="0.59933776" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23076923" sideWeight="0.59657836" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1923077" sideWeight="0.49117" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23076923" sideWeight="0.39955848" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1923077" sideWeight="0.5049669" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1923077" sideWeight="0.5027594" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29801324" sideWeight="0.21474358" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.72863245" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39955848" sideWeight="0.72863245" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29801324" sideWeight="0.8076923" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29801324" sideWeight="0.7692308" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32799146" sideWeight="0.49779248" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258547" sideWeight="0.4089404" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.72863245" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2145,89 +2115,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/console/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="8" selection-start="300" selection-end="396" vertical-scroll-proportion="0.4409222">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/app_template/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="5" selection-start="260" selection-end="354" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppManifest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="265" column="47" selection-start="8160" selection-end="8160" vertical-scroll-proportion="0.62680113">
-          <folding>
-            <element signature="e#7233#7250#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/AppController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="260" column="31" selection-start="10270" selection-end="10270" vertical-scroll-proportion="1.9863014">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppWindows.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="21" selection-start="3499" selection-end="3499" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/console/ToolConsole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="16" selection-start="1197" selection-end="1197" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/dispatchEvent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="252" selection-end="252" vertical-scroll-proportion="0.26945245">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/JsSnippet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="60" selection-start="2955" selection-end="2955" vertical-scroll-proportion="0.92651296">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="23" selection-start="3920" selection-end="3920" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/showHideElem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="4" selection-start="227" selection-end="227" vertical-scroll-proportion="0.25260028">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="378" column="31" selection-start="11866" selection-end="11866" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#2759#3886#0" expanded="false" />
-            <element signature="e#5266#5457#0" expanded="false" />
-            <element signature="e#5493#5773#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/setElemValue.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="47" selection-start="603" selection-end="603" vertical-scroll-proportion="0.5389049">
@@ -2258,7 +2145,89 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="68" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.22876713">
+        <state line="65" column="26" selection-start="2038" selection-end="2038" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap__module_stub.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="269" selection-end="675" vertical-scroll-proportion="-5.8846154">
+          <folding>
+            <marker date="1356430068916" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1356430068916" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/page2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="16" selection-start="490" selection-end="490" vertical-scroll-proportion="0.4992272">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_connection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="21" selection-start="890" selection-end="890" vertical-scroll-proportion="0.46541786">
+          <folding>
+            <element signature="e#306#392#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_frame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="0.17146975">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_console.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="40" selection-start="193" selection-end="193" vertical-scroll-proportion="0.12247839">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/AppResources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="34" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.48991355">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="48" selection-start="312" selection-end="312" vertical-scroll-proportion="0.2204611">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap_device.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="66" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.63256484">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="243" column="21" selection-start="8104" selection-end="8104" vertical-scroll-proportion="0.7795389">
           <folding />
         </state>
       </provider>

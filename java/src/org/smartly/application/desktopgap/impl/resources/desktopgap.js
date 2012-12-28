@@ -3,10 +3,69 @@
     var document = window.document;
 
     // ------------------------------------------------------------------------
+    //                      utility
+    // ------------------------------------------------------------------------
+
+    function isFunction(func) {
+        return Object.prototype.toString.call(func) == '[object Function]';
+    }
+
+    function extend(target, source) {
+        var name, copy;
+        if (source) {
+            for (name in source) {
+                if (!!name) {
+                    copy = source[ name ];
+                    if (copy !== undefined) {
+                        target[ name ] = copy;
+                    }
+                }
+            }
+        }
+    }
+
+    function evalScript(text) {
+        if (!!text) {
+            return window[ "eval" ].call(window, text);
+        }
+        return {};
+    }
+
+
+    function getUrl(url, callback) {
+        var xhr = new XMLHttpRequest(),
+            async = isFunction(callback);
+        xhr.open("GET", url, async);
+        if (async) {
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState === 4) {
+                    callback(xhr.responseText);
+                }
+            };
+        }
+        xhr.send();
+        return xhr.responseText;
+    }
+
+    function require(url) {
+        try {
+            var script = getUrl(url);
+            if (!!script) {
+                return evalScript(script);
+            }
+        } catch (err) {
+            return {
+                error: err
+            };
+        }
+        return {};
+    }
+
+    // ------------------------------------------------------------------------
     //                      initialization
     // ------------------------------------------------------------------------
 
-    function defined(property) {
+    window.defined = function defined(property) {
         if (typeof desktopgap != 'undefined') {
             return !!property ? desktopgap[property] : desktopgap;
         }
@@ -164,203 +223,26 @@
     }
 
     // ------------------------------------------------------------------------
-    //                      C O N S O L E
-    // ------------------------------------------------------------------------
-
-    var console = {
-
-        init: function () {
-
-            return this;
-        },
-
-        open: function () {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().open();
-            }
-        },
-
-        log: function (message) {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().log(message);
-            }
-        },
-
-        error: function (message) {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().error(message);
-            }
-        },
-
-        warn: function (message) {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().warn(message);
-            }
-        },
-
-        info: function (message) {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().info(message);
-            }
-        },
-
-        debug: function (message) {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                bridge.console().debug(message);
-            }
-        }
-    };
-
-    // ------------------------------------------------------------------------
-    //                      F R A M E
-    // ------------------------------------------------------------------------
-
-    var frame = {
-
-        init: function () {
-
-            return this;
-        },
-
-        buttons: {},
-
-        buttonClicked: function (name) {
-            if (defined('bridge')) {
-                desktopgap['bridge'].buttonClicked(name);
-            }
-        },
-
-        setArea: function (name, left, top, right, height) {
-            if (defined('bridge')) {
-                name = name || 'undefined';
-                left = parseFloat(left);
-                top = parseFloat(top);
-                right = parseFloat(right);
-                height = parseFloat(height);
-                desktopgap['bridge'].setArea(name, left, top, right, height);
-            }
-        }
-
-    };
-
-    // ------------------------------------------------------------------------
-    //                      D E V I C E
-    // ------------------------------------------------------------------------
-
-    /**
-     * The device object describes the device's hardware and software
-     * <p/>
-     * Properties
-     * <p/>
-     * <ul>
-     *     <li>device.name</li>
-     *     <li>device.platform</li>
-     *     <li>device.uuid</li>
-     *     <li>device.version</li>
-     * </ul>
-     * Variable Scope
-     * <p/>
-     * Since device is assigned to the window object, it is implicitly in the global scope.
-     * <p/>
-     * // These reference the same `device`
-     * var phoneName = window.device.name;
-     * var phoneName = device.name;
-     */
-    var device = {
-
-        init: function () {
-            var self = this;
-            document.addEventListener('deviceready', function () {
-                self['name'] = getDevice('name');
-                self['platform'] = getDevice('platform');
-                self['uuid'] = getDevice('uuid');
-                self['version'] = getDevice('version');
-            }, false);
-            return self;
-        },
-
-        name: 'undefined',
-
-        platform: 'undefined',
-
-        uuid: 'undefined',
-
-        version: 'undefined'
-
-    };
-
-    function getDevice(property) {
-        var bridge = defined('bridge');
-        if (!!bridge) {
-            return bridge.device(property);
-        }
-        return 'undefined';
-    }
-
-    // ------------------------------------------------------------------------
-    //                      C O N N E C T I O N
-    // ------------------------------------------------------------------------
-
-    var Connections = {
-        UNKNOWN: 'UNKNOWN',
-        ETHERNET: 'ETHERNET',
-        NONE: 'NONE'
-    };
-
-    var connection = {
-
-        init: function () {
-            var self = this;
-            document.addEventListener('deviceready', function () {
-                self.refresh();
-            }, false);
-            return self;
-        },
-
-        type: Connections.UNKNOWN,
-
-        refresh: function () {
-            var bridge = defined('bridge');
-            if (!!bridge) {
-                this['type'] = bridge.connection().getType();
-            }
-        }
-
-    };
-
-    function getConnection() {
-        var bridge = defined('bridge');
-        if (!!bridge) {
-            return bridge.connection().getType();
-        }
-        return Connections.UNKNOWN;
-    }
-
-    // ------------------------------------------------------------------------
-    //                      F I L E
-    // ------------------------------------------------------------------------
-
-
-    // ------------------------------------------------------------------------
     //                      e x p o r t s
     // ------------------------------------------------------------------------
 
     var exports = window.desktopgap = window.dg = {};
 
-    exports.console = console.init();
+    //-- CONSOLE --//
+    exports.console = require('desktopgap_console.js');
 
-    exports.frame = frame.init();
+    //-- FRAME --//
+    exports.frame = require('desktopgap_frame.js');
 
-    exports.connection = connection.init();
-    exports.Connections = Connections;
+    //-- CONNECTION --//
+    exports.connection = require('desktopgap_connection.js');
+    exports.Connections = exports.connection.Connections;
 
-    exports.device = device.init();
+    //-- DEVICE --//
+    exports.device = require('desktopgap_device.js');
+
+    //-- FILE --//
+    exports.fileSystem = require('desktopgap_file.js');
 
     // ------------------------------------------------------------------------
     //                      -> n a v i g a t o r

@@ -24,7 +24,14 @@ public final class AppResources {
     private static final String PATH_APP_FRAME = "/app_frame";
     private static final String PATH_BLANK = "/blank";
 
-    private static final String FILE_DESKTOPGAPJS = "desktopgap.js";
+    private static final String[] DG_FILES = new String[]{
+            "desktopgap.js",
+            "desktopgap_connection.js",
+            "desktopgap_console.js",
+            "desktopgap_device.js",
+            "desktopgap_file.js",
+            "desktopgap_frame.js"
+    };
 
     private static final String PRE_INDEX_PAGE = IDesktopConstants.PRE_INDEX_PAGE;
 
@@ -84,6 +91,12 @@ public final class AppResources {
         }
     }
 
+    private static void deployScriptFile(final String fileName, final String target){
+        final String script = compileJs(getInstance().getResourceAsString(PathUtils.concat(
+                _root, fileName)));
+        save(script, PathUtils.concat(target, fileName));
+    }
+
     //-- PAGES --//
 
     public static String getPageUri_BLANK() {
@@ -138,8 +151,10 @@ public final class AppResources {
         deployer.deployChildren();
 
         //-- deploy desktopgap.js--//
-        final String script = compileJs(getInstance().getResourceAsString(PathUtils.concat(
-                _root, FILE_DESKTOPGAPJS)));
-        save(script, PathUtils.concat(target, FILE_DESKTOPGAPJS));
+        for(final String file:DG_FILES){
+            deployScriptFile(file, target);
+        }
     }
+
+
 }
