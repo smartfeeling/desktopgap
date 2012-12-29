@@ -36,7 +36,7 @@
             require('./js/components/level/level.js');
             require('./js/components/message/message.js');
 
-            console.log('components imported');
+            // console.log('components imported');
 
             imported = true;
         }
@@ -62,7 +62,10 @@
     }
 
     function appendDataToConsole(data) {
-        console.log('appendDataToConsole: ' + data);
+        if (!!console_comp) {
+            // console.log(JSON.stringify(data));
+            console_comp.appendData(data);
+        }
     }
 
 })(this);

@@ -5,6 +5,9 @@
 
     //-- items --//
         , sel_img = '#img-<%= cid %>'
+        , sel_date = '#date-<%= cid %>'
+        , sel_time = '#time-<%= cid %>'
+        , sel_message = '#message-<%= cid %>'
         ;
 
     function Message(options) {
@@ -49,12 +52,22 @@
         if (!!item && !!item['level']) {
             var level = item['level']
                 , message = item['message']
+                , date = item['date']
+                , time = item['time']
                 , $img = $(self.template(sel_img))
+                , $date = $(self.template(sel_date))
+                , $time = $(self.template(sel_time))
+                , $message = $(self.template(sel_message))
                 ;
             //-- img --//
             $img.attr('src', './images/'+level+'.png');
+            //-- date --//
+            $date.html(date);
+            //-- time --//
+            $time.html(time);
+            //-- message --//
+            $message.html(message);
         }
-        console.log(JSON.stringify(item));
     }
 
     // ------------------------------------------------------------------------

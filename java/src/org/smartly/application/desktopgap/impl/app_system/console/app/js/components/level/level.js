@@ -26,6 +26,7 @@
     ly.inherits(Level, ly.Gui);
 
     Level.prototype.items = function (items) {
+
         if (!!items) {
             this['_items'].push(items);
             this['_items'] = _.flatten(this['_items']);

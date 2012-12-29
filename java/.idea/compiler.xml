@@ -25,6 +25,7 @@
       <entry name="?*.ly" />
       <entry name="?*.less" />
       <entry name="?*.fxml" />
+      <entry name="?*.ttf" />
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">

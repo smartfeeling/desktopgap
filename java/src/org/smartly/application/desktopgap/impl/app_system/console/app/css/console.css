@@ -1,6 +1,18 @@
+
+@font-face {
+    font-family: 'AIRBORNE';
+    src: url('../../fonts/AIRBORNERegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'AIRBORNE', "Courier New";
+    font-size: 12px;
+}
+
 #app_content {
     height: 100%;
-    position: relative;
 }
 
 .console {
@@ -13,14 +25,18 @@
 
 .tab-pane {
     padding: 0 10px;
-    height: 100%;
     overflow: auto;
 }
 
-.message {
+.message-box {
     margin-top: 3px;
     padding-top: 2px;
     border-top: 1px #bbbbbb solid;
+    vertical-align: top;
+}
+
+.message-box>* {
+    vertical-align: top;
     display: inline-block;
 }
 
@@ -30,5 +46,10 @@
 }
 
 .datetime {
-    margin-left: 10px;
+    margin-left: 5px;
+}
+
+.message {
+    padding-left: 5px;
+    font-weight: bold;
 }

@@ -14,6 +14,8 @@
         console.error('test error');
 
         console.open();
+
+
     }, false);
 
 })();

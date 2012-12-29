@@ -1,7 +1,36 @@
 @font-face {
     font-family: 'Open Sans';
-    src: url(frame/OpenSans-Semibold.ttf);
+    src: url(C:/Users/angelo.geminiani/DesktopGap/app_installed/system/console/app/frame/OpenSans-Semibold.ttf);
 }
+
+@font-face {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 300;
+    src: url(fonts/Oxygen-light.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 700;
+    src: url(fonts/Oxygen-bold.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    src: url(fonts/Oxygen-normal.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'AIRBORNE';
+    src: url('fonts/AIRBORNERegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /**
     LAYOUT
@@ -72,7 +101,7 @@ body {
     height: 26px;
     line-height: 25px;
     font-weight: normal;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', "Courier New";
     font-size: 13px;
     color: #333233;
     opacity: 0.999;
@@ -180,7 +209,6 @@ body {
     background-image: url(frame/bg-max-down.png) !important;
 }
 
-
 /*  FULLSCREEN
 ----------------------------*/
 
@@ -196,8 +224,8 @@ body {
 }
 
 .fullscreen {
-     background: transparent url(frame/control-fullscreen.png) 0 0 no-repeat;
- }
+    background: transparent url(frame/control-fullscreen.png) 0 0 no-repeat;
+}
 
 .fullscreen:hover {
     background: transparent url(frame/control-fullscreen-hover.png) 0 0 no-repeat !important;
