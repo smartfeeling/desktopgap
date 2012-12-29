@@ -4,6 +4,8 @@
         , sel_self = '#<%= cid %>'
 
     //-- items --//
+        , sel_count = '#count-<%= cid %>'
+        , sel_messages = '#messages-<%= cid %>'
         ;
 
     function Level(options) {
@@ -11,13 +13,13 @@
 
         ly.base(this, {
             template: load('./js/components/level/level.html'),
-            model:false,
-            view:false
+            model: false,
+            view: false
         });
 
-        this['_items'] =  [];
+        this['_items'] = [];
 
-            // add listeners
+        // add listeners
         this.on('init', _init);
     }
 
@@ -25,8 +27,10 @@
 
     Level.prototype.items = function (items) {
         if (!!items) {
-            this['_items'] = items;
-            this.bindTo(_refresh)();
+            this['_items'].push(items);
+            this['_items'] = _.flatten(this['_items']);
+            // console.log(JSON.stringify(this['_items']));
+            this.bindTo(_load)(items);
         }
         return this['_items'];
     };
@@ -38,15 +42,30 @@
     function _init() {
         var self = this
             ;
-        this.bindTo(_refresh)();
+        self.bindTo(_load)(self['_items']);
     }
 
-    function _refresh() {
+    function _load(items) {
         var self = this
-            , $self = $(self.template(sel_self))
-            , items = self['_items']
+            , $count = $(self.template(sel_count))
             ;
 
+        //-- update count --//
+        $count.html(self['_items'].length);
+
+        //-- add messages --//
+        _.forEach(items, function (item) {
+            self.bindTo(_addMessage)(item);
+        });
+    }
+
+    function _addMessage(message) {
+        var self = this
+            , $messages = $(self.template(sel_messages))
+            ;
+
+        var comp = new desktopgap.gui.message.Message({item:message});
+        comp.appendTo($messages);
     }
 
     // ------------------------------------------------------------------------

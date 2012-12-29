@@ -9,6 +9,10 @@
 
         console.log('navigator.connection.type: ' + navigator.connection.type);
 
+        console.warn('test warning');
+
+        console.error('test error');
+
         console.open();
     }, false);
 

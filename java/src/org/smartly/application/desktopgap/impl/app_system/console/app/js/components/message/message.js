@@ -4,6 +4,7 @@
         , sel_self = '#<%= cid %>'
 
     //-- items --//
+        , sel_img = '#img-<%= cid %>'
         ;
 
     function Message(options) {
@@ -11,11 +12,11 @@
 
         ly.base(this, {
             template: load('./js/components/message/message.html'),
-            model:false,
-            view:false
+            model: false,
+            view: false
         });
 
-        this['_items'] = options['items'];
+        this['_item'] = options['item'];
 
         // add listeners
         this.on('init', _init);
@@ -23,12 +24,12 @@
 
     ly.inherits(Message, ly.Gui);
 
-    Message.prototype.items = function (items) {
-        if (!!items) {
-            this['_items'] = items;
+    Message.prototype.item = function (item) {
+        if (!!item) {
+            this['_item'] = item;
             this.bindTo(_refresh)();
         }
-        return this['_items'];
+        return this['_item'];
     };
 
     // ------------------------------------------------------------------------
@@ -43,10 +44,17 @@
 
     function _refresh() {
         var self = this
-            , $self = $(self.template(sel_self))
-            , items = self['_items']
+            , item = self['_item']
             ;
-
+        if (!!item && !!item['level']) {
+            var level = item['level']
+                , message = item['message']
+                , $img = $(self.template(sel_img))
+                ;
+            //-- img --//
+            $img.attr('src', './images/'+level+'.png');
+        }
+        console.log(JSON.stringify(item));
     }
 
     // ------------------------------------------------------------------------

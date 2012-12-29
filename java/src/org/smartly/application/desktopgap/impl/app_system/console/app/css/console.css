@@ -1,3 +1,34 @@
+#app_content {
+    height: 100%;
+    position: relative;
+}
+
+.console {
+    height: 100%;
+}
+
+.tab-content {
+    height: 100%;
+}
+
 .tab-pane {
     padding: 0 10px;
+    height: 100%;
+    overflow: auto;
+}
+
+.message {
+    margin-top: 3px;
+    padding-top: 2px;
+    border-top: 1px #bbbbbb solid;
+    display: inline-block;
+}
+
+.image {
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.datetime {
+    margin-left: 10px;
 }
