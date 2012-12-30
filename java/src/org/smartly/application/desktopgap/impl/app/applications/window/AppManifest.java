@@ -174,7 +174,7 @@ public class AppManifest {
     }
 
     public String getFrameType() {
-        return _manifest.optString(MF_FRAME_TYPE, MF_FRAME_STANDARD);
+        return _manifest.deepString(MF_FRAME_TYPE, MF_FRAME_STANDARD);
     }
 
     public void setFrameType(final String value) {

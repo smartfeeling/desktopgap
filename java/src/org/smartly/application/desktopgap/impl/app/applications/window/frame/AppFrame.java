@@ -64,7 +64,6 @@ public final class AppFrame extends EventEmitter {
         _fxml = getContent(_loader);
         _winctrl = _loader.getController();
         _id = id;
-
         _title = _app.getManifest().getTitle();
     }
 

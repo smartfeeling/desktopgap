@@ -15,12 +15,11 @@ import javafx.scene.layout.StackPane;
  */
 public class Sizable {
 
+    private static final double MIN_WIDTH = 64;
+    private static final double MIN_HEIGHT = 64;
+
     private static final double AREA_HEIGHT = 10;
     private static final int CORNER_HEIGHT = 15;
-
-    private static final int AXIS_NONE = 0;
-    private static final int AXIS_X = 1;
-    private static final int AXIS_Y = 2;
 
     private static final String ID_TOP = "__top_stack__";
     private static final String ID_RIGHT = "__right_stack__";
@@ -224,6 +223,13 @@ public class Sizable {
                     stack.getScene().getWindow().setHeight(_initialHeight - deltaY);
                     stack.getScene().getWindow().setWidth(_initialWidth - deltaX);
                 }
+                // min
+                if (stack.getScene().getWindow().getHeight() < MIN_HEIGHT) {
+                    stack.getScene().getWindow().setHeight(MIN_HEIGHT);
+                }
+                if (stack.getScene().getWindow().getWidth() < MIN_WIDTH) {
+                    stack.getScene().getWindow().setWidth(MIN_WIDTH);
+                }
             }
         } catch (Throwable ignored) {
         }
@@ -237,6 +243,7 @@ public class Sizable {
         stack.setId(ID_TOP);
         stack.setPrefHeight(AREA_HEIGHT);
         stack.setAlignment(Pos.TOP_CENTER);
+        stack.setFocusTraversable(true);
 
         AnchorPane.setTopAnchor(stack, -(AREA_HEIGHT / 2));
         AnchorPane.setRightAnchor(stack, 0.0);
@@ -290,6 +297,7 @@ public class Sizable {
         stack.setId(ID_RIGHT);
         stack.setPrefWidth(AREA_HEIGHT);
         stack.setAlignment(Pos.CENTER);
+        stack.setFocusTraversable(true);
 
         AnchorPane.setRightAnchor(stack, -5.0);
         AnchorPane.setTopAnchor(stack, 0.0);
@@ -342,6 +350,7 @@ public class Sizable {
         stack.setId(ID_BOTTOM);
         stack.setPrefHeight(AREA_HEIGHT);
         stack.setAlignment(Pos.BOTTOM_CENTER);
+        stack.setFocusTraversable(true);
 
         AnchorPane.setBottomAnchor(stack, -5.0);
         AnchorPane.setRightAnchor(stack, 0.0);
@@ -394,6 +403,8 @@ public class Sizable {
         stack.setId(ID_LEFT);
         stack.setPrefWidth(AREA_HEIGHT);
         stack.setAlignment(Pos.CENTER);
+        stack.setFocusTraversable(true);
+
         AnchorPane.setLeftAnchor(stack, 0.0);
         AnchorPane.setTopAnchor(stack, 0.0);
         AnchorPane.setBottomAnchor(stack, 0.0);

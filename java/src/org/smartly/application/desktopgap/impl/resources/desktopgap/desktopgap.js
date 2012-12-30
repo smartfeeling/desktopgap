@@ -92,44 +92,57 @@
         ;
 
     function initButtons() {
-        var buttons = desktopgap.frame.buttons
-            , close = buttons.close = document.getElementById('close')
-            , fullscreen = buttons.fullscreen = document.getElementById('fullscreen')
-            , minimize = buttons.minimize = document.getElementById('minimize')
-            , maximize = buttons.maximize = document.getElementById('maximize')
-            , maximize_glyph = document.getElementById('maximize-glyph');
+        try {
+            var buttons = desktopgap.frame.buttons
+                , close = buttons.close = document.getElementById('close')
+                , fullscreen = buttons.fullscreen = document.getElementById('fullscreen')
+                , minimize = buttons.minimize = document.getElementById('minimize')
+                , maximize = buttons.maximize = document.getElementById('maximize')
+                , maximize_glyph = document.getElementById('maximize-glyph');
 
-        //-- fix focus bug --//
-        fixButtonFocus(fullscreen, minimize, maximize);
+            //-- fix focus bug --//
+            fixButtonFocus(fullscreen, minimize, maximize);
 
-        //-- buttons style --//
-        fullscreen['data-state'] = normal;
-        maximize['data-state'] = normal;
-
-        //-- handle buttons click --//
-        close.onclick = makeClickHandler('close');
-        minimize.onclick = makeClickHandler('minimize');
-        maximize.onclick = makeClickHandler('maximize', function () {
-            console.log(maximize.src);
-            if (maximize['data-state'] == normal) {
-                maximize['data-state'] = clicked;
-                maximize_glyph.src = './frame/glyph-exit-maximize.png';
-            } else {
-                maximize['data-state'] = normal;
-                maximize_glyph.src = 'frame/glyph-maximize.png';
+            //-- handle buttons click --//
+            if (!!close) {
+                close.onclick = makeClickHandler('close');
             }
-        });
-        fullscreen.onclick = makeClickHandler('fullscreen', function () {
-            if (fullscreen['data-state'] == normal) {
-                fullscreen['data-state'] = clicked;
-                fullscreen.classList.remove('fullscreen');
-                fullscreen.classList.add('fullscreen-clicked');
-            } else {
-                fullscreen['data-state'] = normal;
-                fullscreen.classList.remove('fullscreen-clicked');
-                fullscreen.classList.add('fullscreen');
+
+            if (!!minimize) {
+                minimize.onclick = makeClickHandler('minimize');
             }
-        });
+
+            if (!!maximize) {
+                maximize['data-state'] = normal; // initial style
+                maximize.onclick = makeClickHandler('maximize', function () {
+                    console.log(maximize.src);
+                    if (maximize['data-state'] == normal) {
+                        maximize['data-state'] = clicked;
+                        maximize_glyph.src = './frame/glyph-exit-maximize.png';
+                    } else {
+                        maximize['data-state'] = normal;
+                        maximize_glyph.src = 'frame/glyph-maximize.png';
+                    }
+                });
+            }
+
+            if (!!fullscreen) {
+                fullscreen['data-state'] = normal; // initial style
+                fullscreen.onclick = makeClickHandler('fullscreen', function () {
+                    if (fullscreen['data-state'] == normal) {
+                        fullscreen['data-state'] = clicked;
+                        fullscreen.classList.remove('fullscreen');
+                        fullscreen.classList.add('fullscreen-clicked');
+                    } else {
+                        fullscreen['data-state'] = normal;
+                        fullscreen.classList.remove('fullscreen-clicked');
+                        fullscreen.classList.add('fullscreen');
+                    }
+                });
+            }
+        } catch (err) {
+            console.error('Error on "initButtons()": ' + err);
+        }
     }
 
     function makeClickHandler(buttonName, callback) {
@@ -146,65 +159,76 @@
 
     function fixButtonFocus(fullscreen, minimize, maximize) {
         // fix focus bug
-        fullscreen.addEventListener('click', function () {
-            fullscreen.classList.remove('fullscreen');
-            document.body.addEventListener('mouseover', function () {
-                fullscreen.classList.add('fullscreen');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
+        if (!!fullscreen) {
+            fullscreen.addEventListener('click', function () {
+                fullscreen.classList.remove('fullscreen');
+                document.body.addEventListener('mouseover', function () {
+                    fullscreen.classList.add('fullscreen');
+                    document.body.removeEventListener('mouseover', arguments.callee, false);
+                }, false);
             }, false);
-        }, false);
+        }
 
-        minimize.addEventListener('click', function () {
-            minimize.classList.remove('minimize');
-            document.body.addEventListener('mouseover', function () {
-                minimize.classList.add('minimize');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
+        if (!!minimize) {
+            minimize.addEventListener('click', function () {
+                minimize.classList.remove('minimize');
+                document.body.addEventListener('mouseover', function () {
+                    minimize.classList.add('minimize');
+                    document.body.removeEventListener('mouseover', arguments.callee, false);
+                }, false);
             }, false);
-        }, false);
+        }
 
-        maximize.addEventListener('click', function () {
-            maximize.classList.remove('maximize');
-            document.body.addEventListener('mouseover', function () {
-                maximize.classList.add('maximize');
-                document.body.removeEventListener('mouseover', arguments.callee, false);
+        if (maximize) {
+            maximize.addEventListener('click', function () {
+                maximize.classList.remove('maximize');
+                document.body.addEventListener('mouseover', function () {
+                    maximize.classList.add('maximize');
+                    document.body.removeEventListener('mouseover', arguments.callee, false);
+                }, false);
             }, false);
-        }, false);
+        }
     }
 
     //-- drag&drop, area and context menu --//
 
     function updateAreas() {
+        try {
+            if (defined()) {
+                var titlebar = document.getElementById('titlebar');
+                var content = document.getElementById('content') || {};
+                var fullscreen = document.getElementById('fullscreen') || {};
+                var minimize = document.getElementById('minimize') || {};
+                var maximize = document.getElementById('maximize') || {};
+                var close = document.getElementById('close') || {};
 
-        if (defined()) {
-            var content = document.getElementById('content') || {};
-            var fullscreen = document.getElementById('fullscreen') || {};
-            var minimize = document.getElementById('minimize') || {};
-            var maximize = document.getElementById('maximize') || {};
-            var close = document.getElementById('close') || {};
-            var height = 27;
-            var buttonPadding = 6;
-            var margin = content.offsetLeft || 0;
-            var leftOffset = 0;
-            var closeOffset = close.offsetWidth || 0;
-            var miniOffset = minimize.offsetWidth || 0;
-            var rightOffset = closeOffset + miniOffset + buttonPadding; // 6 pixels of padding
+                var height = !!titlebar?titlebar.offsetHeight||27 : 27;
+                var buttonPadding = 12;
+                var margin = content.offsetLeft || 0;
+                var leftOffset = 0;
+                var closeOffset = close.offsetWidth || 0;
+                var miniOffset = minimize.offsetWidth || 0;
+                var rightOffset = closeOffset + miniOffset + buttonPadding; // 12 pixels of padding
 
-            if (fullscreen.style.visibility == 'visible') {
-                leftOffset = fullscreen.offsetWidth + buttonPadding;
+                if (!!fullscreen.style && fullscreen.style.visibility == 'visible') {
+                    leftOffset = fullscreen.offsetWidth + buttonPadding;
+                }
+
+                if (!!maximize.style && maximize.style.visibility == 'visible') {
+                    rightOffset += maximize.offsetWidth;
+                }
+
+                // Setup title bar drag region
+                // left, top, right, height
+                desktopgap.frame.setArea('dragbar',
+                    margin + leftOffset,
+                    margin,
+                    margin + rightOffset,
+                    height);
+
             }
-
-            if (maximize.style.visibility == 'visible') {
-                rightOffset += maximize.offsetWidth;
-            }
-
-            // Setup title bar drag region
-            // left, top, right, height
-            desktopgap.frame.setArea('dragbar',
-                margin + leftOffset,
-                margin,
-                margin + rightOffset,
-                height);
-
+        } catch (err) {
+            console.error('Error on "updateAreas()": ' + err);
         }
     }
 

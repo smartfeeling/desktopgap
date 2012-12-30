@@ -58,6 +58,7 @@ public class AppWindowAreaManager
     private StackPane createArea(final String name) {
         final StackPane pane = new StackPane();
         pane.setId(name);
+        pane.setFocusTraversable(true);
 
         return pane;
     }
