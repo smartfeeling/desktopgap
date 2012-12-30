@@ -5,6 +5,7 @@ import org.jsoup.select.Elements;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.commons.util.FileUtils;
+import org.smartly.commons.util.PathUtils;
 import org.smartly.packages.htmlparser.impl.HtmlParser;
 
 import java.io.File;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class DOM {
 
     private static final String SELECTOR_APP = "#app";
+    private static final String SELECTOR_WEBAPP = "#webapp";
     private static final String SELECTOR_TITLE = "#title";
 
     private DOM() {
@@ -25,35 +27,42 @@ public class DOM {
                        final String html_frame,
                        final String html_page,
                        final String output) throws IOException {
+        final boolean isExternal = !html_page.contains("<");
         final HtmlParser frame = new HtmlParser(html_frame);
-        final Elements elements = frame.select(SELECTOR_APP);
-        if (null != elements && !elements.isEmpty()) {
+        final Elements app_elements = frame.select(SELECTOR_APP);
+        final Elements webapp_elements = frame.select(SELECTOR_WEBAPP);
+        if (null != app_elements && !app_elements.isEmpty()) {
+            // get #app or #webapp div
+            final Element frame_app = app_elements.first();
             // title
             final Element title = frame.selectFirst(SELECTOR_TITLE);
             if (null != title) {
                 title.html(manifest.getTitle());
             }
 
-            // parse page
-            final HtmlParser page = new HtmlParser(html_page);
-            final Elements links = page.select("head > link");
-            final Elements scripts = page.select("head > script");
-            final Elements styles = page.select("head > style");
-            final Element body = page.getBody();
+            if (!isExternal) {
+                // parse page
+                final HtmlParser page = new HtmlParser(html_page);
+                final Elements links = page.select("head > link");
+                final Elements scripts = page.select("head > script");
+                final Elements styles = page.select("head > style");
+                final Element body = page.getBody();
 
-            // add HEADER elements to FRAME
-            final Element frame_head = frame.getHead();
-            this.addTo(frame_head, links);
-            this.addTo(frame_head, scripts);
-            this.addTo(frame_head, styles);
+                // add HEADER elements to FRAME
+                final Element frame_head = frame.getHead();
+                this.addTo(frame_head, links);
+                this.addTo(frame_head, scripts);
+                this.addTo(frame_head, styles);
 
-            //-- add handler to all hyperlinks --//
+                // add BODY to FRAME
+                frame_app.append(body.outerHtml());
+                webapp_elements.attr("style", "visibility:hidden");
+            } else {
+                // EXTERNAL URL
+                webapp_elements.attr("src", html_page);
+                frame_app.attr("style", "visibility:hidden");
+            }
 
-
-            // get #app div
-            final Element frame_app = elements.first();
-            // add BODY to FRAME
-            frame_app.append(body.outerHtml());
 
             // save output
             FileUtils.writeStringToFile(new File(output),
@@ -94,12 +103,19 @@ public class DOM {
         return __instance;
     }
 
+    private static String read(final String uri) throws IOException {
+        if (PathUtils.isHttp(uri)) {
+            return uri;
+        }
+        return FileUtils.readFileToString(new File(uri));
+    }
+
     public static void insertInFrame(final AppManifest manifest,
                                      final String framePage,
                                      final String page,
                                      final String outputPage) throws IOException {
-        final String html_frame = FileUtils.readFileToString(new File(framePage));
-        final String html_page = FileUtils.readFileToString(new File(page));
+        final String html_frame = read(framePage);
+        final String html_page = read(page);
         getInstance().inject(manifest, html_frame, html_page, outputPage);
     }
 

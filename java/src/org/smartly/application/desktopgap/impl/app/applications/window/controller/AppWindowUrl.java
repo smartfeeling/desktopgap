@@ -27,13 +27,13 @@ public class AppWindowUrl {
                         final String url) throws IOException {
         _app_docroot = window.getManifest().getAbsoluteAppPath("");
         if (isTemp(url)) {
-            _url = stripProtocol(url);
+            _url = stripFileProtocol(url);
         } else {
             _url = this.getTempUrl(url);
             //-- insert page into frame --//
             final AppManifest manifest = window.getManifest();
             final String frame = window.getFrame();
-            DOM.insertInFrame(manifest, frame, stripProtocol(url), _url);
+            DOM.insertInFrame(manifest, frame, stripFileProtocol(url), _url);
         }
     }
 
@@ -56,7 +56,7 @@ public class AppWindowUrl {
     //                      S T A T I C
     // --------------------------------------------------------------------
 
-    private static String stripProtocol(final String url) {
+    private static String stripFileProtocol(final String url) {
         if (StringUtils.hasText(url)) {
             return PathUtils.toUnixPath(url).replace("file:///", "");
         }
@@ -79,7 +79,7 @@ public class AppWindowUrl {
 
     public static void delete(final String file) {
         try {
-            FileUtils.delete(stripProtocol(file));
+            FileUtils.delete(stripFileProtocol(file));
         } catch (Throwable t) {
             System.out.println(t);
         }
