@@ -25,6 +25,7 @@ public final class AppResources {
     private static final String PATH_APP_FRAME = "/app_frame";
     private static final String PATH_BLANK = "/blank";
 
+    private static final String PATH_FONTS = "/fonts";
 
     private static final String PRE_INDEX_PAGE = IDesktopConstants.PRE_INDEX_PAGE;
 
@@ -113,6 +114,13 @@ public final class AppResources {
 
     public static String getAppFrameUri(final String resource) {
         final String path = PathUtils.concat(PATH_APP_FRAME, resource);
+        return getInstance().toExternalForm(PathUtils.concat(_root, path));
+    }
+
+    //-- FONTS --//
+
+    public static String getFont(final String fontFileName) {
+        final String path = PathUtils.concat(PATH_FONTS, fontFileName);
         return getInstance().toExternalForm(PathUtils.concat(_root, path));
     }
 

@@ -1,31 +1,18 @@
 
-@font-face {
-    font-family: 'AIRBORNE';
-    src: url('../../fonts/AIRBORNERegular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
-    font-family: 'AIRBORNE', "Courier New";
+    font-family: 'Oxygen', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
     font-size: 12px;
 }
 
 #app_content {
     height: 100%;
-}
-
-.console {
-    height: 100%;
-}
-
-.tab-content {
-    height: 100%;
+    width: 100%;
 }
 
 .tab-pane {
     padding: 0 10px;
-    overflow: auto;
 }
 
 .message-box {

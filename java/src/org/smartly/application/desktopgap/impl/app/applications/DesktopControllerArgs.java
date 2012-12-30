@@ -10,14 +10,14 @@ import java.util.Set;
 /**
  * Start args parser
  */
-public final class AppControllerArgs {
+public final class DesktopControllerArgs {
 
     private static final String ARG_RUNTIME = IDesktopConstants.ARG_INSTALL;
 
     private final Set<String> _files;
     private boolean _install;
 
-    public AppControllerArgs() {
+    public DesktopControllerArgs() {
         _install = false;
         _files = new HashSet<String>();
     }

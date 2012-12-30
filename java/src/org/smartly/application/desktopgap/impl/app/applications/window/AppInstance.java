@@ -1,6 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
-import org.smartly.application.desktopgap.impl.app.applications.AppController;
+import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
@@ -25,14 +25,14 @@ public class AppInstance
         extends EventEmitter
         implements IEventListener {
 
-    private final AppController _controller;
+    private final DesktopController _controller;
     private final AppManifest _manifest;
     private final AppRegistry _registry;
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
 
 
-    public AppInstance(final AppController controller,
+    public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
         _controller = controller;
         _manifest = manifest;

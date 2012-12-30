@@ -3,7 +3,7 @@ package org.smartly.application.desktopgap;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.config.Deployer;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.applications.AppController;
+import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.AppCompiler;
 import org.smartly.application.desktopgap.impl.app_system.DeployerAppSystem;
 import org.smartly.commons.logging.Level;
@@ -56,7 +56,7 @@ public class DesktopGap extends AbstractPackage {
     public void ready() {
         this.init();
         try {
-            AppController.open();
+            DesktopController.open();
         } catch (Throwable t) {
             super.getLogger().log(Level.SEVERE, null, t);
         }

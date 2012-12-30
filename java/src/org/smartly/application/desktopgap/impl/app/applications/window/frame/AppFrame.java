@@ -59,7 +59,7 @@ public final class AppFrame extends EventEmitter {
                     final String id) {
         _windows = windows;
         _app = _windows.getApp();
-        _stage = new Stage(StageStyle.UTILITY);
+        _stage = this.createStage();
         _loader = new FXMLLoader();
         _fxml = getContent(_loader);
         _winctrl = _loader.getController();
@@ -188,6 +188,14 @@ public final class AppFrame extends EventEmitter {
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
+
+    private Stage createStage(){
+        final Stage stage = new Stage(StageStyle.UTILITY);
+        stage.setMinHeight(32.0);
+        stage.setMinWidth(32.0);
+
+        return stage;
+    }
 
     private void openOrFocus() {
         if (_stage.isShowing()) {

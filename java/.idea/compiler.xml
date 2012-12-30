@@ -26,6 +26,7 @@
       <entry name="?*.less" />
       <entry name="?*.fxml" />
       <entry name="?*.ttf" />
+      <entry name="?*.woff" />
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">

@@ -34,7 +34,7 @@ import java.util.Set;
 /**
  * Main Application Controller.
  */
-public class AppController
+public class DesktopController
         extends Application
         implements IEventListener, IFileObserverListener, IAutorunListener {
 
@@ -56,7 +56,7 @@ public class AppController
 
     private Text _text;
 
-    public AppController() throws IOException {
+    public DesktopController() throws IOException {
         _root_install = Smartly.getAbsolutePath(INSTALL_DIR);
         _root_installed_store = Smartly.getAbsolutePath(INSTALLED_STORE_DIR);
         _root_installed_system = Smartly.getAbsolutePath(INSTALLED_SYSTEM_DIR);
@@ -184,6 +184,9 @@ public class AppController
         FileUtils.mkdirs(_root_installed_system);
         FileUtils.mkdirs(_root_temp);
 
+        //-- init fonts--//
+        DesktopFonts.init();
+
         //-- observer --//
         _installObserver = new FileObserver(_root_install, false, false, FileObserver.EVENT_CREATE, this);
         _installObserver.startWatching();
@@ -298,7 +301,7 @@ public class AppController
     //               S T A T I C
     // --------------------------------------------------------------------
 
-    private static final AppControllerArgs s_app_args = new AppControllerArgs();
+    private static final DesktopControllerArgs s_app_args = new DesktopControllerArgs();
     private static CommandHandler s_handler;
 
     private static boolean isAlreadyRunning() {
@@ -329,7 +332,7 @@ public class AppController
         // LoggingUtils.getLogger(AppController.class).info("OPENING");
         //-- check if abother instance is already running and start main --//
         if (!isAlreadyRunning()) {
-            AppController.launch(AppController.class);
+            DesktopController.launch(DesktopController.class);
         } else {
             launchArgFiles();
         }
