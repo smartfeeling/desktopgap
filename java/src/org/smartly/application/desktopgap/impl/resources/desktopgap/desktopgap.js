@@ -115,7 +115,6 @@
             if (!!maximize) {
                 maximize['data-state'] = normal; // initial style
                 maximize.onclick = makeClickHandler('maximize', function () {
-                    console.log(maximize.src);
                     if (maximize['data-state'] == normal) {
                         maximize['data-state'] = clicked;
                         maximize_glyph.src = './frame/glyph-exit-maximize.png';
@@ -141,7 +140,7 @@
                 });
             }
         } catch (err) {
-            console.error('Error on "initButtons()": ' + err);
+            console.error('(desktopgap.js) Error on "initButtons()": ' + err);
         }
     }
 
@@ -228,7 +227,7 @@
 
             }
         } catch (err) {
-            console.error('Error on "updateAreas()": ' + err);
+            console.error('(desktopgap.js) Error on "updateAreas()": ' + err);
         }
     }
 

@@ -28,12 +28,17 @@ public interface IDesktopConstants {
     public static final String BTN_MINIMIZE = "minimize";
 
     public static final String MF_FRAME = "frame";
+    public static final String MF_FRAME_SHADOW = StringUtils.concatDot(MF_FRAME, "shadow");
+    public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");
+    public static final String MF_FRAME_RESIZABLE = StringUtils.concatDot(MF_FRAME, "resizable");
+    public static final String MF_FRAME_MAXIMIZED = StringUtils.concatDot(MF_FRAME, "maximized");
     public static final String MF_FRAME_WIDTH = StringUtils.concatDot(MF_FRAME, "width");
     public static final String MF_FRAME_HEIGHT = StringUtils.concatDot(MF_FRAME, "height");
     public static final String MF_FRAME_X = StringUtils.concatDot(MF_FRAME, "x");
     public static final String MF_FRAME_Y = StringUtils.concatDot(MF_FRAME, "y");
 
     public static final String MF_BUTTONS = "buttons";
+    public static final String MF_BUTTONS_CLOSE = StringUtils.concatDot(MF_BUTTONS, BTN_CLOSE);
     public static final String MF_BUTTONS_FULLSCREEN = StringUtils.concatDot(MF_BUTTONS, BTN_FULLSCREEN);
     public static final String MF_BUTTONS_MINIMIZE = StringUtils.concatDot(MF_BUTTONS, BTN_MINIMIZE);
     public static final String MF_BUTTONS_MAXIMIZE = StringUtils.concatDot(MF_BUTTONS, BTN_MAXIMIZE);

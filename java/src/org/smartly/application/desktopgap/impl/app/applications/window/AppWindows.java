@@ -94,7 +94,7 @@ public final class AppWindows
 
     private String createWinId(final String winId) {
         final String appId = _app.getId();
-        return StringUtils.hasText(winId) ? appId.concat(winId) : appId;
+        return StringUtils.hasText(winId) ? StringUtils.concatDot(appId, winId) : appId;
     }
 
     private AppFrame openById(final String id) {

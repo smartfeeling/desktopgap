@@ -3,18 +3,22 @@
     "name": "home",
     "title": "DesktopGap Menu",
     "version": "0.1",
-    "resizable": false,
     "index": "index.html",
     "frame": {
-        "type": "standard",
+        "type": "light",
+        "shadow":false,
+        "resizable":false,
+        "draggable":false,
+        "maximized":false,
         "width": 445,
         "height": 598,
-        "y": 156,
-        "x": 112
+        "y": 0,
+        "x": 0
     },
     "buttons": {
+        "close":false,
         "fullscreen": false,
-        "minimize": true,
-        "maximize": true
+        "minimize": false,
+        "maximize": false
     }
 }

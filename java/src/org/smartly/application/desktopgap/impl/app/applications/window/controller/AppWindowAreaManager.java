@@ -23,10 +23,20 @@ public class AppWindowAreaManager
 
     private final AnchorPane _main_area;
     private final Map<String, StackPane> _areas;
+    private final boolean _sizable;
+    private final boolean _draggable;
 
-    public AppWindowAreaManager(final AnchorPane root) {
+    public AppWindowAreaManager(final boolean sizable,
+                                final boolean draggable,
+                                final AnchorPane root) {
         _main_area = root;
         _areas = new HashMap<String, StackPane>();
+        _draggable = draggable;
+        _sizable = sizable;
+
+        if(_sizable){
+            FX.sizable(root);
+        }
     }
 
     public void setArea(final String name,
@@ -35,7 +45,7 @@ public class AppWindowAreaManager
             final StackPane area = this.createArea(name);
             _main_area.getChildren().add(area);
             this.attachToRoot(area, left, top, right, height);
-            if (DRAG_AREA.equalsIgnoreCase(name)) {
+            if (DRAG_AREA.equalsIgnoreCase(name) && _draggable) {
                 // DRAGGABLE AREA
                 FX.draggable(area);
             } else {

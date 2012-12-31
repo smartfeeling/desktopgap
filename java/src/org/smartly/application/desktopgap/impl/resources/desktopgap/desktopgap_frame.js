@@ -17,7 +17,7 @@
 
         buttonClicked: function (name) {
             if (defined('bridge')) {
-                desktopgap['bridge'].buttonClicked(name);
+                desktopgap['bridge'].frame().buttonClicked(name);
             }
         },
 
@@ -28,7 +28,13 @@
                 top = parseFloat(top);
                 right = parseFloat(right);
                 height = parseFloat(height);
-                desktopgap['bridge'].setArea(name, left, top, right, height);
+                desktopgap['bridge'].frame().setArea(name, left, top, right, height);
+            }
+        },
+
+        minimize : function(){
+            if (defined('bridge')) {
+                desktopgap['bridge'].frame().minimize();
             }
         }
 

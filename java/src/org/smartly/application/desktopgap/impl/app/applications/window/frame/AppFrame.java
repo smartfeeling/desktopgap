@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.smartly.Smartly;
@@ -14,11 +13,12 @@ import org.smartly.application.desktopgap.impl.app.applications.events.FrameClos
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
-import org.smartly.application.desktopgap.impl.app.utils.Size2D;
+import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.logging.Level;
@@ -32,7 +32,10 @@ import java.util.List;
 /**
  * Window
  */
-public final class AppFrame extends EventEmitter {
+public final class AppFrame
+        extends EventEmitter {
+
+    private static final double OFF_SET = 10; // border for shadow
 
     private final static String STYLE_SHEET = "window.css";
 
@@ -54,6 +57,8 @@ public final class AppFrame extends EventEmitter {
     private Stage _stage;
     private Scene _scene;
     private String _title;
+    private boolean _maximized;
+    private Rectangle2D _old_rect; // size before maximize
 
     public AppFrame(final AppWindows windows,
                     final String id) {
@@ -65,6 +70,9 @@ public final class AppFrame extends EventEmitter {
         _winctrl = _loader.getController();
         _id = id;
         _title = _app.getManifest().getTitle();
+
+        _maximized = false;
+        _old_rect = this.getRegistryRect();
     }
 
     public String getId() {
@@ -77,6 +85,14 @@ public final class AppFrame extends EventEmitter {
 
     public boolean isMain() {
         return this.getId().equalsIgnoreCase(_app.getId());
+    }
+
+    public boolean isResizable(){
+        return _app.getManifest().isResizable();
+    }
+
+    public boolean isDraggable(){
+        return _app.getManifest().isDraggable();
     }
 
     public String getFrame() {
@@ -103,11 +119,23 @@ public final class AppFrame extends EventEmitter {
         return null != _app ? _app.getManifest() : null;
     }
 
+    public boolean isMaximized() {
+        return _maximized;
+    }
+
     public double getX() {
         if (null != _stage) {
             return _stage.getX();
         }
         return 0.0;
+    }
+
+    public double setX(final double value) {
+        final double old_value = this.getX();
+        if (null != _stage) {
+            _stage.setX(value);
+        }
+        return old_value;
     }
 
     public double getY() {
@@ -117,6 +145,14 @@ public final class AppFrame extends EventEmitter {
         return 0.0;
     }
 
+    public double setY(final double value) {
+        final double old_value = this.getY();
+        if (null != _stage) {
+            _stage.setY(value);
+        }
+        return old_value;
+    }
+
     public double getWidth() {
         if (null != _stage) {
             return _stage.getScene().getWidth();
@@ -124,11 +160,27 @@ public final class AppFrame extends EventEmitter {
         return 0.0;
     }
 
+    public double setWidth(final double value) {
+        final double old_value = this.getWidth();
+        if (null != _stage) {
+            _stage.setWidth(value);
+        }
+        return old_value;
+    }
+
     public double getHeight() {
         if (null != _stage) {
             return _stage.getScene().getHeight();
         }
         return 0.0;
+    }
+
+    public double setHeight(final double value) {
+        final double old_value = this.getHeight();
+        if (null != _stage) {
+            _stage.setHeight(value);
+        }
+        return old_value;
     }
 
     public void open() {
@@ -146,7 +198,7 @@ public final class AppFrame extends EventEmitter {
     public void setTitle(final String title) {
         _title = null != title ? title : "";
 
-        if(null!=_winctrl){
+        if (null != _winctrl) {
             _winctrl.getJsEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
         }
     }
@@ -157,8 +209,39 @@ public final class AppFrame extends EventEmitter {
         _stage.close();
     }
 
+    public void toFront() {
+        _stage.toFront();
+    }
+
+    public void toBack() {
+        _stage.toBack();
+    }
+
+    public void screenCenter() {
+        _stage.centerOnScreen();
+    }
+
+    public void screenCenterTop() {
+        this.screenCenter();
+        this.setY(0 - OFF_SET);
+    }
+
     public void minimize() {
         _stage.setIconified(true);
+    }
+
+    public void maximize() {
+        _maximized = !_maximized;
+        if (_maximized) {
+            // save old position
+            _old_rect = this.getCurrRect();
+            // full screen size
+            final Rectangle2D rect = FX.getScreenSize();
+            this.setCurrRect(rect, OFF_SET);
+        } else {
+            // previous size
+            this.setCurrRect(_old_rect);
+        }
     }
 
     public void setArea(final String name,
@@ -176,9 +259,10 @@ public final class AppFrame extends EventEmitter {
 
     /**
      * Pass custom arguments (data) to javascript.
+     *
      * @param data Custom data to pass to javascript engine.
      */
-    public void putArguments(final Object data){
+    public void putArguments(final Object data) {
         if (null != _winctrl) {
             _winctrl.getJsEngine().whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
         }
@@ -188,44 +272,35 @@ public final class AppFrame extends EventEmitter {
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private Stage createStage(){
+    private Stage createStage() {
         final Stage stage = new Stage(StageStyle.UTILITY);
-        stage.setMinHeight(32.0);
-        stage.setMinWidth(32.0);
 
         return stage;
     }
 
     private void openOrFocus() {
         if (_stage.isShowing()) {
-            _stage.requestFocus();
-
+            _stage.toFront();
         } else {
-            final Size2D size = this.getSize();
-
+            // init stage
             _stage.setTitle(this.getTitle());
             _stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
             _stage.getIcons().addAll(this.getIcons());
 
-            _stage.setScene(this.createScene(_fxml, size));
-
+            final Rectangle2D rect = this.getRegistryRect();
+            _stage.setScene(this.createScene(_fxml, rect));
             //-- size --//
-            if (size.getHeight() < 1 || size.getWidth() < 1) {
-                final Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-                _stage.setHeight(screen.getHeight());
-                _stage.setWidth(screen.getWidth());
-                _stage.setX(screen.getMinX());
-                _stage.setY(screen.getMinY());
-            } else {
-                this.setPosition(_stage);
-            }
-
-            _stage.setResizable(this.isResizable());
+            this.setCurrRect(rect);
 
             this.addStageHandlers();
 
             //-- initialize window controller --//
             _winctrl.initialize(this);
+
+            // add shadow
+            if(_app.getManifest().hasShadow()){
+                _fxml.getStylesheets().add(this.getStyleSheet());
+            }
 
             _stage.show();
 
@@ -237,7 +312,7 @@ public final class AppFrame extends EventEmitter {
 
     }
 
-    private Scene createScene(final Parent parent, final Size2D size) {
+    private Scene createScene(final Parent parent, final Rectangle2D size) {
         //final AppBrowser parent = new AppBrowser(this);
 
         final Scene scene = new Scene(parent,
@@ -246,14 +321,47 @@ public final class AppFrame extends EventEmitter {
 
         scene.setFill(null);
 
-        // add stylesheet
-        parent.getStylesheets().add(this.getStyleSheet());
-
         return scene;
     }
 
-    private boolean isResizable() {
-        return _app.getManifest().isResizable();
+    private Rectangle2D getRegistryRect() {
+        final AppRegistry registry = _app.getRegistry();
+        double x = registry.getX(this.getId());
+        double y = registry.getY(this.getId());
+        double width = registry.getWidth(this.getId());
+        double height = registry.getHeight(this.getId());
+
+        if (!registry.isLoadedFromFile()) {
+            final Rectangle2D screen = FX.getScreenSize();
+            x = x - OFF_SET + screen.getMinX();
+            y = y - OFF_SET + screen.getMinY();
+            width = width + OFF_SET * 2;
+            height = height + OFF_SET * 2;
+        }
+
+        return new Rectangle2D(x, y, width, height);
+    }
+
+    private Rectangle2D getCurrRect() {
+        return new Rectangle2D(
+                this.getX(),
+                this.getY(),
+                this.getWidth(),
+                this.getHeight());
+    }
+
+    private void setCurrRect(final Rectangle2D rect) {
+        this.setY(rect.getMinY());
+        this.setX(rect.getMinX());
+        this.setHeight(rect.getHeight());
+        this.setWidth(rect.getWidth());
+    }
+
+    private void setCurrRect(final Rectangle2D rect, final double offSet) {
+        this.setY(rect.getMinY() - offSet);
+        this.setX(rect.getMinX() - offSet);
+        this.setHeight(rect.getHeight() + offSet * 2);
+        this.setWidth(rect.getWidth() + offSet * 2);
     }
 
     private String getStyleSheet() {
@@ -276,23 +384,6 @@ public final class AppFrame extends EventEmitter {
             icons.add(new Image(AppResources.getAppTemplateIcon()));
         }
         return icons;
-    }
-
-    private Size2D getSize() {
-        final double height = _app.getRegistry().getHeight(this.getId());
-        final double width = _app.getRegistry().getWidth(this.getId());
-        return new Size2D(height, width);
-    }
-
-    private void setPosition(final Stage stage) {
-        double x = _app.getRegistry().getX(this.getId());
-        double y = _app.getRegistry().getY(this.getId());
-        if (x > -1) {
-            stage.setX(x);
-        }
-        if (y > -1) {
-            stage.setY(y);
-        }
     }
 
     private void addStageHandlers() {
@@ -322,5 +413,6 @@ public final class AppFrame extends EventEmitter {
             return new Pane(); // should return error message
         }
     }
+
 
 }

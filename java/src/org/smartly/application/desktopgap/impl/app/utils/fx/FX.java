@@ -1,7 +1,9 @@
 package org.smartly.application.desktopgap.impl.app.utils.fx;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 
 /**
  *
@@ -25,6 +27,10 @@ public class FX {
         } else {
             return node;
         }
+    }
+
+    public static Rectangle2D getScreenSize() {
+        return Screen.getPrimary().getVisualBounds();
     }
 
 }

@@ -31,7 +31,6 @@ public class AppInstance
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
 
-
     public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
         _controller = controller;
@@ -129,7 +128,7 @@ public class AppInstance
         if (null != child && isChild) {
             child.setTitle(title);
             child.putArguments(args);
-            if(isChild){
+            if (isChild) {
                 _children.add(child);
             }
         }
@@ -165,17 +164,22 @@ public class AppInstance
 
     private void handleCloseFrame(final AppFrame frame) {
         // set frame properties (auto saved)
-        this.getRegistry().setX(frame.getId(), frame.getX());
-        this.getRegistry().setY(frame.getId(), frame.getY());
-        this.getRegistry().setWidth(frame.getId(), frame.getWidth());
-        this.getRegistry().setHeight(frame.getId(), frame.getHeight());
+        if (frame.isMaximized()) {
+            this.getRegistry().setMaximized(frame.getId(), true);
+        } else {
+            this.getRegistry().setMaximized(frame.getId(), false);
+            this.getRegistry().setX(frame.getId(), frame.getX());
+            this.getRegistry().setY(frame.getId(), frame.getY());
+            this.getRegistry().setWidth(frame.getId(), frame.getWidth());
+            this.getRegistry().setHeight(frame.getId(), frame.getHeight());
+        }
 
         // close children
-        for(final AppFrame child:_children){
-           try{
-             child.close();
-           }catch(Throwable ignored){
-           }
+        for (final AppFrame child : _children) {
+            try {
+                child.close();
+            } catch (Throwable ignored) {
+            }
         }
 
         // is last frame?

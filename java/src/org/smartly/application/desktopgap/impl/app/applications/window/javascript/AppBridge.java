@@ -5,6 +5,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.frame.App
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection.ToolConnection;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
 import org.smartly.commons.util.ConversionUtils;
 
 /**
@@ -14,25 +15,20 @@ public class AppBridge {
 
     public static final String NAME = "bridge";
 
-    private static final String BUTTON_CLOSE = IDesktopConstants.BTN_CLOSE;
-    private static final String BUTTON_MINIMIZE = IDesktopConstants.BTN_MINIMIZE;
-    private static final String BUTTON_MAXIMIZE = IDesktopConstants.BTN_MAXIMIZE;
-    private static final String BUTTON_FULLSCREEN = IDesktopConstants.BTN_FULLSCREEN;
-
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 
-    private final AppFrame _frame;
     // tools
     private final ToolDevice _device;
     private final ToolConnection _connection;
     private final ToolConsole _console;
+    private final ToolFrame _frame;
 
-    public AppBridge(final AppFrame window) {
-        _frame = window;
+    public AppBridge(final AppFrame frame) {
         // tools
+        _frame = new ToolFrame(frame);
         _device = new ToolDevice();
         _connection = new ToolConnection();
-        _console = ToolConsole.getConsole(_frame.getApp());
+        _console = ToolConsole.getConsole(frame.getApp());
     }
 
     @Override
@@ -57,26 +53,8 @@ public class AppBridge {
     //               F R A M E
     // --------------------------------------------------------------------
 
-    public void buttonClicked(final Object name) {
-        if (name instanceof String) {
-            final String button_name = (String) name;
-            if (BUTTON_CLOSE.equalsIgnoreCase(button_name)) {
-                _frame.close();
-            } else if (BUTTON_MINIMIZE.equalsIgnoreCase(button_name)) {
-                _frame.minimize();
-            }
-        }
-    }
-
-    public void setArea(final Object name,
-                        final Object left, final Object top, final Object right, final Object height) {
-        if (name instanceof String && !name.toString().equalsIgnoreCase(UNDEFINED)) {
-            final double d_left = ConversionUtils.toDouble(left);
-            final double d_top = ConversionUtils.toDouble(top);
-            final double d_right = ConversionUtils.toDouble(right);
-            final double d_height = ConversionUtils.toDouble(height);
-            _frame.setArea((String) name, d_left, d_top, d_right, d_height);
-        }
+    public ToolFrame frame(){
+        return _frame;
     }
 
     // --------------------------------------------------------------------

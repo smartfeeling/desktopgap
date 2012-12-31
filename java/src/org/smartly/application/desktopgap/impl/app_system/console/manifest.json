@@ -3,16 +3,20 @@
     "name": "console",
     "title": "DesktopGap Console",
     "version": "0.1",
-    "resizable": true,
     "index": "console.html",
     "frame": {
         "type": "standard",
+        "shadow":true,
+        "resizable":true,
+        "draggable":true,
+        "maximized":false,
         "width": 300,
         "height": 300,
-        "y": 156,
-        "x": 112
+        "y": 0,
+        "x": 0
     },
     "buttons":{
+        "close": true,
         "fullscreen":false,
         "minimize":false,
         "maximize":false

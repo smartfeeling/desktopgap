@@ -61,9 +61,7 @@ public class AppWindowController implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        // FX.draggable(win_top);
-        FX.sizable(container);
-
+       // ready
     }
 
     // --------------------------------------------------------------------
@@ -86,7 +84,7 @@ public class AppWindowController implements Initializable {
 
     public void initialize(final AppFrame frame) {
         _frame = frame;
-        _areaManager = new AppWindowAreaManager(container);
+        _areaManager = new AppWindowAreaManager(_frame.isResizable(), _frame.isDraggable(), container);
 
         this.initBrowser(win_browser);
         this.navigate(_frame.getIndex());

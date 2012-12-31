@@ -28,15 +28,19 @@ public class AppManifest {
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
     private static final String MF_VERSION = "version";
-    private static final String MF_RESIZABLE = "resizable";
     private static final String MF_INDEX = "index";
     private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
     private static final String MF_FRAME_TYPE = StringUtils.concatDot(MF_FRAME, "type");  // standard, tool
+    private static final String MF_FRAME_SHADOW = IDesktopConstants.MF_FRAME_SHADOW;
+    private static final String MF_FRAME_RESIZABLE = IDesktopConstants.MF_FRAME_RESIZABLE;
+    private static final String MF_FRAME_DRAGGABLE = IDesktopConstants.MF_FRAME_DRAGGABLE;
+    private static final String MF_FRAME_MAXIMIZED = IDesktopConstants.MF_FRAME_MAXIMIZED;
     private static final String MF_FRAME_WIDTH = IDesktopConstants.MF_FRAME_WIDTH;
     private static final String MF_FRAME_HEIGHT = IDesktopConstants.MF_FRAME_HEIGHT;
     private static final String MF_FRAME_X = IDesktopConstants.MF_FRAME_X;
     private static final String MF_FRAME_Y = IDesktopConstants.MF_FRAME_Y;
     private static final String MF_BUTTONS = IDesktopConstants.MF_BUTTONS;
+    private static final String MF_BUTTONS_CLOSE = IDesktopConstants.MF_BUTTONS_CLOSE;
     private static final String MF_BUTTONS_FULLSCREEN = IDesktopConstants.MF_BUTTONS_FULLSCREEN;
     private static final String MF_BUTTONS_MAXIMIZE = IDesktopConstants.MF_BUTTONS_MAXIMIZE;
     private static final String MF_BUTTONS_MINIMIZE = IDesktopConstants.MF_BUTTONS_MINIMIZE;
@@ -143,6 +147,26 @@ public class AppManifest {
     //               P r o p e r t i e s
     // --------------------------------------------------------------------
 
+    public String getIndex() {
+        return _manifest.optString(MF_INDEX);
+    }
+
+    public void setIndex(final String value) {
+        _manifest.putSilent(MF_INDEX, value);
+        this.generateId();
+        this.save();
+    }
+
+    public String getName() {
+        return _manifest.optString(MF_NAME);
+    }
+
+    public void setName(final String value) {
+        _manifest.putSilent(MF_NAME, value);
+        this.generateId();
+        this.save();
+    }
+
     public String getTitle() {
         return _manifest.optString(MF_TITLE);
     }
@@ -163,13 +187,30 @@ public class AppManifest {
         this.save();
     }
 
+    public boolean hasShadow() {
+        return _manifest.deepBoolean(MF_FRAME_SHADOW);
+    }
+
+    public void setShadow(final boolean value) {
+        _manifest.putDeep(MF_FRAME_SHADOW, value);
+        this.save();
+    }
+
     public boolean isResizable() {
-        return _manifest.optBoolean(MF_RESIZABLE);
+        return _manifest.deepBoolean(MF_FRAME_RESIZABLE);
     }
 
     public void setResizable(final boolean value) {
-        _manifest.putSilent(MF_RESIZABLE, value);
-        this.generateId();
+        _manifest.putDeep(MF_FRAME_RESIZABLE, value);
+        this.save();
+    }
+
+    public boolean isDraggable() {
+        return _manifest.deepBoolean(MF_FRAME_DRAGGABLE);
+    }
+
+    public void setDraggable(final boolean value) {
+        _manifest.putDeep(MF_FRAME_DRAGGABLE, value);
         this.save();
     }
 
@@ -179,21 +220,21 @@ public class AppManifest {
 
     public void setFrameType(final String value) {
         _manifest.putSilent(MF_FRAME_TYPE, value);
-        this.generateId();
         this.save();
     }
 
-    public String getIndex() {
-        return _manifest.optString(MF_INDEX);
-    }
 
-    public void setIndex(final String value) {
-        _manifest.putSilent(MF_INDEX, value);
-        this.generateId();
-        this.save();
-    }
 
     //-- registry --//
+
+    public boolean getMaximized() {
+        return _manifest.deepBoolean(MF_FRAME_MAXIMIZED);
+    }
+
+    public void setMaximized(final boolean value) {
+        _manifest.putDeep(MF_FRAME_MAXIMIZED, value);
+        this.save();
+    }
 
     public double getWidth() {
         return _manifest.deepDouble(MF_FRAME_WIDTH);
@@ -235,11 +276,21 @@ public class AppManifest {
 
     public Map<String, Boolean> getButtonsMap() {
         final Map<String, Boolean> buttons = new HashMap<String, Boolean>();
+        buttons.put(IDesktopConstants.BTN_CLOSE, getButtonClose());
         buttons.put(IDesktopConstants.BTN_FULLSCREEN, getButtonFullscreen());
         buttons.put(IDesktopConstants.BTN_MAXIMIZE, getButtonMaximize());
         buttons.put(IDesktopConstants.BTN_MINIMIZE, getButtonMinimize());
 
         return buttons;
+    }
+
+    public boolean getButtonClose() {
+        return _manifest.deepBoolean(MF_BUTTONS_CLOSE);
+    }
+
+    public void setButtonClose(final boolean value) {
+        _manifest.putSilent(MF_BUTTONS_CLOSE, value);
+        this.save();
     }
 
     public boolean getButtonFullscreen() {
@@ -248,7 +299,6 @@ public class AppManifest {
 
     public void setButtonFullscreen(final boolean value) {
         _manifest.putSilent(MF_BUTTONS_FULLSCREEN, value);
-        this.generateId();
         this.save();
     }
 
@@ -310,11 +360,13 @@ public class AppManifest {
     }
 
     private void generateId() {
+        final String index = _manifest.optString(MF_INDEX);
         final String name = _manifest.optString(MF_NAME);
         final String title = _manifest.optString(MF_TITLE);
         final String version = _manifest.optString(MF_VERSION);
-        _appId = MD5.encode(StringUtils.concatDot(name, title, version));
+        _appId = MD5.encode(StringUtils.concatDot(index, name, title, version));
     }
+
 
 
 }
