@@ -1,8 +1,26 @@
 !(function () {
 
-    $('#app_content').html('APPLICATION LOADED!!');
+    var document = window.document
+        , desktopgap = window.desktopgap
+        , require = window['require']
+        , imported = false
+        ;
+
+
+    // --------------------------------------------------------------------
+    //               deviceready
+    // --------------------------------------------------------------------
 
     document.addEventListener('deviceready', function () {
+        //-- import required scripts --//
+        importComponents();
+
+        //--  handlers --//
+        initHandlers();
+
+    }, false);
+
+    function testLogger() {
         console.log('STARTED DESKTOP GAP!! ' + desktopgap['bridge'].toString());
 
         console.log('device.uuid: ' + device.uuid);
@@ -14,8 +32,33 @@
         console.error('test error');
 
         console.open();
+    }
+
+    // --------------------------------------------------------------------
+    //               app initialization
+    // --------------------------------------------------------------------
+
+    function importComponents() {
+        if (!imported) {
+
+            // require('./js/components/console/console.js');
 
 
-    }, false);
+            imported = true;
+        }
+    }
+
+    // --------------------------------------------------------------------
+    //               app handlers
+    // --------------------------------------------------------------------
+
+    function initHandlers() {
+
+        //-- close --//
+        ly.el.click($('#btn_close'), function () {
+            desktopgap.frame.minimize();
+        });
+
+    }
 
 })();

@@ -10,8 +10,8 @@
         "resizable":false,
         "draggable":false,
         "maximized":false,
-        "width": 445,
-        "height": 598,
+        "width": 800,
+        "height": 500,
         "y": 0,
         "x": 0
     },

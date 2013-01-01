@@ -22,7 +22,7 @@ public final class AppRegistry {
     private static final String MF_FRAME_X = IDesktopConstants.MF_FRAME_X;
     private static final String MF_FRAME_Y = IDesktopConstants.MF_FRAME_Y;
 
-    private final String _root;
+    private final AppManifest _manifest;
     private final String _appId;
     private final JsonWrapper _repository;
     private final String _file_name;
@@ -30,16 +30,17 @@ public final class AppRegistry {
     private boolean _loadedFromFile;
 
     public AppRegistry(final AppManifest manifest) {
-        _root = manifest.getInstallDir();
+        _manifest = manifest;
         _appId = manifest.getAppId();
         _repository = new JsonWrapper(new JSONObject());
-        _file_name = PathUtils.concat(_root, FILE_NAME);
+        _file_name = PathUtils.concat(manifest.getInstallDir(), FILE_NAME);
 
         this.init(manifest);
     }
 
     /**
      * Returns true is registry has been loaded from existing file.
+     *
      * @return Boolean
      */
     public boolean isLoadedFromFile() {
@@ -59,10 +60,13 @@ public final class AppRegistry {
     }
 
     public double getWidth(final String winId) {
-        if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_WIDTH))) {
-            return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_WIDTH));
+        if (_manifest.isResizable()) {
+            if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_WIDTH))) {
+                return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_WIDTH));
+            }
+            return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_WIDTH));
         }
-        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_WIDTH));
+        return _manifest.getWidth();
     }
 
     public void setWidth(final String winId, final double value) {
@@ -71,10 +75,13 @@ public final class AppRegistry {
     }
 
     public double getHeight(final String winId) {
-        if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_HEIGHT))) {
-            return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_HEIGHT));
+        if (_manifest.isResizable()) {
+            if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_HEIGHT))) {
+                return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_HEIGHT));
+            }
+            return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_HEIGHT));
         }
-        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_HEIGHT));
+        return _manifest.getHeight();
     }
 
     public void setHeight(final String winId, final double value) {
@@ -83,10 +90,13 @@ public final class AppRegistry {
     }
 
     public double getX(final String winId) {
-        if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_X))) {
-            return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_X));
+        if (_manifest.isDraggable()) {
+            if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_X))) {
+                return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_X));
+            }
+            return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_X));
         }
-        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_X));
+        return _manifest.getX();
     }
 
     public void setX(final String winId, final double value) {
@@ -95,10 +105,13 @@ public final class AppRegistry {
     }
 
     public double getY(final String winId) {
-        if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_Y))) {
-            return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_Y));
+        if (_manifest.isDraggable()) {
+            if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_Y))) {
+                return _repository.deepDouble(StringUtils.concatDot(_appId, MF_FRAME_Y));
+            }
+            return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_Y));
         }
-        return _repository.deepDouble(StringUtils.concatDot(winId, MF_FRAME_Y));
+        return _manifest.getY();
     }
 
     public void setY(final String winId, final double value) {

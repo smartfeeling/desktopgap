@@ -87,11 +87,11 @@ public final class AppFrame
         return this.getId().equalsIgnoreCase(_app.getId());
     }
 
-    public boolean isResizable(){
+    public boolean isResizable() {
         return _app.getManifest().isResizable();
     }
 
-    public boolean isDraggable(){
+    public boolean isDraggable() {
         return _app.getManifest().isDraggable();
     }
 
@@ -298,7 +298,7 @@ public final class AppFrame
             _winctrl.initialize(this);
 
             // add shadow
-            if(_app.getManifest().hasShadow()){
+            if (_app.getManifest().hasShadow()) {
                 _fxml.getStylesheets().add(this.getStyleSheet());
             }
 
@@ -326,17 +326,25 @@ public final class AppFrame
 
     private Rectangle2D getRegistryRect() {
         final AppRegistry registry = _app.getRegistry();
+        final boolean fromFile = registry.isLoadedFromFile();
+        final boolean resizable = _app.getManifest().isResizable();
+        final boolean draggable = _app.getManifest().isDraggable();
+
         double x = registry.getX(this.getId());
         double y = registry.getY(this.getId());
         double width = registry.getWidth(this.getId());
         double height = registry.getHeight(this.getId());
 
-        if (!registry.isLoadedFromFile()) {
+        if (!fromFile || !resizable || !draggable) {
             final Rectangle2D screen = FX.getScreenSize();
-            x = x - OFF_SET + screen.getMinX();
-            y = y - OFF_SET + screen.getMinY();
-            width = width + OFF_SET * 2;
-            height = height + OFF_SET * 2;
+            if (!fromFile || !resizable) {
+                width = width + OFF_SET * 2;
+                height = height + OFF_SET * 2;
+            }
+            if (!fromFile || !draggable) {
+                x = x - OFF_SET + screen.getMinX();
+                y = y - OFF_SET + screen.getMinY();
+            }
         }
 
         return new Rectangle2D(x, y, width, height);

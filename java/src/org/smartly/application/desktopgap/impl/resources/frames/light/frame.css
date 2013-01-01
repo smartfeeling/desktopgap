@@ -27,13 +27,7 @@ body {
     left: 0;
     margin: 0;
 
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.085);
-
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(254,252,234,1)));
-    background: -webkit-linear-gradient(top,  rgba(253,253,253,1) 0%,rgba(254,252,234,1) 100%);
-
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #content.inactive {
@@ -44,8 +38,6 @@ body {
     position: fixed;
     height: 10px;
     width: 100%;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
     user-select: none;
     z-index: 1;
 }
@@ -57,7 +49,7 @@ body {
 #app {
     position: absolute;
     overflow: auto;
-    top: 5px;
+    top: 0;
     bottom: 0;
     right: 0;
     left: 0;

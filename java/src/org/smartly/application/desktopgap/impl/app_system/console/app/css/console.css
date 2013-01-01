@@ -1,10 +1,10 @@
 
 body {
-    font-family: 'Oxygen', sans-serif;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 12px;
-}
+     font-family: 'Oxygen', sans-serif;
+     font-style: normal;
+     font-weight: lighter;
+     font-size: 12px;
+ }
 
 #app_content {
     height: 100%;
