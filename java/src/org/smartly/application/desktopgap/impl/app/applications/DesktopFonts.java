@@ -18,6 +18,8 @@ public final class DesktopFonts {
     private static final double SIZE = 10.0;
 
     private static final String[] FONTS = new String[]{
+            "AIRBORNERegular.ttf",
+            "Bazar.ttf",
             "Opensans-Semibold.ttf",
             "Oxygen-Light.ttf",
             "Oxygen-Regular.ttf",

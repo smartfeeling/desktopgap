@@ -1,10 +1,10 @@
 body {
     font-family: 'Oxygen', sans-serif;
-    font-style: normal;
-    font-weight: lighter;
     font-size: 12px;
     background: url("../images/patterns/pattern-3.png") repeat;
-    color: #ffffff;
+    color: #f3f3f3;
+    text-shadow: 0.5px 0.5px 1px #fff;
+    letter-spacing: 5px;
 }
 
 #content {
@@ -13,6 +13,7 @@ body {
 
 #app_content {
     position: absolute;
+    padding: 10px;
     top: 5px;
     bottom: 5px;
     left: 5px;
@@ -35,7 +36,103 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
     -webkit-box-shadow: 0px 0px 5px 2px rgba(255, 255, 190, .35);
 }
+
 #btn_close:hover {
     background-color: rgba(255, 255, 255, 0.5);
     -webkit-box-shadow: 0px 0px 15px 5px rgba(255, 255, 190, .75);
+}
+
+.panel-content {
+    position: relative;
+    padding: 10px 0 0 10px;
+}
+
+/**   PANEL LEFT
+-----------------------------------------------------------------*/
+
+.panel-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-right: 1px solid #333;
+    height: 100%;
+    width: 250px;
+}
+
+.app-titlebar>* {
+    display: inline-block;
+}
+
+.app-titlebar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 15px;
+}
+
+.app-title {
+    font-family: 'Bazar';
+    font-size: 18px;
+    vertical-align: top;
+    color: #d7ceb2;
+    text-shadow: 3px 3px 0px #2c2e38, 5px 5px 0px #5c5f72;
+    letter-spacing: 10px;
+}
+
+.app-version {
+    font-size: 10px;
+    text-shadow: none;
+    letter-spacing: normal;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+/** menu **/
+
+.app-menu {
+    padding: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.app-menu ul {
+    list-style: none;
+    list-style-image: none;
+    padding: 0;
+    margin: 0;
+}
+
+.app-menu li {
+    margin-bottom: 10px;
+    padding: 5px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.app-menu li:hover {
+    background-color: #a2a2a2;
+}
+
+
+.app-menu a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/**   PANEL RIGHT
+-----------------------------------------------------------------*/
+
+.panel-right {
+    position: absolute;
+    top: 0;
+    left: 251px;
+    display: block;
+    border-left: 1px solid rgb(33, 33, 33);
+    height: 100%;
+}
+
+.page-content {
+    overflow: hidden;
+
 }
