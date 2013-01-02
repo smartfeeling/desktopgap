@@ -309,6 +309,11 @@
     document.addEventListener('deviceready', function () {
         init();
 
+        var bridge = defined('bridge');
+
+        //-- set version --//
+        window.version = bridge.version();
+
         //-- set ready state --//
         window.deviceready = true;
 

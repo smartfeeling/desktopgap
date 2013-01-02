@@ -6,7 +6,6 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
-import org.smartly.commons.util.ConversionUtils;
 
 /**
  * Javascript-Java Bridge.
@@ -15,6 +14,7 @@ public class AppBridge {
 
     public static final String NAME = "bridge";
 
+    private static final String VERSION = IDesktopConstants.VERSION;
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 
     // tools
@@ -35,10 +35,14 @@ public class AppBridge {
     public String toString() {
         final StringBuilder result = new StringBuilder();
         result.append(this.getClass().getSimpleName()).append("{");
-
+        result.append("version: ").append(VERSION);
         result.append("}");
 
         return result.toString();
+    }
+
+    public String version() {
+        return VERSION;
     }
 
     // --------------------------------------------------------------------
@@ -53,7 +57,7 @@ public class AppBridge {
     //               F R A M E
     // --------------------------------------------------------------------
 
-    public ToolFrame frame(){
+    public ToolFrame frame() {
         return _frame;
     }
 

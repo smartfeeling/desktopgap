@@ -1,4 +1,4 @@
-!(function () {
+!(function (window) {
 
     var document = window.document
         , desktopgap = window.desktopgap
@@ -15,8 +15,7 @@
         //-- import required scripts --//
         importComponents();
 
-        //--  handlers --//
-        initHandlers();
+        initApp();
 
     }, false);
 
@@ -61,4 +60,19 @@
 
     }
 
-})();
+    // --------------------------------------------------------------------
+    //               app
+    // --------------------------------------------------------------------
+
+    var app_version ='.app-version-id'
+    ;
+
+    function initApp(){
+        //--  handlers --//
+        initHandlers();
+
+        // set version
+        $(app_version).html(window.version);
+    }
+
+})(this);
