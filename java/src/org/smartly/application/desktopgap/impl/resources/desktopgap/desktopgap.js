@@ -47,6 +47,18 @@
         return xhr.responseText;
     }
 
+    window.getAllElementsWithAttribute = function getAllElementsWithAttribute(attribute) {
+        var matchingElements = [];
+        var allElements = document.getElementsByTagName('*');
+        for (var i = 0; i < allElements.length; i++) {
+            if (allElements[i].getAttribute(attribute)) {
+                // Element exists with attribute. Add to array.
+                matchingElements.push(allElements[i]);
+            }
+        }
+        return matchingElements;
+    };
+
     window.require = function require(url) {
         try {
             var script = getUrl(url);
@@ -201,7 +213,7 @@
                 var maximize = document.getElementById('maximize') || {};
                 var close = document.getElementById('close') || {};
 
-                var height = !!titlebar?titlebar.offsetHeight||27 : 27;
+                var height = !!titlebar ? titlebar.offsetHeight || 27 : 27;
                 var buttonPadding = 12;
                 var margin = content.offsetLeft || 0;
                 var leftOffset = 0;
@@ -267,6 +279,9 @@
     //-- CONSOLE --//
     exports.console = require('desktopgap_console.js');
 
+    //-- I18N --//
+    exports.i18n = require('desktopgap_i18n.js');
+
     //-- FRAME --//
     exports.frame = require('desktopgap_frame.js');
 
@@ -297,6 +312,8 @@
     window.deviceready = false;
 
     window.console = exports.console;
+
+    window.i18n = exports.i18n;
 
     window.device = exports.device;
 

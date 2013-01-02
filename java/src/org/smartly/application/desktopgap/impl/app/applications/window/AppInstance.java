@@ -28,6 +28,7 @@ public class AppInstance
     private final DesktopController _controller;
     private final AppManifest _manifest;
     private final AppRegistry _registry;
+    private final AppLocalization _i18n;
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
 
@@ -39,6 +40,7 @@ public class AppInstance
         _windows = new AppWindows(this);
         _windows.addEventListener(this);
         _children = new ArrayList<AppFrame>();
+        _i18n = new AppLocalization(this);
 
         this.initLogger();
     }
@@ -68,6 +70,10 @@ public class AppInstance
 
     public AppManifest getManifest() {
         return _manifest;
+    }
+
+    public AppLocalization getI18n() {
+        return _i18n;
     }
 
     public String getId() {

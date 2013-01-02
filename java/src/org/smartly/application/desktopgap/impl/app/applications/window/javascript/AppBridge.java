@@ -6,6 +6,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.i18n.ToolI18n;
 
 /**
  * Javascript-Java Bridge.
@@ -22,6 +23,7 @@ public class AppBridge {
     private final ToolConnection _connection;
     private final ToolConsole _console;
     private final ToolFrame _frame;
+    private final ToolI18n _i18n;
 
     public AppBridge(final AppFrame frame) {
         // tools
@@ -29,6 +31,7 @@ public class AppBridge {
         _device = new ToolDevice();
         _connection = new ToolConnection();
         _console = ToolConsole.getConsole(frame.getApp());
+        _i18n = new ToolI18n(frame);
     }
 
     @Override
@@ -51,6 +54,14 @@ public class AppBridge {
 
     public ToolConsole console() {
         return _console;
+    }
+
+    // --------------------------------------------------------------------
+    //               I 1 8 N
+    // --------------------------------------------------------------------
+
+    public ToolI18n i18n() {
+        return _i18n;
     }
 
     // --------------------------------------------------------------------

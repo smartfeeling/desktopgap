@@ -73,6 +73,9 @@
 
         // set version
         $(app_version).html(window.version);
+
+        // localize
+        i18n.translate();
     }
 
 })(this);
