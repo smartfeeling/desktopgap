@@ -17,7 +17,7 @@ import java.util.Map;
  * The console object is a helper tool for debug.<br>
  * Each Application creates its own console (singleton in application context).
  */
-public class ToolConsole {
+public final class ToolConsole {
 
     private static final String APP_CONSOLE_ID = "system_console";
 

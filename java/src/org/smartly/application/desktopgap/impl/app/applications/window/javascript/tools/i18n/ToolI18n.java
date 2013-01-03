@@ -8,7 +8,7 @@ import org.smartly.commons.util.StringUtils;
 /**
  *
  */
-public class ToolI18n {
+public final class ToolI18n {
 
     private final AppLocalization _i18n;
     private final String _lang;

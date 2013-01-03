@@ -11,6 +11,13 @@ public interface IDesktopConstants {
 
     public static final String ARG_INSTALL = "install"; // install run argument (remove source)
 
+    //-- system apps --//
+    public static final String SYS_APP_HOME = "system_home";
+    public static final String[] SYS_APPS = new String[]{
+            SYS_APP_HOME
+    };
+
+    //-- paths --//
     public static final String AUTORUN_DIR = "./app_autorun"; // auto-run folder
     public static final String INSTALLED_STORE_DIR = "./app_installed/store"; // STORE program files
     public static final String INSTALLED_SYSTEM_DIR = "./app_installed/system"; // SYSTEM program files
@@ -21,14 +28,17 @@ public interface IDesktopConstants {
     public static final String FILE_REGISTRY = "registry.json";
     public static final String PAGE_FRAME = "frame.html";
 
+    //-- frame types --//
     public static final String FRAME_STANDARD = "standard";
     public static final String FRAME_TOOL = "tool";
 
+    //-- button names --//
     public static final String BTN_FULLSCREEN = "fullscreen";
     public static final String BTN_CLOSE = "close";
     public static final String BTN_MAXIMIZE = "maximize";
     public static final String BTN_MINIMIZE = "minimize";
 
+    //-- manifest --//
     public static final String MF_FRAME = "frame";
     public static final String MF_FRAME_SHADOW = StringUtils.concatDot(MF_FRAME, "shadow");
     public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");

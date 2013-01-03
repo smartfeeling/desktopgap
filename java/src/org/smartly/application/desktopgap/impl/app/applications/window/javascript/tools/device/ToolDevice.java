@@ -26,7 +26,7 @@ import org.smartly.commons.util.SystemUtils;
  * var phoneName = window.device.name;
  * var phoneName = device.name;
  */
-public class ToolDevice {
+public final class ToolDevice {
 
     public static final String NAME = "device";
 

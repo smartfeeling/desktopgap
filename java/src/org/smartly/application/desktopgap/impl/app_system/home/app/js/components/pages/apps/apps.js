@@ -1,6 +1,7 @@
 (function (window) {
 
-    var EVENT_CLICK = 'click'
+    var desktopgap = window.desktopgap
+        , runtime = desktopgap.runtime
         , sel_self = '#<%= cid %>'
 
     //-- tabs --//
@@ -19,7 +20,11 @@
 
 
         // add listeners
-        this.on('init', _init);
+        this.on('init', function(){
+            _.delay(function(){
+               self.bindTo(_init)();
+            }, 100);
+        });
     }
 
     ly.inherits(PageApps, ly.Gui);
@@ -30,7 +35,7 @@
 
     function _init() {
         var self = this
-
+            , names = runtime.appNames()
             ;
 
 

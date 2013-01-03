@@ -17,7 +17,7 @@ import org.smartly.commons.network.NetworkUtils;
  * <li>Connection.NONE</li>
  * </ul>
  */
-public class ToolConnection {
+public final class ToolConnection {
 
     private String _type;
 

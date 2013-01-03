@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Javascript engine helper
  */
-public class JsEngine {
+public final class JsEngine {
 
     public static final String UNDEFINED = "undefined";
 

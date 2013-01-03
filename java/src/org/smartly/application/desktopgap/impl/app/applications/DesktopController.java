@@ -9,16 +9,11 @@ import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.AppAutorunManager;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.IAutorunListener;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
-import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
 import org.smartly.application.desktopgap.impl.app.command.CommandSender;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
-import org.smartly.commons.event.Event;
-import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.io.FileObserver;
 import org.smartly.commons.io.IFileObserverListener;
 import org.smartly.commons.logging.Level;
@@ -26,32 +21,27 @@ import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
 import java.util.Set;
 
 /**
  * Main Application Controller.
  */
-public class DesktopController
+public final class DesktopController
         extends Application
-        implements IEventListener, IFileObserverListener, IAutorunListener {
+        implements IFileObserverListener, IAutorunListener {
 
-    private static final String AUTORUN_DIR = IDesktopConstants.AUTORUN_DIR;
     private static final String INSTALLED_STORE_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
     private static final String INSTALLED_SYSTEM_DIR = IDesktopConstants.INSTALLED_SYSTEM_DIR;
     private static final String INSTALL_DIR = IDesktopConstants.INSTALL_DIR;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
-    private static final String APP_EXT = IDesktopConstants.APP_EXT;
 
     private final AppAutorunManager _autorun;
     private final String _root_install;     // auto-install root
     private final String _root_installed_store;   // installed apps
     private final String _root_installed_system;
     private final String _root_temp;        // temp
-    private final Map<String, AppInstance> _registry_running;
-    private final Map<String, AppInstance> _registry_installed;
+    private final DesktopControllerApps _applications;
     private FileObserver _installObserver;
 
     private Text _text;
@@ -62,8 +52,7 @@ public class DesktopController
         _root_installed_system = Smartly.getAbsolutePath(INSTALLED_SYSTEM_DIR);
         _root_temp = Smartly.getAbsolutePath(TEMP_DIR);
         _autorun = new AppAutorunManager();
-        _registry_running = Collections.synchronizedMap(new HashMap<String, AppInstance>());
-        _registry_installed = Collections.synchronizedMap(new HashMap<String, AppInstance>());
+        _applications = new DesktopControllerApps(this);
     }
 
     @Override
@@ -111,21 +100,9 @@ public class DesktopController
         }
     }
 
-    // ------------------------------------------------------------------------
-    //                      IEventListener
-    // ------------------------------------------------------------------------
-
-    @Override
-    public void on(final Event event) {
-        if (event instanceof FrameCloseEvent) {
-            // FRAME CLOSE
-            this.handleCloseApp((AppInstance) event.getSender());
-        } else if (event instanceof FrameOpenEvent) {
-            // FRAME OPEN
-            this.handleOpenApp((AppInstance) event.getSender());
-        }
+    public Collection<String> getApplicationNames() {
+        return _applications.getAppNames();
     }
-
 
     // ------------------------------------------------------------------------
     //                      IFileObserverListener (install dir)
@@ -138,7 +115,7 @@ public class DesktopController
             public void run() {
                 try {
                     final String clean_path = PathUtils.toUnixPath(path);
-                    if (null!=launchPackage(clean_path, null)) {
+                    if (null != launchPackage(clean_path, null)) {
                         // remove package
                         FileUtils.delete(clean_path);
                     }
@@ -200,15 +177,13 @@ public class DesktopController
         //-- STORE: scan installed folder and creates registry --//
         final Set<String> installed = Utils.getDirectories(_root_installed_store);
         for (final String file : installed) {
-            final AppInstance app = this.createApp(new AppManifest(file, false));
-            _registry_installed.put(app.getId(), app);
+            _applications.addInstalled(file, false);
         }
 
         //-- SYSTEM: scan installed folder and creates registry --//
         final Set<String> installed_sys = Utils.getDirectories(_root_installed_system);
         for (final String file : installed_sys) {
-            final AppInstance app = this.createApp(new AppManifest(file, true));
-            _registry_installed.put(app.getId(), app);
+            _applications.addInstalled(file, true);
         }
 
         //-- autorun --//
@@ -218,39 +193,33 @@ public class DesktopController
         launchArgFiles();
     }
 
-    private AppInstance installPackage(final String packagePath) throws IOException {
-        synchronized (_registry_installed) {
+    private AppManifest installPackage(final String packagePath) throws IOException {
+        synchronized (_applications) {
             final AppManifest manifest = new AppManifest(packagePath, false);
             final String appId = manifest.getAppId();
             // check if installed and update or install from scratch
-            if (_registry_installed.containsKey(appId)) {
+            if (_applications.isInstalled(appId)) {
                 //-- update --//
                 final AppManifest old_manifest = new AppManifest(manifest.getInstallDir(), false);
                 if (manifest.isGreaterThan(old_manifest)) {
                     // close existing instance
-                    _registry_installed.get(appId).close();
+                    _applications.closeApplication(appId);
                     // overwrite
                     Utils.install(packagePath, manifest.getInstallDir());
-                    _registry_installed.put(appId, this.createApp(manifest)); // REGISTER NEW
+                    _applications.addInstalled(manifest); // REGISTER NEW
                 } else {
                     // returns existing app instance
-                    return _registry_installed.get(appId);
+                    return _applications.getInstalled(appId);
                 }
 
             } else {
                 //-- install --//
                 Utils.install(packagePath, manifest.getInstallDir());
-                _registry_installed.put(appId, this.createApp(manifest));  // REGISTER NEW
+                _applications.addInstalled(manifest);  // REGISTER NEW
             }
 
-            return _registry_installed.get(appId);
+            return _applications.getInstalled(appId);
         }
-    }
-
-    private AppInstance createApp(final AppManifest manifest) throws IOException {
-        final AppInstance app = new AppInstance(this, manifest);
-        app.addEventListener(this);
-        return app;
     }
 
     /**
@@ -259,38 +228,21 @@ public class DesktopController
      * @param packagePath Application Package Path. i.e. "c:/myapp/app.dga"
      */
     private AppFrame launchPackage(final String packagePath,
-                                      final String winId) throws IOException {
-        final AppInstance app_instance = this.installPackage(packagePath);
+                                   final String winId) throws IOException {
+        final AppManifest manifest = this.installPackage(packagePath);
 
         //-- ready to run app --//
-        return this.launchApp(app_instance.getId(), winId);
+        return this.launchApp(manifest.getAppId(), winId);
     }
 
     private AppFrame launchApp(final String appId,
-                                  final String winId) throws IOException {
-        if (_registry_installed.containsKey(appId)) {
-            return _registry_installed.get(appId).open(winId);
+                               final String winId) throws IOException {
+        if (_applications.isInstalled(appId)) {
+            return _applications.getApplication(appId).open(winId);
         }
         return null;
     }
 
-    private void handleOpenApp(final AppInstance app) {
-        synchronized (_registry_running) {
-            if (!_registry_running.containsKey(app.getId())) {
-                // register new app instance
-                _registry_running.put(app.getId(), app);
-            }
-        }
-    }
-
-    private void handleCloseApp(final AppInstance app) {
-        synchronized (_registry_running) {
-            if (_registry_running.containsKey(app.getId())) {
-                // register new app instance
-                _registry_running.remove(app.getId());
-            }
-        }
-    }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e

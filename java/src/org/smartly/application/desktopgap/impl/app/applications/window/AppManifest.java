@@ -48,7 +48,7 @@ public class AppManifest {
     private static final String MF_FRAME_STANDARD = IDesktopConstants.FRAME_STANDARD;
     private static final String MF_FRAME_TOOL = IDesktopConstants.FRAME_TOOL;
 
-
+    private final boolean _is_system;
     private final String _temp_dir;
     private final JsonWrapper _manifest;
     private final String _install_dir;
@@ -66,6 +66,7 @@ public class AppManifest {
      * @throws IOException
      */
     public AppManifest(final String path, final boolean system) throws IOException {
+        _is_system = system;
         _temp_dir = PathUtils.concat(Smartly.getAbsolutePath(TEMP_DIR), GUID.create(false, true));
         _manifest = this.getManifest(path);
         if (!_manifest.isEmpty()) {
@@ -86,6 +87,10 @@ public class AppManifest {
         return _manifest;
     }
 
+    public boolean isSystem() {
+        return _is_system;
+    }
+
     public boolean isValid() {
         return null != _manifest && !_manifest.isEmpty();
     }
@@ -95,7 +100,7 @@ public class AppManifest {
     }
 
     public String getAbsoluteAppPath(final String path) {
-        if(PathUtils.isHttp(path)){
+        if (PathUtils.isHttp(path)) {
             return path;
         }
         return PathUtils.concat(_app_docroot, path);
@@ -225,7 +230,6 @@ public class AppManifest {
         _manifest.putSilent(MF_FRAME_TYPE, value);
         this.save();
     }
-
 
 
     //-- registry --//
@@ -369,7 +373,6 @@ public class AppManifest {
         final String version = _manifest.optString(MF_VERSION);
         _appId = MD5.encode(StringUtils.concatDot(index, name, title, version));
     }
-
 
 
 }

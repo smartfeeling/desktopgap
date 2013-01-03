@@ -146,7 +146,17 @@
         //--  handlers --//
         initHandlers();
 
-        pages_controller.open(mnu_apps);
+        //-- show firs window--//
+        if (desktopgap.runtime.hasApps()) {
+            // some applications installed
+            pages_controller.open(mnu_apps);
+            $(sel_mnu_apps).addClass('selected');
+        } else {
+            // no applications installed
+            pages_controller.open(mnu_help);
+            $(sel_mnu_help).addClass('selected');
+        }
+
     }
 
 })(this);

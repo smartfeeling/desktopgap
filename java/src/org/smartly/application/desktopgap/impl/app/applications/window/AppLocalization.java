@@ -14,7 +14,7 @@ import java.util.*;
 /**
  *
  */
-public class AppLocalization {
+public final class AppLocalization {
 
     private static final String I18N_DIR = "i18n";
     private static final String EXT = ".properties";

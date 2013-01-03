@@ -8,7 +8,7 @@ import org.smartly.commons.util.ConversionUtils;
 /**
  *
  */
-public class ToolFrame {
+public final class ToolFrame {
 
     private static final String BUTTON_CLOSE = IDesktopConstants.BTN_CLOSE;
     private static final String BUTTON_MINIMIZE = IDesktopConstants.BTN_MINIMIZE;

@@ -276,6 +276,9 @@
 
     var exports = window.desktopgap = window.dg = {};
 
+    //-- RUNTIME (protected) --//
+    exports.runtime = require('desktopgap_runtime.js');
+
     //-- CONSOLE --//
     exports.console = require('desktopgap_console.js');
 

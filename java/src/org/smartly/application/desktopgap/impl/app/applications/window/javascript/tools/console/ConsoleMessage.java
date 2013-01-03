@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  *
  */
-public class ConsoleMessage {
+public final class ConsoleMessage {
 
     private static final String PROP_LEVEL = "level";
     private static final String PROP_MESSAGE = "message";

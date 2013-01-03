@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Application Wrapper
  */
-public class AppInstance
+public final class AppInstance
         extends EventEmitter
         implements IEventListener {
 
@@ -55,6 +55,10 @@ public class AppInstance
         result.append("install_dir: ").append(this.getInstallDir());
 
         return result.toString();
+    }
+
+    public DesktopController getDesktop() {
+        return _controller;
     }
 
     public String getAbsolutePath(final String path) {
