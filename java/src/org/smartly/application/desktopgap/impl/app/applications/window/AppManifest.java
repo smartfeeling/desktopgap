@@ -95,6 +95,9 @@ public class AppManifest {
     }
 
     public String getAbsoluteAppPath(final String path) {
+        if(PathUtils.isHttp(path)){
+            return path;
+        }
         return PathUtils.concat(_app_docroot, path);
     }
 

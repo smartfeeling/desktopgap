@@ -2,8 +2,23 @@
 
     var document = window.document
         , desktopgap = window.desktopgap
+        , i18n = window['i18n']
         , require = window['require']
+
         , imported = false
+        , pages_controller
+
+        , mnu_apps = 'mnu_apps'
+        , mnu_help = 'mnu_help'
+        , mnu_task = 'mnu_task'
+        , mnu_tool = 'mnu_tool'
+
+        , sel_btn_close = '#btn_close'
+        , sel_menu = '.app-menu li'
+        , sel_mnu_apps = '#' + mnu_apps
+        , sel_mnu_help = '#' + mnu_help
+        , sel_mnu_task = '#' + mnu_task
+        , sel_mnu_tool = '#' + mnu_tool
         ;
 
 
@@ -40,7 +55,8 @@
     function importComponents() {
         if (!imported) {
 
-            // require('./js/components/console/console.js');
+            require('./js/components/pages/controller.js');
+            require('./js/components/pages/apps/apps.js');
 
 
             imported = true;
@@ -51,12 +67,51 @@
     //               app handlers
     // --------------------------------------------------------------------
 
+    function initComponents() {
+        try {
+            //-- creates pages controller --//
+            if (!pages_controller) {
+                var $panel = $('.panel-right .panel-content');
+                $panel.html('');
+                pages_controller = new desktopgap.gui.pages.PagesController();
+                pages_controller.appendTo($panel);
+            }
+        } catch (err) {
+            console.error('(app.js) initComponents(): ' + err);
+        }
+    }
+
     function initHandlers() {
 
         //-- close --//
-        ly.el.click($('#btn_close'), function () {
+        ly.el.click($(sel_btn_close), function () {
             desktopgap.frame.minimize();
         });
+
+        //-- menu --//
+        ly.el.click($(sel_mnu_apps), function () {
+            mnuClick(this);
+        });
+        ly.el.click($(sel_mnu_help), function () {
+            mnuClick(this);
+        });
+        ly.el.click($(sel_mnu_task), function () {
+            mnuClick(this);
+        });
+        ly.el.click($(sel_mnu_tool), function () {
+            mnuClick(this);
+        });
+    }
+
+    function mnuClick($elem) {
+        //-- remove selection --//
+        $(sel_menu).removeClass('selected');
+
+        //-- add selection to current item--//
+        $elem.addClass('selected');
+
+        var id = $elem.attr('id')
+            ;
 
     }
 
@@ -64,18 +119,23 @@
     //               app
     // --------------------------------------------------------------------
 
-    var app_version ='.app-version-id'
-    ;
+    var app_version = '.app-version-id'
+        ;
 
-    function initApp(){
-        //--  handlers --//
-        initHandlers();
-
+    function initApp() {
         // set version
         $(app_version).html(window.version);
 
         // localize
         i18n.translate();
+
+        //-- components --//
+        initComponents();
+
+        //--  handlers --//
+        initHandlers();
+
+
     }
 
 })(this);

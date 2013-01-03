@@ -108,12 +108,19 @@ body {
     padding: 5px;
     vertical-align: middle;
     border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
 }
 
 .app-menu li:hover {
-    background-color: #a2a2a2;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333233;
 }
 
+.app-menu li.selected {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid #222222;
+}
 
 .app-menu a {
     text-decoration: none;
@@ -132,7 +139,7 @@ body {
     height: 100%;
 }
 
-.page-content {
-    overflow: hidden;
+.panel-content {
+
 
 }

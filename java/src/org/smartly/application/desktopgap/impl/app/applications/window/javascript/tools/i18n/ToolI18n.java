@@ -18,10 +18,27 @@ public class ToolI18n {
         _lang = LocaleUtils.getCurrent().getLanguage();
     }
 
+    /**
+     * Return localized resource using default system language.
+     * @param name_key  Dot separated compound string including dictionary name and resource key.
+     *                  i.e. "home.version"
+     * @return Localized resource.
+     */
     public String get(final String name_key) {
         return this.get(_lang, name_key);
     }
 
+    /**
+     * Return localized resource.
+     * Accept 2 parameters with different usages.
+     * If first parameter is language, second must be a compound
+     * String like "dictionary.key" (i.e. "home.version").
+     * If first parameter is dictionary name, second must be the key of resource (system language will be used).
+     * @param param1 Language or dictionary name
+     * @param param2 resource key or
+     *               dot separated compound string including dictionary name and resource key ("home.version")
+     * @return Localized resource.
+     */
     public String get(final String param1, final String param2) {
         if (param2.contains(".")) {
             // param1 is LANG
