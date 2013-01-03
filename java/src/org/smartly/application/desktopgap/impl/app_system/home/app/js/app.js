@@ -21,7 +21,6 @@
         , sel_mnu_tool = '#' + mnu_tool
         ;
 
-
     // --------------------------------------------------------------------
     //               deviceready
     // --------------------------------------------------------------------
@@ -57,6 +56,9 @@
 
             require('./js/components/pages/controller.js');
             require('./js/components/pages/apps/apps.js');
+            require('./js/components/pages/help/help.js');
+            require('./js/components/pages/task/task.js');
+            require('./js/components/pages/tool/tool.js');
 
 
             imported = true;
@@ -71,9 +73,18 @@
         try {
             //-- creates pages controller --//
             if (!pages_controller) {
-                var $panel = $('.panel-right .panel-content');
+                var $panel = $('.page-content');
                 $panel.html('');
-                pages_controller = new desktopgap.gui.pages.PagesController();
+                // create pages object
+                var pages = {};
+                pages[mnu_apps] = desktopgap.gui.pages.PageApps;
+                pages[mnu_help] = desktopgap.gui.pages.PageHelp;
+                pages[mnu_task] = desktopgap.gui.pages.PageTask;
+                pages[mnu_tool] = desktopgap.gui.pages.PageTool;
+
+                pages_controller = new desktopgap.gui.pages.PagesController({
+                    pages: pages
+                });
                 pages_controller.appendTo($panel);
             }
         } catch (err) {
@@ -112,7 +123,7 @@
 
         var id = $elem.attr('id')
             ;
-
+        pages_controller.open(id);
     }
 
     // --------------------------------------------------------------------
@@ -135,7 +146,7 @@
         //--  handlers --//
         initHandlers();
 
-
+        pages_controller.open(mnu_apps);
     }
 
 })(this);
