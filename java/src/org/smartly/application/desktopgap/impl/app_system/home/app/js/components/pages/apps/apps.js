@@ -2,10 +2,7 @@
 
     var desktopgap = window.desktopgap
         , runtime = desktopgap.runtime
-        , sel_self = '#<%= cid %>'
-
-    //-- tabs --//
-        , sel_tabs = '#tab-<%= cid %> a'
+        , i18n = desktopgap['i18n']
         ;
 
     function PageApps(options) {
@@ -38,7 +35,7 @@
             , names = runtime.appNames()
             ;
 
-
+        i18n.translate(self['parent'][0]);
     }
 
     // ------------------------------------------------------------------------

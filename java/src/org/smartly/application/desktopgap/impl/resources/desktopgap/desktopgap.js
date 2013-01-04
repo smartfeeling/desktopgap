@@ -6,9 +6,33 @@
     //                      utility
     // ------------------------------------------------------------------------
 
-    function isFunction(func) {
-        return Object.prototype.toString.call(func) == '[object Function]';
-    }
+    window.has = function has(obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    };
+
+    window.values = function values(obj) {
+        var values = [];
+        for (var key in obj) if (has(obj, key)) values.push(obj[key]);
+        return values;
+    };
+
+    window.toArray = function toArray(obj) {
+        if (!obj) return [];
+        if (obj.length === +obj.length) return Array.prototype.slice.call(obj);
+        return values(obj);
+    };
+
+    window.isFunction = function isFunction(obj) {
+        return Object.prototype.toString.call(obj) == '[object Function]';
+    };
+
+    window.isString = function isString(obj) {
+        return Object.prototype.toString.call(obj) == '[object String]';
+    };
+
+    window.isElement = function isElement(obj) {
+        return !!(obj && obj.nodeType == 1);
+    };
 
     function extend(target, source) {
         var name, copy;
@@ -31,7 +55,6 @@
         return {};
     }
 
-
     function getUrl(url, callback) {
         var xhr = new XMLHttpRequest(),
             async = isFunction(callback);
@@ -47,18 +70,28 @@
         return xhr.responseText;
     }
 
-    window.getAllElementsWithAttribute = function getAllElementsWithAttribute(attribute) {
+    window.getAllElementsWithAttribute = function getAllElementsWithAttribute(attribute, startElem) {
         var matchingElements = [];
-        var allElements = document.getElementsByTagName('*');
-        for (var i = 0; i < allElements.length; i++) {
-            if (allElements[i].getAttribute(attribute)) {
-                // Element exists with attribute. Add to array.
-                matchingElements.push(allElements[i]);
+        try {
+            startElem = startElem || document;
+            var allElements = startElem.getElementsByTagName('*');
+            for (var i = 0; i < allElements.length; i++) {
+                if (allElements[i].getAttribute(attribute)) {
+                    // Element exists with attribute. Add to array.
+                    matchingElements.push(allElements[i]);
+                }
             }
+        } catch (err) {
+            console.error('(desktopgap.js) getAllElementsWithAttribute(): ' + err);
         }
         return matchingElements;
     };
 
+    /**
+     * Load script and evaluate returning the result.
+     * @param url Script to load.
+     * @return Result of script evaluation
+     */
     window.require = function require(url) {
         try {
             var script = getUrl(url);
@@ -73,6 +106,11 @@
         return {};
     };
 
+    /**
+     * Load text file (html, css, ...) and returns the content.
+     * @param url
+     * @return Content of text file, or undefined.
+     */
     window.load = function load(url) {
         // console.log('load: ' + url);
         try {

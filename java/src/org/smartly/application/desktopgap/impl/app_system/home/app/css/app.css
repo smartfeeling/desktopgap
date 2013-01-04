@@ -144,5 +144,18 @@ body {
 .page-content {
     overflow: auto;
     margin-right: 10px;
-    height: 470px;
+    height: 430px;
+}
+
+/**   TYPOGRAPHY
+-----------------------------------------------------------------*/
+
+.page-title {
+    font-family: 'Bazar';
+    font-size: 18px;
+    vertical-align: top;
+    color: #d7ceb2;
+    text-shadow: 3px 3px 0px #2c2e38, 5px 5px 0px #5c5f72;
+    letter-spacing: 10px;
+    margin-bottom: 25px;
 }

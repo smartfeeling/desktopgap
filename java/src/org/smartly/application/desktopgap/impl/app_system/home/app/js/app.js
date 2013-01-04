@@ -15,6 +15,7 @@
 
         , sel_btn_close = '#btn_close'
         , sel_menu = '.app-menu li'
+        , sel_pagetitle = '.page-title'
         , sel_mnu_apps = '#' + mnu_apps
         , sel_mnu_help = '#' + mnu_help
         , sel_mnu_task = '#' + mnu_task
@@ -124,6 +125,7 @@
         var id = $elem.attr('id')
             ;
         pages_controller.open(id);
+        $(sel_pagetitle).html($elem.text());
     }
 
     // --------------------------------------------------------------------
@@ -151,10 +153,12 @@
             // some applications installed
             pages_controller.open(mnu_apps);
             $(sel_mnu_apps).addClass('selected');
+            $(sel_pagetitle).html($(sel_mnu_apps).text());
         } else {
             // no applications installed
             pages_controller.open(mnu_help);
             $(sel_mnu_help).addClass('selected');
+            $(sel_pagetitle).html($(sel_mnu_help).text());
         }
 
     }

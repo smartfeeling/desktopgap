@@ -2,6 +2,9 @@
 
     var defined = window.defined // func defined()
         , getAllElementsWithAttribute = window.getAllElementsWithAttribute
+        , isString = window.isString
+        , isElement = window.isElement
+        , toArray = window.toArray
         , attr = 'data-i18n'
         ;
     // ------------------------------------------------------------------------
@@ -25,8 +28,8 @@
          */
         get: function () {
             try {
-                var args = slice.call(arguments);
                 if (defined('bridge')) {
+                    var args = toArray(arguments);
                     if (args.length === 3) {
                         return desktopgap['bridge'].i18n().get(args[0], args[1], args[2]);
                     } else if (args.length === 2) {
@@ -40,15 +43,41 @@
 
         /**
          * Translate a document with tags containing [data-i18n] attribute.
-         * @param lang
+         * Arguments:
+         * - lang {string} (optional): Language for translation. Default is system language
+         * - startElem {HTMLElement} (optional): element to translate. Can be any container. Default is document object
          */
-        translate: function (lang) {
+        translate: function () {
             if (defined('bridge')) {
-                var elems = getAllElementsWithAttribute('data-i18n');
-                for (var i = 0; i < elems.length; i++) {
-                    var elem = elems[i];
-                    var key = elem.getAttribute('data-i18n');
-                    elem.innerHTML = desktopgap['bridge'].i18n().get(lang||'', key);
+                try {
+                    // parse args
+                    var args =  toArray(arguments)
+                        , lang
+                        , startElem
+                        ;
+                    if (args.length > 0) {
+                        if (isString(args[0])) {
+                            lang = args[0];
+                        } else if (isElement(args[0])) {
+                            startElem = args[0];
+                        }
+                        if (args.length === 2) {
+                            if (isString(args[1])) {
+                                lang = lang || args[1];
+                            } else if (isElement(args[1])) {
+                                startElem = startElem || args[1];
+                            }
+                        }
+                    }
+                    // console.log('startElem: ' + startElem);
+                    var elems = getAllElementsWithAttribute('data-i18n', startElem);
+                    for (var i = 0; i < elems.length; i++) {
+                        var elem = elems[i];
+                        var key = elem.getAttribute('data-i18n');
+                        elem.innerHTML = desktopgap['bridge'].i18n().get(lang || '', key);
+                    }
+                } catch (err) {
+                    console.error('(desktopgap_i18n.js) transalte(): ' + err);
                 }
             }
         }

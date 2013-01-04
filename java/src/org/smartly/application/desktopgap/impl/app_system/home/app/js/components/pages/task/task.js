@@ -1,10 +1,7 @@
 (function (window) {
 
-    var EVENT_CLICK = 'click'
-        , sel_self = '#<%= cid %>'
-
-    //-- tabs --//
-        , sel_tabs = '#tab-<%= cid %> a'
+    var desktopgap = window.desktopgap
+        , i18n = desktopgap['i18n']
         ;
 
     function PageTask(options) {
@@ -33,7 +30,7 @@
 
             ;
 
-
+        i18n.translate(self['parent'][0]);
     }
 
     // ------------------------------------------------------------------------
