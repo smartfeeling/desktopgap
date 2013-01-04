@@ -25,6 +25,9 @@ public class JsSnippet {
     private static final String PARAM_VALUE = "VALUE"; // string
 
     //-- script shortcuts --//
+    private static final String SCRIPT_CONSOLE_LOG = "/js/consoleLog.js";
+    private static final String SCRIPT_CONSOLE_ERROR = "/js/consoleError.js";
+    private static final String SCRIPT_CONSOLE_WARN = "/js/consoleWarn.js";
     private static final String SCRIPT_DISPATCH_EVENT = "/js/dispatchEvent.js";
     private static final String SCRIPT_SHOW_HIDE_ELEM = "/js/showHideElem.js";
     private static final String SCRIPT_SET_ELEM_VALUE = "/js/setElemValue.js";
@@ -53,6 +56,27 @@ public class JsSnippet {
             __instance = new JsSnippet();
         }
         return __instance;
+    }
+
+    public static String getConsoleLog(final String message) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        params.put(PARAM_VALUE, message);
+
+        return getInstance().getScript(SCRIPT_CONSOLE_LOG, params);
+    }
+
+    public static String getConsoleError(final String message) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        params.put(PARAM_VALUE, message);
+
+        return getInstance().getScript(SCRIPT_CONSOLE_ERROR, params);
+    }
+
+    public static String getConsoleWarn(final String message) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        params.put(PARAM_VALUE, message);
+
+        return getInstance().getScript(SCRIPT_CONSOLE_WARN, params);
     }
 
     public static String getDispatchEvent(final String eventName, final Object data) {

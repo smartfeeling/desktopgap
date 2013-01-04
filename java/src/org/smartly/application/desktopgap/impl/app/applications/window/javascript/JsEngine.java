@@ -125,6 +125,13 @@ public final class JsEngine {
         }
     }
 
+    private void scriptReady(final boolean value){
+       _script_ready = value;
+        if(value){
+           this.executeCache();
+        }
+    }
+
     private void executeScript(final String script) {
         try {
             _engine.executeScript(script);
@@ -144,24 +151,24 @@ public final class JsEngine {
                         //System.out.println(newState);
                         if (newState == Worker.State.CANCELLED) {
                             // navigation cancelled by user
-                            _script_ready = false;
+                            scriptReady(false);
                         } else if (newState == Worker.State.FAILED) {
                             // navigation failed
-                            _script_ready = false;
+                            scriptReady(false);
                         } else if (newState == Worker.State.READY) {
-                            _script_ready = false;
+                            scriptReady(false);
                         } else if (newState == Worker.State.SCHEDULED) {
                             // browser scheduled navigation
                             //System.out.println(engine.getLocation());
-                            _script_ready = false;
+                            scriptReady(false);
                         } else if (newState == Worker.State.RUNNING) {
                             // browser is loading data
-                            _script_ready = false;
+                            scriptReady(false);
                         } else if (newState == Worker.State.SUCCEEDED) {
                             init();
                             showHideElem(_frame.getManifest().getButtonsMap());
                             dispatchReady();
-                            _script_ready = true;
+                            scriptReady(true);
                         }
                     }
                 }

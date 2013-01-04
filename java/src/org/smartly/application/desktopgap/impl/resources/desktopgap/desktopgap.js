@@ -90,7 +90,7 @@
     /**
      * Load script and evaluate returning the result.
      * @param url Script to load.
-     * @return Result of script evaluation
+     * @return {*} Result of script evaluation
      */
     window.require = function require(url) {
         try {
@@ -109,7 +109,7 @@
     /**
      * Load text file (html, css, ...) and returns the content.
      * @param url
-     * @return Content of text file, or undefined.
+     * @return {string} Content of text file, or empty string.
      */
     window.load = function load(url) {
         // console.log('load: ' + url);
@@ -121,7 +121,7 @@
         } catch (err) {
             return err.toString();
         }
-        return undefined;
+        return '';
     };
 
     // ------------------------------------------------------------------------
@@ -336,6 +336,9 @@
     //-- FILE --//
     exports.fileSystem = require('desktopgap_file.js');
 
+    //-- LOCALSTORE --//
+    exports.LocalStore = require('desktopgap_localstore.js');
+
     // ------------------------------------------------------------------------
     //                      -> n a v i g a t o r
     // ------------------------------------------------------------------------
@@ -359,6 +362,8 @@
     window.device = exports.device;
 
     window.Connections = exports.Connections;
+
+    window.LocalStore = exports.LocalStore;
 
     // ------------------------------------------------------------------------
     //                  i n i t i a l i z a t i o n

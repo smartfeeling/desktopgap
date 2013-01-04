@@ -71,9 +71,9 @@ public final class ToolConsole {
     //                  L O G
     // --------------------------------------------------------------------
 
-    public void log(final Object message) {
+    public void log(final Object type, final Object message) {
         if (null != message) {
-            final Level level = Level.INFO;
+            final Level level = getLevel((String)type);
             final ConsoleMessage cm = _messages.put(level, message);
             //-- delegate to logger --//
             this.getLogger().log(level, cm.toString());
@@ -154,6 +154,17 @@ public final class ToolConsole {
 
     private static String getConsoleId(final AppInstance app) {
         return "console.".concat(app.getId());
+    }
+
+    private static Level getLevel(final String level) {
+        if("error".equalsIgnoreCase(level)){
+            return Level.SEVERE;
+        } else if ("warn".equalsIgnoreCase(level)){
+            return Level.WARNING;
+        } else if ("debug".equalsIgnoreCase(level)){
+            return Level.FINE;
+        }
+        return Level.INFO;
     }
 
     public static ToolConsole getConsole(final AppInstance app) {

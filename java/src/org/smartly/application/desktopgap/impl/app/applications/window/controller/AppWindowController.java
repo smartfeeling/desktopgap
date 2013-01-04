@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
@@ -143,8 +144,11 @@ public class AppWindowController implements Initializable {
         _jsengine = new JsEngine(_frame, engine);
         // _jsengine.init();
 
-        this.handleAlert(engine);
+        // disable alert(), prompt(), confirm()
+        this.handleAlert(engine);  // replaced with console.warn()
         this.handlePrompt(engine);
+        this.handleConfirm(engine);
+
         this.handleLoading(engine);
         this.handlePopups(engine);
     }
@@ -155,7 +159,7 @@ public class AppWindowController implements Initializable {
             public void handle(final WebEvent<String> stringWebEvent) {
                 if (null != stringWebEvent) {
                     final String data = stringWebEvent.getData();
-                    System.out.println(data);
+                    _jsengine.whenReady(JsSnippet.getConsoleWarn(data));
                 }
             }
         });
@@ -165,10 +169,20 @@ public class AppWindowController implements Initializable {
         engine.setPromptHandler(new Callback<PromptData, String>() {
             @Override
             public String call(final PromptData promptData) {
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
+                return "";
             }
         });
     }
+
+    private void handleConfirm(final WebEngine engine) {
+        engine.setConfirmHandler(new Callback<String, Boolean>() {
+            @Override
+            public Boolean call(String s) {
+                return false;
+            }
+        });
+    }
+
 
     private void handleLoading(final WebEngine engine) {
         // process page loading

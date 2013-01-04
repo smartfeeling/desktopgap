@@ -160,7 +160,6 @@
             $(sel_mnu_help).addClass('selected');
             $(sel_pagetitle).html($(sel_mnu_help).text());
         }
-
     }
 
 })(this);

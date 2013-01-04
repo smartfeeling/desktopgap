@@ -1,4 +1,4 @@
-(function(window){
+(function (window) {
 
     var defined = window.defined; // func defined()
 
@@ -20,10 +20,21 @@
             }
         },
 
-        log: function (message) {
+        log: function () {
             var bridge = defined('bridge');
             if (!!bridge) {
-                bridge.console().log(message);
+                var args = toArray(arguments)
+                    , type
+                    , message
+                    ;
+                if (args.length === 1) {
+                    type = 'info';
+                    message = args[0];
+                } else if (args.length === 2) {
+                    type = args[0];
+                    message = args[1];
+                }
+                bridge.console().log(type, message);
             }
         },
 
