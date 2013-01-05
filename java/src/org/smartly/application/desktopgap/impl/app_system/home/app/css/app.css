@@ -7,6 +7,13 @@ body {
     letter-spacing: 5px;
 }
 
+ul {
+    list-style: none;
+    list-style-image: none;
+    padding: 0;
+    margin: 0;
+}
+
 #content {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -55,9 +62,10 @@ body {
     top: 0;
     left: 0;
     display: block;
-    border-right: 1px solid #333;
     height: 100%;
     width: 250px;
+
+    border-right: 1px solid rgb(33,33,33);
 }
 
 .app-titlebar>* {
@@ -96,13 +104,6 @@ body {
     font-size: 11px;
 }
 
-.app-menu ul {
-    list-style: none;
-    list-style-image: none;
-    padding: 0;
-    margin: 0;
-}
-
 .app-menu li {
     margin-bottom: 10px;
     padding: 5px;
@@ -135,10 +136,9 @@ body {
     top: 0;
     left: 251px;
     right: 0;
-
     display: block;
-    border-left: 1px solid rgb(33, 33, 33);
 
+    border-left: 1px solid #333;
 }
 
 .page-content {
@@ -159,3 +159,4 @@ body {
     letter-spacing: 10px;
     margin-bottom: 25px;
 }
+

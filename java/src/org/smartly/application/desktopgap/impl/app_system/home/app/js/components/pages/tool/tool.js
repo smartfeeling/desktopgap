@@ -2,8 +2,13 @@
 
     var desktopgap = window.desktopgap
         , i18n = desktopgap['i18n']
-        ;
 
+        , sel_list = '#list-<%= cid %>'
+
+    // sub-pages
+        , mnu_tool_dev = 'mnu_tool_dev'
+
+        ;
 
 
     function PageTool(options) {
@@ -23,16 +28,53 @@
 
     ly.inherits(PageTool, ly.Gui);
 
+    PageTool.prototype.appendTo = function (parent, callback) {
+        var self = this;
+        ly.base(self, 'appendTo', parent, function () {
+            self.bindTo(_initComponents)(callback);
+        });
+    };
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
     function _init() {
         var self = this
-
             ;
+        //i18n.translate(self['parent'][0]);
+        try {
+            self['items'] = [];
+            // developers
+            self['items'].push({
+                _id: 'mnu_tool_dev',
+                description: i18n.get('home.tools_dev'),
+                image: ''
+            });
+        } catch (err) {
+            console.error('(tool.js) _init(): ' + err);
+        }
+    }
 
-        i18n.translate(self['parent'][0]);
+    function _initComponents() {
+        try {
+            var self = this
+                , $list_parent = $(self.template(sel_list))
+                ;
+
+            var list = new desktopgap.gui.list.List({items: self['items'], fav: true});
+            list.appendTo($list_parent, function () {
+
+                list.on('click', function (e) {
+                    alert(JSON.stringify(e));
+                });
+                list.on('favorite', function (e) {
+                    alert(JSON.stringify(e));
+                });
+            });
+        } catch (err) {
+            console.error('(tool.js) _initComponents(): ' + err);
+        }
     }
 
     // ------------------------------------------------------------------------

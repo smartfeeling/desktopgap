@@ -61,6 +61,7 @@
             require('./js/components/pages/task/task.js');
             require('./js/components/pages/tool/tool.js');
 
+            require('./js/components/list/list.js');
 
             imported = true;
         }
