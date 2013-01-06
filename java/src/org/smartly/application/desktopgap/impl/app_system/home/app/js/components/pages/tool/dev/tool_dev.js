@@ -14,12 +14,12 @@
         ;
 
 
-    function PageTool(options) {
+    function PageToolDev(options) {
         var self = this
             ;
 
         ly.base(self, {
-            template: load('./js/components/pages/tool/tool.html'),
+            template: load('./js/components/pages/tool/dev/tool_dev.html'),
             model: false,
             view: false
         });
@@ -29,17 +29,17 @@
         this.on('init', _init);
     }
 
-    ly.inherits(PageTool, ly.Gui);
+    ly.inherits(PageToolDev, ly.Gui);
 
-    PageTool.prototype.appendTo = function (parent, callback) {
+    PageToolDev.prototype.appendTo = function (parent, callback) {
         var self = this;
         ly.base(self, 'appendTo', parent, function () {
             self.bindTo(_initComponents)(callback);
         });
     };
 
-    PageTool.prototype.title = function () {
-        return i18n.get('home.tools');
+    PageToolDev.prototype.title = function () {
+        return i18n.get('home.tools') + ' - ' + i18n.get('home.tools_dev');
     };
 
     // ------------------------------------------------------------------------
@@ -59,7 +59,7 @@
                 image: ''
             });
         } catch (err) {
-            console.error('(tool.js) _init(): ' + err);
+            console.error('(tool_dev.js) _init(): ' + err);
         }
     }
 
@@ -79,7 +79,7 @@
                 });
             });
         } catch (err) {
-            console.error('(tool.js) _initComponents(): ' + err);
+            console.error('(tool_dev.js) _initComponents(): ' + err);
         }
     }
 
@@ -87,9 +87,9 @@
     //                      e x p o r t s
     // ------------------------------------------------------------------------
 
-    ly.provide('desktopgap.gui.pages.PageTool');
-    desktopgap.gui.pages.PageTool = PageTool;
+    ly.provide('desktopgap.gui.pages.PageToolDev');
+    desktopgap.gui.pages.PageToolDev = PageToolDev;
 
-    return desktopgap.gui.pages.PageTool;
+    return desktopgap.gui.pages.PageToolDev;
 
 })(this);

@@ -1,6 +1,9 @@
 (function (window) {
 
-    var tpl_page_id = '<%= mnu_id+"_"+cid %>'
+    var EVENT_CLICK = 'click'
+        , EVENT_FAV = 'favorite'
+
+        , tpl_page_id = '<%= mnu_id+"_"+cid %>'
         ;
 
     function PagesController(options) {
@@ -13,8 +16,11 @@
             view: false
         });
 
+        // page classes
         this['_classes'] = !!options ? options['pages'] || {} : {};
+        // page instances
         this['_instances'] = {};
+        // current page id
         this['_current_id'] = null;
 
         // add listeners
@@ -30,6 +36,17 @@
         });
     };
 
+    /**
+     * Returns page title
+     * @param pageId
+     */
+    PagesController.prototype.title = function (pageId) {
+        var self = this;
+        if(!!self['_instances'][pageId] && !!self['_instances'][pageId].title){
+           return self['_instances'][pageId].title();
+        }
+        return '';
+    };
 
     PagesController.prototype.open = function (pageId) {
         var self = this
@@ -43,16 +60,16 @@
         self['_current_id'] = div_id;
         // hide current page
         if (!!old_div_id) {
-            self.bindTo(hidePage)(old_div_id, function () {
+            self.bindTo(_hidePage)(old_div_id, function () {
                 // show new page
                 if (!!div_id) {
-                    self.bindTo(showPage)(div_id);
+                    self.bindTo(_showPage)(div_id);
                 }
             });
         } else {
             // show new page
             if (!!div_id) {
-                self.bindTo(showPage)(div_id);
+                self.bindTo(_showPage)(div_id);
             }
         }
     };
@@ -62,7 +79,7 @@
             , instances = self['_instances']
             ;
         if (!!instances[pageId]) {
-            self.bindTo(hidePage)(instances[pageId]['div_id']);
+            self.bindTo(_hidePage)(instances[pageId]['div_id']);
         }
     };
     // ------------------------------------------------------------------------
@@ -89,12 +106,20 @@
                 $container.hide();
                 self['parent'].append($container);
                 self['_instances'][id].appendTo($container);
-
+                self['_instances'][id].on(EVENT_CLICK, function(item){
+                    //-- open a sub-page --//
+                    // console.log(EVENT_CLICK + ': ' + JSON.stringify(item));
+                    self.trigger(EVENT_CLICK, item);
+                });
+                self['_instances'][id].on(EVENT_FAV, function(item){
+                    //-- add a sub-page to favorites --//
+                    self.trigger(EVENT_FAV, item);
+                });
             }
         });
     }
 
-    function showPage(div_id, callback) {
+    function _showPage(div_id, callback) {
         var self = this;
 
         $('#' + div_id).fadeIn(function () {
@@ -102,7 +127,7 @@
         });
     }
 
-    function hidePage(div_id, callback) {
+    function _hidePage(div_id, callback) {
         var self = this;
 
         $('#' + div_id).fadeOut(function () {

@@ -21,6 +21,10 @@
 
     ly.inherits(PageTask, ly.Gui);
 
+    PageTask.prototype.title = function () {
+        return i18n.get('home.task_manager');
+    };
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------

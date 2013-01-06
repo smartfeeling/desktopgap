@@ -14,9 +14,9 @@
         , sel_self = '#<%= cid %>'
         , sel_tpl = '#tpl-<%= cid %>'
 
-        , sel_ico = '#ico-<%= cid %>'
-        , sel_txt = '#txt-<%= cid %>'
-        , sel_fav = '#fav-<%= cid %>'
+        , sel_ico = '#ico-<%= cid %>-'
+        , sel_txt = '#txt-<%= cid %>-'
+        , sel_fav = '#fav-<%= cid %>-'
         ;
 
 
@@ -59,7 +59,7 @@
         self['fav'] = self.template(sel_fav);
     }
 
-    function _initComponents() {
+    function _initComponents(callback) {
         try {
             var self = this
                 , items = self['_items']
@@ -75,6 +75,7 @@
         } catch (err) {
             console.error('(list.js) _initComponents(): ' + err);
         }
+        ly.call(callback);
     }
 
     function _loadItem($ul, tpl, item) {
@@ -85,26 +86,24 @@
             // append to list
             $ul.append($item);
 
-            var $txt = $(self['txt'], $ul);
-            var $fav = $(self['fav'], $ul);
+            var $txt = $(self['txt'] + item['_id']);
+            var $fav = $(self['fav'] + item['_id']);
 
             if (!self['_fav']) {
                 $fav.hide();
             }
 
-            //console.log($txt.html());
-
-            $txt.live('click', function(){
-                alert('CLICCATO');
-            });
             // handle txt
-            /*ly.el.click($txt, function () {
-                self.trigger(EVENT_CLICK, item);
-            }); */
-            // handle fav
             ly.el.click($txt, function () {
-                self.trigger(EVENT_FAV, item);
+                self.trigger(EVENT_CLICK, item);
+                //console.log(EVENT_CLICK);
             });
+            // handle fav
+            ly.el.click($fav, function () {
+                self.trigger(EVENT_FAV, item);
+                //console.log(EVENT_FAV);
+            });
+
         } catch (err) {
             console.error('(list.js) _loadItem(): ' + err);
         }

@@ -26,6 +26,10 @@
 
     ly.inherits(PageApps, ly.Gui);
 
+    PageApps.prototype.title = function () {
+        return i18n.get('home.applications');
+    };
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------

@@ -616,7 +616,7 @@
          */
         click: function (selector, callback, context, delay) {
             var $el = $(selector);
-            if (_.isFunction(callback)) {
+            if (!!$el[0] && _.isFunction(callback)) {
                 $el.unbind('click');
                 $el.on('click', function (e) {
                     e.preventDefault();

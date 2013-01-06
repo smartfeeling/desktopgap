@@ -5,6 +5,9 @@
         , i18n = window['i18n']
         , require = window['require']
 
+        , EVENT_CLICK = 'click'
+        , EVENT_FAV = 'favorite'
+
         , imported = false
         , pages_controller
 
@@ -12,6 +15,7 @@
         , mnu_help = 'mnu_help'
         , mnu_task = 'mnu_task'
         , mnu_tool = 'mnu_tool'
+        , mnu_tool_dev = 'mnu_tool_dev'
 
         , sel_btn_close = '#btn_close'
         , sel_menu = '.app-menu li'
@@ -60,6 +64,7 @@
             require('./js/components/pages/help/help.js');
             require('./js/components/pages/task/task.js');
             require('./js/components/pages/tool/tool.js');
+            require('./js/components/pages/tool/dev/tool_dev.js');
 
             require('./js/components/list/list.js');
 
@@ -79,15 +84,32 @@
                 $panel.html('');
                 // create pages object
                 var pages = {};
+
+                // root pages
                 pages[mnu_apps] = desktopgap.gui.pages.PageApps;
                 pages[mnu_help] = desktopgap.gui.pages.PageHelp;
                 pages[mnu_task] = desktopgap.gui.pages.PageTask;
                 pages[mnu_tool] = desktopgap.gui.pages.PageTool;
 
+                // sub pages
+                pages[mnu_tool_dev] = desktopgap.gui.pages.PageToolDev;
+
                 pages_controller = new desktopgap.gui.pages.PagesController({
                     pages: pages
                 });
                 pages_controller.appendTo($panel);
+
+                //-- controller events --//
+                pages_controller.on(EVENT_CLICK, function(item){
+                     var mnu_id = item['_id'];
+                    if(!!mnu_id){
+                       _open(mnu_id);
+                    }
+                });
+                pages_controller.on(EVENT_FAV, function(item){
+                    // add item to favorites
+                    // TODO: send item to favorite Page
+                });
             }
         } catch (err) {
             console.error('(app.js) initComponents(): ' + err);
@@ -124,9 +146,17 @@
         $elem.addClass('selected');
 
         var id = $elem.attr('id')
+            , title = pages_controller.title(id)
             ;
         pages_controller.open(id);
-        $(sel_pagetitle).html($elem.text());
+        $(sel_pagetitle).html(title||$elem.text());
+    }
+
+    function _open(pageId){
+        var title = pages_controller.title(pageId)
+            ;
+        pages_controller.open(pageId);
+        $(sel_pagetitle).html(title);
     }
 
     // --------------------------------------------------------------------
