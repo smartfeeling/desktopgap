@@ -94,16 +94,17 @@
                 // sub pages
                 pages[mnu_tool_dev] = desktopgap.gui.pages.PageToolDev;
 
+                //-- creates controller component --//
                 pages_controller = new desktopgap.gui.pages.PagesController({
                     pages: pages
                 });
                 pages_controller.appendTo($panel);
 
-                //-- controller events --//
+                //-- handle controller events --//
                 pages_controller.on(EVENT_CLICK, function(item){
                      var mnu_id = item['_id'];
                     if(!!mnu_id){
-                       _open(mnu_id);
+                       openPage(mnu_id);
                     }
                 });
                 pages_controller.on(EVENT_FAV, function(item){
@@ -146,13 +147,11 @@
         $elem.addClass('selected');
 
         var id = $elem.attr('id')
-            , title = pages_controller.title(id)
             ;
-        pages_controller.open(id);
-        $(sel_pagetitle).html(title||$elem.text());
+        openPage(id);
     }
 
-    function _open(pageId){
+    function openPage(pageId){
         var title = pages_controller.title(pageId)
             ;
         pages_controller.open(pageId);
@@ -182,14 +181,12 @@
         //-- show firs window--//
         if (desktopgap.runtime.hasApps()) {
             // some applications installed
-            pages_controller.open(mnu_apps);
             $(sel_mnu_apps).addClass('selected');
-            $(sel_pagetitle).html($(sel_mnu_apps).text());
+            openPage(mnu_apps);
         } else {
             // no applications installed
-            pages_controller.open(mnu_help);
             $(sel_mnu_help).addClass('selected');
-            $(sel_pagetitle).html($(sel_mnu_help).text());
+            openPage(mnu_help);
         }
     }
 

@@ -5,6 +5,7 @@ import org.smartly.application.desktopgap.config.Deployer;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.AppCompiler;
+import org.smartly.application.desktopgap.impl.app_store.DeployerAppStore;
 import org.smartly.application.desktopgap.impl.app_system.DeployerAppSystem;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.LocaleUtils;
@@ -69,6 +70,7 @@ public class DesktopGap extends AbstractPackage {
     private void init() {
         // deploy html files
         this.deploySysApps();
+        this.deployDefaultStoreApps();
 
         this.initDictionary();
 
@@ -89,6 +91,21 @@ public class DesktopGap extends AbstractPackage {
             this.getLogger().log(Level.SEVERE, null, t);
         }
     }
+
+    private void deployDefaultStoreApps() {
+        final String storeDir = Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_STORE_DIR);
+        //-- deploy system applications --//
+        final DeployerAppStore deployer = new DeployerAppStore(storeDir, true);
+        deployer.deploy();
+
+        //-- make system applications (creates run.html page) --//
+        try {
+            AppCompiler.make(storeDir);
+        } catch (Throwable t) {
+            this.getLogger().log(Level.SEVERE, null, t);
+        }
+    }
+
 
     private void initDictionary() {
         /**/

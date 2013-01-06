@@ -1,0 +1,76 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Shep Poor">
+<title>MineSweeper Personal Best</title>
+</head>
+
+<body bgcolor="#FFC040" text="#000080" link="#0000FF"
+vlink="#008000" alink="#00FFFF">
+<script type="text/javascript" src="../minecookie.js"></script>
+<script language="JavaScript1.1">
+<!--
+
+
+   bestBeginner = parseInt(getCookie("Beginner"),10);
+   if (isNaN(bestBeginner))
+      bestBeginner = 999;
+   bestIntermediate = parseInt(getCookie("Intermediate"),10);
+   if (isNaN(bestIntermediate))
+      bestIntermediate = 999;
+   bestExpert = parseInt(getCookie("Expert"),10);
+   if (isNaN(bestExpert))
+      bestExpert = 999;
+
+
+
+function scoresReset() {
+   setCookie("Beginner",999);
+   setCookie("Intermediate",999);
+   setCookie("Expert",999);
+   window.close(); }
+
+//--> 
+</script>
+
+<br>
+<center><p><font size="5">Personal Best Times</font></p></center>
+
+<center>
+  <table cellpadding=4>
+    <tr>
+      <td><b>Beginner:</b></td>
+      <td align="right"><b>
+        <script language="JavaScript1.1">
+          document.write(bestBeginner);
+        </script>
+      </b></td>
+    </tr>
+    <tr>
+      <td><b>Intermediate:</b></td>
+      <td align="right"><b>
+        <script language="JavaScript1.1">
+          document.write(bestIntermediate);
+        </script>
+      </b></td>
+    </tr>
+    <tr>
+      <td><b>Expert:</b></td>
+      <td align="right"><b>
+        <script language="JavaScript1.1">
+          document.write(bestExpert);
+        </script>
+      </b></td>
+    </tr>
+  </table>
+</center>
+
+<form action="Dummy%20Action" method="POST" name="CloseForm">
+    <center><p>
+      <input type="button" name="resetScoresButton" value="Reset Scores" onclick="scoresReset();"> 
+      <input type="button" name="dontSubmitButton" value="Close" onclick="window.close();"> 
+    </p></center>
+</form>
+</body>
+</html>

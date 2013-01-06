@@ -28,6 +28,7 @@ public class AppManifest {
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
     private static final String MF_VERSION = "version";
+    private static final String MF_CATEGORY = "category";
     private static final String MF_INDEX = "index";
     private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
     private static final String MF_FRAME_TYPE = StringUtils.concatDot(MF_FRAME, "type");  // standard, tool
@@ -181,6 +182,16 @@ public class AppManifest {
 
     public void setTitle(final String value) {
         _manifest.putSilent(MF_TITLE, value);
+        this.generateId();
+        this.save();
+    }
+
+    public String getCategory() {
+        return _manifest.optString(MF_CATEGORY);
+    }
+
+    public void setCategory(final String value) {
+        _manifest.putSilent(MF_CATEGORY, value);
         this.generateId();
         this.save();
     }
