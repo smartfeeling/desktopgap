@@ -28,6 +28,16 @@
                 }
             }
             return [];
+        },
+
+        appGroups: function () {
+            if (defined('bridge')) {
+                var json = desktopgap['bridge'].runtime().getGroupedApps();
+                if (!!json) {
+                    return JSON.parse(json);
+                }
+            }
+            return {};
         }
     };
 

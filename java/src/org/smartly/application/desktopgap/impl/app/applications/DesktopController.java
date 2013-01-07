@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
@@ -22,6 +23,8 @@ import org.smartly.commons.util.PathUtils;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -102,6 +105,14 @@ public final class DesktopController
 
     public Collection<String> getApplicationNames() {
         return _applications.getAppNames();
+    }
+
+    public Map<String, List<AppManifest>> getApplicationManifests() {
+        return _applications.getAppManifests();
+    }
+
+    public JSONObject getApplicationManifestsAsJSON() {
+        return _applications.getAppManifestsAsJSON();
     }
 
     // ------------------------------------------------------------------------

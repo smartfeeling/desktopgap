@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.runtime;
 
+import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
@@ -43,10 +44,17 @@ public final class ToolRuntime {
         return "[]";
     }
 
+    public String getGroupedApps() {
+        if (this.isAuthorized()) {
+            final JSONObject grouped = _app.getDesktop().getApplicationManifestsAsJSON();
+            return grouped.toString();
+        }
+        return "{}";
+    }
+
     // --------------------------------------------------------------------
     //               C O M P I L E R
     // --------------------------------------------------------------------
-
 
 
     // ------------------------------------------------------------------------

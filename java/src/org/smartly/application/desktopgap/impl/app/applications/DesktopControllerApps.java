@@ -1,13 +1,14 @@
 package org.smartly.application.desktopgap.impl.app.applications;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.util.JsonWrapper;
 
 import java.io.IOException;
 import java.util.*;
@@ -54,6 +55,7 @@ public final class DesktopControllerApps
 
     /**
      * Returns App names, excluding system apps
+     *
      * @return collection of app names.
      */
     public Collection<String> getAppNames() {
@@ -66,6 +68,47 @@ public final class DesktopControllerApps
                 }
             }
             return result;
+        }
+    }
+
+    /**
+     * Returns Apps manifest grouped by category.
+     *
+     * @return A Map of App manifests grouped by category.
+     */
+    public Map<String, List<AppManifest>> getAppManifests() {
+        synchronized (_registry_installed) {
+            final Map<String, List<AppManifest>> result = new LinkedHashMap<String, List<AppManifest>>();
+            final Set<String> keys = _registry_installed.keySet();
+            for (final String appId : keys) {
+                if (!_system_apps.contains(appId)) {
+                    final AppManifest manifest = _registry_installed.get(appId);
+                    final String category = manifest.getCategory();
+                    if (!result.containsKey(category)) {
+                        result.put(category, new LinkedList<AppManifest>());
+                    }
+                    result.get(category).add(manifest);
+                }
+            }
+            return result;
+        }
+    }
+
+    public JSONObject getAppManifestsAsJSON() {
+        synchronized (_registry_installed) {
+            final JsonWrapper result = new JsonWrapper(new JSONObject());
+            final Set<String> keys = _registry_installed.keySet();
+            for (final String appId : keys) {
+                if (!_system_apps.contains(appId)) {
+                    final AppManifest manifest = _registry_installed.get(appId);
+                    final String category = manifest.getCategory();
+                    if (!result.has(category)) {
+                        result.putSilent(category, new JSONArray());
+                    }
+                    result.optJSONArray(category).put(manifest.getJson().getJSONObject());
+                }
+            }
+            return result.getJSONObject();
         }
     }
 

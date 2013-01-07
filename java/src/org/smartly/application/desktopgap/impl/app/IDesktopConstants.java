@@ -39,6 +39,7 @@ public interface IDesktopConstants {
     public static final String BTN_MINIMIZE = "minimize";
 
     //-- manifest --//
+    public static final String MF_UID = "uid";
     public static final String MF_FRAME = "frame";
     public static final String MF_FRAME_SHADOW = StringUtils.concatDot(MF_FRAME, "shadow");
     public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");
@@ -54,6 +55,8 @@ public interface IDesktopConstants {
     public static final String MF_BUTTONS_FULLSCREEN = StringUtils.concatDot(MF_BUTTONS, BTN_FULLSCREEN);
     public static final String MF_BUTTONS_MINIMIZE = StringUtils.concatDot(MF_BUTTONS, BTN_MINIMIZE);
     public static final String MF_BUTTONS_MAXIMIZE = StringUtils.concatDot(MF_BUTTONS, BTN_MAXIMIZE);
+
+    public static final String MF_CATEGORY_UNDEFINED = "category_undefined";
 
     //-- PRE-COMPILE --//
     public static final String PRE_INDEX_PAGE = "[INDEX_PAGE]";

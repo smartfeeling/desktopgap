@@ -24,11 +24,13 @@ public class AppManifest {
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
     private static final String APP_DIR = "./app";
 
+    private static final String MF_UID = IDesktopConstants.MF_UID;
     private static final String MF_SYS_ID = "sys_id";
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
     private static final String MF_VERSION = "version";
     private static final String MF_CATEGORY = "category";
+    private static final String MF_CATEGORY_UNDEFINED = IDesktopConstants.MF_CATEGORY_UNDEFINED;
     private static final String MF_INDEX = "index";
     private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
     private static final String MF_FRAME_TYPE = StringUtils.concatDot(MF_FRAME, "type");  // standard, tool
@@ -82,6 +84,7 @@ public class AppManifest {
             _install_dir = "";
             _app_docroot = "";
         }
+        _manifest.putSilent(MF_UID, this.getAppId());
     }
 
     public JsonWrapper getJson() {
@@ -105,6 +108,10 @@ public class AppManifest {
             return path;
         }
         return PathUtils.concat(_app_docroot, path);
+    }
+
+    public String getUid() {
+        return _manifest.optString(MF_UID);
     }
 
     public String getAppId() {
@@ -187,7 +194,7 @@ public class AppManifest {
     }
 
     public String getCategory() {
-        return _manifest.optString(MF_CATEGORY);
+        return _manifest.optString(MF_CATEGORY, MF_CATEGORY_UNDEFINED);
     }
 
     public void setCategory(final String value) {
