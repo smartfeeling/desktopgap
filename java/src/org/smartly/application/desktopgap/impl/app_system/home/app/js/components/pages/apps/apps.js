@@ -34,6 +34,10 @@
         return i18n.get('home.applications');
     };
 
+    PageApps.prototype.setData = function (argsArray) {
+
+    };
+
     PageApps.prototype.addApp = function (app) {
 
     };
@@ -63,6 +67,7 @@
                 self['_apps'][groupId] = self['_apps'][groupId] || {};
                 _.forEach(appsArray, function(app){
                     var uid = app['uid'];
+                    // add app to group map
                     self['_apps'][groupId][uid] = app;
                     // console.log(JSON.stringify(self['_apps'][groupId][uid]));
                 });

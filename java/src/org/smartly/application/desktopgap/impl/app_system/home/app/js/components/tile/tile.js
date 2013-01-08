@@ -22,12 +22,12 @@
         ;
 
 
-    function List(options) {
+    function Tile(options) {
         var self = this
             ;
 
         ly.base(self, {
-            template: load('./js/components/list/list.html'),
+            template: load('./js/components/tile/tile.html'),
             model: false,
             view: false
         });
@@ -35,15 +35,14 @@
         this['_fav'] = !!options ? !!options['fav'] : false;
         this['_items'] = !!options ? options['items'] || [] : [];
         this['_title'] = !!options ? options['title'] || '' : '';
-        this['_actions'] = !!options ? options['actions'] || [] : []; // array of action objects: {_id:'act1', icon:'details.png'}
 
         // add listeners
         this.on('init', _init);
     }
 
-    ly.inherits(List, ly.Gui);
+    ly.inherits(Tile, ly.Gui);
 
-    List.prototype.appendTo = function (parent, callback) {
+    Tile.prototype.appendTo = function (parent, callback) {
         var self = this;
         ly.base(self, 'appendTo', parent, function () {
             self.bindTo(_initComponents)(callback);
@@ -138,9 +137,9 @@
     //                      e x p o r t s
     // ------------------------------------------------------------------------
 
-    ly.provide('desktopgap.gui.list.List');
-    desktopgap.gui.list.List = List;
+    ly.provide('desktopgap.gui.tile.Tile');
+    desktopgap.gui.tile.Tile = Tile;
 
-    return desktopgap.gui.list.List;
+    return desktopgap.gui.tile.Tile;
 
 })(this);

@@ -7,6 +7,7 @@
 
         , EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
+        , EVENT_ACTION = 'action'
 
         , imported = false
         , pages_controller
@@ -67,6 +68,7 @@
             require('./js/components/pages/tool/dev/tool_dev.js');
 
             require('./js/components/list/list.js');
+            require('./js/components/tile/tile.js');
 
             imported = true;
         }
@@ -106,6 +108,10 @@
                     if(!!mnu_id){
                        openPage(mnu_id);
                     }
+                });
+                pages_controller.on(EVENT_ACTION, function(action, item){
+                    // clicked action
+                    var actionId = action['_id']; // details (App details)
                 });
                 pages_controller.on(EVENT_FAV, function(item){
                     // add item to favorites
@@ -151,10 +157,10 @@
         openPage(id);
     }
 
-    function openPage(pageId){
+    function openPage(pageId, argsArray){
         var title = pages_controller.title(pageId)
             ;
-        pages_controller.open(pageId);
+        pages_controller.open(pageId, argsArray);
         $(sel_pagetitle).html(title);
     }
 

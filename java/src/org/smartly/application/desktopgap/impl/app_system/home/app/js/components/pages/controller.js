@@ -2,6 +2,7 @@
 
     var EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
+        , EVENT_ACTION = 'action'
 
         , tpl_page_id = '<%= mnu_id+"_"+cid %>'
         ;
@@ -48,13 +49,18 @@
         return '';
     };
 
-    PagesController.prototype.open = function (pageId) {
+    /**
+     *
+     * @param pageId id of page to open
+     * @param argsArray parameters to pass to page
+     */
+    PagesController.prototype.open = function (pageId, argsArray) {
         var self = this
             , instances = self['_instances']
             , div_id = !!instances[pageId] ? instances[pageId]['div_id'] : null
             , old_div_id = self['_current_id']
             ;
-        if (div_id === old_div_id) {
+        if (!!div_id || (div_id === old_div_id)) {
             return;
         }
         self['_current_id'] = div_id;
@@ -63,12 +69,18 @@
             self.bindTo(_hidePage)(old_div_id, function () {
                 // show new page
                 if (!!div_id) {
+                    if(!!instances[pageId].setData){
+                        instances[pageId].setData(argsArray);
+                    }
                     self.bindTo(_showPage)(div_id);
                 }
             });
         } else {
             // show new page
             if (!!div_id) {
+                if(!!instances[pageId].setData){
+                    instances[pageId].setData(argsArray);
+                }
                 self.bindTo(_showPage)(div_id);
             }
         }
@@ -114,6 +126,10 @@
                 self['_instances'][id].on(EVENT_FAV, function(item){
                     //-- add a sub-page to favorites --//
                     self.trigger(EVENT_FAV, item);
+                });
+                self['_instances'][id].on(EVENT_ACTION, function(action, item){
+                    //-- add a sub-page to favorites --//
+                    self.trigger(EVENT_ACTION, action, item);
                 });
             }
         });

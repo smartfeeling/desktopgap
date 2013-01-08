@@ -42,6 +42,10 @@
         return i18n.get('home.tools') + ' - ' + i18n.get('home.tools_dev');
     };
 
+    PageToolDev.prototype.setData = function (argsArray) {
+
+    };
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
