@@ -326,6 +326,9 @@
     //-- FRAME --//
     exports.frame = require('desktopgap_frame.js');
 
+    //-- REGISTRY --//
+    exports.registry = require('desktopgap_registry.js');
+
     //-- CONNECTION --//
     exports.connection = require('desktopgap_connection.js');
     exports.Connections = exports.connection.Connections;

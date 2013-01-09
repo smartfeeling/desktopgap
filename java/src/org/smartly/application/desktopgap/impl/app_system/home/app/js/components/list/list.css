@@ -32,10 +32,15 @@
 }
 
 .list .list-fav {
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
-    background-color: #0088cc;
+    width: 18px;
+    height: 18px;
     float: right;
     cursor: pointer;
+}
+
+.list .fav-off {
+    background: url('../../../images/actions/star_off.png') no-repeat center center;
+}
+.list .fav-on {
+    background: url('../../../images/actions/star_on.png') no-repeat center center;
 }

@@ -2,12 +2,13 @@
 
     var document = window.document
         , desktopgap = window.desktopgap
+        , registry = desktopgap['registry']
         , i18n = window['i18n']
         , require = window['require']
 
         , EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
-        , EVENT_ACTION = 'action'
+        , EVENT_ACTION = 'action' //
 
         , imported = false
         , pages_controller
@@ -70,6 +71,8 @@
             require('./js/components/list/list.js');
             require('./js/components/tile/tile.js');
 
+            require('./js/favorites.js');
+
             imported = true;
         }
     }
@@ -79,6 +82,16 @@
     // --------------------------------------------------------------------
 
     function initComponents() {
+        try {
+            //-- creates pages controller --//
+            initPageController();
+        } catch (err) {
+            console.error('(app.js) initComponents(): ' + err);
+        }
+    }
+
+
+    function initPageController() {
         try {
             //-- creates pages controller --//
             if (!pages_controller) {
@@ -103,23 +116,29 @@
                 pages_controller.appendTo($panel);
 
                 //-- handle controller events --//
-                pages_controller.on(EVENT_CLICK, function(item){
-                     var mnu_id = item['_id'];
-                    if(!!mnu_id){
-                       openPage(mnu_id);
+                pages_controller.on(EVENT_CLICK, function (item) {
+                    var mnu_id = item['_id'];
+                    if (!!mnu_id) {
+                        openPage(mnu_id);
                     }
                 });
-                pages_controller.on(EVENT_ACTION, function(action, item){
+                pages_controller.on(EVENT_ACTION, function (action, item) {
                     // clicked action
                     var actionId = action['_id']; // details (App details)
                 });
-                pages_controller.on(EVENT_FAV, function(item){
+                pages_controller.on(EVENT_FAV, function (item) {
                     // add item to favorites
-                    // TODO: send item to favorite Page
+                    var is_favorite = favorites.has(item);
+                    // console.log('FAVORITE: ' + is_favorite);
+                    if (is_favorite) {
+                        favorites.remove(item);
+                    } else {
+                        favorites.add(item);
+                    }
                 });
             }
         } catch (err) {
-            console.error('(app.js) initComponents(): ' + err);
+            console.error('(app.js) initPageController(): ' + err);
         }
     }
 
@@ -157,11 +176,12 @@
         openPage(id);
     }
 
-    function openPage(pageId, argsArray){
+    function openPage(pageId, argsArray) {
         var title = pages_controller.title(pageId)
             ;
         pages_controller.open(pageId, argsArray);
         $(sel_pagetitle).html(title);
+        // console.log('OPEN: ' + title);
     }
 
     // --------------------------------------------------------------------

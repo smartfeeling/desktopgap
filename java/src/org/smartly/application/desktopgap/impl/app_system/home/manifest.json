@@ -1,7 +1,8 @@
 {
     "sys_id": "system_home",
     "name": "home",
-    "title": "DesktopGap Menu",
+    "title": {"base":"Control Panel"},
+    "description": {"base":""},
     "version": "0.1",
     "index": "index.html",
     "frame": {

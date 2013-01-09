@@ -1,7 +1,8 @@
 {
     "sys_id": "system_console",
     "name": "console",
-    "title": "DesktopGap Console",
+    "title": {"base":"DesktopGap Console"},
+    "description": {"base":"DesktopGap Console"},
     "version": "0.1",
     "index": "console.html",
     "frame": {

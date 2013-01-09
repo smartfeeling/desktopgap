@@ -2,6 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window;
 
 import org.smartly.IConstants;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
 import org.smartly.commons.cryptograph.GUID;
@@ -24,10 +25,13 @@ public class AppManifest {
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
     private static final String APP_DIR = "./app";
 
+    private static final String MF_LANG_BASE = IDesktopConstants.LANG_BASE;
+
     private static final String MF_UID = IDesktopConstants.MF_UID;
     private static final String MF_SYS_ID = "sys_id";
     private static final String MF_NAME = "name";
     private static final String MF_TITLE = "title";
+    private static final String MF_DESCRIPTION = "description";
     private static final String MF_VERSION = "version";
     private static final String MF_CATEGORY = "category";
     private static final String MF_CATEGORY_UNDEFINED = IDesktopConstants.MF_CATEGORY_UNDEFINED;
@@ -57,6 +61,7 @@ public class AppManifest {
     private final String _install_dir;
     private final String _app_docroot;
     private final String _appName;
+    private final String _lang = DesktopGap.getLang();
     private String _install_root; // system or store
     private String _filePath;
     private String _appId;
@@ -85,6 +90,9 @@ public class AppManifest {
             _app_docroot = "";
         }
         _manifest.putSilent(MF_UID, this.getAppId());
+
+        // add object_type for javascript usage
+        _manifest.putSilent(IDesktopConstants.OBJECT_TYPE, IDesktopConstants.OBJECT_TYPE_MANIFEST);
     }
 
     public JsonWrapper getJson() {
@@ -184,11 +192,37 @@ public class AppManifest {
     }
 
     public String getTitle() {
-        return _manifest.optString(MF_TITLE);
+        String result = _manifest.deepString(StringUtils.concatDot(MF_TITLE, _lang));
+        if(!StringUtils.hasText(result)){
+            result =  _manifest.deepString(StringUtils.concatDot(MF_TITLE, MF_LANG_BASE));
+        }
+        if(!StringUtils.hasText(result)){
+            result =  _manifest.optString(MF_TITLE);
+        }
+        return result;
     }
 
-    public void setTitle(final String value) {
-        _manifest.putSilent(MF_TITLE, value);
+    public void setTitle(final String lang, final String value) {
+        final String key = StringUtils.concatDot(MF_TITLE, lang);
+        _manifest.putSilent(key, value);
+        this.generateId();
+        this.save();
+    }
+
+    public String getDescription() {
+        String result = _manifest.deepString(StringUtils.concatDot(MF_DESCRIPTION, _lang));
+        if(!StringUtils.hasText(result)){
+            result =  _manifest.deepString(StringUtils.concatDot(MF_DESCRIPTION, MF_LANG_BASE));
+        }
+        if(!StringUtils.hasText(result)){
+            result =  _manifest.optString(MF_DESCRIPTION);
+        }
+        return result;
+    }
+
+    public void setDescription(final String lang, final String value) {
+        final String key = StringUtils.concatDot(MF_DESCRIPTION, lang);
+        _manifest.putSilent(key, value);
         this.generateId();
         this.save();
     }

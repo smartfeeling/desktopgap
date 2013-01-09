@@ -47,6 +47,32 @@ public final class AppRegistry {
         return _loadedFromFile;
     }
 
+    public void set(final String key, final Object value){
+        if(StringUtils.hasText(key) && null!=value){
+            _repository.putDeep(key, value);
+            this.save();
+        }
+    }
+
+    public Object get(final String key){
+        if(StringUtils.hasText(key)){
+            return _repository.deep(key);
+        }
+        return null;
+    }
+
+    public Object remove(final String key){
+        final Object result;
+        if(StringUtils.hasText(key)){
+            result = _repository.deepRemove(key);
+            this.save();
+        } else {
+            result = null;
+        }
+
+        return result;
+    }
+
     public boolean getMaximized(final String winId) {
         if (!_repository.has(StringUtils.concatDot(winId, MF_FRAME_MAXIMIZED))) {
             return _repository.deepBoolean(StringUtils.concatDot(_appId, MF_FRAME_MAXIMIZED));
@@ -139,10 +165,6 @@ public final class AppRegistry {
             this.setY(_appId, manifest.getY());
             _loadedFromFile = false;
         }
-    }
-
-    private Object get(final String path) {
-        return _repository.has(path);
     }
 
     private String read() {

@@ -7,6 +7,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.i18n.ToolI18n;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.registry.ToolRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.runtime.ToolRuntime;
 
 /**
@@ -20,6 +21,7 @@ public final class AppBridge {
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 
     // tools
+    private final ToolRegistry _registry;
     private final ToolDevice _device;
     private final ToolConnection _connection;
     private final ToolConsole _console;
@@ -35,6 +37,7 @@ public final class AppBridge {
         _console = ToolConsole.getConsole(frame.getApp());
         _i18n = new ToolI18n(frame);
         _runtime = new ToolRuntime(frame);
+        _registry = new ToolRegistry(frame);
     }
 
     @Override
@@ -49,6 +52,14 @@ public final class AppBridge {
 
     public String version() {
         return VERSION;
+    }
+
+    // --------------------------------------------------------------------
+    //               R E G I S T R Y
+    // --------------------------------------------------------------------
+
+    public ToolRegistry registry() {
+        return _registry;
     }
 
     // --------------------------------------------------------------------

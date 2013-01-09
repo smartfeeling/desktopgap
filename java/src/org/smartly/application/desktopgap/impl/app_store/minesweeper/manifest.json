@@ -1,6 +1,7 @@
 {
     "name": "minesweeper",
-    "title": "Mine Sweeper",
+    "title": {"base":"Mine Sweeper", "it":"Campo Minato"},
+    "description": {"base":"Mine Sweeper", "it":"Campo Minato"},
     "category": "game",
     "version": "0.1",
     "index": "minecore.html",

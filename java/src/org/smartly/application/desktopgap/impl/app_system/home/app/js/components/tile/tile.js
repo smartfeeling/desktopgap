@@ -7,6 +7,7 @@
 (function (window) {
 
     var desktopgap = window.desktopgap
+        , i18n = window['i18n']
 
         , EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
@@ -36,6 +37,8 @@
         this['_items'] = !!options ? options['items'] || [] : [];
         this['_title'] = !!options ? options['title'] || '' : '';
 
+        this['_initialized'] = false;
+
         // add listeners
         this.on('init', _init);
     }
@@ -47,6 +50,19 @@
         ly.base(self, 'appendTo', parent, function () {
             self.bindTo(_initComponents)(callback);
         });
+    };
+
+    Tile.prototype.addItem = function (item) {
+        if (!!item) {
+            var self = this;
+            self['_items'].push(item);
+            if (self['_initialized']) {
+                var $ul = $(self.template(sel_list))
+                    , tpl = $(self.template(sel_tpl)).html()
+                    ;
+                self.bindTo(_loadItem)($ul, tpl, item);
+            }
+        }
     };
 
     // ------------------------------------------------------------------------
@@ -91,6 +107,9 @@
                 , tpl = $(self.template(sel_tpl)).html()
                 , $ul = $(self.template(sel_list))
                 ;
+
+            self['_initialized'] = true;
+
             //-- loop on items --//
             _.forEach(items, function (item) {
                 if (!!item) {

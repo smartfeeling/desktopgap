@@ -18,6 +18,19 @@
             return this;
         },
 
+        lang: function(opt_lang){
+            try {
+                if (defined('bridge')) {
+                    if(isString(opt_lang)){
+                        desktopgap['bridge'].i18n().setLang(opt_lang);
+                    }
+                    return desktopgap['bridge'].i18n().getLang();
+                }
+            } catch (err) {
+            }
+            return "en";
+        },
+
         /**
          * Call with 1, 2 or 3 arguments.
          * i.e.:

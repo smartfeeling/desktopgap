@@ -2,7 +2,7 @@
 
     var EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
-        , EVENT_ACTION = 'action'
+        , EVENT_ACTION = 'action'// 'run', 'view', 'uninstall'
 
         , tpl_page_id = '<%= mnu_id+"_"+cid %>'
         ;
@@ -60,9 +60,11 @@
             , div_id = !!instances[pageId] ? instances[pageId]['div_id'] : null
             , old_div_id = self['_current_id']
             ;
-        if (!!div_id || (div_id === old_div_id)) {
+
+        if (!div_id || (div_id === old_div_id)) {
             return;
         }
+
         self['_current_id'] = div_id;
         // hide current page
         if (!!old_div_id) {
@@ -130,6 +132,8 @@
                 self['_instances'][id].on(EVENT_ACTION, function(action, item){
                     //-- add a sub-page to favorites --//
                     self.trigger(EVENT_ACTION, action, item);
+
+                    console.log('controller.js - ACTION: ' + action + ' - ITEM :' + JSON.stringify(item));
                 });
             }
         });

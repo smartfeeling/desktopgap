@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app;
 
+import org.smartly.IConstants;
 import org.smartly.commons.util.StringUtils;
 
 /**
@@ -10,6 +11,12 @@ public interface IDesktopConstants {
     public static final String VERSION = "0.0.1";
 
     public static final String ARG_INSTALL = "install"; // install run argument (remove source)
+
+    public static final String ID = "_id";
+    public static final String LANG_BASE = "base";
+    public static final String OBJECT_TYPE = "object_type";
+    public static final String OBJECT_TYPE_MANIFEST = "manifest";
+    public static final String APP_DATA = "app_data"; // used in registry
 
     //-- system apps --//
     public static final String SYS_APP_HOME = "system_home";
@@ -39,7 +46,7 @@ public interface IDesktopConstants {
     public static final String BTN_MINIMIZE = "minimize";
 
     //-- manifest --//
-    public static final String MF_UID = "uid";
+    public static final String MF_UID = ID;
     public static final String MF_FRAME = "frame";
     public static final String MF_FRAME_SHADOW = StringUtils.concatDot(MF_FRAME, "shadow");
     public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");

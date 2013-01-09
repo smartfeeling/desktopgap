@@ -7,6 +7,8 @@
 (function (window) {
 
     var desktopgap = window.desktopgap
+        , i18n = window['i18n']
+        , favorites = window['favorites']
 
         , EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
@@ -37,6 +39,8 @@
         this['_title'] = !!options ? options['title'] || '' : '';
         this['_actions'] = !!options ? options['actions'] || [] : []; // array of action objects: {_id:'act1', icon:'details.png'}
 
+        this['_initialized'] = false;
+
         // add listeners
         this.on('init', _init);
     }
@@ -48,6 +52,19 @@
         ly.base(self, 'appendTo', parent, function () {
             self.bindTo(_initComponents)(callback);
         });
+    };
+
+    List.prototype.addItem = function (item) {
+        if (!!item) {
+            var self = this;
+            self['_items'].push(item);
+            if (self['_initialized']) {
+                var $ul = $(self.template(sel_list))
+                    , tpl = $(self.template(sel_tpl)).html()
+                    ;
+                self.bindTo(_loadItem)($ul, tpl, item);
+            }
+        }
     };
 
     // ------------------------------------------------------------------------
@@ -80,6 +97,7 @@
                 , $title = $(self.template(sel_title))
                 ;
             $title.html(title);
+            // console.log('TITLE: ' + title);
         } catch (err) {
             console.error('(list.js) _initTitle(): ' + err);
         }
@@ -92,6 +110,9 @@
                 , tpl = $(self.template(sel_tpl)).html()
                 , $ul = $(self.template(sel_list))
                 ;
+
+            self['_initialized'] = true;
+
             //-- loop on items --//
             _.forEach(items, function (item) {
                 if (!!item) {
@@ -106,6 +127,16 @@
     function _loadItem($ul, tpl, item) {
         try {
             var self = this;
+
+            // check if item has a localizable description
+            if (!!item['description']) {
+                if (_.isObject(item['description'])) {
+                    item['description'] = i18n.get(i18n.lang(), item, 'description');
+                }
+            } else {
+                item['description'] = '';
+            }
+
             var $item = $(ly.template(tpl, item));
 
             // append to list
@@ -116,6 +147,8 @@
 
             if (!self['_fav']) {
                 $fav.hide();
+            } else {
+                self.bindTo(_setFav)($fav, item['is_favorite']);
             }
 
             // handle txt
@@ -126,11 +159,31 @@
             // handle fav
             ly.el.click($fav, function () {
                 self.trigger(EVENT_FAV, item);
-                //console.log(EVENT_FAV);
+                self.bindTo(_toggleFav)($fav);
             });
 
         } catch (err) {
             console.error('(list.js) _loadItem(): ' + err);
+        }
+    }
+
+    function _toggleFav($fav){
+        if ($fav.hasClass('fav-on')) {
+            $fav.removeClass('fav-on');
+            $fav.addClass('fav-off');
+        } else {
+            $fav.removeClass('fav-off');
+            $fav.addClass('fav-on');
+        }
+    }
+
+    function _setFav($fav, is_favorite){
+        if (!!is_favorite) {
+            $fav.removeClass('fav-on');
+            $fav.addClass('fav-off');
+        } else {
+            $fav.removeClass('fav-off');
+            $fav.addClass('fav-on');
         }
     }
 
