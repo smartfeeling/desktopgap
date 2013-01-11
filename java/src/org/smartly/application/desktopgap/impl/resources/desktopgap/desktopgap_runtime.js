@@ -38,6 +38,23 @@
                 }
             }
             return {};
+        },
+
+        /**
+         * Run Application and returns js frame wrapper
+         * @param appId  ID of Application to run
+         * @return {*}
+         */
+        runApp: function (appId) {
+            try{
+                if (defined('bridge')) {
+                    var Frame = window.desktopgap.frame.Frame;
+                    return new Frame(desktopgap['bridge'].runtime().runApp(appId));
+                }
+            }catch(err){
+                console.error('desktopgap_runtime() runApp("'+appId+'"): ' + err);
+            }
+            return null;
         }
     };
 

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
 import org.smartly.commons.util.CollectionUtils;
 import org.smartly.commons.util.JsonWrapper;
 
@@ -52,6 +53,10 @@ public final class ToolRuntime {
         return "{}";
     }
 
+    public ToolFrame runApp(final String appId) {
+        final AppFrame frame = _app.launchApp(appId);
+        return new ToolFrame(frame);
+    }
     // --------------------------------------------------------------------
     //               C O M P I L E R
     // --------------------------------------------------------------------

@@ -137,7 +137,8 @@
             , id = !!app?app['_id']:null
             ;
         if(!!id){
-            console.log('RUN APPLICATION: ' + id);
+            // console.log('RUN APPLICATION: ' + id);
+            runtime.runApp(id);
         } else {
             console.error('(apps.js) _runApp(): Application _id is null. -> ' + JSON.stringify(app));
         }

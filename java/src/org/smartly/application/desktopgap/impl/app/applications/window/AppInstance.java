@@ -113,6 +113,14 @@ public final class AppInstance
         return LoggingUtils.getLogger(this.getId());
     }
 
+    // --------------------------------------------------------------------
+    //          Launch Applications or  Application's Window
+    // --------------------------------------------------------------------
+
+    public AppFrame launchApp(final String appId){
+           return this.launchApp(appId, appId, "", null, false);
+    }
+
     /**
      * Launch another app and returns instance
      *
