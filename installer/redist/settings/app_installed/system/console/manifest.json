@@ -1,0 +1,25 @@
+{
+    "sys_id": "system_console",
+    "name": "console",
+    "title": {"base":"DesktopGap Console"},
+    "description": {"base":"DesktopGap Console"},
+    "version": "0.1",
+    "index": "console.html",
+    "frame": {
+        "type": "standard",
+        "shadow":true,
+        "resizable":true,
+        "draggable":true,
+        "maximized":false,
+        "width": 300,
+        "height": 300,
+        "y": 0,
+        "x": 0
+    },
+    "buttons":{
+        "close": true,
+        "fullscreen":false,
+        "minimize":false,
+        "maximize":false
+    }
+}

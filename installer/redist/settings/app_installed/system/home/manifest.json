@@ -1,0 +1,25 @@
+{
+    "sys_id": "system_home",
+    "name": "home",
+    "title": {"base":"Control Panel"},
+    "description": {"base":""},
+    "version": "0.1",
+    "index": "index.html",
+    "frame": {
+        "type": "light",
+        "shadow":false,
+        "resizable":false,
+        "draggable":false,
+        "maximized":false,
+        "width": 800,
+        "height": 500,
+        "y": 0,
+        "x": 0
+    },
+    "buttons": {
+        "close":false,
+        "fullscreen": false,
+        "minimize": false,
+        "maximize": false
+    }
+}

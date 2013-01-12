@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Frame</title>
+
+    <link rel="stylesheet" href="frame.css">
+    <script src="desktopgap.js"></script>
+
+</head>
+<body>
+<div id="content">
+    <!-- TITLE BAR -->
+    <div id="titlebar">
+        <div id="fullscreen" class="control fullscreen"></div>
+        <span id="title">Welcome</span>
+
+        <div id="close" class="control">
+            <img src="frame/glyph-close.png"/>
+        </div>
+        <div id="maximize" class="control maximize">
+            <img id="maximize-glyph" src="frame/glyph-maximize.png"/>
+        </div>
+        <div id="minimize" class="control minimize">
+            <img src="frame/glyph-minimize.png"/>
+        </div>
+    </div>
+
+    <!-- APP -->
+    <div id="app"></div>
+
+    <!-- WEB APP -->
+    <iframe id="webapp"></iframe>
+
+</div>
+</body>
+</html>

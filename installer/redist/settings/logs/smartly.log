@@ -1,1 +1,24 @@
-[1] INFO:  (2-dic-2012 17:28:21) REGISTERED MODULE: DESKTOP_GAP 
+[1] INFO:  (12-gen-2013 09:16:01) REGISTERED MODULE: DESKTOP_GAP 
+[2] INFO:  (12-gen-2013 09:16:01) FILE DEPLOYER: Running FileDeployer: org.smartly.config.Deployer
+	 Target Path: C:/Users/angelo.geminiani/DesktopGap/config, 
+	 Overwrite Target: false 
+[3] INFO:  (12-gen-2013 09:16:01) STARTED MODULE: DESKTOP_GAP 
+[4] INFO:  (12-gen-2013 09:16:01) FILE DEPLOYER: Running FileDeployer: org.smartly.application.desktopgap.config.Deployer
+	 Target Path: C:/Users/angelo.geminiani/DesktopGap/config, 
+	 Overwrite Target: false 
+[5] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'list.js' 
+[6] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'console.js' 
+[7] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'tool.js' 
+[8] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'tile.js' 
+[9] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'apps.js' 
+[10] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'help.js' 
+[11] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'app.js' 
+[12] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'controller.js' 
+[13] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'app.js' 
+[14] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'favorites.js' 
+[15] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'level.js' 
+[16] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'task.js' 
+[17] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'message.js' 
+[18] WARNING:  (12-gen-2013 09:16:02) COMPILER NOT FOUND FOR 'tool_dev.js' 
+[19] WARNING:  (12-gen-2013 09:16:03) COMPILER NOT FOUND FOR 'minecookie.js' 
+[20] SEVERE:  (12-gen-2013 09:16:05) Error loading 'Opensans-Semibold.ttf': java.lang.NullPointerException 

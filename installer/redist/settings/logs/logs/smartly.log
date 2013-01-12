@@ -1,0 +1,9 @@
+[1] INFO:  (9-dic-2012 10:32:58) REGISTERED MODULE: DESKTOP_GAP 
+[2] INFO:  (9-dic-2012 10:32:58) FILE DEPLOYER: Running FileDeployer: org.smartly.config.Deployer
+	 Target Path: C:/Users/angelo.geminiani/DesktopGap/config, 
+	 Overwrite Target: false 
+[3] INFO:  (9-dic-2012 10:32:58) STARTED MODULE: DESKTOP_GAP 
+[4] INFO:  (9-dic-2012 10:32:58) FILE DEPLOYER: Running FileDeployer: org.smartly.application.desktopgap.config.Deployer
+	 Target Path: C:/Users/angelo.geminiani/DesktopGap/config, 
+	 Overwrite Target: false 
+[5] INFO:  (9-dic-2012 10:32:58) OPENING 

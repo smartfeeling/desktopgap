@@ -1,0 +1,42 @@
+
+body {
+     font-family: 'Oxygen', sans-serif;
+     font-style: normal;
+     font-weight: lighter;
+     font-size: 12px;
+ }
+
+#app_content {
+    height: 100%;
+    width: 100%;
+}
+
+.tab-pane {
+    padding: 0 10px;
+}
+
+.message-box {
+    margin-top: 3px;
+    padding-top: 2px;
+    border-top: 1px #bbbbbb solid;
+    vertical-align: top;
+}
+
+.message-box>* {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.image {
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.datetime {
+    margin-left: 5px;
+}
+
+.message {
+    padding-left: 5px;
+    font-weight: bold;
+}
