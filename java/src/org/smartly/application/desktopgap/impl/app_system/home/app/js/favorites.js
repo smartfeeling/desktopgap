@@ -80,7 +80,7 @@
         } catch (err) {
             console.error('(favorites.js)  _containsFavorite(): ' + err);
         }
-        // console.log('FAVORITE ' + id + ': ' + result);
+        //console.log('FAVORITE ' + id + ': ' + result);
         return result;
     }
 

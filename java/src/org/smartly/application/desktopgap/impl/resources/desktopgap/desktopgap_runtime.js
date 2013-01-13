@@ -55,6 +55,29 @@
                 console.error('desktopgap_runtime() runApp("'+appId+'"): ' + err);
             }
             return null;
+        },
+
+        /**
+         * Protected Method: Exit DesktopGap runtime and close all applications.
+         */
+        exit: function () {
+            try{
+                if (defined('bridge')) {
+                    desktopgap['bridge'].runtime().exit();
+                }
+            }catch(err){
+                console.error('desktopgap_runtime() exit:(): ' + err);
+            }
+        },
+
+        openStoreFolder: function () {
+            try{
+                if (defined('bridge')) {
+                    desktopgap['bridge'].runtime().openStoreFolder();
+                }
+            }catch(err){
+                console.error('desktopgap_runtime() openStoreFolder(): ' + err);
+            }
         }
     };
 

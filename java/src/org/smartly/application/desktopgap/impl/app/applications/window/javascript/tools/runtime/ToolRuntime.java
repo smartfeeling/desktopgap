@@ -1,20 +1,26 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.runtime;
 
 import org.json.JSONObject;
+import org.smartly.IConstants;
+import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.frame.ToolFrame;
 import org.smartly.commons.util.CollectionUtils;
+import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.JsonWrapper;
 
+import java.awt.*;
+import java.io.File;
 import java.util.Collection;
 
 /**
  * Protected tool.
  * Only system applications can access runtime methods.
  */
-public final class ToolRuntime {
+public final class ToolRuntime extends AbstractTool {
 
     private static final String[] AUTHORIZED = IDesktopConstants.SYS_APPS;
 
@@ -22,6 +28,7 @@ public final class ToolRuntime {
     private final String _appId;
 
     public ToolRuntime(final AppFrame frame) {
+        super(frame);
         _app = frame.getApp();
         _appId = frame.getManifest().getAppId();
     }
@@ -57,6 +64,44 @@ public final class ToolRuntime {
         final AppFrame frame = _app.launchApp(appId);
         return new ToolFrame(frame);
     }
+
+    // --------------------------------------------------------------------
+    //               S Y S T E M
+    // --------------------------------------------------------------------
+
+    public void exit() {
+        try {
+            if (this.isAuthorized()) {
+                _app.close();
+                _app.getDesktop().stop();
+            }
+        } catch (Throwable t) {
+            super.getLogger().error(FormatUtils.format("Error exiting: {0}", t), t);
+        }
+    }
+
+    public void openUserFolder() {
+        this.openFolder(IConstants.USER_HOME);
+    }
+
+    public void openAppFolder() {
+        this.openFolder(super.getFrame().getManifest().getAbsoluteAppPath(""));
+    }
+
+    public void openStoreFolder() {
+        this.openFolder(Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_STORE_DIR));
+    }
+
+    public void openFolder(final String path) {
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(new File(path));
+            }
+        } catch (Throwable t) {
+            super.getLogger().error(FormatUtils.format("Error Opening '{0}' folder: {1}", path, t), t);
+        }
+    }
+
     // --------------------------------------------------------------------
     //               C O M P I L E R
     // --------------------------------------------------------------------
@@ -65,6 +110,7 @@ public final class ToolRuntime {
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
+
 
     private boolean isAuthorized() {
         return CollectionUtils.contains(AUTHORIZED, _appId);

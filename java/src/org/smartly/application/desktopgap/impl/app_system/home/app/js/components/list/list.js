@@ -148,7 +148,7 @@
             if (!self['_fav']) {
                 $fav.hide();
             } else {
-                self.bindTo(_setFav)($fav, item['is_favorite']);
+                self.bindTo(_setFav)($fav, !!item['is_favorite']);
             }
 
             // handle txt
@@ -178,7 +178,7 @@
     }
 
     function _setFav($fav, is_favorite){
-        if (!!is_favorite) {
+        if (!is_favorite) {
             $fav.removeClass('fav-on');
             $fav.addClass('fav-off');
         } else {

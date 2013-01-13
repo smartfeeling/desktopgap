@@ -307,7 +307,7 @@ public final class AppFrame
             //-- notify open --//
             this.onOpen();
 
-            _app.getLogger().info("App Window Opened: " + _app.getId());
+            //_app.getLogger().info("App Window Opened: " + _app.getId());
         }
 
     }

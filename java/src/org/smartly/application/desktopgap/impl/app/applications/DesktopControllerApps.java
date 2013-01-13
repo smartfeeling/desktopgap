@@ -166,6 +166,19 @@ public final class DesktopControllerApps
         }
     }
 
+    public void closeRunning() {
+        synchronized (_registry_running) {
+            final Collection<AppInstance> apps = _registry_running.values();
+            for (final AppInstance app : apps) {
+                try {
+                   app.close();
+                } catch (Throwable ignored) {
+                }
+            }
+            _registry_running.clear();
+        }
+    }
+
     // ------------------------------------------------------------------------
     //                      IEventListener
     // ------------------------------------------------------------------------

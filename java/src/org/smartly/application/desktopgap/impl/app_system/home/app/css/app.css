@@ -128,6 +128,13 @@ ul {
     color: #fff;
 }
 
+/** BOTTOM BUTTON **/
+.app-menu-buttons {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
 /**   PANEL RIGHT
 -----------------------------------------------------------------*/
 

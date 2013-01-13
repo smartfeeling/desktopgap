@@ -79,6 +79,10 @@ public final class DesktopController
         this.startApplication();
     }
 
+    /**
+     * Stop desktop and close all running applications.
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         try {
@@ -86,7 +90,9 @@ public final class DesktopController
                 _installObserver.stopWatching();
             }
         } finally {
+            _applications.closeRunning();
             super.stop();
+            Platform.exit();
         }
     }
 

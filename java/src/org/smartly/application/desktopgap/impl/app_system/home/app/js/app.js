@@ -70,6 +70,7 @@
 
             require('./js/components/list/list.js');
             require('./js/components/tile/tile.js');
+            require('./js/components/actionbutton/actionbutton.js');
 
             require('./js/favorites.js');
 
@@ -85,6 +86,9 @@
         try {
             //-- creates pages controller --//
             initPageController();
+
+            //-- creates Control Panel Action Button --//
+            initActionButton();
         } catch (err) {
             console.error('(app.js) initComponents(): ' + err);
         }
@@ -139,6 +143,19 @@
             }
         } catch (err) {
             console.error('(app.js) initPageController(): ' + err);
+        }
+    }
+
+    function initActionButton() {
+        try {
+            var $parent = $('#app-action-button');
+
+            var actionbutton = new desktopgap.gui.actionbutton.ActionButton({});
+            actionbutton.appendTo($parent, function(){
+                // console.log('Created Action Button');
+            });
+        } catch (err) {
+            console.error('(app.js) initActionButton(): ' + err);
         }
     }
 
