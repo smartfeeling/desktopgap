@@ -241,7 +241,7 @@
     <file path="/SysTool.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357904832372" ignored="false" />
     <file path="$PROJECT_DIR$/../../../smartly/smartly_package_01_velocity/src/org/smartly/packages/velocity/impl/vtools/SysTool.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357904833516" ignored="false" />
     <file path="/actionbutton.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358179749646" ignored="false" />
-    <file path="/actionbutton.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358179983222" ignored="false" />
+    <file path="/actionbutton.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358180405441" ignored="false" />
     <file path="/AbstractTool.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358085962870" ignored="false" />
     <file path="/skin.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358174462415" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -350,43 +350,7 @@
       <file leaf-file-name="actionbutton.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="32" selection-start="2552" selection-end="2552" vertical-scroll-proportion="0.6546311">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="actionbutton.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="96" selection-start="586" selection-end="586" vertical-scroll-proportion="-4.576923">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="desktopgap_runtime.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="54" selection-start="2289" selection-end="2289" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jquery.minesweeper.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_store/minesweeper/app/js/jquery.minesweeper.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="33" selection-start="260" selection-end="269" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="40" selection-start="5430" selection-end="5458" vertical-scroll-proportion="0.0">
+            <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.846543">
               <folding />
             </state>
           </provider>
@@ -412,12 +376,12 @@
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_store/minesweeper/app/index.html" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_store/minesweeper/app/js/app.js" />
         <option value="$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/util/SystemUtils.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/runtime/ToolRuntime.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.html" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/i18n/home.properties" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/i18n/home_it.properties" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js" />
       </list>
     </option>
   </component>
@@ -2311,24 +2275,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32409382" sideWeight="0.38410595" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.59081197" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29166666" sideWeight="0.48730683" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29166666" sideWeight="0.48730683" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29166666" sideWeight="0.50883" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3386752" sideWeight="0.5353201" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3386752" sideWeight="0.4630243" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3386752" sideWeight="0.46081677" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25110376" sideWeight="0.2553419" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39955848" sideWeight="0.59081197" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27428257" sideWeight="0.7083333" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27428257" sideWeight="0.6613248" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15705128" sideWeight="0.48896247" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2449,13 +2413,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="54" selection-start="2289" selection-end="2289" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="304" column="10" selection-start="10478" selection-end="10478" vertical-scroll-proportion="0.0">
@@ -2499,23 +2456,30 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.html">
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="96" selection-start="586" selection-end="586" vertical-scroll-proportion="-4.576923">
+        <state line="73" column="12" selection-start="2104" selection-end="2104" vertical-scroll-proportion="0.59865093">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="40" selection-start="5430" selection-end="5458" vertical-scroll-proportion="0.0">
+        <state line="165" column="40" selection-start="5430" selection-end="5458" vertical-scroll-proportion="0.4148398">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="59" selection-start="775" selection-end="775" vertical-scroll-proportion="0.329806">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="32" selection-start="2552" selection-end="2552" vertical-scroll-proportion="0.6546311">
+        <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.846543">
           <folding />
         </state>
       </provider>

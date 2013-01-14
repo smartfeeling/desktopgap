@@ -71,7 +71,7 @@
         },
 
         /**
-         * protected Method: Shutdown PC
+         * Protected Method: Shutdown PC
          */
         shutdown: function () {
             try{

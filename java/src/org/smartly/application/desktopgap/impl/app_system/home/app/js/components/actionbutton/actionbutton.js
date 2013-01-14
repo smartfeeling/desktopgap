@@ -84,19 +84,28 @@
             //-- Action Hide--//
             var $act_hide = self.template(sel_act_hide);
             ly.el.click($act_hide, function(){
-                desktopgap.frame.minimize();
+                $($act_hide).dropdown('toggle');
+                _.delay(function(){
+                    desktopgap.frame.minimize();
+                }, 100);
             });
 
             //-- Action Exit--//
             var $act_exit = self.template(sel_act_exit);
             ly.el.click($act_exit, function(){
-                desktopgap.runtime.exit();
+                $($act_exit).dropdown('toggle');
+                _.delay(function(){
+                    desktopgap.runtime.exit();
+                }, 100);
             });
 
             //-- Action ShutDown--//
             var $act_shutdown = self.template(sel_act_shutdown);
             ly.el.click($act_shutdown, function(){
-                desktopgap.runtime.shutdown();
+                $($act_shutdown).dropdown('toggle');
+                _.delay(function(){
+                    desktopgap.runtime.shutdown();
+                }, 100);
             });
         } catch(err){
             console.error('(actionbutton.js) _initHandlers(): ' + err);
