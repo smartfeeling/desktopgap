@@ -13,10 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
-import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 
@@ -136,8 +136,10 @@ public class AppWindowController implements Initializable {
 
 
     private void initBrowser(final WebView browser) {
-        // disable context menu
-        browser.setContextMenuEnabled(false);
+        final AppManifest manifest = _frame.getManifest();
+
+        // disable/enable context menu
+        browser.setContextMenuEnabled(manifest.hasContextMenu());
 
         //-- handlers --//
         final WebEngine engine = browser.getEngine();

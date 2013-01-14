@@ -48,6 +48,7 @@ public interface IDesktopConstants {
     //-- manifest --//
     public static final String MF_UID = ID;
     public static final String MF_FRAME = "frame";
+    public static final String MF_FRAME_CONTEXTMENU = StringUtils.concatDot(MF_FRAME, "contextmenu");
     public static final String MF_FRAME_SHADOW = StringUtils.concatDot(MF_FRAME, "shadow");
     public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");
     public static final String MF_FRAME_RESIZABLE = StringUtils.concatDot(MF_FRAME, "resizable");

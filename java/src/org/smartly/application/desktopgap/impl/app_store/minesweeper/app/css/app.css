@@ -1,0 +1,41 @@
+.menu_margin {
+    margin-bottom: 5px;
+}
+
+/* force margins around the menu title */
+.menu_title {
+    font-family: helvetica;
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    cursor: default;
+}
+
+/* Remove underline from menus */
+a:link, a:visited, a:active {
+    color: #000000;
+}
+
+a:hover {
+    color: #0000CC;
+}
+
+.menu_item {
+    font-family: helvetica;
+    font-size: 12px;
+}
+
+.menu_divider {
+    font-family: helvetica;
+    font-size: 2px;
+}
+
+.focus_box {
+    width: 40;
+    position: absolute;
+    z-index: 2;
+    top: 10;
+    left: -200;
+}

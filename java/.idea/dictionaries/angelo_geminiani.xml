@@ -2,6 +2,7 @@
   <dictionary name="angelo.geminiani">
     <words>
       <w>autorun</w>
+      <w>contextmenu</w>
       <w>deployer</w>
       <w>desktopgap</w>
       <w>deviceready</w>

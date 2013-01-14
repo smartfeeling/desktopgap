@@ -13,6 +13,9 @@
         , EVENT_ACTION = 'action'
 
         , sel_act_main = '#act_main-<%= cid %>'
+        , sel_act_shutdown = '#act_shutdown-<%= cid %>'
+        , sel_act_hide = '#act_hide-<%= cid %>'
+        , sel_act_exit = '#act_exit-<%= cid %>'
 
         ;
 
@@ -78,7 +81,24 @@
                 desktopgap.runtime.exit();
             });
 
-        } catch (err) {
+            //-- Action Hide--//
+            var $act_hide = self.template(sel_act_hide);
+            ly.el.click($act_hide, function(){
+                desktopgap.frame.minimize();
+            });
+
+            //-- Action Exit--//
+            var $act_exit = self.template(sel_act_exit);
+            ly.el.click($act_exit, function(){
+                desktopgap.runtime.exit();
+            });
+
+            //-- Action ShutDown--//
+            var $act_shutdown = self.template(sel_act_shutdown);
+            ly.el.click($act_shutdown, function(){
+                desktopgap.runtime.shutdown();
+            });
+        } catch(err){
             console.error('(actionbutton.js) _initHandlers(): ' + err);
         }
     }

@@ -11,6 +11,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.commons.util.CollectionUtils;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.JsonWrapper;
+import org.smartly.commons.util.SystemUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -80,6 +81,20 @@ public final class ToolRuntime extends AbstractTool {
         }
     }
 
+    public void OSShutDown() {
+        if (this.isAuthorized()) {
+            final String cmd;
+            if (SystemUtils.isLinux() || SystemUtils.isMac()) {
+                cmd = "shutdown -h now";
+            } else {
+                cmd = "shutdown -s -t 0"; //"shutdown -s -t 0";
+            }
+            this.exec(cmd);
+            // exit system
+            System.exit(0);
+        }
+    }
+
     public void openUserFolder() {
         this.openFolder(IConstants.USER_HOME);
     }
@@ -99,6 +114,17 @@ public final class ToolRuntime extends AbstractTool {
             }
         } catch (Throwable t) {
             super.getLogger().error(FormatUtils.format("Error Opening '{0}' folder: {1}", path, t), t);
+        }
+    }
+
+    public void exec(final String command) {
+        if (this.isAuthorized()) {
+            try {
+                final Runtime runtime = Runtime.getRuntime();
+                final Process proc = runtime.exec(command);
+            } catch (Throwable t) {
+                super.getLogger().error(FormatUtils.format("Error Executing '{0}' command: {1}", command, t), t);
+            }
         }
     }
 

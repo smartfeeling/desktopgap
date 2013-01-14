@@ -4,15 +4,16 @@
     "description": {"base":"Mine Sweeper", "it":"Campo Minato"},
     "category": "game",
     "version": "0.1",
-    "index": "minecore.html",
+    "index": "index.html",
     "frame": {
         "type": "standard",
+        "contextmenu":true,
         "shadow":true,
         "resizable":false,
         "draggable":true,
         "maximized":false,
         "width": 300,
-        "height": 300,
+        "height": 400,
         "y": 0,
         "x": 0
     },

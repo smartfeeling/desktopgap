@@ -302,7 +302,7 @@
     }
 
     function init() {
-        disableContextMenu();
+        //disableContextMenu();
         disableDragAndDrop();
         initButtons();
         updateAreas();

@@ -38,6 +38,7 @@ public class AppManifest {
     private static final String MF_INDEX = "index";
     private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
     private static final String MF_FRAME_TYPE = StringUtils.concatDot(MF_FRAME, "type");  // standard, tool
+    private static final String MF_FRAME_CONTEXTMENU = IDesktopConstants.MF_FRAME_CONTEXTMENU;
     private static final String MF_FRAME_SHADOW = IDesktopConstants.MF_FRAME_SHADOW;
     private static final String MF_FRAME_RESIZABLE = IDesktopConstants.MF_FRAME_RESIZABLE;
     private static final String MF_FRAME_DRAGGABLE = IDesktopConstants.MF_FRAME_DRAGGABLE;
@@ -193,11 +194,11 @@ public class AppManifest {
 
     public String getTitle() {
         String result = _manifest.deepString(StringUtils.concatDot(MF_TITLE, _lang));
-        if(!StringUtils.hasText(result)){
-            result =  _manifest.deepString(StringUtils.concatDot(MF_TITLE, MF_LANG_BASE));
+        if (!StringUtils.hasText(result)) {
+            result = _manifest.deepString(StringUtils.concatDot(MF_TITLE, MF_LANG_BASE));
         }
-        if(!StringUtils.hasText(result)){
-            result =  _manifest.optString(MF_TITLE);
+        if (!StringUtils.hasText(result)) {
+            result = _manifest.optString(MF_TITLE);
         }
         return result;
     }
@@ -211,11 +212,11 @@ public class AppManifest {
 
     public String getDescription() {
         String result = _manifest.deepString(StringUtils.concatDot(MF_DESCRIPTION, _lang));
-        if(!StringUtils.hasText(result)){
-            result =  _manifest.deepString(StringUtils.concatDot(MF_DESCRIPTION, MF_LANG_BASE));
+        if (!StringUtils.hasText(result)) {
+            result = _manifest.deepString(StringUtils.concatDot(MF_DESCRIPTION, MF_LANG_BASE));
         }
-        if(!StringUtils.hasText(result)){
-            result =  _manifest.optString(MF_DESCRIPTION);
+        if (!StringUtils.hasText(result)) {
+            result = _manifest.optString(MF_DESCRIPTION);
         }
         return result;
     }
@@ -244,6 +245,15 @@ public class AppManifest {
     public void setVersion(final String version) {
         _manifest.putSilent(MF_VERSION, version);
         this.generateId();
+        this.save();
+    }
+
+    public boolean hasContextMenu() {
+        return _manifest.deepBoolean(MF_FRAME_CONTEXTMENU);
+    }
+
+    public void setContextMenu(final boolean value) {
+        _manifest.putDeep(MF_FRAME_CONTEXTMENU, value);
         this.save();
     }
 

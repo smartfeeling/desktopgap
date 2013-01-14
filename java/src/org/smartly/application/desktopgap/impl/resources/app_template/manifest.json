@@ -4,17 +4,23 @@
     "description": {"base":"all languages description", "it":"descr. in italiano"},
     "version": "0.1",
     "resizable": false,
-    "index": "./app/index.html",
+    "index": "index.html",
     "frame": {
         "type": "standard",
-        "width": 445,
-        "height": 598,
-        "y": 156,
-        "x": 112
+        "contextmenu":true,
+        "shadow":true,
+        "resizable":false,
+        "draggable":true,
+        "maximized":false,
+        "width": 300,
+        "height": 400,
+        "y": 0,
+        "x": 0
     },
     "buttons":{
-        "fullscreen":false,
-        "minimize":true,
-        "maximize":true
+        "close":true,
+        "fullscreen": false,
+        "minimize": true,
+        "maximize": true
     }
 }

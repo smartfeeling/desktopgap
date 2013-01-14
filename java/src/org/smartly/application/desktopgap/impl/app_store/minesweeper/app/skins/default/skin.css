@@ -1,0 +1,128 @@
+body {
+    background: #D3D3D3;
+}
+
+#minefield {
+    position: relative;
+    margin: auto;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+/* This is the minefield container */
+.jQueryMinefield.default .minefield {
+    padding: 0 0 1px 1px;
+    -moz-box-shadow: 0px 0px 15px #415fa7; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 15px #415fa7; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 15px #415fa7; /* Opera 10.5, IE 9.0 */
+    -moz-border-radius: 3px; /* FF1+ */
+    -webkit-border-radius: 3px; /* Saf3+, Chrome */
+    border-radius: 3px; /* Opera 10.5, IE 9 */
+}
+
+.jQueryMinefield.default .heading {
+    height: 60px;
+}
+
+.jQueryMinefield.default .heading .restart {
+    margin: 0 auto;
+    width: 48px;
+    height: 48px;
+    background: url(images/MinesweeperSprite.png) no-repeat 0px -31px;
+    cursor: pointer;
+    -moz-border-radius: 3px; /* FF1+ */
+    -webkit-border-radius: 3px; /* Saf3+, Chrome */
+    border-radius: 3px; /* Opera 10.5, IE 9 */
+    -moz-box-shadow: 3px 3px 4px #415fa7; /* FF3.5+ */
+    -webkit-box-shadow: 3px 3px 4px #415fa7; /* Saf3.0+, Chrome */
+    box-shadow: 3px 3px 4px #415fa7; /* Opera 10.5, IE 9.0 */
+}
+
+.jQueryMinefield.default .heading .restart.thinking {
+    background: url(images/MinesweeperSprite.png) no-repeat -48px -31px;
+}
+
+.jQueryMinefield.default .heading .restart.gameover {
+    background: url(images/MinesweeperSprite.png) no-repeat -96px -31px;
+}
+
+.jQueryMinefield.default .heading .restart.gamewon {
+    background: url(images/MinesweeperSprite.png) no-repeat -144px -31px;
+}
+
+.jQueryMinefield.default .footer {
+    margin: 5px;
+    float: left;
+    clear: both;
+    font-family: Courier New, Sans-Serif;
+}
+
+.jQueryMinefield.default .footer .timer {
+    width: 45px;
+    float: left;
+}
+
+.jQueryMinefield.default .footer .flagsLeft {
+    float: left;
+}
+
+/* This is a mine/block in the minefield */
+.jQueryMinefield.default .minefield DIV {
+    width: 23px;
+    height: 23px;
+    margin: 1px 1px 0 0;
+    padding: 1px;
+    background: #415fa7;
+    float: left;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+    -moz-border-radius: 3px; /* FF1+ */
+    -webkit-border-radius: 3px; /* Saf3+, Chrome */
+    border-radius: 3px; /* Opera 10.5, IE 9 */
+}
+
+.jQueryMinefield.default .minefield DIV:hover {
+    background: #6377a6;
+}
+
+.jQueryMinefield.default .minefield DIV.first {
+    clear: left;
+}
+
+.jQueryMinefield.default .minefield DIV.revealed {
+    background: #666;
+    cursor: auto;
+}
+
+.jQueryMinefield.default .minefield DIV.cleared {
+    background: #fff;
+    cursor: auto;
+}
+
+.jQueryMinefield.default .minefield DIV.mine {
+    background: #fff url(images/MinesweeperSprite.png) no-repeat -75px 0;
+    cursor: auto;
+}
+
+.jQueryMinefield.default .minefield DIV.explosion {
+    background: #fff url(images/MinesweeperSprite.png) no-repeat -47px 0;
+    cursor: auto;
+}
+
+.jQueryMinefield.default .minefield DIV.flagged {
+    background: #fff url(images/MinesweeperSprite.png) no-repeat 3px -1px;
+    cursor: auto;
+}
+
+.jQueryMinefield.default .minefield DIV.question {
+    background: #fff url(images/MinesweeperSprite.png) no-repeat -22px -2px;
+    cursor: auto;
+}
+
+/* This is for mines that were flagged correctly after the game ends and all mines are revealed */
+.jQueryMinefield.default .minefield DIV.flagged.mine {
+    background: #fff url(images/MinesweeperSprite.png) no-repeat -100px 0;
+    cursor: auto;
+}

@@ -70,6 +70,19 @@
             }
         },
 
+        /**
+         * protected Method: Shutdown PC
+         */
+        shutdown: function () {
+            try{
+                if (defined('bridge')) {
+                    desktopgap['bridge'].runtime().OSShutDown();
+                }
+            }catch(err){
+                console.error('desktopgap_runtime() shutdown:(): ' + err);
+            }
+        },
+
         openStoreFolder: function () {
             try{
                 if (defined('bridge')) {
