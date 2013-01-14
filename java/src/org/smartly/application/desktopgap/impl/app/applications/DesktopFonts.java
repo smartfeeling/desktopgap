@@ -20,7 +20,7 @@ public final class DesktopFonts {
     private static final String[] FONTS = new String[]{
             "AIRBORNERegular.ttf",
             "Bazar.ttf",
-            "Opensans-Semibold.ttf",
+            "OpenSans-Semibold.ttf",
             "Oxygen-Light.ttf",
             "Oxygen-Regular.ttf",
             "Oxygen-Bold.ttf"

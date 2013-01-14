@@ -8,6 +8,6 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
-
-/java/out
+/java/out/production
+/java/out/test
 /java/.idea
