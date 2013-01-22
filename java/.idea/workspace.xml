@@ -216,7 +216,7 @@
     <file path="/favorites.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357751140485" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/app/mongo/entities/ProdCatalog.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357816412460" ignored="false" />
     <file path="/ProdCatalog.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357816376532" ignored="false" />
-    <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/app/wit/WitProject.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357905483082" ignored="false" />
+    <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/app/wit/WitProject.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358430029018" ignored="false" />
     <file path="/WitProject.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357905482705" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/test/org/smartly/application/ow/importdata/dictionaries/warnings/dic_warnings.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357827021768" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/test/org/smartly/application/ow/importdata/list/listcoverthreads/ImportListCoverThreads.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357827084930" ignored="false" />
@@ -272,6 +272,10 @@
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/htdoc/app/js/gui/dashboard/pro/pro.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358265843418" ignored="false" />
     <file path="/pro.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358265808052" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/htdoc/app/js/gui/dashboard/cli/cli.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358267518452" ignored="false" />
+    <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/app/wit/WitProjectExpressions.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358430029018" ignored="false" />
+    <file path="/WitProjectExpressions.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358430000136" ignored="false" />
+    <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/app/vtools/WitTool.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358435301645" ignored="false" />
+    <file path="/WitTool.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358435301645" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,6 +303,7 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
@@ -334,7 +339,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
@@ -376,7 +380,7 @@
       <file leaf-file-name="actionbutton.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.85714287">
+            <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.79812205">
               <folding />
             </state>
           </provider>
@@ -449,6 +453,26 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="desktopgap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1895,26 +1919,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2300,15 +2304,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1096" extended-state="7" />
+    <frame x="54" y="-8" width="1874" height="1096" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.59081197" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29166666" sideWeight="0.48730683" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29166666" sideWeight="0.48509935" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3379531" sideWeight="0.5353201" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29104477" sideWeight="0.5110375" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2316,7 +2320,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25110376" sideWeight="0.2553419" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39955848" sideWeight="0.59081197" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27428257" sideWeight="0.6620469" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27428257" sideWeight="0.7089552" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15705128" sideWeight="0.48896247" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2324,7 +2328,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32409382" sideWeight="0.38410595" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3386752" sideWeight="0.46081677" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3379531" sideWeight="0.45860928" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.84294873" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2443,19 +2447,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/i18n/home_it.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="25" selection-start="275" selection-end="275" vertical-scroll-proportion="0.44371942" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/i18n/home.properties">
       <provider editor-type-id="ResourceBundle">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/i18n/home.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="0" selection-start="209" selection-end="260" vertical-scroll-proportion="0.41598696" />
+      </provider>
+      <provider editor-type-id="ResourceBundle">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js">
@@ -2491,7 +2495,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/components/actionbutton/actionbutton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.85714287">
+        <state line="104" column="52" selection-start="2916" selection-end="2916" vertical-scroll-proportion="0.79812205">
           <folding />
         </state>
       </provider>
