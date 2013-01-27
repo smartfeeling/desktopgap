@@ -108,7 +108,7 @@ public final class AppFrame
     public String getIndex() {
         try {
             if (null != _app) {
-                return _app.getManifest().getAbsoluteIndex();
+                return _app.getManifest().getRelativeIndex();
             }
         } catch (Throwable ignored) {
         }
@@ -206,6 +206,13 @@ public final class AppFrame
     public void close() {
         // close stage and trigger event
         this.emit(new FrameCloseEvent(this));
+        _stage.close();
+    }
+
+    /**
+     * Close frame with no events
+     */
+    public void kill() {
         _stage.close();
     }
 

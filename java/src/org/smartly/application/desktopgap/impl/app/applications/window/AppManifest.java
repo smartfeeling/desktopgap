@@ -56,14 +56,14 @@ public class AppManifest {
     private static final String MF_FRAME_STANDARD = IDesktopConstants.FRAME_STANDARD;
     private static final String MF_FRAME_TOOL = IDesktopConstants.FRAME_TOOL;
 
-    private final boolean _is_system;
     private final String _temp_dir;
     private final JsonWrapper _manifest;
     private final String _install_dir;
     private final String _app_docroot;
     private final String _appName;
-    private final String _lang = DesktopGap.getLang();
+    private final String _lang;
     private String _install_root; // system or store
+    private boolean _is_system;
     private String _filePath;
     private String _appId;
 
@@ -74,15 +74,15 @@ public class AppManifest {
      * @param path App Path or Package Name
      * @throws IOException
      */
-    public AppManifest(final String path, final boolean system) throws IOException {
-        _is_system = system;
+    public AppManifest(final String path) throws IOException {
+        _lang = DesktopGap.getLang();
         _temp_dir = PathUtils.concat(Smartly.getAbsolutePath(TEMP_DIR), GUID.create(false, true));
-        _manifest = this.getManifest(path);
+        _manifest = this.init(path);
         if (!_manifest.isEmpty()) {
             _appName = _manifest.optString(MF_NAME);
             _install_dir = PathUtils.concat(_install_root, _appName);
             _app_docroot = PathUtils.merge(_install_dir, APP_DIR);
-            if (system) {
+            if (_is_system) {
                 _appId = _manifest.optString(MF_SYS_ID, null);
             }
         } else {
@@ -119,6 +119,14 @@ public class AppManifest {
         return PathUtils.concat(_app_docroot, path);
     }
 
+    public String getRelativeAppPath(final String path) {
+        final String relativeRoot = StringUtils.concatArgsEx("/",
+                _is_system ? IDesktopConstants.SYSTEM_DIR : IDesktopConstants.STORE_DIR,
+                this.getAppName());
+        final String relativeAppPath = PathUtils.resolve(PathUtils.concat(relativeRoot, APP_DIR));
+        return PathUtils.concat(relativeAppPath, path);
+    }
+
     public String getUid() {
         return _manifest.optString(MF_UID);
     }
@@ -148,6 +156,10 @@ public class AppManifest {
 
     public String getAbsoluteIndex() {
         return this.getAbsoluteAppPath(this.getIndex());
+    }
+
+    public String getRelativeIndex() {
+        return this.getRelativeAppPath(this.getIndex());
     }
 
     public boolean isGreaterThan(final AppManifest other) {
@@ -395,36 +407,40 @@ public class AppManifest {
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private JsonWrapper getManifest(final String path) throws IOException {
+    private JsonWrapper init(final String path) throws IOException {
+        final String unixPath = PathUtils.toUnixPath(path);
         _install_root = Smartly.getAbsolutePath(INSTALLED_DIR); // default
         final String manifestJson;
-        if (Utils.isPackage(path)) {
+        if (Utils.isPackage(unixPath)) {
             // PACKAGE
             // unzip temp
-            ZipUtils.unzip(path, _temp_dir);
+            ZipUtils.unzip(unixPath, _temp_dir);
             _filePath = PathUtils.concat(_temp_dir, MANIFEST);
             manifestJson = FileUtils.readFileToString(new File(_filePath));
             // remove temp
             FileUtils.delete(_temp_dir);
-        } else if (Utils.isManifest(path)) {
+        } else if (Utils.isManifest(unixPath)) {
             // MANIFEST FILE
-            _filePath = path;
+            _filePath = unixPath;
             manifestJson = FileUtils.readFileToString(new File(_filePath));
             _install_root = PathUtils.getParent(PathUtils.getParent(_filePath)); // overwrite default
-        } else if (Utils.isAppFolder(path)) {
+        } else if (Utils.isAppFolder(unixPath)) {
             // APP FOLDER
-            _filePath = PathUtils.concat(path, MANIFEST);
+            _filePath = PathUtils.concat(unixPath, MANIFEST);
             manifestJson = FileUtils.readFileToString(new File(_filePath));
-            _install_root = PathUtils.getParent(path);  // overwrite default
-        } else if (path.indexOf(IConstants.FOLDER_SEPARATOR) > 0) {
-            _filePath = PathUtils.concat(path, MANIFEST);
+            _install_root = PathUtils.getParent(unixPath);  // overwrite default
+        } else if (unixPath.indexOf(IConstants.FOLDER_SEPARATOR) > 0) {
+            _filePath = PathUtils.concat(unixPath, MANIFEST);
             manifestJson = FileUtils.readFileToString(new File(_filePath));
-            _install_root = PathUtils.getParent(path);  // overwrite default
+            _install_root = PathUtils.getParent(unixPath);  // overwrite default
         } else {
             // INVALID PATH
             _filePath = "";
             manifestJson = "{}";
         }
+
+        _is_system = _install_root.endsWith(IDesktopConstants.SYSTEM_DIR);
+
         return new JsonWrapper(manifestJson);
     }
 
@@ -436,5 +452,50 @@ public class AppManifest {
         _appId = MD5.encode(StringUtils.concatDot(index, name, title, version));
     }
 
+    // --------------------------------------------------------------------
+    //               S T A T I C
+    // --------------------------------------------------------------------
 
+    private static File getManifestFile(final String path) {
+        final String unixPath = PathUtils.toUnixPath(path);
+        try {
+            final String ext = PathUtils.getFilenameExtension(unixPath);
+            final File file;
+            if (StringUtils.hasText(ext)) {
+                file = new File(unixPath);
+            } else {
+                file = new File(PathUtils.concat(unixPath, MANIFEST));
+            }
+            if (PathUtils.getFilename(file.getName()).equalsIgnoreCase(MANIFEST)) {
+                if (file.exists()) {
+                    return file;
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        return null;
+    }
+
+    public static AppManifest getManifest(final String path) {
+        try {
+            File file = new File(path);
+            File manifest = getManifestFile(file.getAbsolutePath());
+            while (null == manifest) {
+                file = file.getParentFile();
+                if (null == file) {
+                    break;
+                }
+                manifest = getManifestFile(file.getAbsolutePath());
+            }
+            if (null != manifest) {
+                return new AppManifest(manifest.getAbsolutePath());
+            }
+        } catch (Throwable ignored) {
+        }
+        return null;
+    }
+
+    public static boolean existManifest(final String path) {
+        return null != getManifestFile(path);
+    }
 }

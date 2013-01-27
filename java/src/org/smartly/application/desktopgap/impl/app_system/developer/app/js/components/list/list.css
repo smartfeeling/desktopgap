@@ -1,0 +1,46 @@
+/**   LIST
+-----------------------------------------------------------------*/
+
+.list li{
+    border: 1px solid transparent;
+    border-bottom: 1px solid #333;
+}
+
+.list .list-item {
+    padding: 10px;
+    border-bottom: 1px solid rgb(33,33,33);
+}
+.list .list-item>*{
+    display: inline-block;
+}
+
+.list .list-item:hover {
+    border-radius: 5px;
+    background-color: rgba(0, 200, 150, 0.1);
+}
+
+.list .list-text {
+    width: 200px;
+    cursor: pointer;
+}
+
+.list .list-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background-color: #0088cc;
+}
+
+.list .list-fav {
+    width: 18px;
+    height: 18px;
+    float: right;
+    cursor: pointer;
+}
+
+.list .fav-off {
+    background: url('../../../images/actions/star_off.png') no-repeat center center;
+}
+.list .fav-on {
+    background: url('../../../images/actions/star_on.png') no-repeat center center;
+}

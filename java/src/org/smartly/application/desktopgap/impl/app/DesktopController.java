@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications;
+package org.smartly.application.desktopgap.impl.app;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,13 +7,12 @@ import javafx.stage.Stage;
 import org.json.JSONObject;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.DesktopGap;
-import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.DesktopControllerApps;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.AppAutorunManager;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.IAutorunListener;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
-import org.smartly.application.desktopgap.impl.app.command.CommandHandler;
-import org.smartly.application.desktopgap.impl.app.command.CommandSender;
+import org.smartly.application.desktopgap.impl.app.server.WebServer;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;
 import org.smartly.commons.io.FileObserver;
 import org.smartly.commons.io.IFileObserverListener;
@@ -46,6 +45,7 @@ public final class DesktopController
     private final String _root_temp;        // temp
     private final DesktopControllerApps _applications;
     private FileObserver _installObserver;
+    private boolean _closed;
 
     private Text _text;
 
@@ -56,6 +56,10 @@ public final class DesktopController
         _root_temp = Smartly.getAbsolutePath(TEMP_DIR);
         _autorun = new AppAutorunManager();
         _applications = new DesktopControllerApps(this);
+        _closed = false;
+
+        // inject controller into webserver
+        _webserver.setDesktop(this);
     }
 
     @Override
@@ -81,19 +85,38 @@ public final class DesktopController
 
     /**
      * Stop desktop and close all running applications.
+     *
      * @throws Exception
      */
     @Override
     public void stop() throws Exception {
+        super.stop();
+        System.exit(0);
+    }
+
+    public void close() {
+        _closed = true;
+        // stop internal webserver
+        try {
+            WebServer.getInstance().stop();
+        } catch (Throwable ignored) {
+        }
         try {
             if (null != _installObserver) {
                 _installObserver.stopWatching();
             }
-        } finally {
-            _applications.closeRunning();
-            super.stop();
-            Platform.exit();
+        } catch (Throwable ignored) {
         }
+        // kill all running applications
+        try {
+            _applications.killRunning();
+        } catch (Throwable ignored) {
+        }
+        Platform.exit();
+    }
+
+    public boolean isClosed() {
+        return _closed;
     }
 
     /**
@@ -102,6 +125,9 @@ public final class DesktopController
      * @param path Application file path. i.e. "c:\app\my_app.dga", or Application folder path.
      */
     public AppFrame launch(final String path, final String winId) throws IOException {
+        if (this.isClosed()) {
+            return null;
+        }
         if (Utils.isPackage(path)) {
             return this.launchPackage(path, winId);
         } else {
@@ -121,12 +147,25 @@ public final class DesktopController
         return _applications.getAppManifestsAsJSON();
     }
 
+    /**
+     * Returns Manifest of installed application
+     *
+     * @param appId AppId
+     * @return Manifest
+     */
+    public AppManifest getApplicationManifest(final String appId) {
+        return _applications.getInstalled(appId);
+    }
+
     // ------------------------------------------------------------------------
     //                      IFileObserverListener (install dir)
     // ------------------------------------------------------------------------
 
     @Override
     public void onEvent(final int event, final String path) {
+        if (this.isClosed()) {
+            return;
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -149,6 +188,9 @@ public final class DesktopController
 
     @Override
     public void listen(final String appId) {
+        if (this.isClosed()) {
+            return;
+        }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -212,12 +254,12 @@ public final class DesktopController
 
     private AppManifest installPackage(final String packagePath) throws IOException {
         synchronized (_applications) {
-            final AppManifest manifest = new AppManifest(packagePath, false);
+            final AppManifest manifest = new AppManifest(packagePath);
             final String appId = manifest.getAppId();
             // check if installed and update or install from scratch
             if (_applications.isInstalled(appId)) {
                 //-- update --//
-                final AppManifest old_manifest = new AppManifest(manifest.getInstallDir(), false);
+                final AppManifest old_manifest = new AppManifest(manifest.getInstallDir());
                 if (manifest.isGreaterThan(old_manifest)) {
                     // close existing instance
                     _applications.closeApplication(appId);
@@ -246,6 +288,9 @@ public final class DesktopController
      */
     private AppFrame launchPackage(final String packagePath,
                                    final String winId) throws IOException {
+        if (this.isClosed()) {
+            return null;
+        }
         final AppManifest manifest = this.installPackage(packagePath);
 
         //-- ready to run app --//
@@ -254,6 +299,9 @@ public final class DesktopController
 
     private AppFrame launchApp(final String appId,
                                final String winId) throws IOException {
+        if (this.isClosed()) {
+            return null;
+        }
         if (_applications.isInstalled(appId)) {
             return _applications.getApplication(appId).open(winId);
         }
@@ -271,13 +319,13 @@ public final class DesktopController
     // --------------------------------------------------------------------
 
     private static final DesktopControllerArgs s_app_args = new DesktopControllerArgs();
-    private static CommandHandler s_handler;
+    private static WebServer _webserver;
 
     private static boolean isAlreadyRunning() {
-        if (null == s_handler && !CommandSender.ping()) {
-            // no instance is running
+        if (null == _webserver) {
+            _webserver = WebServer.getInstance();
             try {
-                s_handler = new CommandHandler();
+                _webserver.start();
                 return false;
             } catch (Throwable ignored) {
             }

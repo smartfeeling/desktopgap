@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="js/components/actionbutton/actionbutton.css">
+
+<div class="btn-group dropup">
+    <button id="act_main-<%= cid %>" class="btn btn-inverse btn-small" data-i18n="home.btn_act_exit">EXIT</button>
+    <button class="btn btn-inverse dropdown-toggle btn-small" data-toggle="dropdown"><span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a id="act_hide-<%= cid %>" href="#" class="btn-small" data-i18n="home.btn_act_minimize">HIDE</a></li>
+        <li><a id="act_exit-<%= cid %>" href="#" class="btn-small" data-i18n="home.btn_act_exit2">EXIT</a></li>
+        <li class="divider"></li>
+        <li><a id="act_shutdown-<%= cid %>" href="#" class="btn-small" data-i18n="home.btn_act_shutdown">SHUTDOWN</a></li>
+    </ul>
+</div>

@@ -13,10 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.server.WebServer;
+import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 
@@ -122,11 +125,13 @@ public class AppWindowController implements Initializable {
         if (null != win_browser) {
             try {
                 // remove old
-                AppWindowUrl.delete(_old_location);
+                // AppWindowUrl.delete(_old_location);
 
-                final AppWindowUrl uri = new AppWindowUrl(_frame, url);
+                // final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
-                _location = uri.getUrl();
+                _location = WebServer.getHttpPath(url); //uri.getUrl();
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_APPID, _frame.getApp().getId());
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_FRAMEID, _frame.getId());
                 win_browser.getEngine().load(_location);
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
@@ -195,7 +200,7 @@ public class AppWindowController implements Initializable {
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
                         //System.out.println(newState);
-
+                        try{
                         if (newState == Worker.State.CANCELLED) {
                             // navigation cancelled by user
                             //_location = _old_location;
@@ -225,7 +230,10 @@ public class AppWindowController implements Initializable {
                             //_jsengine.dispatchReady();
 
                             //-- remove page --//
-                            AppWindowUrl.delete(_location);
+                            //AppWindowUrl.delete(_location);
+                        }
+                        }catch(Throwable t){
+                           getLogger().log(Level.SEVERE, null, t);
                         }
                     }
                 }

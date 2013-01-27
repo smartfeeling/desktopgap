@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications;
+package org.smartly.application.desktopgap.impl.app;
 
 import javafx.scene.text.Font;
 import org.smartly.Smartly;

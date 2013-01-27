@@ -1,6 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
-import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
+import org.smartly.application.desktopgap.impl.app.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
@@ -107,6 +107,10 @@ public final class AppInstance
 
     public void close() {
         _windows.close(null); // close all
+    }
+
+    public void kill() {
+        _windows.kill(null); // close all
     }
 
     public Logger getLogger() {

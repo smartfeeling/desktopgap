@@ -70,11 +70,14 @@ public final class ToolRuntime extends AbstractTool {
     //               S Y S T E M
     // --------------------------------------------------------------------
 
+    /**
+     * Exit DesktopGap
+     */
     public void exit() {
         try {
             if (this.isAuthorized()) {
                 _app.close();
-                _app.getDesktop().stop();
+                _app.getDesktop().close();
             }
         } catch (Throwable t) {
             super.getLogger().error(FormatUtils.format("Error exiting: {0}", t), t);

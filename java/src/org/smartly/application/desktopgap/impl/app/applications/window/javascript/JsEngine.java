@@ -125,10 +125,10 @@ public final class JsEngine {
         }
     }
 
-    private void scriptReady(final boolean value){
-       _script_ready = value;
-        if(value){
-           this.executeCache();
+    private void scriptReady(final boolean value) {
+        _script_ready = value;
+        if (value) {
+            this.executeCache();
         }
     }
 
@@ -147,28 +147,32 @@ public final class JsEngine {
                     @Override
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
-                        // debug info
-                        //System.out.println(newState);
-                        if (newState == Worker.State.CANCELLED) {
-                            // navigation cancelled by user
-                            scriptReady(false);
-                        } else if (newState == Worker.State.FAILED) {
-                            // navigation failed
-                            scriptReady(false);
-                        } else if (newState == Worker.State.READY) {
-                            scriptReady(false);
-                        } else if (newState == Worker.State.SCHEDULED) {
-                            // browser scheduled navigation
-                            //System.out.println(engine.getLocation());
-                            scriptReady(false);
-                        } else if (newState == Worker.State.RUNNING) {
-                            // browser is loading data
-                            scriptReady(false);
-                        } else if (newState == Worker.State.SUCCEEDED) {
-                            init();
-                            showHideElem(_frame.getManifest().getButtonsMap());
-                            dispatchReady();
-                            scriptReady(true);
+                        try {
+                            // debug info
+                            //System.out.println(newState);
+                            if (newState == Worker.State.CANCELLED) {
+                                // navigation cancelled by user
+                                scriptReady(false);
+                            } else if (newState == Worker.State.FAILED) {
+                                // navigation failed
+                                scriptReady(false);
+                            } else if (newState == Worker.State.READY) {
+                                scriptReady(false);
+                            } else if (newState == Worker.State.SCHEDULED) {
+                                // browser scheduled navigation
+                                //System.out.println(engine.getLocation());
+                                scriptReady(false);
+                            } else if (newState == Worker.State.RUNNING) {
+                                // browser is loading data
+                                scriptReady(false);
+                            } else if (newState == Worker.State.SUCCEEDED) {
+                                init();
+                                showHideElem(_frame.getManifest().getButtonsMap());
+                                dispatchReady();
+                                scriptReady(true);
+                            }
+                        } catch (Throwable t) {
+                           _frame.getApp().getLogger().log(Level.SEVERE, null, t);
                         }
                     }
                 }

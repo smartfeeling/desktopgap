@@ -26,8 +26,11 @@ public interface IDesktopConstants {
 
     //-- paths --//
     public static final String AUTORUN_DIR = "./app_autorun"; // auto-run folder
-    public static final String INSTALLED_STORE_DIR = "./app_installed/store"; // STORE program files
-    public static final String INSTALLED_SYSTEM_DIR = "./app_installed/system"; // SYSTEM program files
+    public static final String INSTALLED_DIR = "./app_installed"; // STORE program files
+    public static final String STORE_DIR = "store"; // STORE program files
+    public static final String SYSTEM_DIR = "system"; // SYSTEM program files
+    public static final String INSTALLED_STORE_DIR = StringUtils.concatArgsEx("/", INSTALLED_DIR, STORE_DIR); // STORE program files
+    public static final String INSTALLED_SYSTEM_DIR = StringUtils.concatArgsEx("/", INSTALLED_DIR, SYSTEM_DIR); // SYSTEM program files
     public static final String INSTALL_DIR = "./app_install"; // install app and run
     public static final String TEMP_DIR = "./app_tmp";
     public static final String APP_EXT = ".dga";
@@ -69,4 +72,8 @@ public interface IDesktopConstants {
     //-- PRE-COMPILE --//
     public static final String PRE_INDEX_PAGE = "[INDEX_PAGE]";
 
+    //-- WEB SERVER --//
+    public static final String PARAM_DESKTOPGAP = "desktopgap";
+    public static final String PARAM_APPID = "appid";
+    public static final String PARAM_FRAMEID = "frameid";
 }

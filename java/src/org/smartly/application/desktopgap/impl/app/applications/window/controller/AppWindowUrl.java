@@ -1,7 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.controller;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
-import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.commons.cryptograph.MD5;
 import org.smartly.commons.util.CompareUtils;
@@ -23,17 +22,15 @@ public class AppWindowUrl {
     private final String _app_docroot;
     private final String _url;
 
-    public AppWindowUrl(final AppFrame window,
+    public AppWindowUrl(final AppManifest manifest,
                         final String url) throws IOException {
-        _app_docroot = window.getManifest().getAbsoluteAppPath("");
+        _app_docroot = manifest.getAbsoluteAppPath("");
         if (isTemp(url)) {
             _url = stripFileProtocol(url);
         } else {
             _url = this.getTempUrl(url);
             //-- insert page into frame --//
-            final AppManifest manifest = window.getManifest();
-            final String frame = window.getFrame();
-            DOM.insertInFrame(manifest, frame, stripFileProtocol(url), _url);
+            DOM.insertInFrameByUrl(manifest, stripFileProtocol(url), _url);
         }
     }
 

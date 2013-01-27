@@ -5,6 +5,7 @@
 
         , EVENT_CLICK = 'click'
         , EVENT_FAV = 'favorite'
+        , EVENT_ACTION = 'action'
 
         , sel_list = '#list-<%= cid %>'
 
@@ -55,13 +56,18 @@
             ;
         //i18n.translate(self['parent'][0]);
         try {
+            //-- add items to list --//
             self['items'] = [];
+
             // developers
             self['items'].push({
-                _id: 'mnu_tool_dev',
+                _id: 'act_tool_dev',
                 description: i18n.get('home.tools_dev'),
-                image: ''
+                image: '',
+                action: true,
+                command: 'desktopgap.runtime.runApp("system_developer")'
             });
+
         } catch (err) {
             console.error('(tool.js) _init(): ' + err);
         }
@@ -77,6 +83,9 @@
             list.appendTo($list_parent, function () {
                 list.on(EVENT_CLICK, function (item) {
                    self.trigger(EVENT_CLICK, item);
+                });
+                list.on(EVENT_ACTION, function (item) {
+                    self.trigger(EVENT_ACTION, item);
                 });
                 list.on(EVENT_FAV, function (item) {
                     self.trigger(EVENT_FAV, item);

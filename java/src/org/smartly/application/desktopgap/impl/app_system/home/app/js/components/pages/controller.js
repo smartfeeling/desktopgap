@@ -120,6 +120,7 @@
                 $container.hide();
                 self['parent'].append($container);
                 self['_instances'][id].appendTo($container);
+                //-- handlers --//
                 self['_instances'][id].on(EVENT_CLICK, function(item){
                     //-- open a sub-page --//
                     // console.log(EVENT_CLICK + ': ' + JSON.stringify(item));
@@ -129,11 +130,11 @@
                     //-- add a sub-page to favorites --//
                     self.trigger(EVENT_FAV, item);
                 });
-                self['_instances'][id].on(EVENT_ACTION, function(action, item){
-                    //-- add a sub-page to favorites --//
-                    self.trigger(EVENT_ACTION, action, item);
+                self['_instances'][id].on(EVENT_ACTION, function(item){
+                    //-- notify action --//
+                    self.trigger(EVENT_ACTION, item);
 
-                    console.log('controller.js - ACTION: ' + action + ' - ITEM :' + JSON.stringify(item));
+                    // console.log('controller.js - ITEM :' + JSON.stringify(item));
                 });
             }
         });

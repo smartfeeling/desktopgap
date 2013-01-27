@@ -1,0 +1,25 @@
+{
+    "sys_id": "system_developer",
+    "name": "developer",
+    "title": {"base":"Developer", "it":"Sviluppatori"},
+    "description": {"base":"Developer Tools", "it":"Strumenti per gli Sviluppatori"},
+    "version": "0.1",
+    "index": "index.html",
+    "frame": {
+        "type": "standard",
+        "shadow":false,
+        "resizable":true,
+        "draggable":true,
+        "maximized":false,
+        "width": 800,
+        "height": 500,
+        "y": 200,
+        "x": 200
+    },
+    "buttons": {
+        "close":true,
+        "fullscreen": false,
+        "minimize": true,
+        "maximize": true
+    }
+}

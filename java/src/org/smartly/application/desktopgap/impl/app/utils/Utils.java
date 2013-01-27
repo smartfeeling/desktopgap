@@ -28,12 +28,14 @@ public class Utils {
     private static final String INSTALL_DIR = IDesktopConstants.INSTALL_DIR;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
 
+
     // ------------------------------------------------------------------------
     //                      f i l e s
     // ------------------------------------------------------------------------
 
     public static boolean isManifest(final String path) {
-        return PathUtils.getFilename(path).equalsIgnoreCase(MANIFEST);
+        final String unixPath = PathUtils.toUnixPath(path);
+        return PathUtils.getFilename(unixPath).equalsIgnoreCase(MANIFEST);
     }
 
     public static boolean isAppFolder(final String path) {

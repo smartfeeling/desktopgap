@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications;
+package org.smartly.application.desktopgap.impl.app;
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.utils.Utils;

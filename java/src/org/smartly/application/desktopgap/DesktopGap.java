@@ -3,7 +3,7 @@ package org.smartly.application.desktopgap;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.config.Deployer;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
+import org.smartly.application.desktopgap.impl.app.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.AppCompiler;
 import org.smartly.application.desktopgap.impl.app_store.DeployerAppStore;
 import org.smartly.application.desktopgap.impl.app_system.DeployerAppSystem;
