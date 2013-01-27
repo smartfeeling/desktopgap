@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <DOCUMENT Type="Advanced Installer" CreateVersion="8.9" version="8.9" Modules="java" RootPath="." Language="it" Id="{AEDD6EC6-C9A1-43DF-879F-2FED174EB4B4}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_FINDEXE_TITLE" Value="Scegliere il pacchetto di installazione per [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_FrameBtnsColor" Value="powderblue" MultiBuildValue="DefaultBuild:breeze" MsiKey="AI_FrameBtnsColor"/>
     <ROW Property="AI_FrameColor" Value="powderblue" MultiBuildValue="DefaultBuild:breeze" MsiKey="AI_FrameColor"/>
     <ROW Property="AI_ImagesColor" Value="powderblue" MultiBuildValue="DefaultBuild:aquamarine" MsiKey="AI_ImagesColor"/>
@@ -9,14 +10,14 @@
     <ROW Property="ARPCOMMENTS" Value="Questo database di installazione contiene i dati e la logica richiesti per installare [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Smartfeeling.org" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1040:{773237DB-6A90-4942-9DAE-01DACE7F98C2} " Type="16"/>
+    <ROW Property="ProductCode" Value="1040:{B8B96253-B403-4FE9-8459-0194FEBF47DD} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1040"/>
     <ROW Property="ProductName" Value="DesktopGap (x86)" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.0.0"/>
-    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="ProductVersion" Value="1.0.1"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D46FD926-2BB5-4D50-9F21-9684453AC61B}"/>
-    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
-    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME#Build:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME#Build:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT64" MultiBuildValue="DefaultBuild:Windows XP/Vista/Windows7 x64" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT64Display" MultiBuildValue="DefaultBuild:Windows XP/Vista/Windows7 x64" ValueLocId="-"/>
     <ROW Property="WindowsTypeNTDisplay" MultiBuildValue="DefaultBuild:Windows NT/2k/XP/Vista/Windows7 x86" ValueLocId="-"/>
@@ -61,6 +62,7 @@
     <ROW Directory="zi_Dir" Directory_Parent="lib_Dir" DefaultDir="zi"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="AI_ExePath" ComponentId="{2DFF55EB-50FE-484C-A0D7-5C29F918F526}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
     <ROW Component="AST4" ComponentId="{6B6F4DB0-C3A6-4AF7-A37A-964884BE2122}" Directory_="SystemV_Dir" Attributes="0" KeyPath="AST4" Type="0"/>
     <ROW Component="Abidjan" ComponentId="{9D86E528-08B2-4764-BC7A-09FB2D7DE2A6}" Directory_="Africa_Dir" Attributes="0" KeyPath="Abidjan" Type="0"/>
     <ROW Component="Adak" ComponentId="{86BCFA1E-13DF-42AC-8432-312AEC3E18B5}" Directory_="America_Dir" Attributes="0" KeyPath="Adak" Type="0"/>
@@ -197,7 +199,7 @@
     <ROW Component="zip.dll" ComponentId="{EAB8D6FD-E62B-4D1A-A73F-FB0320D5FDD7}" Directory_="bin_Dir" Attributes="0" KeyPath="zip.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AST4 Abidjan Adak Adelaide Aden Amsterdam Antananarivo Apia ApplicationDescription Azores Beulah Buenos_Aires CET CIEXYZ.pf Casey GMT Indianapolis JAWTAccessBridge32.dll JavaAccessBridge32.dll JdbcOdbc.dll Louisville LucidaBrightDemiBold.ttf ProductInformation SHORTCUTDIR WindowsAccessBridge32.dll Xusage.txt accessbridge32.jar accessibility.properties attach.dll awt.dll axbridge.dll blacklist classes.jsa cursors.properties dcpr.dll decorad3d.dll decorasse.dll deploy.dll deployJava1.dll desktopgap.exe desktopgap.jar dt_shmem.dll dt_socket.dll eula.dll ffjcext.zip fontmanager.dll fxplugins.dll glass.dll gliblite.dll gstreamerlite.dll hprof.dll instrument.dll j2pcsc.dll j2pkcs11.dll jaas_nt.dll jabswitch.exe java.dll java.exe java_crw_demo.dll javacpl.cpl javacpl.exe javafxfont.dll javafxiio.dll javarmi.exe javaw.exe javaws.exe jawt.dll jdk_header.png jdwp.dll jfr.dll jfxmedia.dll jfxwebkit.dll jli.dll jmxremote.access jp2iexp.dll jp2launcher.exe jp2native.dll jp2ssv.dll jpeg.dll jpicom.dll jpiexp.dll jpinscp.dll jpioji.dll jpishare.dll jqs.conf jqs.exe jsdt.dll jsound.dll jsoundds.dll jvm.cfg jvm.dll jvm.dll_1 kcms.dll keytool.exe kinit.exe klist.exe ktab.exe launcher.exe libxml2.dll libxslt.dll management.dll mlib_image.dll msvcr100.dll msvcr100.dll_1 net.dll nio.dll npdeployJava1.dll npjp2.dll npjpi170_11.dll npoji610.dll npt.dll orbd.exe pack200.exe policytool.exe prismd3d.dll rmi.dll rmid.exe rmiregistry.exe sawindbg.dll servertool.exe splashscreen.dll ssv.dll ssvagent.exe sunec.dll sunmscapi.dll t2k.dll tnameserv.exe unpack.dll unpack200.exe verify.dll w2k_lsa_auth.dll wsdetect.dll zip.dll"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath AST4 Abidjan Adak Adelaide Aden Amsterdam Antananarivo Apia ApplicationDescription Azores Beulah Buenos_Aires CET CIEXYZ.pf Casey GMT Indianapolis JAWTAccessBridge32.dll JavaAccessBridge32.dll JdbcOdbc.dll Louisville LucidaBrightDemiBold.ttf ProductInformation SHORTCUTDIR WindowsAccessBridge32.dll Xusage.txt accessbridge32.jar accessibility.properties attach.dll awt.dll axbridge.dll blacklist classes.jsa cursors.properties dcpr.dll decorad3d.dll decorasse.dll deploy.dll deployJava1.dll desktopgap.exe desktopgap.jar dt_shmem.dll dt_socket.dll eula.dll ffjcext.zip fontmanager.dll fxplugins.dll glass.dll gliblite.dll gstreamerlite.dll hprof.dll instrument.dll j2pcsc.dll j2pkcs11.dll jaas_nt.dll jabswitch.exe java.dll java.exe java_crw_demo.dll javacpl.cpl javacpl.exe javafxfont.dll javafxiio.dll javarmi.exe javaw.exe javaws.exe jawt.dll jdk_header.png jdwp.dll jfr.dll jfxmedia.dll jfxwebkit.dll jli.dll jmxremote.access jp2iexp.dll jp2launcher.exe jp2native.dll jp2ssv.dll jpeg.dll jpicom.dll jpiexp.dll jpinscp.dll jpioji.dll jpishare.dll jqs.conf jqs.exe jsdt.dll jsound.dll jsoundds.dll jvm.cfg jvm.dll jvm.dll_1 kcms.dll keytool.exe kinit.exe klist.exe ktab.exe launcher.exe libxml2.dll libxslt.dll management.dll mlib_image.dll msvcr100.dll msvcr100.dll_1 net.dll nio.dll npdeployJava1.dll npjp2.dll npjpi170_11.dll npoji610.dll npt.dll orbd.exe pack200.exe policytool.exe prismd3d.dll rmi.dll rmid.exe rmiregistry.exe sawindbg.dll servertool.exe splashscreen.dll ssv.dll ssvagent.exe sunec.dll sunmscapi.dll t2k.dll tnameserv.exe unpack.dll unpack200.exe verify.dll w2k_lsa_auth.dll wsdetect.dll zip.dll"/>
     <ROW Feature="bitJREBundle" Title="64-bit JRE Bundle" Description="This feature contains the 64-bit JRE bundle." Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="COPYRIGHT" Builds="DefaultBuild"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
@@ -702,7 +704,7 @@
     <ROW File="deploy.dll" Component_="deploy.dll" FileName="deploy.dll" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\bin\deploy.dll" SelfReg="false" NextFile="deployJava1.dll"/>
     <ROW File="deploy.jar" Component_="accessibility.properties" FileName="deploy.jar" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\lib\deploy.jar" SelfReg="false" NextFile="accessbridge32.jar"/>
     <ROW File="deployJava1.dll" Component_="deployJava1.dll" FileName="deploy~1.dll|deployJava1.dll" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\bin\dtplugin\deployJava1.dll" SelfReg="false" NextFile="npdeployJava1.dll"/>
-    <ROW File="desktopgap.exe" Component_="desktopgap.exe" FileName="deskto~1.exe|desktopgap.exe" Attributes="0" SourcePath="&lt;AI_STUBS_32U&gt;aijclw.exe" SelfReg="false" NextFile="COPYRIGHT" DigSign="true"/>
+    <ROW File="desktopgap.exe" Component_="desktopgap.exe" FileName="deskto~1.exe|desktopgap.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="&lt;AI_STUBS_32U&gt;aijclw.exe" SelfReg="false" NextFile="COPYRIGHT" DigSign="true"/>
     <ROW File="desktopgap.jar" Component_="desktopgap.jar" FileName="deskto~1.jar|desktopgap.jar" Attributes="0" SourcePath="..\..\java\out\artifacts\desktopgap_jar\desktopgap.jar" SelfReg="false" NextFile="desktopgap.exe"/>
     <ROW File="dnsns.jar" Component_="accessbridge32.jar" FileName="dnsns.jar" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\lib\ext\dnsns.jar" SelfReg="false" NextFile="jaccess.jar"/>
     <ROW File="dt_shmem.dll" Component_="dt_shmem.dll" FileName="dt_shmem.dll" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\bin\dt_shmem.dll" SelfReg="false" NextFile="dt_socket.dll"/>
@@ -860,6 +862,7 @@
     <ROW File="zipfs.jar" Component_="accessbridge32.jar" FileName="zipfs.jar" Attributes="0" SourcePath="C:\Program Files (x86)\Java\jdk1.7.0_11\jre\lib\ext\zipfs.jar" SelfReg="false" NextFile="flavormap.properties"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="Build" BuildName="Build" BuildOrder="2" BuildType="1" PackageFolder="setup_desktopgap_x86-SetupFiles" PackageFileName="setup_desktopgap_x86" Languages="it" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\redist\icon.ico" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\install" ExeName="setup_desktopgap_x86"/>
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" Languages="it" InstallationType="4" PackageType="1" ExtUI="true" JRE64Dir="jre64_Dir"/>
     <ATTRIBUTE name="CurrentBuild" value="DefaultBuild"/>
   </COMPONENT>
@@ -883,10 +886,20 @@
     <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;air\fragments\UI.aip"/>
     <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DeleteLzma" Description="Cancellazione dei files estratti dall&apos;archivio" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_DeleteRLzma" Description="Cancellazione dei files estratti dall&apos;archivio" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
+    <ROW Action="AI_ExtractLzma" Description="Estrazione dei files dall&apos;archivio" DescriptionLocId="ActionText.Description.AI_ExtractLzma" TemplateLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiAppSearchComponent">
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_CU" Builds="Build"/>
+    <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_LM" Builds="Build"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="defaultPrograms.dll" SourcePath="&lt;AI_CUSTACTS&gt;defaultPrograms.dll"/>
     <ROW Name="defaultPrograms.dll_1" SourcePath="&lt;AI_CUSTACTS64&gt;defaultPrograms.dll"/>
+    <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiConditionComponent">
     <ROW Feature_="bitJREBundle" Level="0" Condition="NOT VersionNT64"/>
@@ -926,6 +939,13 @@
     <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="DesktopGap&#2;dga"/>
     <ROW Action="AI_DATA_SETTER_1" Type="51" Source="CustomActionData" Target="DesktopGap&#2;dga"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteLzma" Type="1025" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
+    <ROW Action="AI_DeleteRCadLzma" Type="51" Source="AI_DeleteRLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
+    <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
+    <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_RESTORE_DEFAULTS" Type="1" Source="defaultPrograms.dll" Target="RestoreDefaults"/>
@@ -946,14 +966,14 @@
     <ROW Name="icon.exe" SourcePath="..\redist\icon.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIniFileComponent">
-    <ROW IniFile="ApplicationType" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="ClassPath" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#desktopgap.jar];" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="Cmd" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Cmd" Value="&quot;-w USERHOME/DesktopGap&quot;" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="FailureCheck" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="LibraryPath" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Library Path" Value="[jre64_Dir];" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="MainClass" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="org.smartly.application.desktopgap.launcher.Main" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="MaximumVersion" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="desktopgap.exe"/>
-    <ROW IniFile="MinimumVersion" FileName="deskto~2.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="1.7" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="ApplicationType" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="ClassPath" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#desktopgap.jar];" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="Cmd" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Cmd" Value="&quot;-w USERHOME/DesktopGap&quot;" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="FailureCheck" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="LibraryPath" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Library Path" Value="[jre64_Dir];" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="MainClass" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="org.smartly.application.desktopgap.launcher.Main" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="MaximumVersion" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="desktopgap.exe"/>
+    <ROW IniFile="MinimumVersion" FileName="deskto~1.ini|desktopgap.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="1.7" Action="0" Component_="desktopgap.exe"/>
     <ROW IniFile="URL" FileName="Deskto~1.url|DesktopGap Site.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="URL" Value="http://www.smartfeeling.org/desktopgap/" Action="0" Component_="ApplicationDescription"/>
     <ROW IniFile="WorkingDirectory" FileName="Deskto~1.url|DesktopGap Site.url" DirProperty="SHORTCUTDIR" Section="InternetShortcut" Key="WorkingDirectory" Value="[SHORTCUTDIR]" Action="0" Component_="ApplicationDescription"/>
   </COMPONENT>
@@ -969,6 +989,13 @@
     <ROW Action="AI_DATA_SETTER_1" Condition="(VersionNT &gt;= 600) AND (Not Installed)" Sequence="1501"/>
     <ROW Action="AI_RESTORE_DEFAULTS" Condition="(VersionNT &gt;= 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="1627"/>
     <ROW Action="AI_RESTORE_DEFAULTS64" Condition="VersionNT64 AND (VersionNT &gt;= 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="1626"/>
+    <ROW Action="AI_DeleteCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="199" Builds="Build"/>
+    <ROW Action="AI_DeleteRCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="198" Builds="Build"/>
+    <ROW Action="AI_ExtractCadLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="197" Builds="Build"/>
+    <ROW Action="AI_FindExeLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="196" Builds="Build"/>
+    <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="1549" Builds="Build"/>
+    <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="1548" Builds="Build"/>
+    <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (NOT PATCH)" Sequence="6599" Builds="Build"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
@@ -979,18 +1006,23 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="( Version9X OR (VersionNT AND (NOT VersionNT64)) )" Description="[ProductName] cannot be installed on [WindowsTypeNT64Display]" DescriptionLocId="AI.LaunchCondition.NoNT64" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild;Build"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiProgIdComponent">
     <ROW ProgId="[|Manufacturer].[|ProductName]" Description="DesktopGap Application" Icon_="icon.exe" MacDefaultDocType="true"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
+    <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+    <ROW Signature_="AI_EXE_PATH_LM" Root="2" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="AI_ExePath" Root="-1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Value="[AI_SETUPEXEPATH]" Component_="AI_ExePath"/>
     <ROW Registry="ApplicationDescription" Root="2" Key="SOFTWARE\[Manufacturer]\[ProductName]\Capabilities" Name="ApplicationDescription" Value="#%Desktop Gap Runtime" Component_="ApplicationDescription"/>
     <ROW Registry="ApplicationName" Root="2" Key="SOFTWARE\[Manufacturer]\[ProductName]\Capabilities" Name="ApplicationName" Value="#%DesktopGap" Component_="ApplicationDescription"/>
     <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
     <ROW Registry="ProductName_2" Root="2" Key="SOFTWARE\RegisteredApplications" Name="DesktopGap" Value="SOFTWARE\[Manufacturer]\[ProductName]\Capabilities" Component_="ApplicationDescription"/>
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
-    <ROW Registry="ext" Root="2" Key="SOFTWARE\[Manufacturer]\[ProductName]\Capabilities\FileAssociations" Name=".dga" Value="Smartfeeling.org.DesktopGap" Component_="ApplicationDescription"/>
+    <ROW Registry="ext" Root="2" Key="SOFTWARE\[Manufacturer]\[ProductName]\Capabilities\FileAssociations" Name=".dga" Value="Smartfeeling.org.DesktopGap (x86)" Component_="ApplicationDescription"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="DesktopGap" Directory_="SHORTCUTDIR" Name="Deskto~1|DesktopGap" Component_="desktopgap.exe" Target="[#desktopgap.exe]" Description="DesktopGap Runtime" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
