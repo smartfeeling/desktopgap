@@ -11,8 +11,8 @@ Desktop.ini
 
 /java/.idea
 /java/out
-.idea
 /installer/x64/setup_desktopgap_x64-SetupFiles
 /installer/x64/setup_desktopgap_x64-cache
 /installer/x86/setup_desktopgap_x86-SetupFiles
 /installer/x86/setup_desktopgap_x86-cache
+
