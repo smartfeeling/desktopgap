@@ -31,18 +31,8 @@
     function importComponents() {
         if (!imported) {
 
-            require('./js/components/pages/controller.js');
-            require('./js/components/pages/apps/apps.js');
-            require('./js/components/pages/help/help.js');
-            require('./js/components/pages/task/task.js');
-            require('./js/components/pages/tool/tool.js');
-            require('./js/components/pages/tool/dev/tool_dev.js');
 
-            require('./js/components/list/list.js');
-            require('./js/components/tile/tile.js');
-            require('./js/components/actionbutton/actionbutton.js');
-
-            require('./js/favorites.js');
+            //require('./js/favorites.js');
 
             imported = true;
         }
@@ -73,7 +63,23 @@
 
     function initComponents() {
         try {
+            Ext.require('Ext.container.Viewport');
 
+            Ext.application({
+
+                name: 'Dev',
+                appFolder:'js/app',
+
+                autoCreateViewport:true,
+
+                controllers: [
+                    'Pages'
+                ],
+
+                launch: function() {
+
+                }
+            });
         } catch (err) {
             console.error('(app.js) initComponents(): ' + err);
         }

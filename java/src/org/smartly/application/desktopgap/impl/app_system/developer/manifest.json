@@ -6,7 +6,7 @@
     "version": "0.1",
     "index": "index.html",
     "frame": {
-        "type": "standard",
+        "type": "empty-standard",
         "shadow":false,
         "resizable":true,
         "draggable":true,
@@ -17,9 +17,9 @@
         "x": 200
     },
     "buttons": {
-        "close":true,
+        "close":false,
         "fullscreen": false,
-        "minimize": true,
-        "maximize": true
+        "minimize": false,
+        "maximize": false
     }
 }

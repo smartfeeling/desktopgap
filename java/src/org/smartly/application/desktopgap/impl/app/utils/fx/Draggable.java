@@ -11,6 +11,9 @@ import javafx.scene.input.MouseEvent;
  */
 public class Draggable {
 
+    private static final Cursor DRAGGABLE = Cursor.MOVE;
+    private static final Cursor DRAGGING = Cursor.DEFAULT;
+
     private double initialX;
     private double initialY;
 
@@ -29,14 +32,14 @@ public class Draggable {
         node.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(final MouseEvent me) {
-                node.setCursor(Cursor.OPEN_HAND);
+                node.setCursor(DRAGGABLE);
             }
         });
 
         node.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(final MouseEvent me) {
-                node.setCursor(Cursor.OPEN_HAND);
+                node.setCursor(DRAGGABLE);
             }
         });
 
@@ -45,7 +48,7 @@ public class Draggable {
             public void handle(final MouseEvent me) {
                 try {
                     if (me.getButton() != MouseButton.MIDDLE) {
-                        node.setCursor(Cursor.CLOSED_HAND);
+                        node.setCursor(DRAGGING);
                         initialX = me.getSceneX();
                         initialY = me.getSceneY();
                     }
@@ -61,7 +64,7 @@ public class Draggable {
                     if (me.getButton() != MouseButton.MIDDLE) {
                         node.getScene().getWindow().setX(me.getScreenX() - initialX);
                         node.getScene().getWindow().setY(me.getScreenY() - initialY);
-                        node.setCursor(Cursor.MOVE);
+                        node.setCursor(DRAGGING);
                     }
                 } catch (Throwable ignored) {
                 }
