@@ -1,3 +1,40 @@
 <link rel="stylesheet" href="js/app/pages/system/PageSystem.css">
 
-<div id="<%= cid %>">System Page goes here</div>
+<div id="<%= cid %>" class="container-fluid">
+    <!-- TABLE -->
+    <table>
+        <thead>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><p data-i18n="dictionary.max_memory"></p></td>
+            <td><p id="max_memory-<%= cid %>" class="badge badge-info mem-value"></p></td>
+        </tr>
+        <tr>
+            <td><p data-i18n="dictionary.total_memory"></p></td>
+            <td><p id="total_memory-<%= cid %>" class="badge badge-info mem-value"></p></td>
+        </tr>
+        <tr>
+            <td><p data-i18n="dictionary.used_memory"></p></td>
+            <td><p id="used_memory-<%= cid %>" class="badge badge-info mem-value"></p></td>
+        </tr>
+        <tr>
+            <td><p data-i18n="dictionary.free_memory"></p></td>
+            <td><p id="free_memory-<%= cid %>" class="badge badge-info mem-value"></p></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- CHART -->
+    <div id="pie-<%= cid %>" class="chart"></div>
+
+
+
+
+
+
+</div>

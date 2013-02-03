@@ -48,6 +48,9 @@ public interface IDesktopConstants {
     public static final String BTN_MAXIMIZE = "maximize";
     public static final String BTN_MINIMIZE = "minimize";
 
+    public static final String HEIGHT = "height";
+    public static final String WIDTH = "width";
+
     //-- manifest --//
     public static final String MF_UID = ID;
     public static final String MF_FRAME = "frame";
@@ -56,8 +59,12 @@ public interface IDesktopConstants {
     public static final String MF_FRAME_DRAGGABLE = StringUtils.concatDot(MF_FRAME, "draggable");
     public static final String MF_FRAME_RESIZABLE = StringUtils.concatDot(MF_FRAME, "resizable");
     public static final String MF_FRAME_MAXIMIZED = StringUtils.concatDot(MF_FRAME, "maximized");
-    public static final String MF_FRAME_WIDTH = StringUtils.concatDot(MF_FRAME, "width");
-    public static final String MF_FRAME_HEIGHT = StringUtils.concatDot(MF_FRAME, "height");
+    public static final String MF_FRAME_WIDTH = StringUtils.concatDot(MF_FRAME, WIDTH);
+    public static final String MF_FRAME_HEIGHT = StringUtils.concatDot(MF_FRAME, HEIGHT);
+    public static final String MF_FRAME_MIN_WIDTH = StringUtils.concatDot(MF_FRAME, "min_width");
+    public static final String MF_FRAME_MIN_HEIGHT = StringUtils.concatDot(MF_FRAME, "min_height");
+    public static final String MF_FRAME_MAX_WIDTH = StringUtils.concatDot(MF_FRAME, "max_width");
+    public static final String MF_FRAME_MAX_HEIGHT = StringUtils.concatDot(MF_FRAME, "max_height");
     public static final String MF_FRAME_X = StringUtils.concatDot(MF_FRAME, "x");
     public static final String MF_FRAME_Y = StringUtils.concatDot(MF_FRAME, "y");
 

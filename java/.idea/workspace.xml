@@ -10,9 +10,9 @@
     <ignored path="smartlydesktop.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/IAppInstanceListener.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1354985184821" ignored="false" />
-    <file path="/AppWindowController.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359797655821" ignored="false" />
+    <file path="/AppWindowController.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359910365606" ignored="false" />
     <file path="/loading.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355068231037" ignored="false" />
-    <file path="/fragment.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359881900789" ignored="false" />
+    <file path="/fragment.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359907186133" ignored="false" />
     <file path="/AppInstance.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359275062925" ignored="false" />
     <file path="/LoggingRepository.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355044908536" ignored="false" />
     <file path="/AppWindow.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356532864426" ignored="false" />
@@ -20,9 +20,9 @@
     <file path="/window.fxml" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355070579415" ignored="false" />
     <file path="/AppAutorunManager.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355072479333" ignored="false" />
     <file path="/autorun.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355072386116" ignored="false" />
-    <file path="/AppManifest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359796068694" ignored="false" />
+    <file path="/AppManifest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359908575959" ignored="false" />
     <file path="/MANIFEST.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355073654012" ignored="false" />
-    <file path="/IDesktopConstants.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359229630063" ignored="false" />
+    <file path="/IDesktopConstants.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359909703719" ignored="false" />
     <file path="/DesktopGap.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357490052664" ignored="false" />
     <file path="/smartly.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355476620469" ignored="false" />
     <file path="/IAppCompiler.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355478027718" ignored="false" />
@@ -48,7 +48,7 @@
     <file path="/Utils.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359229147910" ignored="false" />
     <file path="/HtmlUtils.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355499041527" ignored="false" />
     <file path="/window.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355588177330" ignored="false" />
-    <file path="/index.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359822843012" ignored="false" />
+    <file path="/index.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359903409018" ignored="false" />
     <file path="/app.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359801757823" ignored="false" />
     <file path="/DeployerFrame.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355650844995" ignored="false" />
     <file path="/FileDeployerSettings.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355648702966" ignored="false" />
@@ -56,7 +56,7 @@
     <file path="/SmartlyHtmlDeployerTest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355506774772" ignored="false" />
     <file path="/manifest.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359795961670" ignored="false" />
     <file path="/frame.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359819087723" ignored="false" />
-    <file path="/Sizable.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356886430267" ignored="false" />
+    <file path="/Sizable.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359909326224" ignored="false" />
     <file path="/blank.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355648895167" ignored="false" />
     <file path="/AppResources.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356864265959" ignored="false" />
     <file path="/FileItem.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1355656959340" ignored="false" />
@@ -68,14 +68,14 @@
     <file path="/desktopgap.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357743174686" ignored="false" />
     <file path="/AppBridge.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357741453443" ignored="false" />
     <file path="/AppRegistry.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357747523451" ignored="false" />
-    <file path="/AppWindowAreaManager.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356968592767" ignored="false" />
+    <file path="/AppWindowAreaManager.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359908804487" ignored="false" />
     <file path="/IAppWindowListener.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356097423412" ignored="false" />
     <file path="/window.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356102942284" ignored="false" />
     <file path="/page2.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356510107098" ignored="false" />
     <file path="/AppWindowPath.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356280507014" ignored="false" />
     <file path="/AppWindowUrl.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359225102915" ignored="false" />
-    <file path="/dispatchEvent.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356693588753" ignored="false" />
-    <file path="/JsSnippet.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359800906141" ignored="false" />
+    <file path="/dispatchEvent.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359906308432" ignored="false" />
+    <file path="/JsSnippet.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359906274343" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/vendor/underscore/underscore.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428439787" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/vendor/underscore/underscore-min.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428439787" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/home/app/js/vendor/jquery/jquery-1.8.2.min.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428441692" ignored="false" />
@@ -87,8 +87,8 @@
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/config/languages/fr.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443892" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/config/languages/it.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443892" ignored="false" />
     <file path="$PROJECT_DIR$/src/org/smartly/application/desktopgap/config/languages/de.json" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356428443892" ignored="false" />
-    <file path="/JsEngine.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359276373185" ignored="false" />
-    <file path="/ToolDevice.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357225625785" ignored="false" />
+    <file path="/JsEngine.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359910996125" ignored="false" />
+    <file path="/ToolDevice.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359888970383" ignored="false" />
     <file path="/dummy.xml" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356510107098" ignored="false" />
     <file path="/SystemUtils.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358176353396" ignored="false" />
     <file path="/SystemUtilsTest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356514497311" ignored="false" />
@@ -101,19 +101,19 @@
     <file path="/AppWindowRepository.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356532274464" ignored="false" />
     <file path="/AppWindows.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359275188086" ignored="false" />
     <file path="/AppFrameRepository.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356539570955" ignored="false" />
-    <file path="/AppFrame.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359797801568" ignored="false" />
+    <file path="/AppFrame.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359909629103" ignored="false" />
     <file path="/IAppFrameListener.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356536842023" ignored="false" />
     <file path="/FrameCloseEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541726728" ignored="false" />
     <file path="/FrameOpenEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541738849" ignored="false" />
     <file path="/AppCloseEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541701729" ignored="false" />
     <file path="/AppOpenEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541686449" ignored="false" />
     <file path="/CmdOpenAppEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356542124906" ignored="false" />
-    <file path="/IDesktopGapEvents.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356541844041" ignored="false" />
+    <file path="/IDesktopGapEvents.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359907114369" ignored="false" />
     <file path="/showHideElem.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356624231330" ignored="false" />
     <file path="/setElemValue.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356626774068" ignored="false" />
     <file path="/desktopgap_console.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357308985877" ignored="false" />
     <file path="/desktopgap_connection.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356689087367" ignored="false" />
-    <file path="/desktopgap_device.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356689929228" ignored="false" />
+    <file path="/desktopgap_device.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359889010447" ignored="false" />
     <file path="/ConsoleMessage.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359800873383" ignored="false" />
     <file path="/JsonWrapper.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357742638343" ignored="false" />
     <file path="$PROJECT_DIR$/../../../smartly/smartly_package_01_htmlasset/src/org/smartly/packages/htmlasset/impl/htdoc/assets/lib/bootstrap/widgets/breadcrumbs/breadcrumbs.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356704370920" ignored="false" />
@@ -130,17 +130,17 @@
     <file path="/ConsoleMessages.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356797483598" ignored="false" />
     <file path="/DesktopFonts.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356866831208" ignored="false" />
     <file path="/DesktopController.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359277713450" ignored="false" />
-    <file path="/ToolFrame.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357225560113" ignored="false" />
+    <file path="/ToolFrame.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359909897373" ignored="false" />
     <file path="/desktopgap_frame.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357921285761" ignored="false" />
-    <file path="/FX.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356952338414" ignored="false" />
+    <file path="/FX.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359908838527" ignored="false" />
     <file path="/FrameGeometrics.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1356952953144" ignored="false" />
     <file path="/app.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359823038558" ignored="false" />
     <file path="/AppLocalizer.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357137568702" ignored="false" />
-    <file path="/ToolI18n.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357736518832" ignored="false" />
+    <file path="/ToolI18n.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359887070980" ignored="false" />
     <file path="/AppLocalization.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359881353795" ignored="false" />
     <file path="/home.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358179808277" ignored="false" />
     <file path="/home_it.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1358179823643" ignored="false" />
-    <file path="/desktopgap_i18n.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357730326431" ignored="false" />
+    <file path="/desktopgap_i18n.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359887034823" ignored="false" />
     <file path="/apps.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357920136302" ignored="false" />
     <file path="/controller.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359284043837" ignored="false" />
     <file path="/apps.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1357737089881" ignored="false" />
@@ -278,7 +278,7 @@
     <file path="/EndPointServlet.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359274377352" ignored="false" />
     <file path="/ServletUtils.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359210523866" ignored="false" />
     <file path="/AppManifestTest.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359224038768" ignored="false" />
-    <file path="/dictionary.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359804616431" ignored="false" />
+    <file path="/dictionary.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359912314040" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/SmartlyOpenWindow.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359730757615" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/htdoc/app/js/wit/catalog/PVC_F2.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359730885061" ignored="false" />
     <file path="$PROJECT_DIR$/../../openwindow/src/org/smartly/application/ow/impl/htdoc/app/js/wit/catalog/PVC_F3.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359730916884" ignored="false" />
@@ -286,16 +286,22 @@
     <file path="/Draggable.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359739008571" ignored="false" />
     <file path="/system.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359790012999" ignored="false" />
     <file path="/system.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359789815674" ignored="false" />
-    <file path="/Application.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359880110134" ignored="false" />
+    <file path="/Application.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883651349" ignored="false" />
     <file path="/Application.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359823299885" ignored="false" />
-    <file path="/PageSystem.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359816144228" ignored="false" />
-    <file path="/dictionary_it.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359882210051" ignored="false" />
-    <file path="/ApplicationToolbar.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359880055027" ignored="false" />
-    <file path="/ApplicationToolbar.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359829351545" ignored="false" />
-    <file path="/PageUtil.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359879791524" ignored="false" />
-    <file path="/PageSystem.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359879781442" ignored="false" />
-    <file path="/PageUtil.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359880165651" ignored="false" />
+    <file path="/PageSystem.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359911721148" ignored="false" />
+    <file path="/dictionary_it.properties" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359912338428" ignored="false" />
+    <file path="/ApplicationToolbar.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359886615325" ignored="false" />
+    <file path="/ApplicationToolbar.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883254955" ignored="false" />
+    <file path="/PageUtil.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359912364368" ignored="false" />
+    <file path="/PageSystem.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359905863710" ignored="false" />
+    <file path="/PageUtil.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359912423581" ignored="false" />
     <file path="/FileUtils.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359880404988" ignored="false" />
+    <file path="/PageApplication.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883424818" ignored="false" />
+    <file path="/PageSettings.js" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883499242" ignored="false" />
+    <file path="/PageApplication.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883542936" ignored="false" />
+    <file path="/PageSettings.html" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359883559975" ignored="false" />
+    <file path="/PageSystem.css" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359904369085" ignored="false" />
+    <file path="/FrameResizeEvent.java" changelist="d9d95042-bb1c-487e-a041-f591750e879a" time="1359907437118" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,6 +329,8 @@
     <sortChildren value="false" />
   </component>
   <component name="DebuggerManager">
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -357,8 +365,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -369,19 +375,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Application.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/Application.js">
+      <file leaf-file-name="AppFrame.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="60" selection-start="2602" selection-end="2602" vertical-scroll-proportion="0.0">
+            <state line="310" column="91" selection-start="8580" selection-end="8580" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApplicationToolbar.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/ApplicationToolbar.js">
+      <file leaf-file-name="PageSystem.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="73" selection-start="2087" selection-end="2087" vertical-scroll-proportion="0.0">
+            <state line="114" column="36" selection-start="3358" selection-end="3358" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -390,16 +396,55 @@
       <file leaf-file-name="PageUtil.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="57" selection-start="464" selection-end="464" vertical-scroll-proportion="0.48065478">
+            <state line="57" column="34" selection-start="1420" selection-end="1420" vertical-scroll-proportion="0.5193452">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PageUtil.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.css">
+      <file leaf-file-name="PageUtil.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="0" selection-start="85" selection-end="85" vertical-scroll-proportion="-1.9615384">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PageSystem.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.css">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PageSystem.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="49" selection-start="1095" selection-end="1095" vertical-scroll-proportion="-20.923077">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsEngine.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="90" column="0" selection-start="3069" selection-end="3069" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#7309#7719#0" expanded="true" />
+                <element signature="e#7708#7709#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsSnippet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/JsSnippet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="81" column="66" selection-start="3192" selection-end="3192" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -415,22 +460,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.js" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/console/ToolConsole.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/frames/standard/frame.css" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/index.html" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/css/app.css" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/Application.html" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/ApplicationToolbar.html" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/controller/AppWindowAreaManager.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/utils/fx/FX.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/utils/fx/Sizable.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/IDesktopConstants.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/frame/ToolFrame.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/controller/AppWindowController.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/dispatchEvent.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/JsSnippet.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppFrame.java" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.html" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.html" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/ApplicationToolbar.js" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/Application.js" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.js" />
-        <option value="$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/util/FileUtils.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppLocalization.java" />
-        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/DeployerAppSystem.java" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.js" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary.properties" />
         <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary_it.properties" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.html" />
+        <option value="$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.js" />
       </list>
     </option>
   </component>
@@ -472,6 +517,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="desktopgap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -486,7 +541,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartly_package_01_velocity" />
+              <option name="myItemId" value="smartly_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -496,7 +551,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartly_package_01_velocity" />
+              <option name="myItemId" value="smartly_core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="desktopgap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartly_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -512,11 +589,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="velocity" />
+              <option name="myItemId" value="commons" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -526,7 +599,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartly_package_01_velocity" />
+              <option name="myItemId" value="smartly_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -537,22 +610,6 @@
               <option name="myItemId" value="org" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="velocity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -560,45 +617,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="smartly_package_01_velocity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="velocity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly_package_01_velocity" />
+              <option name="myItemId" value="smartly_core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1415,68 +1434,6 @@
               <option name="myItemId" value="pages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app_system" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="developer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1788,7 +1745,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2038,177 +1999,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="i18n" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="applications" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="window" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="console" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="applications" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="window" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="snippets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="smartly" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="applications" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="window" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascript" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="snippets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="frame" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2326,18 +2117,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smartly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="desktopgap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="applications" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="desktopgap" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="META-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2357,12 +2184,12 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="Repository.Attach.JavaDocs" value="true" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../smartly/smartly_package_01_remoting/smartly_package_01_remoting.iml" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -2380,32 +2207,32 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="org.smartly.application.desktopgap.impl.app.applications.window" />
       <recent name="org.smartly.commons.util" />
       <recent name="org.smartly.application.desktopgap.impl.resources" />
       <recent name="org.smartly.commons.network.socket.server" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.smartly.application.desktopgap.impl.app.applications.events" />
       <recent name="org.smartly.application.desktopgap.impl.app.server.handlers" />
       <recent name="org.smartly.application.desktopgap.impl.app.server" />
       <recent name="org.smartly.application.desktopgap.impl.app_store" />
       <recent name="org.smartly.application.desktopgap.impl.app.applications.window.events" />
-      <recent name="org.smartly.application.desktopgap.impl.app.applications.window.frame.events" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\developer\app\js\app\pages\application" />
+      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\developer\app\js\app\pages\settings" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\developer\app\js\app\pages\util" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\developer\app\js\app" />
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\console\app\images" />
-      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\console\app\js\vendor" />
-      <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\developer\app\js\vendor" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="Z:\ARCHIVIO\Smartly\modules\desktopgap\java\src\org\smartly\application\desktopgap\impl\app_system\home\app\js\vendor" />
@@ -2592,19 +2419,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -2633,6 +2447,19 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -2646,6 +2473,13 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -2667,13 +2501,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="false" name="DesktopGap" type="Application" factoryName="Application">
@@ -2744,15 +2571,16 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32371795" sideWeight="0.37086093" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5982906" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.59081197" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2542735" sideWeight="0.5960265" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2542735" sideWeight="0.5960265" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29166666" sideWeight="0.40011036" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.336887" sideWeight="0.44757175" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33653846" sideWeight="0.44757175" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24006623" sideWeight="0.22008547" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.59081197" order="8" side_tool="false" content_ui="tabs" />
@@ -2763,7 +2591,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32371795" sideWeight="0.37086093" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.84294873" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2829,120 +2656,123 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/controller/AppWindowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="45" selection-start="3485" selection-end="3485" vertical-scroll-proportion="0.33278418">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/JsSnippet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="66" selection-start="3192" selection-end="3192" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/JsEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="0" selection-start="3069" selection-end="3069" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#7309#7719#0" expanded="true" />
+            <element signature="e#7708#7709#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_frame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.36607143">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_i18n.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.06696428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/snippets/js/dispatchEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="35" selection-start="88" selection-end="88" vertical-scroll-proportion="0.07589286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="310" column="91" selection-start="8580" selection-end="8580" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="59" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
+        <state line="32" column="49" selection-start="1095" selection-end="1095" vertical-scroll-proportion="-20.923077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="314" column="35" selection-start="10804" selection-end="10821" vertical-scroll-proportion="0.17708333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/resources/desktopgap/desktopgap_runtime.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="23" selection-start="2452" selection-end="2467" vertical-scroll-proportion="0.55654764">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary_it.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="17" selection-start="324" selection-end="341" vertical-scroll-proportion="0.39412674">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="252" selection-end="306" vertical-scroll-proportion="0.36785161">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="25" selection-start="88" selection-end="88" vertical-scroll-proportion="-1.3076923">
+        <state line="3" column="0" selection-start="85" selection-end="85" vertical-scroll-proportion="-1.9615384">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.css">
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/system/PageSystem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/ApplicationToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="73" selection-start="2087" selection-end="2087" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/Application.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="60" selection-start="2602" selection-end="2602" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/util/StringUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="733" column="0" selection-start="27458" selection-end="27458" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/util/FileUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="23" selection-start="5089" selection-end="5089" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/lang/compilers/ICompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="11" selection-start="271" selection-end="271" vertical-scroll-proportion="0.30357143">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/i18n/dictionary_it.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="14" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0543131">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../smartly/smartly_core/src/org/smartly/commons/io/repository/deploy/FileDeployer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="22" selection-start="696" selection-end="696" vertical-scroll-proportion="-2.2514882">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../smartly/smartly_package_01_velocity/src/org/smartly/packages/velocity/impl/compilers/CompilerVelocity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.5818452">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/DeployerAppSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="45" selection-start="612" selection-end="612" vertical-scroll-proportion="0.15625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/AppLocalization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="0" selection-start="3507" selection-end="3507" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/javascript/tools/i18n/ToolI18n.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="42" selection-start="2881" selection-end="2881" vertical-scroll-proportion="0.48511904">
+        <state line="114" column="36" selection-start="3358" selection-end="3358" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app_system/developer/app/js/app/pages/util/PageUtil.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="57" selection-start="464" selection-end="464" vertical-scroll-proportion="0.48065478">
+        <state line="57" column="34" selection-start="1420" selection-end="1420" vertical-scroll-proportion="0.5193452">
           <folding />
         </state>
       </provider>

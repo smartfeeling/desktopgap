@@ -5,8 +5,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
+import org.json.JSONObject;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.commons.event.Event;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 
 import java.util.*;
@@ -21,6 +25,7 @@ public final class JsEngine {
     //-- js events --//
     public static final String EVENT_READY = "ready";
     public static final String EVENT_DEVICEREADY = "deviceready";
+    public static final String EVENT_RESIZE = "resize";
     public static final String EVENT_DATA = "data";
 
     private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
@@ -39,6 +44,7 @@ public final class JsEngine {
         _script_ready = false;
 
         this.handleLoading(engine);
+        this.handleFrameEvents(frame);
     }
 
     public void whenReady(final String script) {
@@ -49,6 +55,10 @@ public final class JsEngine {
         } else {
             this.executeScript(script);
         }
+    }
+
+    public void emitEventResize(final JSONObject data){
+        this.dispatchFrameResize(data);
     }
 
     // --------------------------------------------------------------------
@@ -73,6 +83,12 @@ public final class JsEngine {
         // deviceready
         final String script_deviceready = JsSnippet.getDispatchEvent(EVENT_DEVICEREADY, null);
         this.executeScript(script_deviceready);
+    }
+
+    protected void dispatchFrameResize(final JSONObject data) {
+        // resize
+        final String script_resize = JsSnippet.getDispatchEvent(EVENT_RESIZE, data);
+        this.executeScript(script_resize);
     }
 
     //-- SHOW HIDE ELEM--//
@@ -178,5 +194,20 @@ public final class JsEngine {
                 }
         );
 
+    }
+
+    private void handleFrameEvents(final AppFrame frame){
+        frame.addEventListener(new IEventListener() {
+            @Override
+            public void on(final Event event) {
+                // RESIZE
+                if(event instanceof FrameResizeEvent){
+                    final Object data = event.getData();
+                    if(data instanceof JSONObject){
+                        dispatchFrameResize((JSONObject) data);
+                    }
+                }
+            }
+        });
     }
 }

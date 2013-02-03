@@ -8,9 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.json.JSONObject;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
@@ -20,9 +23,12 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
+import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
+import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
 
 import java.util.LinkedList;
@@ -33,7 +39,8 @@ import java.util.List;
  * Window
  */
 public final class AppFrame
-        extends EventEmitter {
+        extends EventEmitter
+        implements IEventListener {
 
     private static final double OFF_SET = 10; // border for shadow
 
@@ -95,6 +102,22 @@ public final class AppFrame
 
     public boolean isDraggable() {
         return _app.getManifest().isDraggable();
+    }
+
+    public double getMinWidth() {
+        return _app.getManifest().getMinWidth();
+    }
+
+    public double getMinHeight() {
+        return _app.getManifest().getMinHeight();
+    }
+
+    public double getMaxWidth() {
+        return _app.getManifest().getMaxWidth();
+    }
+
+    public double getMaxHeight() {
+        return _app.getManifest().getMaxHeight();
     }
 
     public String getFrame() {
@@ -235,7 +258,7 @@ public final class AppFrame
     }
 
     public void screenCenter() {
-        if(null!=__stage){
+        if (null != __stage) {
             __stage.centerOnScreen();
         }
     }
@@ -246,7 +269,7 @@ public final class AppFrame
     }
 
     public void minimize() {
-        if(null!=__stage){
+        if (null != __stage) {
             __stage.setIconified(true);
         }
     }
@@ -289,11 +312,28 @@ public final class AppFrame
         }
     }
 
+    // --------------------------------------------------------------------
+    //               IEventListener
+    // --------------------------------------------------------------------
+
+    @Override
+    public void on(final Event event) {
+        if (event instanceof FrameResizeEvent) {
+            // set width and height
+            final JsonWrapper data = new JsonWrapper(new JSONObject());
+            data.putSilent(IDesktopConstants.WIDTH, this.getWidth());
+            data.putSilent(IDesktopConstants.HEIGHT, this.getHeight());
+            event.setData(data.getJSONObject());
+
+            this.emit(event);
+        }
+    }
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private void initialize(){
+    private void initialize() {
         //-- initialize window controller --//
         _winctrl.initialize(this);
 
@@ -425,6 +465,7 @@ public final class AppFrame
                 self.emit(new FrameCloseEvent(self));
             }
         }); */
+
     }
 
     private void onOpen() {

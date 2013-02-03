@@ -30,8 +30,8 @@ public final class ToolFrame {
                 _frame.close();
             } else if (BUTTON_MINIMIZE.equalsIgnoreCase(button_name)) {
                 _frame.minimize();
-            } else if (BUTTON_MAXIMIZE.equalsIgnoreCase(button_name)){
-               _frame.maximize();
+            } else if (BUTTON_MAXIMIZE.equalsIgnoreCase(button_name)) {
+                _frame.maximize();
             }
         }
     }
@@ -47,11 +47,12 @@ public final class ToolFrame {
         }
     }
 
-    public void minimize(){
+    public void minimize() {
         _frame.minimize();
     }
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
+
 
 }

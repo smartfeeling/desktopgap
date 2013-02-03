@@ -1,6 +1,5 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets;
 
-import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.commons.util.ClassLoaderUtils;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
@@ -83,7 +82,7 @@ public class JsSnippet {
     public static String getDispatchEvent(final String eventName, final Object data) {
         final Map<String, Object> params = new HashMap<String, Object>();
         params.put(PARAM_EVENT_NAME, eventName);
-        params.put(PARAM_EVENT_DATA, null!=data ? data.toString() : "");
+        params.put(PARAM_EVENT_DATA, null != data ? data.toString() : "");
 
         return getInstance().getScript(SCRIPT_DISPATCH_EVENT, params);
     }

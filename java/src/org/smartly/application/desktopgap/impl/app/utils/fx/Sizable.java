@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.commons.event.IEventListener;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Sizable {
     }
 
     private final Pane _parent;
+    private final IEventListener _listener;
     private double _initialScreenX;
     private double _initialScreenY;
     private double _initialSceneX;
@@ -48,7 +51,17 @@ public class Sizable {
     private Direction _direction;
     private boolean _dragging;
 
-    public Sizable(final Pane pane) {
+    private double _minWidth;
+    private double _minHeight;
+    private double _maxWidth;
+    private double _maxHeight;
+
+    public Sizable(final Pane pane, final IEventListener listener) {
+        _listener = listener;
+        _minWidth = MIN_WIDTH;
+        _minHeight = MIN_HEIGHT;
+        _maxWidth = -1;
+        _maxHeight = -1;
         if (null != pane) {
             if (pane instanceof AnchorPane) {
                 _parent = pane;
@@ -60,7 +73,19 @@ public class Sizable {
         } else {
             _parent = null;
         }
+    }
 
+    public Sizable(final Pane pane,
+                   final double minWidth,
+                   final double minHeight,
+                   final double maxWidth,
+                   final double maxHeight,
+                   final IEventListener listener) {
+        this(pane, listener);
+        _minWidth = minWidth;
+        _minHeight = minHeight;
+        _maxWidth = maxWidth;
+        _maxHeight = maxHeight;
     }
 
     // ------------------------------------------------------------------------
@@ -78,14 +103,14 @@ public class Sizable {
         this.addBottom(anchorPane);
     }
 
-    public double getThresholdX() {
+    private double getThresholdX() {
         if (null != _parent) {
             return (_parent.getLayoutX() - _parent.getScene().getX()) * 2;
         }
         return 0.0;
     }
 
-    public double getThresholdY() {
+    private double getThresholdY() {
         if (null != _parent) {
             return (_parent.getLayoutY() - _parent.getScene().getY()) * 2;
         }
@@ -167,6 +192,7 @@ public class Sizable {
 
     private void handleReleased(final Node stack, final MouseEvent me) {
         _dragging = false;
+        this.emitResize();
     }
 
     private void handleDragged(final Node stack,
@@ -223,15 +249,29 @@ public class Sizable {
                     stack.getScene().getWindow().setHeight(_initialHeight - deltaY);
                     stack.getScene().getWindow().setWidth(_initialWidth - deltaX);
                 }
+
                 // min
-                if (stack.getScene().getWindow().getHeight() < MIN_HEIGHT) {
-                    stack.getScene().getWindow().setHeight(MIN_HEIGHT);
+                if (stack.getScene().getWindow().getHeight() < _minHeight) {
+                    stack.getScene().getWindow().setHeight(_minHeight);
                 }
-                if (stack.getScene().getWindow().getWidth() < MIN_WIDTH) {
-                    stack.getScene().getWindow().setWidth(MIN_WIDTH);
+                if (stack.getScene().getWindow().getWidth() < _minWidth) {
+                    stack.getScene().getWindow().setWidth(_minWidth);
+                }
+                // max
+                if(_maxHeight>_minHeight && stack.getScene().getWindow().getHeight()>_maxHeight){
+                    stack.getScene().getWindow().setHeight(_maxHeight);
+                }
+                if(_maxWidth>_minWidth && stack.getScene().getWindow().getWidth()>_maxWidth){
+                    stack.getScene().getWindow().setWidth(_maxWidth);
                 }
             }
         } catch (Throwable ignored) {
+        }
+    }
+
+    private void emitResize() {
+        if (null != _listener) {
+            _listener.on(new FrameResizeEvent(_parent));
         }
     }
     // ------------------------------------------------------------------------

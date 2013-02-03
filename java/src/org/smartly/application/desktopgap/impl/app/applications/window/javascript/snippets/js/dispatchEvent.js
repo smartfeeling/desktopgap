@@ -1,8 +1,7 @@
 !(function () {
 
-    var eventName = '[EVENT_NAME]'
-        , eventData = '[EVENT_DATA]'
-    ;
+    var eventName = '[EVENT_NAME]';
+    var eventData = '[EVENT_DATA]';
 
     // create the event
     var evt = document.createEvent('Event');

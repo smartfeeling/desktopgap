@@ -45,7 +45,47 @@
 
         uuid: 'undefined',
 
-        version: 'undefined'
+        version: 'undefined',
+
+        countProcessors: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                return bridge.device().countProcessors();
+            }
+            return 0;
+        },
+
+        freeMemory: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                return bridge.device().getFreeMemory();
+            }
+            return 0;
+        },
+
+        totalMemory: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                return bridge.device().getTotalMemory();
+            }
+            return 0;
+        },
+
+        maxMemory: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                return bridge.device().getMaxMemory();
+            }
+            return 0;
+        },
+
+        usedMemory: function(){
+            var bridge = defined('bridge');
+            if (!!bridge) {
+                return bridge.device().getUsedMemory();
+            }
+            return 0;
+        }
 
     };
 

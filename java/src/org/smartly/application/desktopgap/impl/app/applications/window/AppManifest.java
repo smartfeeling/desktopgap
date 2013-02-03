@@ -44,6 +44,10 @@ public class AppManifest {
     private static final String MF_FRAME_RESIZABLE = IDesktopConstants.MF_FRAME_RESIZABLE;
     private static final String MF_FRAME_DRAGGABLE = IDesktopConstants.MF_FRAME_DRAGGABLE;
     private static final String MF_FRAME_MAXIMIZED = IDesktopConstants.MF_FRAME_MAXIMIZED;
+    private static final String MF_FRAME_MIN_WIDTH = IDesktopConstants.MF_FRAME_MIN_WIDTH;
+    private static final String MF_FRAME_MIN_HEIGHT = IDesktopConstants.MF_FRAME_MIN_HEIGHT;
+    private static final String MF_FRAME_MAX_WIDTH = IDesktopConstants.MF_FRAME_MAX_WIDTH;
+    private static final String MF_FRAME_MAX_HEIGHT = IDesktopConstants.MF_FRAME_MAX_HEIGHT;
     private static final String MF_FRAME_WIDTH = IDesktopConstants.MF_FRAME_WIDTH;
     private static final String MF_FRAME_HEIGHT = IDesktopConstants.MF_FRAME_HEIGHT;
     private static final String MF_FRAME_X = IDesktopConstants.MF_FRAME_X;
@@ -343,6 +347,42 @@ public class AppManifest {
 
     public void setHeight(final double value) {
         _manifest.putDeep(MF_FRAME_HEIGHT, value);
+        this.save();
+    }
+
+    public double getMinWidth() {
+        return _manifest.deepDouble(MF_FRAME_MIN_WIDTH, 64);
+    }
+
+    public void setMinWidth(final double value) {
+        _manifest.putDeep(MF_FRAME_MIN_WIDTH, value);
+        this.save();
+    }
+
+    public double getMinHeight() {
+        return _manifest.deepDouble(MF_FRAME_MIN_HEIGHT, 64);
+    }
+
+    public void setMinHeight(final double value) {
+        _manifest.putDeep(MF_FRAME_MIN_HEIGHT, value);
+        this.save();
+    }
+
+    public double getMaxWidth() {
+        return _manifest.deepDouble(MF_FRAME_MAX_WIDTH, -1);
+    }
+
+    public void setMaxWidth(final double value) {
+        _manifest.putDeep(MF_FRAME_MAX_WIDTH, value);
+        this.save();
+    }
+
+    public double getMaxHeight() {
+        return _manifest.deepDouble(MF_FRAME_MAX_HEIGHT, -1);
+    }
+
+    public void setMaxHeight(final double value) {
+        _manifest.putDeep(MF_FRAME_MAX_HEIGHT, value);
         this.save();
     }
 

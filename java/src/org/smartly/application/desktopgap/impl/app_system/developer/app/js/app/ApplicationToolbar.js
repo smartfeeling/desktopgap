@@ -41,9 +41,10 @@
             // select current
             var title = !!page.title ? page.title() : ''
                 , id = page['cid']
-                , elem = self['_items_map']['elem']
+                , elem = self['_items_map'][id]['elem']
                 ;
             $(elem).addClass('active');
+            // console.debug(elem);
             $(self.template(sel_title)).html(title);
             this.trigger(EVENT_CLICK, page);
         }
@@ -62,20 +63,23 @@
         var self = this
             , items = self['_items']
             , $menu = $(self.template(sel_menu))
-            , tpl =  $(self.template(sel_tpl)).text()
+            , tpl = $(self.template(sel_tpl)).text()
             ;
         try {
             //console.debug(items);
             _.forEach(items, function (item) {
-                var title = !!item.title?item.title():'title-not-defined'
+                var title = !!item.title ? item.title() : 'title-not-defined'
                     , id = item['cid']
-                    , $item_tpl = $(ly.template(tpl, {id:id, name:title}))
+                    , $item_tpl = $(ly.template(tpl, {id: id, name: title}))
                     ;
                 //console.debug(encodeURI(tpl));
-                self['_items_map'][id] = {item:item, elem:$item_tpl};
+                self['_items_map'][id] = {item: item, elem: $item_tpl};
                 $menu.append($item_tpl);
-                $item_tpl.find('a').on('click', function(){
-                    console.debug('clicked: ' + id + ' ' + title);
+                $item_tpl.find('a').on('click', function () {
+                    $('.nav-collapse').collapse('toggle');
+                    _.delay(function () {
+                        self.doClick(item);
+                    }, 100);
                 });
             });
         } catch (err) {

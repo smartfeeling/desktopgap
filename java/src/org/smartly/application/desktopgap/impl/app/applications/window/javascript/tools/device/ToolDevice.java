@@ -5,6 +5,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.commons.network.NetworkUtils;
 import org.smartly.commons.util.BeanUtils;
+import org.smartly.commons.util.ConversionUtils;
 import org.smartly.commons.util.SystemUtils;
 
 /**
@@ -61,6 +62,59 @@ public final class ToolDevice {
     public String getVersion(){
         return _os_version;
     }
+
+    // --------------------------------------------------------------------
+    //               P R O C E S S O R S
+    // --------------------------------------------------------------------
+
+    public int countProcessors(){
+        return Runtime.getRuntime().availableProcessors();
+    }
+
+    // --------------------------------------------------------------------
+    //               M E M O R Y
+    // --------------------------------------------------------------------
+
+    /* Total amount of free memory available to the JVM */
+    public double getFreeMemory(){
+        return ConversionUtils.bytesToMbyte(this.getFreeMemoryBytes());
+    }
+
+    public long getFreeMemoryBytes(){
+        final long bytes = Runtime.getRuntime().freeMemory();
+        return bytes;
+    }
+
+    /* Total memory currently in use by the JVM */
+    public double getTotalMemory(){
+        return ConversionUtils.bytesToMbyte(this.getTotalMemoryBytes());
+    }
+
+    public long getTotalMemoryBytes(){
+        final long bytes = Runtime.getRuntime().totalMemory();
+        return bytes;
+    }
+
+    /* Maximum amount of memory the JVM will attempt to use */
+    public double getMaxMemory(){
+        return ConversionUtils.bytesToMbyte(this.getMaxMemoryBytes());
+    }
+
+    public long getMaxMemoryBytes(){
+        final long bytes = Runtime.getRuntime().maxMemory();
+        return bytes;
+    }
+
+    public double getUsedMemory(){
+        return ConversionUtils.bytesToMbyte(this.getUsedMemoryBytes());
+    }
+
+    public long getUsedMemoryBytes(){
+        final long free_bytes = this.getFreeMemoryBytes();
+        final long total_bytes = this.getTotalMemoryBytes();
+        return total_bytes - free_bytes;
+    }
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------

@@ -13,13 +13,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.server.WebServer;
 import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
+import org.smartly.commons.event.Event;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 
@@ -89,7 +93,7 @@ public class AppWindowController implements Initializable {
     public void initialize(final AppFrame frame) {
         if(null==_frame){
             _frame = frame;
-            _areaManager = new AppWindowAreaManager(_frame.isResizable(), _frame.isDraggable(), container);
+            _areaManager = new AppWindowAreaManager(_frame, container);
 
             this.initBrowser(win_browser);
             this.navigate(_frame.getIndex());
@@ -262,6 +266,8 @@ public class AppWindowController implements Initializable {
         );
 
     }
+
+
 
     // --------------------------------------------------------------------
     //               S T A T I C

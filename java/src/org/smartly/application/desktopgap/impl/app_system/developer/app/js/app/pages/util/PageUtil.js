@@ -5,6 +5,7 @@
         , i18n = desktopgap['i18n']
 
         , sel_self = '#<%= cid %>'
+        , sel_btn_store = '#btn_store-<%= cid %>'
         ;
 
     function PageUtil(options) {
@@ -53,6 +54,12 @@
             , $self = $(self.template(sel_self))
             ;
         try {
+
+            i18n.translate($self[0]);
+
+            ly.el.click(self.template(sel_btn_store), function(){
+                runtime.openStoreFolder();
+            });
 
         } catch (err) {
             console.error('(PageUtil.js) _initComponents(): ' + err);

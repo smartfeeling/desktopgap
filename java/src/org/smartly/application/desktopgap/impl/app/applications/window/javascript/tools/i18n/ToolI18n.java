@@ -69,19 +69,21 @@ public final class ToolI18n {
     }
 
     public String get(final String lang, final Object dictionary, final String key) {
+        final String result;
         if (dictionary instanceof String) {
             if (!StringUtils.isJSON(dictionary)) {
-                final String result = _i18n.get(StringUtils.hasText(lang) ? lang : _lang,
+                result = _i18n.get(StringUtils.hasText(lang) ? lang : _lang,
                         (String) dictionary, key);
-                return result;
             } else {
                 // dictionary is JSONObject
-                return this.get(lang, JsonWrapper.wrap((String) dictionary).getJSONObject(), key);
+                result = this.get(lang, JsonWrapper.wrap((String) dictionary).getJSONObject(), key);
             }
         } else if (dictionary instanceof JSObject) {
-            return this.get(lang, (JSObject) dictionary, key);
+            result = this.get(lang, (JSObject) dictionary, key);
+        } else {
+            result = "";
         }
-        return "";
+        return null!=result ? result.trim():"";
     }
 
     // ------------------------------------------------------------------------

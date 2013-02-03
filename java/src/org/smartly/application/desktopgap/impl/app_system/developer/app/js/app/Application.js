@@ -48,6 +48,8 @@
 
         require('./js/app/pages/system/PageSystem.js');
         require('./js/app/pages/util/PageUtil.js');
+        require('./js/app/pages/settings/PageSettings.js');
+        require('./js/app/pages/application/PageApplication.js');
 
         console.debug('Application.js: Loaded all required libraries.');
     }
@@ -90,6 +92,22 @@
                 page_util.appendTo($parent);
                 page_util.hide();
                 self['_pages'].push(page_util);
+            }
+
+            //-- page_settings --//
+            if (!page_settings) {
+                page_settings = new desktopgap.gui.pages.PageSettings({});
+                page_settings.appendTo($parent);
+                page_settings.hide();
+                self['_pages'].push(page_settings);
+            }
+
+            //-- page_application --//
+            if (!page_application) {
+                page_application = new desktopgap.gui.pages.PageApplication({});
+                page_application.appendTo($parent);
+                page_application.hide();
+                self['_pages'].push(page_application);
             }
 
         } catch (err) {
