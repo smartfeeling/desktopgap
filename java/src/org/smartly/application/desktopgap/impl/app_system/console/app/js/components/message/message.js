@@ -59,6 +59,7 @@
                 , $time = $(self.template(sel_time))
                 , $message = $(self.template(sel_message))
                 ;
+            // console.log(level);
             //-- img --//
             $img.attr('src', './images/'+level+'.png');
             //-- date --//
@@ -66,7 +67,7 @@
             //-- time --//
             $time.html(time);
             //-- message --//
-            $message.html(message);
+            $message.html(decodeURIComponent(message));
         }
     }
 

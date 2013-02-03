@@ -1,0 +1,7 @@
+<div class="input-prepend">
+    <span class="add-on"><i id="icon-<%= cid %>" class=""></i></span><select id="<%= cid %>"></select>
+</div>
+
+<script id="template-<%= cid %>" type="text/template">
+    <option value="{_id}">{name}</option>
+</script>

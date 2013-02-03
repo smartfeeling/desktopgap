@@ -34,6 +34,7 @@ public class AppManifest {
     private static final String MF_DESCRIPTION = "description";
     private static final String MF_VERSION = "version";
     private static final String MF_CATEGORY = "category";
+    private static final String MF_DEBUG = "debug";
     private static final String MF_CATEGORY_UNDEFINED = IDesktopConstants.MF_CATEGORY_UNDEFINED;
     private static final String MF_INDEX = "index";
     private static final String MF_FRAME = IDesktopConstants.MF_FRAME;
@@ -246,6 +247,16 @@ public class AppManifest {
 
     public void setCategory(final String value) {
         _manifest.putSilent(MF_CATEGORY, value);
+        this.generateId();
+        this.save();
+    }
+
+    public boolean isDebug() {
+        return _manifest.optBoolean(MF_DEBUG);
+    }
+
+    public void setDebug(final boolean value) {
+        _manifest.putSilent(MF_DEBUG, value);
         this.generateId();
         this.save();
     }

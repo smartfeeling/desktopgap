@@ -32,19 +32,18 @@
         if (!imported) {
 
 
-            //require('./js/favorites.js');
+            require('./js/app/Application.js');
 
             imported = true;
         }
     }
 
 
-
     // --------------------------------------------------------------------
     //               app
     // --------------------------------------------------------------------
 
-    var app_version = '.app-version-id'
+    var application = null // main controller
         ;
 
     function initApp() {
@@ -63,23 +62,13 @@
 
     function initComponents() {
         try {
-            Ext.require('Ext.container.Viewport');
 
-            Ext.application({
+            if (!application) {
+                application = new desktopgap.gui.Application({});
+                application.appendTo('#app_content');
+                application.show();
+            }
 
-                name: 'Dev',
-                appFolder:'js/app',
-
-                autoCreateViewport:true,
-
-                controllers: [
-                    'Pages'
-                ],
-
-                launch: function() {
-
-                }
-            });
         } catch (err) {
             console.error('(app.js) initComponents(): ' + err);
         }

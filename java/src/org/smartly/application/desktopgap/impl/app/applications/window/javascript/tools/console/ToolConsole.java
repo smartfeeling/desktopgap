@@ -116,7 +116,7 @@ public final class ToolConsole {
     }
 
     public void debug(final Object message) {
-        if (null != message) {
+        if (null != message && this.isDebug()) {
             final Level level = Level.FINE;
             final ConsoleMessage cm = _messages.put(level, message);
             //-- delegate to logger --//
@@ -139,9 +139,17 @@ public final class ToolConsole {
         LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, fileName));
     }
 
+    private boolean isDebug(){
+        return null != _app && _app.getManifest().isDebug();
+    }
+
     private void sendToFrame(final ConsoleMessage message) {
+        if(this.isDebug() && null==_frame){
+           this.open();
+        }
         if (null != _frame) {
             _frame.putArguments(this.getMessages(message));
+            _frame.open();
         }
     }
 

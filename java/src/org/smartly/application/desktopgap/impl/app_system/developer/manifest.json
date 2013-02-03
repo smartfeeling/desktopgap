@@ -4,9 +4,10 @@
     "title": {"base":"Developer", "it":"Sviluppatori"},
     "description": {"base":"Developer Tools", "it":"Strumenti per gli Sviluppatori"},
     "version": "0.1",
+    "debug": true,
     "index": "index.html",
     "frame": {
-        "type": "empty-standard",
+        "type": "standard",
         "shadow":false,
         "resizable":true,
         "draggable":true,
@@ -17,9 +18,9 @@
         "x": 200
     },
     "buttons": {
-        "close":false,
+        "close":true,
         "fullscreen": false,
-        "minimize": false,
-        "maximize": false
+        "minimize": true,
+        "maximize": true
     }
 }

@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets;
 
+import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.commons.util.ClassLoaderUtils;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
@@ -102,4 +103,6 @@ public class JsSnippet {
 
         return getInstance().getScript(SCRIPT_SET_ELEM_VALUE, params);
     }
+
+
 }

@@ -733,6 +733,30 @@
         }
     };
 
+    Gui.prototype.hide = function () {
+        if (!!this['_component']) {
+            this['_component'].hide();
+        }
+    };
+
+    Gui.prototype.show = function () {
+        if (!!this['_component']) {
+            this['_component'].show();
+        }
+    };
+
+    Gui.prototype.fadeIn = function () {
+        if (!!this['_component']) {
+            this['_component'].fadeIn();
+        }
+    };
+
+    Gui.prototype.fadeOut = function () {
+        if (!!this['_component']) {
+            this['_component'].fadeOut();
+        }
+    };
+
     Gui.prototype.children = function (selector) {
         return !!selector ? $('#' + this['cid']).find(selector) : $('#' + this['cid']).find();
     };

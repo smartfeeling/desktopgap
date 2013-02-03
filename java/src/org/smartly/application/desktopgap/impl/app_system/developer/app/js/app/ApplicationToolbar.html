@@ -1,0 +1,29 @@
+<script id="tpl-<%= cid %>" type="text/tcl" language="template">
+
+    <li data-id="{id}"><a href="#">{name}</a></li>
+
+</script>
+
+<div class="navbar-wrapper">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar. Include responsive CSS to utilize. -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <a id="title-<%= cid %>" class="brand" href="#">Title</a>
+
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <div class="nav-collapse collapse">
+                <ul id="menu-<%= cid %>" class="nav">
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>

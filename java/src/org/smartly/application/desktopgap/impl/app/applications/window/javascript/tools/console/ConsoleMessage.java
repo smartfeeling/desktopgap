@@ -2,6 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
 
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.DesktopGap;
+import org.smartly.application.desktopgap.impl.app.utils.DOM;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.DateUtils;
 import org.smartly.commons.util.FormatUtils;
@@ -39,10 +40,9 @@ public final class ConsoleMessage {
         _json = new JsonWrapper(new JSONObject());
 
         _json.putSilent(PROP_LEVEL, _level.toString());
-        _json.putSilent(PROP_MESSAGE, _original);
+        _json.putSilent(PROP_MESSAGE, DOM.encode(_original));
         _json.putSilent(PROP_DATE, _fmt_date);
         _json.putSilent(PROP_TIME, _fmt_time);
-        _json.putSilent(PROP_MESSAGE, _original);
     }
 
     @Override
@@ -90,5 +90,6 @@ public final class ConsoleMessage {
         }
         return "";
     }
+
 
 }

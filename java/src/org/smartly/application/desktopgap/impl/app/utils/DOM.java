@@ -8,9 +8,12 @@ import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
 import org.smartly.packages.htmlparser.impl.HtmlParser;
+import org.smartly.packages.velocity.impl.util.URLEncodeUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * DOM utils
@@ -130,4 +133,19 @@ public class DOM {
         return getInstance().inject(manifest, html_frame, html_page, outputPage);
     }
 
+    public static String decode(final String text){
+        try{
+            return URLEncodeUtils.decodeURI(text);
+        } catch(Throwable t){
+            return t.toString();
+        }
+    }
+
+    public static String encode(final String text){
+        try{
+            return URLEncodeUtils.encodeURI(text);
+        } catch(Throwable t){
+            return t.toString();
+        }
+    }
 }

@@ -87,11 +87,13 @@ public class AppWindowController implements Initializable {
     // --------------------------------------------------------------------
 
     public void initialize(final AppFrame frame) {
-        _frame = frame;
-        _areaManager = new AppWindowAreaManager(_frame.isResizable(), _frame.isDraggable(), container);
+        if(null==_frame){
+            _frame = frame;
+            _areaManager = new AppWindowAreaManager(_frame.isResizable(), _frame.isDraggable(), container);
 
-        this.initBrowser(win_browser);
-        this.navigate(_frame.getIndex());
+            this.initBrowser(win_browser);
+            this.navigate(_frame.getIndex());
+        }
     }
 
     public AppWindowAreaManager getAreas() {
