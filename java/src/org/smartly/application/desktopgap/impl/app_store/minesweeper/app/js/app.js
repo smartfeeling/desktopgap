@@ -5,13 +5,6 @@
 
         //-- init application stage --//
         $(document).ready(function () {
-            try{
-                console.info(desktopgap['bridge'].get('sample').sayHello());
-                console.open();
-            } catch(err){
-                console.error(err);
-            }
-
 
             $("#minefield").minesweeper({
                 skin: "default",

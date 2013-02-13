@@ -10,10 +10,10 @@
     <ROW Property="ARPCOMMENTS" Value="Questo database di installazione contiene i dati e la logica richiesti per installare [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Smartfeeling.org" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1040:{B8B96253-B403-4FE9-8459-0194FEBF47DD} " Type="16"/>
+    <ROW Property="ProductCode" Value="1040:{9C133925-B21E-4A45-86B5-BFD57E729BCB} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1040"/>
     <ROW Property="ProductName" Value="DesktopGap (x86)" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.0.1"/>
+    <ROW Property="ProductVersion" Value="1.0.2"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D46FD926-2BB5-4D50-9F21-9684453AC61B}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME#Build:Windows 9x/ME" ValueLocId="-"/>
