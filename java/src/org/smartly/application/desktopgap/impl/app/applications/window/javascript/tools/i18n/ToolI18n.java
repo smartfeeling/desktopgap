@@ -4,8 +4,10 @@ import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppLocalization;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.JsonWrapper;
@@ -14,7 +16,9 @@ import org.smartly.commons.util.StringUtils;
 /**
  *
  */
-public final class ToolI18n {
+public final class ToolI18n extends AbstractTool{
+
+    public static final String NAME = "i18n";
 
     private static final String LANG_BASE = IDesktopConstants.LANG_BASE;
 
@@ -22,10 +26,15 @@ public final class ToolI18n {
     private final Logger _logger;
     private String _lang;
 
-    public ToolI18n(final AppFrame frame) {
-        _i18n = frame.getApp().getI18n();
+    public ToolI18n(final AppInstance app) {
+        super(app);
+        _i18n = app.getI18n();
         _lang = DesktopGap.getLang();
-        _logger = frame.getApp().getLogger();
+        _logger = app.getLogger();
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public String getLang() {

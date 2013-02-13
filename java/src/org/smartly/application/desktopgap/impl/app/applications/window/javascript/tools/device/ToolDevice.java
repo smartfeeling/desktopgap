@@ -1,8 +1,10 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device;
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.network.NetworkUtils;
 import org.smartly.commons.util.BeanUtils;
 import org.smartly.commons.util.ConversionUtils;
@@ -27,7 +29,7 @@ import org.smartly.commons.util.SystemUtils;
  * var phoneName = window.device.name;
  * var phoneName = device.name;
  */
-public final class ToolDevice {
+public final class ToolDevice extends AbstractTool{
 
     public static final String NAME = "device";
 
@@ -36,7 +38,8 @@ public final class ToolDevice {
     private final String _os_arch;
     private final String _machine_id;
     
-    public ToolDevice() {
+    public ToolDevice(final AppInstance app) {
+        super(app);
         _os_name = SystemUtils.getOperatingSystem();
         _os_version = SystemUtils.getOSVersion();
         _os_arch = SystemUtils.getOSAchitecture();
@@ -45,6 +48,10 @@ public final class ToolDevice {
 
     public Object get(final String property){
        return BeanUtils.getValueIfAny(this, property, JsEngine.UNDEFINED);
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public String getName(){

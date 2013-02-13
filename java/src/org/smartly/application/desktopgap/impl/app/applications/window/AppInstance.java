@@ -5,6 +5,8 @@ import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseE
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.libs.AppLibs;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.event.IEventListener;
@@ -31,6 +33,7 @@ public final class AppInstance
     private final AppLocalization _i18n;
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
+    private final AppBridge _bridge;
 
     public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
@@ -41,6 +44,13 @@ public final class AppInstance
         _windows.addEventListener(this);
         _children = new ArrayList<AppFrame>();
         _i18n = new AppLocalization(this);
+
+        // creates bridge
+        _bridge = new AppBridge(this);
+        _bridge.registerDefault();
+
+        // register plugins
+        AppLibs.register(this, _bridge);
 
         this.initLogger();
     }
@@ -74,6 +84,10 @@ public final class AppInstance
 
     public AppManifest getManifest() {
         return _manifest;
+    }
+
+    public AppBridge getBridge() {
+        return _bridge;
     }
 
     public AppLocalization getI18n() {
@@ -121,8 +135,8 @@ public final class AppInstance
     //          Launch Applications or  Application's Window
     // --------------------------------------------------------------------
 
-    public AppFrame launchApp(final String appId){
-           return this.launchApp(appId, appId, "", null, false);
+    public AppFrame launchApp(final String appId) {
+        return this.launchApp(appId, appId, "", null, false);
     }
 
     /**

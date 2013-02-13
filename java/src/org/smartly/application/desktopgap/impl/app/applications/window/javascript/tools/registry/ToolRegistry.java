@@ -1,22 +1,31 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.registry;
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.util.StringUtils;
 
 /**
  * Application registry.
  * Store persistent data for application.
  */
-public final class ToolRegistry {
+public final class ToolRegistry extends AbstractTool{
+
+    public static final String NAME = "registry";
 
     private static final String APP_DATA = IDesktopConstants.APP_DATA;
 
     private final AppRegistry _registry;
 
-    public ToolRegistry(final AppFrame frame) {
-        _registry = frame.getApp().getRegistry();
+    public ToolRegistry(final AppInstance app) {
+        super(app);
+        _registry = app.getRegistry();
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public String put(final String key, final String value) {

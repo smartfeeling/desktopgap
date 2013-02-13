@@ -3,12 +3,15 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.util.ConversionUtils;
 
 /**
  *
  */
-public final class ToolFrame {
+public final class ToolFrame extends AbstractTool {
+
+    public static final String NAME = "frame";
 
     private static final String BUTTON_CLOSE = IDesktopConstants.BTN_CLOSE;
     private static final String BUTTON_MINIMIZE = IDesktopConstants.BTN_MINIMIZE;
@@ -20,7 +23,12 @@ public final class ToolFrame {
     private final AppFrame _frame;
 
     public ToolFrame(final AppFrame frame) {
+        super(frame.getApp());
         _frame = frame;
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public void buttonClicked(final Object name) {

@@ -59,6 +59,7 @@ public final class AppFrame
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
+    private final JsEngine _javascript;
 
     private final String _id;
     private Scene _scene;
@@ -81,6 +82,9 @@ public final class AppFrame
         _maximized = false;
         _old_rect = this.getRegistryRect();
 
+        _javascript = new JsEngine(this);
+
+        // initializes frame, controller and jsengine
         this.initialize();
     }
 
@@ -90,6 +94,10 @@ public final class AppFrame
 
     public AppInstance getApp() {
         return _app;
+    }
+
+    public JsEngine getJavascriptEngine(){
+        return _javascript;
     }
 
     public boolean isMain() {
@@ -223,8 +231,8 @@ public final class AppFrame
     public void setTitle(final String title) {
         _title = null != title ? title : "";
 
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getSetElemValue("title", _title));
         }
     }
 
@@ -295,9 +303,11 @@ public final class AppFrame
         }
     }
 
+
+
     public void showHideElem(final String elementId, final boolean visible) {
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getShowHideElem(elementId, visible));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getShowHideElem(elementId, visible));
         }
     }
 
@@ -307,8 +317,8 @@ public final class AppFrame
      * @param data Custom data to pass to javascript engine.
      */
     public void putArguments(final Object data) {
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
         }
     }
 

@@ -1,5 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection;
 
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.network.NetworkUtils;
 
 /**
@@ -17,7 +19,9 @@ import org.smartly.commons.network.NetworkUtils;
  * <li>Connection.NONE</li>
  * </ul>
  */
-public final class ToolConnection {
+public final class ToolConnection extends AbstractTool {
+
+    public static final String NAME = "connection";
 
     private String _type;
 
@@ -27,8 +31,13 @@ public final class ToolConnection {
         UNKNOWN
     }
 
-    public ToolConnection() {
+    public ToolConnection(final AppInstance app) {
+        super(app);
         this.refresh();
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public String getType() {

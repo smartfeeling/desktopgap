@@ -7,6 +7,7 @@ import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.commons.event.Event;
@@ -30,21 +31,34 @@ public final class JsEngine {
 
     private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
 
-    private final WebEngine _engine;
-    private final AppFrame _frame;
+    private final AppInstance _app;
+    private final AppBridgeFrame _bridge_frame;
     private final List<String> _cached_scripts;
 
+
+    private AppFrame _frame;
+    private WebEngine _engine;
     private boolean _script_ready;
 
-    public JsEngine(final AppFrame frame,
-                    final WebEngine engine) {
+    public JsEngine(final AppFrame frame) {
+        _app = frame.getApp();
         _frame = frame;
-        _engine = engine;
         _cached_scripts = Collections.synchronizedList(new LinkedList<String>());
         _script_ready = false;
+        _bridge_frame = new AppBridgeFrame(_app.getBridge(), _frame);
 
-        this.handleLoading(engine);
+        //this.handleWebEngineLoading(engine);
         this.handleFrameEvents(frame);
+    }
+
+    public void handleFrame(final AppFrame frame) {
+        _frame = frame;
+        this.handleFrameEvents(frame);
+    }
+
+    public void handleLoading(final WebEngine engine) {
+        _engine = engine;
+        this.handleWebEngineLoading(engine);
     }
 
     public void whenReady(final String script) {
@@ -57,7 +71,7 @@ public final class JsEngine {
         }
     }
 
-    public void emitEventResize(final JSONObject data){
+    public void emitEventResize(final JSONObject data) {
         this.dispatchFrameResize(data);
     }
 
@@ -123,12 +137,12 @@ public final class JsEngine {
             if (obj instanceof JSObject) {
                 final JSObject win = (JSObject) obj;
                 // can add custom java objects
-                win.setMember(AppBridge.NAME, new AppBridge(_frame));
+                win.setMember(AppBridge.NAME, _bridge_frame);
 
                 this.executeCache();
             }
         } catch (Throwable t) {
-            _frame.getApp().getLogger().log(Level.SEVERE, null, t);
+            _app.getLogger().log(Level.SEVERE, null, t);
         }
     }
 
@@ -156,7 +170,7 @@ public final class JsEngine {
         }
     }
 
-    private void handleLoading(final WebEngine engine) {
+    private void handleWebEngineLoading(final WebEngine engine) {
         // process page loading
         engine.getLoadWorker().stateProperty().addListener(
                 new ChangeListener<Worker.State>() {
@@ -188,7 +202,7 @@ public final class JsEngine {
                                 scriptReady(true);
                             }
                         } catch (Throwable t) {
-                           _frame.getApp().getLogger().log(Level.SEVERE, null, t);
+                            _app.getLogger().log(Level.SEVERE, null, t);
                         }
                     }
                 }
@@ -196,14 +210,14 @@ public final class JsEngine {
 
     }
 
-    private void handleFrameEvents(final AppFrame frame){
+    private void handleFrameEvents(final AppFrame frame) {
         frame.addEventListener(new IEventListener() {
             @Override
             public void on(final Event event) {
                 // RESIZE
-                if(event instanceof FrameResizeEvent){
+                if (event instanceof FrameResizeEvent) {
                     final Object data = event.getData();
-                    if(data instanceof JSONObject){
+                    if (data instanceof JSONObject) {
                         dispatchFrameResize((JSONObject) data);
                     }
                 }

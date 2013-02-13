@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/desktopgap.iml" filepath="$PROJECT_DIR$/desktopgap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mock_jar/mock_jar.iml" filepath="$PROJECT_DIR$/../mock_jar/mock_jar.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../smartly/smartly_core/smartly_core.iml" filepath="$PROJECT_DIR$/../../../smartly/smartly_core/smartly_core.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../smartly/smartly_package_01_htmldeployer/smartly_package_01_htmldeployer.iml" filepath="$PROJECT_DIR$/../../../smartly/smartly_package_01_htmldeployer/smartly_package_01_htmldeployer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../smartly/smartly_package_01_htmlparser/smartly_package_01_htmlparser.iml" filepath="$PROJECT_DIR$/../../../smartly/smartly_package_01_htmlparser/smartly_package_01_htmlparser.iml" />

@@ -3,6 +3,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.logging.LoggingRepository;
@@ -17,7 +18,9 @@ import java.util.Map;
  * The console object is a helper tool for debug.<br>
  * Each Application creates its own console (singleton in application context).
  */
-public final class ToolConsole {
+public final class ToolConsole extends AbstractTool{
+
+    public static final String NAME = "console";
 
     private static final String APP_CONSOLE_ID = "system_console";
 
@@ -29,11 +32,16 @@ public final class ToolConsole {
     private AppFrame _frame;
 
     private ToolConsole(final AppInstance app) {
+        super(app);
         _app = app;
         _id = getConsoleId(app); // multiple instances for same app
         _messages = new ConsoleMessages(this);
 
         this.initLogger(_id);
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     public String getId() {
@@ -129,7 +137,7 @@ public final class ToolConsole {
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private Logger getLogger() {
+    protected Logger getLogger() {
         return LoggingUtils.getLogger(this.getId());
     }
 

@@ -23,7 +23,8 @@ public class AppManifest {
     private static final String PAGE_FRAME = IDesktopConstants.PAGE_FRAME;
     private static final String TEMP_DIR = IDesktopConstants.TEMP_DIR;
     private static final String INSTALLED_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
-    private static final String APP_DIR = "./app";
+    private static final String DIR_APP = "./app";
+    private static final String DIR_LIBS = "./libs";
 
     private static final String MF_LANG_BASE = IDesktopConstants.LANG_BASE;
 
@@ -64,7 +65,8 @@ public class AppManifest {
     private final String _temp_dir;
     private final JsonWrapper _manifest;
     private final String _install_dir;
-    private final String _app_docroot;
+    private final String _dir_app;
+    private final String _dir_libs;
     private final String _appName;
     private final String _lang;
     private String _install_root; // system or store
@@ -86,14 +88,16 @@ public class AppManifest {
         if (!_manifest.isEmpty()) {
             _appName = _manifest.optString(MF_NAME);
             _install_dir = PathUtils.concat(_install_root, _appName);
-            _app_docroot = PathUtils.merge(_install_dir, APP_DIR);
+            _dir_app = PathUtils.merge(_install_dir, DIR_APP);
+            _dir_libs = PathUtils.merge(_install_dir, DIR_LIBS);
             if (_is_system) {
                 _appId = _manifest.optString(MF_SYS_ID, null);
             }
         } else {
             _appName = "";
             _install_dir = "";
-            _app_docroot = "";
+            _dir_app = "";
+            _dir_libs = "";
         }
         _manifest.putSilent(MF_UID, this.getAppId());
 
@@ -113,6 +117,14 @@ public class AppManifest {
         return null != _manifest && !_manifest.isEmpty();
     }
 
+    public String getPathLibs(){
+        return _dir_libs;
+    }
+
+    public String getPathApp(){
+        return _dir_app;
+    }
+
     public String getAbsolutePath(final String path) {
         return PathUtils.concat(_install_dir, path);
     }
@@ -121,14 +133,14 @@ public class AppManifest {
         if (PathUtils.isHttp(path)) {
             return path;
         }
-        return PathUtils.concat(_app_docroot, path);
+        return PathUtils.concat(_dir_app, path);
     }
 
     public String getRelativeAppPath(final String path) {
         final String relativeRoot = StringUtils.concatArgsEx("/",
                 _is_system ? IDesktopConstants.SYSTEM_DIR : IDesktopConstants.STORE_DIR,
                 this.getAppName());
-        final String relativeAppPath = PathUtils.resolve(PathUtils.concat(relativeRoot, APP_DIR));
+        final String relativeAppPath = PathUtils.resolve(PathUtils.concat(relativeRoot, DIR_APP));
         return PathUtils.concat(relativeAppPath, path);
     }
 
@@ -152,7 +164,7 @@ public class AppManifest {
     }
 
     public String getAppIndex() {
-        return PathUtils.concat(APP_DIR, this.getIndex());
+        return PathUtils.concat(DIR_APP, this.getIndex());
     }
 
     public String getAbsolutePageFrame() {

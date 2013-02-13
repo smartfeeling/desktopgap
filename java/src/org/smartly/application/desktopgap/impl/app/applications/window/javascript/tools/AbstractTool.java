@@ -1,29 +1,40 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools;
 
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.commons.logging.Logger;
 
 /**
+ *  Extend this to create a valid javascript extension.
  *
  */
-public class AbstractTool {
+public abstract class AbstractTool {
 
-    private final AppFrame _frame;
+    private final AppInstance _app;
 
-    public AbstractTool(final AppFrame frame) {
-        _frame = frame;
+    public AbstractTool(final AppInstance app) {
+        _app = app;
     }
+
+    public abstract String getToolName();
 
     // ------------------------------------------------------------------------
     //                      p r o t e c t e d
     // ------------------------------------------------------------------------
 
-    protected AppFrame getFrame() {
-        return _frame;
+    protected AppInstance getApp() {
+        return _app;
     }
 
     protected Logger getLogger() {
-        return _frame.getApp().getLogger();
+        return _app.getLogger();
     }
 
+    // ------------------------------------------------------------------------
+    //                      MAIN
+    // ------------------------------------------------------------------------
+
+    public static void main(String[] args) {
+        // nothing to do
+    }
 }

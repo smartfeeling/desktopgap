@@ -1,7 +1,9 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.connection.ToolConnection;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.console.ToolConsole;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.device.ToolDevice;
@@ -10,34 +12,27 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.registry.ToolRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.runtime.ToolRuntime;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Javascript-Java Bridge.
  */
-public final class AppBridge {
+public class AppBridge {
 
     public static final String NAME = "bridge";
 
     private static final String VERSION = IDesktopConstants.VERSION;
     private static final String UNDEFINED = JsEngine.UNDEFINED;
 
+    private final AppInstance _app;
     // tools
-    private final ToolRegistry _registry;
-    private final ToolDevice _device;
-    private final ToolConnection _connection;
-    private final ToolConsole _console;
-    private final ToolFrame _frame;
-    private final ToolI18n _i18n;
-    private final ToolRuntime _runtime;
+    private final Map<String, AbstractTool> _tools;
 
-    public AppBridge(final AppFrame frame) {
+    public AppBridge(final AppInstance app) {
+        _app = app;
         // tools
-        _frame = new ToolFrame(frame);
-        _device = new ToolDevice();
-        _connection = new ToolConnection();
-        _console = ToolConsole.getConsole(frame.getApp());
-        _i18n = new ToolI18n(frame);
-        _runtime = new ToolRuntime(frame);
-        _registry = new ToolRegistry(frame);
+        _tools = new HashMap<String, AbstractTool>();
     }
 
     @Override
@@ -54,57 +49,75 @@ public final class AppBridge {
         return VERSION;
     }
 
+    public void register(final Map<String, ? extends AbstractTool> map) {
+        _tools.putAll(map);
+    }
+
+    public void register(final String name, final AbstractTool instance) {
+        if (null != name && null != instance) {
+            _tools.put(name, instance);
+        }
+    }
+
+    public Object get(final String name) {
+        return _tools.get(name);
+    }
+
+    public void registerDefault(){
+        _tools.put(ToolDevice.NAME, new ToolDevice(_app));
+        _tools.put(ToolConnection.NAME, new ToolConnection(_app));
+        _tools.put(ToolConsole.NAME, ToolConsole.getConsole(_app));
+        _tools.put(ToolI18n.NAME, new ToolI18n(_app));
+        _tools.put(ToolRuntime.NAME, new ToolRuntime(_app));
+        _tools.put(ToolRegistry.NAME, new ToolRegistry(_app));
+    }
+
     // --------------------------------------------------------------------
     //               R E G I S T R Y
     // --------------------------------------------------------------------
 
-    public ToolRegistry registry() {
-        return _registry;
+    public Object registry() {
+        return this.get(ToolRegistry.NAME);
     }
 
     // --------------------------------------------------------------------
     //               R U N T I M E
     // --------------------------------------------------------------------
 
-    public ToolRuntime runtime() {
-        return _runtime;
+    public Object runtime() {
+        return this.get(ToolRuntime.NAME);
     }
 
     // --------------------------------------------------------------------
     //               C O N S O L E
     // --------------------------------------------------------------------
 
-    public ToolConsole console() {
-        return _console;
+    public Object console() {
+        return this.get(ToolConsole.NAME);
     }
 
     // --------------------------------------------------------------------
     //               I 1 8 N
     // --------------------------------------------------------------------
 
-    public ToolI18n i18n() {
-        return _i18n;
+    public Object i18n() {
+        return this.get(ToolI18n.NAME);
     }
 
-    // --------------------------------------------------------------------
-    //               F R A M E
-    // --------------------------------------------------------------------
 
-    public ToolFrame frame() {
-        return _frame;
-    }
 
     // --------------------------------------------------------------------
     //               D E V I C E
     // --------------------------------------------------------------------
 
-    public ToolDevice device() {
-        return _device;
+    public Object device() {
+        return this.get(ToolDevice.NAME);
     }
 
     public Object device(final Object property) {
         if (property instanceof String) {
-            return _device.get((String) property);
+            final ToolDevice tool = (ToolDevice) this.device();
+            return tool.get((String) property);
         }
         return UNDEFINED;
     }
@@ -113,12 +126,15 @@ public final class AppBridge {
     //               C O N N E C T I O N
     // --------------------------------------------------------------------
 
-    public ToolConnection connection() {
-        return _connection;
+    public Object connection() {
+        return this.get(ToolConnection.NAME);
     }
 
     // ------------------------------------------------------------------------
-    //                      p r i v a t e
+    //                      p r o t e c t e d
     // ------------------------------------------------------------------------
 
+    protected Map<String, AbstractTool> getTools(){
+        return _tools;
+    }
 }

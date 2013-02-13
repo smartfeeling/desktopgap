@@ -23,15 +23,21 @@ import java.util.Collection;
  */
 public final class ToolRuntime extends AbstractTool {
 
+    public static final String NAME = "runtime";
+
     private static final String[] AUTHORIZED = IDesktopConstants.SYS_APPS;
 
     private final AppInstance _app;
     private final String _appId;
 
-    public ToolRuntime(final AppFrame frame) {
-        super(frame);
-        _app = frame.getApp();
-        _appId = frame.getManifest().getAppId();
+    public ToolRuntime(final AppInstance app) {
+        super(app);
+        _app = app;
+        _appId = app.getManifest().getAppId();
+    }
+
+    public String getToolName(){
+        return NAME;
     }
 
     // --------------------------------------------------------------------
@@ -103,7 +109,7 @@ public final class ToolRuntime extends AbstractTool {
     }
 
     public void openAppFolder() {
-        this.openFolder(super.getFrame().getManifest().getAbsoluteAppPath(""));
+        this.openFolder(super.getApp().getManifest().getAbsoluteAppPath(""));
     }
 
     public void openStoreFolder() {
