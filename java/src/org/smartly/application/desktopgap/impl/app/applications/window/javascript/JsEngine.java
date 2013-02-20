@@ -8,6 +8,8 @@ import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppBridgeFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.commons.event.Event;
@@ -26,6 +28,7 @@ public final class JsEngine {
     //-- js events --//
     public static final String EVENT_READY = "ready";
     public static final String EVENT_DEVICEREADY = "deviceready";
+    public static final String EVENT_PLUGIN_READY = "pluginready";
     public static final String EVENT_RESIZE = "resize";
     public static final String EVENT_DATA = "data";
 
@@ -40,12 +43,12 @@ public final class JsEngine {
     private WebEngine _engine;
     private boolean _script_ready;
 
-    public JsEngine(final AppFrame frame) {
+    public JsEngine(final AppFrame frame, final AppBridgeFrame bridge_frame) {
         _app = frame.getApp();
         _frame = frame;
         _cached_scripts = Collections.synchronizedList(new LinkedList<String>());
         _script_ready = false;
-        _bridge_frame = new AppBridgeFrame(_app.getBridge(), _frame);
+        _bridge_frame = bridge_frame;
 
         //this.handleWebEngineLoading(engine);
         this.handleFrameEvents(frame);
@@ -69,6 +72,11 @@ public final class JsEngine {
         } else {
             this.executeScript(script);
         }
+    }
+
+    public void emitEvent(final String name, final JSONObject data){
+        final String script_resize = JsSnippet.getDispatchEvent(name, data);
+        this.executeScript(script_resize);
     }
 
     public void emitEventResize(final JSONObject data) {

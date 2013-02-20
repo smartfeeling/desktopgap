@@ -5,8 +5,8 @@ import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseE
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.AppBridge;
-import org.smartly.application.desktopgap.impl.app.applications.window.libs.AppLibs;
+import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.applibs.AppLibs;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.event.IEventListener;
@@ -34,6 +34,7 @@ public final class AppInstance
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
     private final AppBridge _bridge;
+    private final AppLibs _libs; // external tools and plugins
 
     public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
@@ -50,7 +51,7 @@ public final class AppInstance
         _bridge.registerDefault();
 
         // register plugins
-        AppLibs.register(this, _bridge);
+        _libs = new AppLibs(this, _bridge);
 
         this.initLogger();
     }
@@ -69,6 +70,15 @@ public final class AppInstance
 
     public DesktopController getDesktop() {
         return _controller;
+    }
+
+    /**
+     * Returns plugin/libs manager instance.
+     * Use it to register Frame Tools
+     * @return AppLibs.
+     */
+    public AppLibs getLibs(){
+        return _libs;
     }
 
     public String getAbsolutePath(final String path) {

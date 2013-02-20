@@ -1,7 +1,7 @@
 package org.smartly.sample;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.tools.AbstractTool;
+import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
 
 /**
  *

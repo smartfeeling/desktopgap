@@ -59,6 +59,8 @@ public final class AppFrame
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
+    private final AppBridgeFrame _bridge_frame;
+    private final AppLibsFrame _libs_frame;
     private final JsEngine _javascript;
 
     private final String _id;
@@ -78,11 +80,13 @@ public final class AppFrame
         _winctrl = _loader.getController();
         _id = id;
         _title = _app.getManifest().getTitle();
+        _bridge_frame = new AppBridgeFrame(_app.getBridge(), this);
+        _libs_frame = new AppLibsFrame(_app.getLibs(), _bridge_frame);
 
         _maximized = false;
         _old_rect = this.getRegistryRect();
 
-        _javascript = new JsEngine(this);
+        _javascript = new JsEngine(this, _bridge_frame);
 
         // initializes frame, controller and jsengine
         this.initialize();
@@ -351,6 +355,9 @@ public final class AppFrame
         if (_app.getManifest().hasShadow()) {
             _fxml.getStylesheets().add(this.getStyleSheet());
         }
+
+        // register frame tools
+        _libs_frame.registerFrameTools(this);
     }
 
     private Stage getStage() {
@@ -375,6 +382,9 @@ public final class AppFrame
         final Stage stage = this.getStage();
         if (stage.isShowing()) {
             stage.toFront();
+            if(stage.isIconified()){
+               stage.setIconified(false);
+            }
         } else {
             stage.show();
             //-- notify open --//
