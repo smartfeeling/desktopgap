@@ -445,36 +445,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/appbridge/AppBridge.java" line="71" class="org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge" package="org.smartly.application.desktopgap.impl.app.applications.window.appbridge">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="name.equalsIgnoreCase(&quot;sap&quot;)&#13;&#13;JAVA" />
-        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/appbridge/AppBridge.java" line="66" class="org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge" package="org.smartly.application.desktopgap.impl.app.applications.window.appbridge">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="name.equalsIgnoreCase(&quot;sap&quot;)&#13;&#13;JAVA" />
-        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
-      </breakpoint>
-    </line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -494,10 +465,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppLibsFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AppLibsFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppLibsFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="752" selection-end="752" vertical-scroll-proportion="0.42419356">
+            <state line="25" column="0" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -530,10 +501,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppBridge.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AppBridge.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/appbridge/AppBridge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="0" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.0">
+            <state line="71" column="0" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.46935484">
               <folding />
             </state>
           </provider>
@@ -1402,12 +1373,12 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="Repository.Attach.JavaDocs" value="true" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mock_jar/lib/jsch-0.1.49.jar!/" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -1425,8 +1396,8 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -1630,19 +1601,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1671,6 +1629,19 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -1684,6 +1655,13 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -1705,13 +1683,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="false" name="DesktopGap" type="Application" factoryName="Application">
@@ -1967,16 +1938,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/appbridge/AppBridge.java">
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppLibsFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.0">
+        <state line="25" column="0" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/frame/AppLibsFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/org/smartly/application/desktopgap/impl/app/applications/window/appbridge/AppBridge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="752" selection-end="752" vertical-scroll-proportion="0.42419356">
+        <state line="71" column="0" selection-start="2534" selection-end="2534" vertical-scroll-proportion="0.46935484">
           <folding />
         </state>
       </provider>
