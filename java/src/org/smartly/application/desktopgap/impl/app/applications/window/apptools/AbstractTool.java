@@ -3,6 +3,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.apptools
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.commons.logging.Logger;
+import org.smartly.commons.logging.util.LoggingUtils;
 
 /**
  *  Extend this to create a valid javascript extension.
@@ -20,7 +21,7 @@ public abstract class AbstractTool {
 
     public AbstractTool(final AppFrame frame) {
         _frame = frame;
-        _app = frame.getApp();
+        _app = null!=frame?frame.getApp():null;
     }
 
     public abstract String getToolName();
@@ -33,6 +34,10 @@ public abstract class AbstractTool {
         return _app;
     }
 
+    protected boolean hasApp(){
+        return null!=_app;
+    }
+
     protected AppFrame getFrame(){
         return _frame;
     }
@@ -42,7 +47,7 @@ public abstract class AbstractTool {
     }
 
     protected Logger getLogger() {
-        return _app.getLogger();
+        return null!=_app?_app.getLogger(): LoggingUtils.getLogger(this);
     }
 
     // ------------------------------------------------------------------------
