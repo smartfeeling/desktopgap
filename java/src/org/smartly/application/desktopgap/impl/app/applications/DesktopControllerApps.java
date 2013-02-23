@@ -2,6 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartly.application.desktopgap.impl.app.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
@@ -130,7 +131,7 @@ public final class DesktopControllerApps
 
     public void addInstalled(final String file, final boolean system) throws IOException {
         synchronized (_registry_installed) {
-            final AppManifest manifest = new AppManifest(file, system);
+            final AppManifest manifest = new AppManifest(file);
             _registry_installed.put(manifest.getAppId(), manifest);
             if (system) {
                 this.addSystem(manifest.getAppId());
@@ -172,6 +173,19 @@ public final class DesktopControllerApps
             for (final AppInstance app : apps) {
                 try {
                    app.close();
+                } catch (Throwable ignored) {
+                }
+            }
+            _registry_running.clear();
+        }
+    }
+
+    public void killRunning() {
+        synchronized (_registry_running) {
+            final Collection<AppInstance> apps = _registry_running.values();
+            for (final AppInstance app : apps) {
+                try {
+                    app.kill();
                 } catch (Throwable ignored) {
                 }
             }

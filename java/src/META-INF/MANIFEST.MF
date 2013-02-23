@@ -1,3 +1,23 @@
 Manifest-Version: 1.0
+Class-Path: jsoup-1.7.1.jar junit-4.9.jar hamcrest-core-1.1.jar rhino-
+ 1.7R4.jar velocity-1.7.jar commons-collections-3.2.1.jar commons-lang
+ -2.4.jar jdom-1.0.jar commons-logging-1.1.jar logkit-2.0.jar log4j-1.
+ 2.12.jar ant-1.6.jar werken-xpath-0.9.4.jar jetty-all-server-8.1.4.v2
+ 0120524.jar jetty-deploy-8.1.4.v20120524.jar jetty-webapp-8.1.4.v2012
+ 0524.jar jetty-xml-8.1.4.v20120524.jar jetty-util-8.1.4.v20120524.jar
+  jetty-servlet-8.1.4.v20120524.jar jetty-security-8.1.4.v20120524.jar
+  jetty-server-8.1.4.v20120524.jar javax.servlet-3.0.0.v201112011016.j
+ ar jetty-continuation-8.1.4.v20120524.jar jetty-http-8.1.4.v20120524.
+ jar jetty-io-8.1.4.v20120524.jar jetty-websocket-8.1.4.v20120524.jar 
+ jetty-jmx-8.1.4.v20120524.jar jetty-plus-8.1.4.v20120524.jar javax.tr
+ ansaction-1.1.1.v201105210645.jar jetty-jndi-8.1.4.v20120524.jar java
+ x.mail.glassfish-1.4.1.v201005082020.jar javax.activation-1.1.0.v2011
+ 05071233.jar jetty-ajp-8.1.4.v20120524.jar jetty-annotations-8.1.4.v2
+ 0120524.jar javax.annotation-1.1.0.v201108011116.jar org.objectweb.as
+ m-3.1.0.v200803061910.jar jetty-jaspi-8.1.4.v20120524.jar javax.secur
+ ity.auth.message-1.0.0.v201108011116.jar jetty-rewrite-8.1.4.v2012052
+ 4.jar jetty-client-8.1.4.v20120524.jar jetty-servlets-8.1.4.v20120524
+ .jar jetty-nested-8.1.4.v20120524.jar jfxrt.jar deploy.jar javaws.jar
+  plugin.jar
 Main-Class: org.smartly.application.desktopgap.launcher.Main
 

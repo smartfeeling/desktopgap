@@ -1,0 +1,19 @@
+<script id="template-<%= cid %>" type="text/template">
+    <li data_id="{_id}" class="span4">
+        <div id="{_id}" class="thumbnail clickable">
+
+
+            <img src="{image}"  alt=""/>
+
+            <div class="imagelist-textbox back-gradient">
+                <div class="imagelist-name">{name}</div>
+                <div class="imagelist-description">{description}</div>
+            </div>
+
+        </div>
+    </li>
+</script>
+
+<ul id="<%= cid %>" class="imagelist thumbnails">
+
+</ul>

@@ -2,7 +2,7 @@
  * List component.
  *
  * options:
- *      - items: Object {_id:'', description:'', image:''}
+ *      - items: Object {_id:'', description:'', image:'', action:false}
  */
 (function (window) {
 
@@ -153,8 +153,12 @@
 
             // handle txt
             ly.el.click($txt, function () {
-                self.trigger(EVENT_CLICK, item);
-                //console.log(EVENT_CLICK);
+                if(!!item['action']){
+                    self.trigger(EVENT_ACTION, item);
+                } else {
+                    self.trigger(EVENT_CLICK, item);
+                    //console.log(EVENT_CLICK);
+                }
             });
             // handle fav
             ly.el.click($fav, function () {

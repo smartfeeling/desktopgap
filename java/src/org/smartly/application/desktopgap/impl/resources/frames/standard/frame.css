@@ -43,11 +43,16 @@ body {
 
 #titlebar {
     position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid rgba(180, 180, 180, 1);
+    border-right: 1px solid rgba(180, 180, 180, 1);
+    border-left: 1px solid rgba(180, 180, 180, 1);
     height: 26px;
-    width: 100%;
     background-image: -webkit-linear-gradient(top, rgba(248, 248, 248, 1) 50%, rgba(234, 234, 234, 1) 95%, rgba(180, 180, 180, 1) 100%);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    /*border-top-left-radius: 4px;
+    border-top-right-radius: 4px;*/
     user-select: none;
     z-index: 0;
 }

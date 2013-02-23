@@ -8,9 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.json.JSONObject;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
@@ -20,9 +23,12 @@ import org.smartly.application.desktopgap.impl.app.applications.window.javascrip
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
+import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
+import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
 
 import java.util.LinkedList;
@@ -33,7 +39,8 @@ import java.util.List;
  * Window
  */
 public final class AppFrame
-        extends EventEmitter {
+        extends EventEmitter
+        implements IEventListener {
 
     private static final double OFF_SET = 10; // border for shadow
 
@@ -52,27 +59,37 @@ public final class AppFrame
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
+    private final AppBridgeFrame _bridge_frame;
+    private final AppLibsFrame _libs_frame;
+    private final JsEngine _javascript;
 
     private final String _id;
-    private Stage _stage;
     private Scene _scene;
     private String _title;
     private boolean _maximized;
     private Rectangle2D _old_rect; // size before maximize
 
+    private Stage __stage;
+
     public AppFrame(final AppWindows windows,
                     final String id) {
         _windows = windows;
         _app = _windows.getApp();
-        _stage = this.createStage();
         _loader = new FXMLLoader();
         _fxml = getContent(_loader);
         _winctrl = _loader.getController();
         _id = id;
         _title = _app.getManifest().getTitle();
+        _bridge_frame = new AppBridgeFrame(_app.getBridge(), this);
+        _libs_frame = new AppLibsFrame(_app.getLibs(), _bridge_frame);
 
         _maximized = false;
         _old_rect = this.getRegistryRect();
+
+        _javascript = new JsEngine(this, _bridge_frame);
+
+        // initializes frame, controller and jsengine
+        this.initialize();
     }
 
     public String getId() {
@@ -81,6 +98,10 @@ public final class AppFrame
 
     public AppInstance getApp() {
         return _app;
+    }
+
+    public JsEngine getJavascriptEngine(){
+        return _javascript;
     }
 
     public boolean isMain() {
@@ -93,6 +114,22 @@ public final class AppFrame
 
     public boolean isDraggable() {
         return _app.getManifest().isDraggable();
+    }
+
+    public double getMinWidth() {
+        return _app.getManifest().getMinWidth();
+    }
+
+    public double getMinHeight() {
+        return _app.getManifest().getMinHeight();
+    }
+
+    public double getMaxWidth() {
+        return _app.getManifest().getMaxWidth();
+    }
+
+    public double getMaxHeight() {
+        return _app.getManifest().getMaxHeight();
     }
 
     public String getFrame() {
@@ -108,7 +145,7 @@ public final class AppFrame
     public String getIndex() {
         try {
             if (null != _app) {
-                return _app.getManifest().getAbsoluteIndex();
+                return _app.getManifest().getRelativeIndex();
             }
         } catch (Throwable ignored) {
         }
@@ -124,61 +161,61 @@ public final class AppFrame
     }
 
     public double getX() {
-        if (null != _stage) {
-            return _stage.getX();
+        if (null != __stage) {
+            return __stage.getX();
         }
         return 0.0;
     }
 
     public double setX(final double value) {
         final double old_value = this.getX();
-        if (null != _stage) {
-            _stage.setX(value);
+        if (null != __stage) {
+            __stage.setX(value);
         }
         return old_value;
     }
 
     public double getY() {
-        if (null != _stage) {
-            return _stage.getY();
+        if (null != __stage) {
+            return __stage.getY();
         }
         return 0.0;
     }
 
     public double setY(final double value) {
         final double old_value = this.getY();
-        if (null != _stage) {
-            _stage.setY(value);
+        if (null != __stage) {
+            __stage.setY(value);
         }
         return old_value;
     }
 
     public double getWidth() {
-        if (null != _stage) {
-            return _stage.getScene().getWidth();
+        if (null != __stage) {
+            return __stage.getScene().getWidth();
         }
         return 0.0;
     }
 
     public double setWidth(final double value) {
         final double old_value = this.getWidth();
-        if (null != _stage) {
-            _stage.setWidth(value);
+        if (null != __stage) {
+            __stage.setWidth(value);
         }
         return old_value;
     }
 
     public double getHeight() {
-        if (null != _stage) {
-            return _stage.getScene().getHeight();
+        if (null != __stage) {
+            return __stage.getScene().getHeight();
         }
         return 0.0;
     }
 
     public double setHeight(final double value) {
         final double old_value = this.getHeight();
-        if (null != _stage) {
-            _stage.setHeight(value);
+        if (null != __stage) {
+            __stage.setHeight(value);
         }
         return old_value;
     }
@@ -198,27 +235,44 @@ public final class AppFrame
     public void setTitle(final String title) {
         _title = null != title ? title : "";
 
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getSetElemValue("title", _title));
         }
     }
 
     public void close() {
-        // close stage and trigger event
-        this.emit(new FrameCloseEvent(this));
-        _stage.close();
+        if (null != __stage) {
+            // close stage and trigger event
+            this.emit(new FrameCloseEvent(this));
+            __stage.close();
+        }
+    }
+
+    /**
+     * Close frame with no events
+     */
+    public void kill() {
+        if (null != __stage) {
+            __stage.close();
+        }
     }
 
     public void toFront() {
-        _stage.toFront();
+        if (null != __stage) {
+            __stage.toFront();
+        }
     }
 
     public void toBack() {
-        _stage.toBack();
+        if (null != __stage) {
+            __stage.toBack();
+        }
     }
 
     public void screenCenter() {
-        _stage.centerOnScreen();
+        if (null != __stage) {
+            __stage.centerOnScreen();
+        }
     }
 
     public void screenCenterTop() {
@@ -227,7 +281,9 @@ public final class AppFrame
     }
 
     public void minimize() {
-        _stage.setIconified(true);
+        if (null != __stage) {
+            __stage.setIconified(true);
+        }
     }
 
     public void maximize() {
@@ -251,9 +307,11 @@ public final class AppFrame
         }
     }
 
+
+
     public void showHideElem(final String elementId, final boolean visible) {
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getShowHideElem(elementId, visible));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getShowHideElem(elementId, visible));
         }
     }
 
@@ -263,8 +321,25 @@ public final class AppFrame
      * @param data Custom data to pass to javascript engine.
      */
     public void putArguments(final Object data) {
-        if (null != _winctrl) {
-            _winctrl.getJsEngine().whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
+        if (null != _javascript) {
+            _javascript.whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
+        }
+    }
+
+    // --------------------------------------------------------------------
+    //               IEventListener
+    // --------------------------------------------------------------------
+
+    @Override
+    public void on(final Event event) {
+        if (event instanceof FrameResizeEvent) {
+            // set width and height
+            final JsonWrapper data = new JsonWrapper(new JSONObject());
+            data.putSilent(IDesktopConstants.WIDTH, this.getWidth());
+            data.putSilent(IDesktopConstants.HEIGHT, this.getHeight());
+            event.setData(data.getJSONObject());
+
+            this.emit(event);
         }
     }
 
@@ -272,44 +347,51 @@ public final class AppFrame
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private Stage createStage() {
-        final Stage stage = new Stage(StageStyle.UTILITY);
+    private void initialize() {
+        //-- initialize window controller --//
+        _winctrl.initialize(this);
 
-        return stage;
+        // add shadow
+        if (_app.getManifest().hasShadow()) {
+            _fxml.getStylesheets().add(this.getStyleSheet());
+        }
+
+        // register frame tools
+        _libs_frame.registerFrameTools(this);
     }
 
-    private void openOrFocus() {
-        if (_stage.isShowing()) {
-            _stage.toFront();
-        } else {
+    private Stage getStage() {
+        if (null == __stage) {
+            __stage = new Stage(StageStyle.UTILITY);
             // init stage
-            _stage.setTitle(this.getTitle());
-            _stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
-            _stage.getIcons().addAll(this.getIcons());
+            __stage.setTitle(this.getTitle());
+            __stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
+            __stage.getIcons().addAll(this.getIcons());
 
             final Rectangle2D rect = this.getRegistryRect();
-            _stage.setScene(this.createScene(_fxml, rect));
+            __stage.setScene(this.createScene(_fxml, rect));
             //-- size --//
             this.setCurrRect(rect);
 
             this.addStageHandlers();
+        }
+        return __stage;
+    }
 
-            //-- initialize window controller --//
-            _winctrl.initialize(this);
-
-            // add shadow
-            if (_app.getManifest().hasShadow()) {
-                _fxml.getStylesheets().add(this.getStyleSheet());
+    private void openOrFocus() {
+        final Stage stage = this.getStage();
+        if (stage.isShowing()) {
+            stage.toFront();
+            if(stage.isIconified()){
+               stage.setIconified(false);
             }
-
-            _stage.show();
-
+        } else {
+            stage.show();
             //-- notify open --//
             this.onOpen();
 
             //_app.getLogger().info("App Window Opened: " + _app.getId());
         }
-
     }
 
     private Scene createScene(final Parent parent, final Rectangle2D size) {
@@ -403,6 +485,7 @@ public final class AppFrame
                 self.emit(new FrameCloseEvent(self));
             }
         }); */
+
     }
 
     private void onOpen() {

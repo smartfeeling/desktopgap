@@ -1,32 +1,23 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="desktopgap:jar">
+  <artifact name="desktopgap:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/desktopgap_jar</output-path>
-    <root id="archive" name="desktopgap.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+    <root id="root">
+      <element id="archive" name="desktopgap.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="desktopgap" />
+        <element id="module-output" name="smartly_core" />
+        <element id="module-output" name="smartly_package_01_htmldeployer" />
+        <element id="module-output" name="smartly_package_01_htmlparser" />
+        <element id="module-output" name="smartly_package_01_velocity" />
       </element>
-      <element id="module-output" name="desktopgap" />
-      <element id="module-output" name="smartly_core" />
-      <element id="module-output" name="smartly_package_01_htmldeployer" />
-      <element id="module-output" name="smartly_package_01_htmlparser" />
-      <element id="module-output" name="smartly_package_01_velocity" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/velocity-1.7.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/commons-collections-3.2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/commons-lang-2.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/jdom-1.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/commons-logging-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/logkit-2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/log4j-1.2.12.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/ant-1.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/werken-xpath-0.9.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/rhino-1.7R4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="C:/Program Files/Java/jdk1.7.0_09/jre/lib/jfxrt.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="C:/Program Files/Java/jdk1.7.0_09/jre/lib/deploy.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="C:/Program Files/Java/jdk1.7.0_09/jre/lib/javaws.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="C:/Program Files/Java/jdk1.7.0_09/jre/lib/plugin.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/junit-4.9.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/hamcrest-core-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../lib/jsoup-1.7.1.jar" path-in-jar="/" />
+      <element id="library" level="application" name="org.jsoup:jsoup:1.7.1" />
+      <element id="library" level="application" name="junit:junit:4.9" />
+      <element id="library" level="application" name="org.mozilla:rhino:1.7R4" />
+      <element id="library" level="application" name="org.apache.velocity:velocity:1.7" />
+      <element id="library" level="application" name="org.eclipse.jetty.aggregate:jetty-all-server:8.1.4.v20120524" />
+      <element id="library" level="project" name="jfxrt" />
     </root>
   </artifact>
 </component>

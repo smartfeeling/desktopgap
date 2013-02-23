@@ -13,10 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.server.WebServer;
+import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 
@@ -62,7 +65,7 @@ public class AppWindowController implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-       // ready
+        // ready
     }
 
     // --------------------------------------------------------------------
@@ -84,19 +87,18 @@ public class AppWindowController implements Initializable {
     // --------------------------------------------------------------------
 
     public void initialize(final AppFrame frame) {
-        _frame = frame;
-        _areaManager = new AppWindowAreaManager(_frame.isResizable(), _frame.isDraggable(), container);
+        if (null == _frame) {
+            _frame = frame;
+            _areaManager = new AppWindowAreaManager(_frame, container);
+            _jsengine = frame.getJavascriptEngine();
 
-        this.initBrowser(win_browser);
-        this.navigate(_frame.getIndex());
+            this.initBrowser(win_browser);
+            this.navigate(_frame.getIndex());
+        }
     }
 
     public AppWindowAreaManager getAreas() {
         return _areaManager;
-    }
-
-    public JsEngine getJsEngine() {
-        return _jsengine;
     }
 
     // ------------------------------------------------------------------------
@@ -122,11 +124,13 @@ public class AppWindowController implements Initializable {
         if (null != win_browser) {
             try {
                 // remove old
-                AppWindowUrl.delete(_old_location);
+                // AppWindowUrl.delete(_old_location);
 
-                final AppWindowUrl uri = new AppWindowUrl(_frame, url);
+                // final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
-                _location = uri.getUrl();
+                _location = WebServer.getHttpPath(url); //uri.getUrl();
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_APPID, _frame.getApp().getId());
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_FRAMEID, _frame.getId());
                 win_browser.getEngine().load(_location);
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
@@ -143,8 +147,7 @@ public class AppWindowController implements Initializable {
 
         //-- handlers --//
         final WebEngine engine = browser.getEngine();
-        _jsengine = new JsEngine(_frame, engine);
-        // _jsengine.init();
+        _jsengine.handleLoading(engine);
 
         // disable alert(), prompt(), confirm()
         this.handleAlert(engine);  // replaced with console.warn()
@@ -195,37 +198,40 @@ public class AppWindowController implements Initializable {
                                         Worker.State oldState, Worker.State newState) {
                         // debug info
                         //System.out.println(newState);
+                        try {
+                            if (newState == Worker.State.CANCELLED) {
+                                // navigation cancelled by user
+                                //_location = _old_location;
+                            } else if (newState == Worker.State.FAILED) {
+                                // navigation failed
+                                _location = _old_location;
+                            } else if (newState == Worker.State.READY) {
+                                // browser ready
+                                //System.out.println(engine.getLocation());
+                            } else if (newState == Worker.State.SCHEDULED) {
+                                // browser scheduled navigation
+                                //System.out.println(engine.getLocation());
+                            } else if (newState == Worker.State.RUNNING) {
+                                // browser is loading data
+                                //System.out.println(engine.getLocation());
+                                _old_location = _location;
+                                _location = engine.getLocation();
+                                if (!AppWindowUrl.equals(_old_location, _location)) {
+                                    //-- changing page --//
+                                    // System.out.println("FROM: " + _old_location + " TO: " + _location);
 
-                        if (newState == Worker.State.CANCELLED) {
-                            // navigation cancelled by user
-                            //_location = _old_location;
-                        } else if (newState == Worker.State.FAILED) {
-                            // navigation failed
-                            _location = _old_location;
-                        } else if (newState == Worker.State.READY) {
-                            // browser ready
-                            //System.out.println(engine.getLocation());
-                        } else if (newState == Worker.State.SCHEDULED) {
-                            // browser scheduled navigation
-                            //System.out.println(engine.getLocation());
-                        } else if (newState == Worker.State.RUNNING) {
-                            // browser is loading data
-                            //System.out.println(engine.getLocation());
-                            _old_location = _location;
-                            _location = engine.getLocation();
-                            if (!AppWindowUrl.equals(_old_location, _location)) {
-                                //-- changing page --//
-                                // System.out.println("FROM: " + _old_location + " TO: " + _location);
+                                    navigate(_location);
+                                }
+                            } else if (newState == Worker.State.SUCCEEDED) {
+                                //_jsengine.init();
+                                //_jsengine.showHideElem(_frame.getManifest().getButtonsMap());
+                                //_jsengine.dispatchReady();
 
-                                navigate(_location);
+                                //-- remove page --//
+                                //AppWindowUrl.delete(_location);
                             }
-                        } else if (newState == Worker.State.SUCCEEDED) {
-                            //_jsengine.init();
-                            //_jsengine.showHideElem(_frame.getManifest().getButtonsMap());
-                            //_jsengine.dispatchReady();
-
-                            //-- remove page --//
-                            AppWindowUrl.delete(_location);
+                        } catch (Throwable t) {
+                            getLogger().log(Level.SEVERE, null, t);
                         }
                     }
                 }
@@ -252,6 +258,7 @@ public class AppWindowController implements Initializable {
         );
 
     }
+
 
     // --------------------------------------------------------------------
     //               S T A T I C

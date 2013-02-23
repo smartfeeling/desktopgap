@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
+import org.smartly.Smartly;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.LocaleUtils;
@@ -7,8 +8,9 @@ import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.StringUtils;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -35,9 +37,9 @@ public final class AppLocalization {
     /**
      * Return dictionary value
      *
-     * @param lang Language
+     * @param lang           Language
      * @param dictionaryName Dictionary Name
-     * @param key Resource key
+     * @param key            Resource key
      * @return Dictionary resource or empty string. Never Null.
      */
     public String get(final String lang, final String dictionaryName, final String key) {
@@ -82,9 +84,9 @@ public final class AppLocalization {
         final String name = PathUtils.getFilename(fileName, false);
         final String[] tokens = StringUtils.splitFirst(name, "_");
         if (tokens.length == 2) {
-            return new String[] {tokens[0], LocaleUtils.getLanguage(tokens[1])};
+            return new String[]{tokens[0], LocaleUtils.getLanguage(tokens[1])};
         }
-        return new String[] {fileName, DEFAULT};
+        return new String[]{fileName, DEFAULT};
     }
 
     private void load(final File file) {
@@ -95,7 +97,7 @@ public final class AppLocalization {
                 final String lang = name_lang[1];
                 final Map<String, String> dictionary = this.getDictionary(lang);
                 final Properties props = new Properties();
-                props.load(new FileReader(file));
+                props.load(new InputStreamReader( new FileInputStream(file), Smartly.getCharset()) );
                 final Set<Object> keys = props.keySet();
                 for (final Object key : keys) {
                     if (null != key) {
@@ -118,7 +120,7 @@ public final class AppLocalization {
         final String name_key = StringUtils.concatDot(name, key);
         final String res_value;
         if (this.isFile(value)) {
-            res_value = FileUtils.readFileToString(new File(PathUtils.concat(_root, value)));
+            res_value = FileUtils.readFileToString(new File(PathUtils.concat(_root, value)), Smartly.getCharset());
         } else {
             res_value = value;
         }

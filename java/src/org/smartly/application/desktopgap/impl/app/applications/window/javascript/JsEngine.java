@@ -5,8 +5,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
+import org.json.JSONObject;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppBridgeFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.commons.event.Event;
+import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 
 import java.util.*;
@@ -21,24 +28,40 @@ public final class JsEngine {
     //-- js events --//
     public static final String EVENT_READY = "ready";
     public static final String EVENT_DEVICEREADY = "deviceready";
+    public static final String EVENT_PLUGIN_READY = "pluginready";
+    public static final String EVENT_RESIZE = "resize";
     public static final String EVENT_DATA = "data";
 
     private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
 
-    private final WebEngine _engine;
-    private final AppFrame _frame;
+    private final AppInstance _app;
+    private final AppBridgeFrame _bridge_frame;
     private final List<String> _cached_scripts;
 
+
+    private AppFrame _frame;
+    private WebEngine _engine;
     private boolean _script_ready;
 
-    public JsEngine(final AppFrame frame,
-                    final WebEngine engine) {
+    public JsEngine(final AppFrame frame, final AppBridgeFrame bridge_frame) {
+        _app = frame.getApp();
         _frame = frame;
-        _engine = engine;
         _cached_scripts = Collections.synchronizedList(new LinkedList<String>());
         _script_ready = false;
+        _bridge_frame = bridge_frame;
 
-        this.handleLoading(engine);
+        //this.handleWebEngineLoading(engine);
+        this.handleFrameEvents(frame);
+    }
+
+    public void handleFrame(final AppFrame frame) {
+        _frame = frame;
+        this.handleFrameEvents(frame);
+    }
+
+    public void handleLoading(final WebEngine engine) {
+        _engine = engine;
+        this.handleWebEngineLoading(engine);
     }
 
     public void whenReady(final String script) {
@@ -49,6 +72,15 @@ public final class JsEngine {
         } else {
             this.executeScript(script);
         }
+    }
+
+    public void emitEvent(final String name, final JSONObject data){
+        final String script_resize = JsSnippet.getDispatchEvent(name, data);
+        this.executeScript(script_resize);
+    }
+
+    public void emitEventResize(final JSONObject data) {
+        this.dispatchFrameResize(data);
     }
 
     // --------------------------------------------------------------------
@@ -73,6 +105,12 @@ public final class JsEngine {
         // deviceready
         final String script_deviceready = JsSnippet.getDispatchEvent(EVENT_DEVICEREADY, null);
         this.executeScript(script_deviceready);
+    }
+
+    protected void dispatchFrameResize(final JSONObject data) {
+        // resize
+        final String script_resize = JsSnippet.getDispatchEvent(EVENT_RESIZE, data);
+        this.executeScript(script_resize);
     }
 
     //-- SHOW HIDE ELEM--//
@@ -107,12 +145,12 @@ public final class JsEngine {
             if (obj instanceof JSObject) {
                 final JSObject win = (JSObject) obj;
                 // can add custom java objects
-                win.setMember(AppBridge.NAME, new AppBridge(_frame));
+                win.setMember(AppBridge.NAME, _bridge_frame);
 
                 this.executeCache();
             }
         } catch (Throwable t) {
-            _frame.getApp().getLogger().log(Level.SEVERE, null, t);
+            _app.getLogger().log(Level.SEVERE, null, t);
         }
     }
 
@@ -125,10 +163,10 @@ public final class JsEngine {
         }
     }
 
-    private void scriptReady(final boolean value){
-       _script_ready = value;
-        if(value){
-           this.executeCache();
+    private void scriptReady(final boolean value) {
+        _script_ready = value;
+        if (value) {
+            this.executeCache();
         }
     }
 
@@ -140,39 +178,58 @@ public final class JsEngine {
         }
     }
 
-    private void handleLoading(final WebEngine engine) {
+    private void handleWebEngineLoading(final WebEngine engine) {
         // process page loading
         engine.getLoadWorker().stateProperty().addListener(
                 new ChangeListener<Worker.State>() {
                     @Override
                     public void changed(ObservableValue<? extends Worker.State> ov,
                                         Worker.State oldState, Worker.State newState) {
-                        // debug info
-                        //System.out.println(newState);
-                        if (newState == Worker.State.CANCELLED) {
-                            // navigation cancelled by user
-                            scriptReady(false);
-                        } else if (newState == Worker.State.FAILED) {
-                            // navigation failed
-                            scriptReady(false);
-                        } else if (newState == Worker.State.READY) {
-                            scriptReady(false);
-                        } else if (newState == Worker.State.SCHEDULED) {
-                            // browser scheduled navigation
-                            //System.out.println(engine.getLocation());
-                            scriptReady(false);
-                        } else if (newState == Worker.State.RUNNING) {
-                            // browser is loading data
-                            scriptReady(false);
-                        } else if (newState == Worker.State.SUCCEEDED) {
-                            init();
-                            showHideElem(_frame.getManifest().getButtonsMap());
-                            dispatchReady();
-                            scriptReady(true);
+                        try {
+                            // debug info
+                            //System.out.println(newState);
+                            if (newState == Worker.State.CANCELLED) {
+                                // navigation cancelled by user
+                                scriptReady(false);
+                            } else if (newState == Worker.State.FAILED) {
+                                // navigation failed
+                                scriptReady(false);
+                            } else if (newState == Worker.State.READY) {
+                                scriptReady(false);
+                            } else if (newState == Worker.State.SCHEDULED) {
+                                // browser scheduled navigation
+                                //System.out.println(engine.getLocation());
+                                scriptReady(false);
+                            } else if (newState == Worker.State.RUNNING) {
+                                // browser is loading data
+                                scriptReady(false);
+                            } else if (newState == Worker.State.SUCCEEDED) {
+                                init();
+                                showHideElem(_frame.getManifest().getButtonsMap());
+                                dispatchReady();
+                                scriptReady(true);
+                            }
+                        } catch (Throwable t) {
+                            _app.getLogger().log(Level.SEVERE, null, t);
                         }
                     }
                 }
         );
 
+    }
+
+    private void handleFrameEvents(final AppFrame frame) {
+        frame.addEventListener(new IEventListener() {
+            @Override
+            public void on(final Event event) {
+                // RESIZE
+                if (event instanceof FrameResizeEvent) {
+                    final Object data = event.getData();
+                    if (data instanceof JSONObject) {
+                        dispatchFrameResize((JSONObject) data);
+                    }
+                }
+            }
+        });
     }
 }

@@ -59,6 +59,21 @@ public final class AppWindows
         }
     }
 
+    /**
+     * Same as close, but with no events.
+     */
+    public void kill(final String winId) {
+        if (!StringUtils.hasText(winId)) {
+            this.killAll();
+        } else {
+            final String id = this.createWinId(winId);
+            final AppFrame frame = _frames.remove(id);
+            if (null != frame) {
+                frame.kill();
+            }
+        }
+    }
+
     public void minimize(final String winId) {
         if (!StringUtils.hasText(winId)) {
             this.minimizeAll();
@@ -118,6 +133,16 @@ public final class AppWindows
         for (final AppFrame frame : frames) {
             try {
                 frame.close();
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    private void killAll() {
+        final AppFrame[] frames = _frames.removeAll();
+        for (final AppFrame frame : frames) {
+            try {
+                frame.kill();
             } catch (Throwable ignored) {
             }
         }

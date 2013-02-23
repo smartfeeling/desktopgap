@@ -1,0 +1,5 @@
+{
+    "load":["*.jar"],
+
+    "register":["org.smartly.sample.SampleTool"]
+}

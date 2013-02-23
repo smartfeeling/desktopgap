@@ -39,8 +39,7 @@ public class DeployerAppSystem extends FileDeployer {
                 _context.put(CompilerVelocity.ARG_FILE, filename);
                 return compiler.compile(data, _context);
             } else {
-                super.getLogger().log(Level.WARNING,
-                        FormatUtils.format("COMPILER NOT FOUND FOR '{0}'", filename));
+                super.getLogger().log(Level.FINE, FormatUtils.format("COMPILER NOT FOUND FOR '{0}'", filename));
             }
         } catch (Throwable t) {
             super.getLogger().log(Level.SEVERE,

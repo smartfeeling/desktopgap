@@ -1,0 +1,2 @@
+#set($click = $dic.get($lang, 'i18n-widgets', 'datepicker-click'))
+#set($reset = $dic.get($lang, 'i18n-widgets', 'datepicker-reset'))

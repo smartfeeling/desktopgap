@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
@@ -26,16 +27,20 @@ public class AppWindowAreaManager
     private final boolean _sizable;
     private final boolean _draggable;
 
-    public AppWindowAreaManager(final boolean sizable,
-                                final boolean draggable,
+    public AppWindowAreaManager(final AppFrame frame,
                                 final AnchorPane root) {
         _main_area = root;
         _areas = new HashMap<String, StackPane>();
-        _draggable = draggable;
-        _sizable = sizable;
+        _draggable = frame.isDraggable();
+        _sizable = frame.isResizable();
 
         if(_sizable){
-            FX.sizable(root);
+            FX.sizable(root,
+                    frame.getMinWidth(),
+                    frame.getMinHeight(),
+                    frame.getMaxWidth(),
+                    frame.getMaxHeight(),
+                    frame);
         }
     }
 

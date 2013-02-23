@@ -43,7 +43,7 @@ public class AppCompiler {
             throw new FileNotFoundException(manifestPath);
         }
 
-        final AppManifest manifest = new AppManifest(manifestPath, false);
+        final AppManifest manifest = new AppManifest(manifestPath);
         if (!manifest.isValid()) {
             throw new InvalidManifestException(manifestPath);
         }

@@ -4,6 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
+import org.smartly.commons.event.IEventListener;
 
 /**
  *
@@ -14,8 +15,13 @@ public class FX {
         return new Draggable(node);
     }
 
-    public static Sizable sizable(final Pane node) {
-        return new Sizable(node);
+    public static Sizable sizable(final Pane node,
+                                  final double minWidth,
+                                  final double minHeight,
+                                  final double maxWidth,
+                                  final double maxHeight,
+                                  final IEventListener listener) {
+        return new Sizable(node, minWidth, minHeight, maxWidth, maxHeight, listener);
     }
 
     public static Node getRoot(final Node node) {

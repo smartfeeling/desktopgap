@@ -111,7 +111,7 @@
                 pages[mnu_tool] = desktopgap.gui.pages.PageTool;
 
                 // sub pages
-                pages[mnu_tool_dev] = desktopgap.gui.pages.PageToolDev;
+                // pages[mnu_tool_dev] = desktopgap.gui.pages.PageToolDev;
 
                 //-- creates controller component --//
                 pages_controller = new desktopgap.gui.pages.PagesController({
@@ -126,9 +126,19 @@
                         openPage(mnu_id);
                     }
                 });
-                pages_controller.on(EVENT_ACTION, function (action, item) {
+                pages_controller.on(EVENT_ACTION, function (item) {
                     // clicked action
-                    var actionId = action['_id']; // details (App details)
+                    var actionId = item['_id']
+                        , command = item['command']
+                        ;
+
+                    //-- eval action command --//
+                    if (!!command) {
+                        //console.log(command);
+                        eval(command);
+                    }
+
+                    // console.log('ACTION: ' + actionId);
                 });
                 pages_controller.on(EVENT_FAV, function (item) {
                     // add item to favorites
@@ -151,7 +161,7 @@
             var $parent = $('#app-action-button');
 
             var actionbutton = new desktopgap.gui.actionbutton.ActionButton({});
-            actionbutton.appendTo($parent, function(){
+            actionbutton.appendTo($parent, function () {
                 // console.log('Created Action Button');
             });
         } catch (err) {
@@ -198,7 +208,7 @@
             ;
         pages_controller.open(pageId, argsArray);
         $(sel_pagetitle).html(title);
-        // console.log('OPEN: ' + title);
+        // console.log('OPEN: ' + pageId + ' (' + title + ')');
     }
 
     // --------------------------------------------------------------------

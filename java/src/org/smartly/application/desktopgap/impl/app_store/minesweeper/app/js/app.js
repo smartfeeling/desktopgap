@@ -5,6 +5,7 @@
 
         //-- init application stage --//
         $(document).ready(function () {
+
             $("#minefield").minesweeper({
                 skin: "default",
                 size: [10, 10],

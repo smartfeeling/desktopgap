@@ -1,10 +1,12 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
-import org.smartly.application.desktopgap.impl.app.applications.DesktopController;
+import org.smartly.application.desktopgap.impl.app.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
+import org.smartly.application.desktopgap.impl.app.applications.window.applibs.AppLibs;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.event.IEventListener;
@@ -31,6 +33,8 @@ public final class AppInstance
     private final AppLocalization _i18n;
     private final AppWindows _windows; // frames manager
     private final List<AppFrame> _children; // children frames
+    private final AppBridge _bridge;
+    private final AppLibs _libs; // external tools and plugins
 
     public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
@@ -41,6 +45,13 @@ public final class AppInstance
         _windows.addEventListener(this);
         _children = new ArrayList<AppFrame>();
         _i18n = new AppLocalization(this);
+
+        // creates bridge
+        _bridge = new AppBridge(this);
+        _bridge.registerDefault();
+
+        // register plugins
+        _libs = new AppLibs(this, _bridge);
 
         this.initLogger();
     }
@@ -61,6 +72,15 @@ public final class AppInstance
         return _controller;
     }
 
+    /**
+     * Returns plugin/libs manager instance.
+     * Use it to register Frame Tools
+     * @return AppLibs.
+     */
+    public AppLibs getLibs(){
+        return _libs;
+    }
+
     public String getAbsolutePath(final String path) {
         if (PathUtils.isAbsolute(path)) {
             return path;
@@ -74,6 +94,10 @@ public final class AppInstance
 
     public AppManifest getManifest() {
         return _manifest;
+    }
+
+    public AppBridge getBridge() {
+        return _bridge;
     }
 
     public AppLocalization getI18n() {
@@ -109,6 +133,10 @@ public final class AppInstance
         _windows.close(null); // close all
     }
 
+    public void kill() {
+        _windows.kill(null); // close all
+    }
+
     public Logger getLogger() {
         return LoggingUtils.getLogger(this.getId());
     }
@@ -117,8 +145,8 @@ public final class AppInstance
     //          Launch Applications or  Application's Window
     // --------------------------------------------------------------------
 
-    public AppFrame launchApp(final String appId){
-           return this.launchApp(appId, appId, "", null, false);
+    public AppFrame launchApp(final String appId) {
+        return this.launchApp(appId, appId, "", null, false);
     }
 
     /**

@@ -6,6 +6,7 @@
     //-- tabs --//
         , sel_tabs = '#tab-<%= cid %> a'
         , sel_tab_all = '#ALL-<%= cid %>'
+        , sel_tab_fine = '#FINE-<%= cid %>'
         , sel_tab_info = '#INFO-<%= cid %>'
         , sel_tab_warn = '#WARNING-<%= cid %>'
         , sel_tab_err = '#ERRORS-<%= cid %>'
@@ -61,12 +62,14 @@
             , INFO = items['INFO'] || []
             , WARN = items['WARNING'] || []
             , ERR = items['SEVERE'] || []
+            , FINE = items['FINE'] || []
 
         // selectors
             , tab_all = self.template(sel_tab_all)
             , tab_info = self.template(sel_tab_info)
             , tab_warn = self.template(sel_tab_warn)
             , tab_err = self.template(sel_tab_err)
+            , tab_fine = self.template(sel_tab_fine)
             ;
 
         try {
@@ -78,7 +81,8 @@
             self.bindTo(getPanel)(tab_warn).items(WARN);
             //-- ERROR --//
             self.bindTo(getPanel)(tab_err).items(ERR);
-
+            //-- FINE --//
+            self.bindTo(getPanel)(tab_fine).items(FINE);
         } catch (err) {
             console.error('(console.js) Error loading items: ' + err);
         }

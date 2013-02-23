@@ -3,6 +3,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.javascri
 import org.smartly.commons.util.ClassLoaderUtils;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.StringEscapeUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,8 +82,8 @@ public class JsSnippet {
 
     public static String getDispatchEvent(final String eventName, final Object data) {
         final Map<String, Object> params = new HashMap<String, Object>();
-        params.put(PARAM_EVENT_NAME, eventName);
-        params.put(PARAM_EVENT_DATA, null!=data ? data.toString() : "");
+        params.put(PARAM_EVENT_NAME, stringify(eventName));
+        params.put(PARAM_EVENT_DATA, stringify(data));
 
         return getInstance().getScript(SCRIPT_DISPATCH_EVENT, params);
     }
@@ -102,4 +103,15 @@ public class JsSnippet {
 
         return getInstance().getScript(SCRIPT_SET_ELEM_VALUE, params);
     }
+
+    // --------------------------------------------------------------------
+    //               p r i v a t e
+    // --------------------------------------------------------------------
+
+    private static String stringify(final Object object){
+        final String text = null!=object?object.toString():"";
+
+        return StringEscapeUtils.escapeJavaScript(text);
+    }
+
 }

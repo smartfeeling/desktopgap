@@ -6,10 +6,14 @@ import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.commons.util.FileUtils;
 import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.StringUtils;
 import org.smartly.packages.htmlparser.impl.HtmlParser;
+import org.smartly.packages.velocity.impl.util.URLEncodeUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * DOM utils
@@ -23,7 +27,7 @@ public class DOM {
     private DOM() {
     }
 
-    public void inject(final AppManifest manifest,
+    public String inject(final AppManifest manifest,
                        final String html_frame,
                        final String html_page,
                        final String output) throws IOException {
@@ -63,11 +67,15 @@ public class DOM {
                 frame_app.attr("style", "visibility:hidden");
             }
 
-
+            final String html = frame.getDocument().outerHtml();
             // save output
-            FileUtils.writeStringToFile(new File(output),
-                    frame.getDocument().outerHtml(),
-                    Smartly.getCharset());
+            if(StringUtils.hasText(output)){
+                FileUtils.writeStringToFile(new File(output),
+                        html,
+                        Smartly.getCharset());
+            }
+
+            return html;
         } else {
             throw new IOException("Invalid frame.");
         }
@@ -110,13 +118,34 @@ public class DOM {
         return FileUtils.readFileToString(new File(uri));
     }
 
-    public static void insertInFrame(final AppManifest manifest,
-                                     final String framePage,
-                                     final String page,
-                                     final String outputPage) throws IOException {
-        final String html_frame = read(framePage);
+    public static String insertInFrameByUrl(final AppManifest manifest,
+                                            final String page,
+                                            final String outputPage) throws IOException {
+        final String html_frame = read(manifest.getAbsolutePageFrame());
         final String html_page = read(page);
-        getInstance().inject(manifest, html_frame, html_page, outputPage);
+        return getInstance().inject(manifest, html_frame, html_page, outputPage);
     }
 
+    public static String insertInFrame(final AppManifest manifest,
+                                            final String html_page,
+                                            final String outputPage) throws IOException {
+        final String html_frame = read(manifest.getAbsolutePageFrame());
+        return getInstance().inject(manifest, html_frame, html_page, outputPage);
+    }
+
+    public static String decode(final String text){
+        try{
+            return URLEncodeUtils.decodeURI(text);
+        } catch(Throwable t){
+            return t.toString();
+        }
+    }
+
+    public static String encode(final String text){
+        try{
+            return URLEncodeUtils.encodeURI(text);
+        } catch(Throwable t){
+            return t.toString();
+        }
+    }
 }
