@@ -7,7 +7,7 @@
     var evt = document.createEvent('Event');
 
     // define that the event name is '[EVENT_NAME]'
-    evt.initEvent('[EVENT_NAME]', true, true);
+    evt.initEvent(eventName, true, true);
 
     if(!!eventData){
         evt.data = evt.data||[];
