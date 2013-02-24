@@ -433,9 +433,19 @@ public class ResourceHandler extends HandlerWrapper {
 
     private boolean isServletPath(final String target) {
         if (null != _server) {
-            final String path = URIUtil.stripPath(target);
+            final String path = stripPath(target);
             return _server.getServletPaths().contains(path);
         }
         return false;
     }
+
+    private static String stripPath(String path) {
+        if (path == null)
+            return null;
+        int semi = path.indexOf(';');
+        if (semi < 0)
+            return path;
+        return path.substring(0, semi);
+    }
+
 }
