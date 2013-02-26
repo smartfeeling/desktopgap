@@ -12,11 +12,12 @@
         <element id="module-output" name="smartly_package_01_htmlparser" />
         <element id="module-output" name="smartly_package_01_velocity" />
       </element>
-      <element id="library" level="application" name="org.jsoup:jsoup:1.7.1" />
       <element id="library" level="application" name="junit:junit:4.9" />
+      <element id="library" level="application" name="jfxrt" />
       <element id="library" level="application" name="org.mozilla:rhino:1.7R4" />
+      <element id="library" level="application" name="org.jsoup:jsoup:1.7.2" />
       <element id="library" level="application" name="org.apache.velocity:velocity:1.7" />
-      <element id="library" level="application" name="org.eclipse.jetty.aggregate:jetty-all-server:8.1.4.v20120524" />
+      <element id="library" level="application" name="org.eclipse.jetty.aggregate:jetty-all-server:8.1.9.v20130131" />
     </root>
   </artifact>
 </component>
