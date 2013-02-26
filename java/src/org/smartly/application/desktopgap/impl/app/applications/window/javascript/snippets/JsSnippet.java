@@ -1,9 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets;
 
-import org.smartly.commons.util.ClassLoaderUtils;
-import org.smartly.commons.util.FormatUtils;
-import org.smartly.commons.util.PathUtils;
-import org.smartly.commons.util.StringEscapeUtils;
+import org.json.JSONObject;
+import org.smartly.commons.util.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,9 +107,19 @@ public class JsSnippet {
     // --------------------------------------------------------------------
 
     private static String stringify(final Object object){
-        final String text = null!=object?object.toString():"";
-
+        final String text = toString(object);
         return StringEscapeUtils.escapeJavaScript(text);
+    }
+
+    private static String toString(final Object object){
+        if(null!=object){
+            if(object instanceof JSONObject){
+                return StringUtils.replace(object.toString(), new String[]{"\n"}, "<br>");
+            } else {
+                return object.toString();
+            }
+        }
+        return "";
     }
 
 }
