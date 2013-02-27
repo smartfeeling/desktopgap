@@ -74,7 +74,7 @@ public final class JsEngine {
         }
     }
 
-    public void emitEvent(final String name, final JSONObject data){
+    public void emitEvent(final String name, final Object data){
         final String script_resize = JsSnippet.getDispatchEvent(name, data);
         this.executeScript(script_resize);
     }
