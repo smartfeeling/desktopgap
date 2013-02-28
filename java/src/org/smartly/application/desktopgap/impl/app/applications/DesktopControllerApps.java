@@ -24,12 +24,14 @@ public final class DesktopControllerApps
 
     private final Map<String, AppInstance> _registry_running;
     private final Map<String, AppManifest> _registry_installed;
+    private final Map<String, String> _registry_invalid; // invalid applications paths and errors
     private final Set<String> _system_apps; // system apps
 
     public DesktopControllerApps(final DesktopController desktop) {
         _desktop = desktop;
         _registry_running = Collections.synchronizedMap(new HashMap<String, AppInstance>());
         _registry_installed = Collections.synchronizedMap(new HashMap<String, AppManifest>());
+        _registry_invalid = Collections.synchronizedMap(new HashMap<String, String>());
         _system_apps = Collections.synchronizedSet(new HashSet<String>());
     }
 
@@ -113,6 +115,21 @@ public final class DesktopControllerApps
         }
     }
 
+    /**
+     * Return array of strings with a list of invalid applications paths
+     *
+     * @return Array of Strings in JSON format
+     */
+    public JSONObject getInvalidApplications() {
+        final JSONObject result = new JSONObject();
+        if (!_registry_invalid.isEmpty()) {
+            final Set<String> keys = _registry_invalid.keySet();
+            for (final String path : keys) {
+                JsonWrapper.put(result, path, _registry_invalid.get(path));
+            }
+        }
+        return result;
+    }
     // --------------------------------------------------------------------
     //               installed
     // --------------------------------------------------------------------
@@ -132,9 +149,14 @@ public final class DesktopControllerApps
     public void addInstalled(final String file, final boolean system) throws IOException {
         synchronized (_registry_installed) {
             final AppManifest manifest = new AppManifest(file);
-            _registry_installed.put(manifest.getAppId(), manifest);
-            if (system) {
-                this.addSystem(manifest.getAppId());
+            if (manifest.isValid()) {
+                _registry_installed.put(manifest.getAppId(), manifest);
+                if (system) {
+                    this.addSystem(manifest.getAppId());
+                }
+            } else {
+                //-- found invalid manifest --//
+                _registry_invalid.put(file, manifest.getErrorMessage());
             }
         }
     }
@@ -172,7 +194,7 @@ public final class DesktopControllerApps
             final Collection<AppInstance> apps = _registry_running.values();
             for (final AppInstance app : apps) {
                 try {
-                   app.close();
+                    app.close();
                 } catch (Throwable ignored) {
                 }
             }

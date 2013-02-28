@@ -93,16 +93,17 @@ public class AppManifest {
             if (_is_system) {
                 _appId = _manifest.optString(MF_SYS_ID, null);
             }
+
+            // add id
+            _manifest.putSilent(MF_UID, this.getAppId());
+            // add object_type for javascript usage
+            _manifest.putSilent(IDesktopConstants.OBJECT_TYPE, IDesktopConstants.OBJECT_TYPE_MANIFEST);
         } else {
             _appName = "";
             _install_dir = "";
             _dir_app = "";
             _dir_libs = "";
         }
-        _manifest.putSilent(MF_UID, this.getAppId());
-
-        // add object_type for javascript usage
-        _manifest.putSilent(IDesktopConstants.OBJECT_TYPE, IDesktopConstants.OBJECT_TYPE_MANIFEST);
     }
 
     public JsonWrapper getJson() {
@@ -114,14 +115,18 @@ public class AppManifest {
     }
 
     public boolean isValid() {
-        return null != _manifest && !_manifest.isEmpty();
+        return null != _manifest && !_manifest.isEmpty() && !_manifest.hasParseError();
     }
 
-    public String getPathLibs(){
+    public String getErrorMessage() {
+        return _manifest.hasParseError() ? _manifest.getParseError().toString() : "";
+    }
+
+    public String getPathLibs() {
         return _dir_libs;
     }
 
-    public String getPathApp(){
+    public String getPathApp() {
         return _dir_app;
     }
 
