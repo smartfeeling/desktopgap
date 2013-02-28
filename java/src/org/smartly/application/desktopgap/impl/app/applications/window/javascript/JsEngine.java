@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -74,9 +75,15 @@ public final class JsEngine {
         }
     }
 
-    public void emitEvent(final String name, final Object data){
-        final String script_resize = JsSnippet.getDispatchEvent(name, data);
-        this.executeScript(script_resize);
+    public void emitEvent(final String name, final Object data) {
+        final JsEngine instance = this;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                final String script_resize = JsSnippet.getDispatchEvent(name, data);
+                executeScript(instance, script_resize);
+            }
+        });
     }
 
     public void emitEventResize(final JSONObject data) {
@@ -171,12 +178,14 @@ public final class JsEngine {
     }
 
     private void executeScript(final String script) {
-        try {
+        /*try {
             _engine.executeScript(script);
         } catch (Throwable t) {
             _frame.getApp().getLogger().log(Level.SEVERE, null, t);
-        }
+        }*/
+        executeScript(this, script);
     }
+
 
     private void handleWebEngineLoading(final WebEngine engine) {
         // process page loading
@@ -231,5 +240,19 @@ public final class JsEngine {
                 }
             }
         });
+    }
+
+    // --------------------------------------------------------------------
+    //               p r i v a t e
+    // --------------------------------------------------------------------
+
+    private static void executeScript(final JsEngine instance, final String script) {
+        synchronized (instance) {
+            try {
+                instance._engine.executeScript(script);
+            } catch (Throwable t) {
+                instance._frame.getApp().getLogger().log(Level.SEVERE, null, t);
+            }
+        }
     }
 }
