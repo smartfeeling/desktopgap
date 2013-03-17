@@ -18,3 +18,10 @@ Desktop.ini
 
 
 /java/XPOINT_SAP_CONNECTOR.jcoDestination
+.DS_Store
+java/.DS_Store
+java/src/.DS_Store
+java/src/org/.DS_Store
+java/src/org/smartly/.DS_Store
+java/src/org/smartly/application/.DS_Store
+java/src/org/smartly/application/desktopgap/.DS_Store
