@@ -1,12 +1,11 @@
 package org.smartly.application.desktopgap.impl.app.server;
 
 import org.eclipse.jetty.http.HttpFields;
-import org.eclipse.jetty.http.HttpHeaders;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
-import org.eclipse.jetty.io.ByteArrayBuffer;
 import org.eclipse.jetty.io.WriterOutputStream;
-import org.eclipse.jetty.server.AbstractHttpConnection;
 import org.eclipse.jetty.server.Dispatcher;
+import org.eclipse.jetty.server.HttpOutput;
 import org.eclipse.jetty.server.Response;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.util.URIUtil;
@@ -103,7 +102,7 @@ public class ServletUtils {
                                      final Long lastModified,
                                      final Object content) throws IOException {
         if (null != lastModified) {
-            response.setDateHeader(HttpHeaders.LAST_MODIFIED, lastModified);
+            response.setDateHeader(HttpHeader.LAST_MODIFIED.asString(), lastModified);
         }
 
         // Send the content
@@ -115,8 +114,8 @@ public class ServletUtils {
         }
 
         // See if a short direct method can be used?
-        if (out instanceof AbstractHttpConnection.Output) {
-            ((AbstractHttpConnection.Output) out).sendContent(content);
+        if (out instanceof HttpOutput) {
+            ((HttpOutput) out).sendContent(content);
         } else if (out instanceof WriterOutputStream) {
             // Write content normally
             FileUtils.copy((InputStream) content, out);
@@ -136,16 +135,9 @@ public class ServletUtils {
         doResponseHeaders(response, null, length, mimeType);
     }
 
-    public static void doResponseHeaders(final HttpServletResponse response,
-                                         final ByteArrayBuffer cacheControl,
-                                         final Resource resource,
-                                         final String mimeType) {
-        final long length = resource.length();
-        doResponseHeaders(response, cacheControl, length, mimeType);
-    }
 
     public static void doResponseHeaders(final HttpServletResponse response,
-                                         final ByteArrayBuffer cacheControl,
+                                         final String cacheControl,
                                          final long length,
                                          final String mimeType) {
         if (mimeType != null)
@@ -155,16 +147,16 @@ public class ServletUtils {
             final HttpFields fields = ((Response) response).getHttpFields();
 
             if (length > 0)
-                fields.putLongField(HttpHeaders.CONTENT_LENGTH_BUFFER, length);
+                fields.putLongField(HttpHeader.CONTENT_LENGTH.asString(), length);
 
             if (cacheControl != null)
-                fields.put(HttpHeaders.CACHE_CONTROL_BUFFER, cacheControl);
+                fields.put(HttpHeader.CACHE_CONTROL.asString(), cacheControl);
         } else {
             if (length > 0)
-                response.setHeader(HttpHeaders.CONTENT_LENGTH, Long.toString(length));
+                response.setHeader(HttpHeader.CONTENT_LENGTH.asString(), Long.toString(length));
 
             if (cacheControl != null)
-                response.setHeader(HttpHeaders.CACHE_CONTROL, cacheControl.toString());
+                response.setHeader(HttpHeader.CACHE_CONTROL.asString(), cacheControl);
         }
     }
 

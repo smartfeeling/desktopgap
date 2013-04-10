@@ -1,10 +1,8 @@
 package org.smartly.application.desktopgap.impl.app.server;
 
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.smartly.Smartly;
@@ -15,6 +13,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppManife
 import org.smartly.application.desktopgap.impl.app.server.handlers.EndPointServlet;
 import org.smartly.application.desktopgap.impl.app.server.handlers.ResourceHandler;
 import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
+import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
 
 import java.util.HashSet;
@@ -114,12 +113,17 @@ public final class WebServer {
     private Connector[] getConnectors(final int port) {
         final List<Connector> result = new LinkedList<Connector>();
 
-        // http connector
-        final SelectChannelConnector http = new SelectChannelConnector();
-        http.setName("http");
+        // http configuration
+        final HttpConfiguration http_config = new HttpConfiguration();
+        http_config.setSecureScheme("https");
+        http_config.setSecurePort(8443);
+        http_config.setOutputBufferSize(32768);
+        http_config.setRequestHeaderSize(8112);
+
+        final ServerConnector http = new ServerConnector(_jetty, new HttpConnectionFactory(http_config));
         http.setPort(port);
-        http.setMaxIdleTime(30000);
-        http.setRequestHeaderSize(8112);
+        http.setIdleTimeout(30000);
+
         result.add(http);
 
         return result.toArray(new Connector[result.size()]);

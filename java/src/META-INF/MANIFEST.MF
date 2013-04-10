@@ -1,23 +1,26 @@
 Manifest-Version: 1.0
-Class-Path: junit-4.9.jar hamcrest-core-1.1.jar deploy.jar javaws.jar 
- jfxrt.jar plugin.jar rhino-1.7R4.jar jsoup-1.7.2.jar velocity-1.7.jar
-  commons-collections-3.2.1.jar commons-lang-2.4.jar jdom-1.0.jar comm
- ons-logging-1.1.jar logkit-2.0.jar log4j-1.2.12.jar ant-1.6.jar werke
- n-xpath-0.9.4.jar jetty-all-server-8.1.9.v20130131.jar jetty-deploy-8
- .1.9.v20130131.jar jetty-webapp-8.1.9.v20130131.jar jetty-xml-8.1.9.v
- 20130131.jar jetty-util-8.1.9.v20130131.jar jetty-servlet-8.1.9.v2013
- 0131.jar jetty-security-8.1.9.v20130131.jar jetty-server-8.1.9.v20130
- 131.jar javax.servlet-3.0.0.v201112011016.jar jetty-continuation-8.1.
- 9.v20130131.jar jetty-http-8.1.9.v20130131.jar jetty-io-8.1.9.v201301
- 31.jar jetty-websocket-8.1.9.v20130131.jar jetty-jmx-8.1.9.v20130131.
- jar jetty-plus-8.1.9.v20130131.jar javax.transaction-1.1.1.v201105210
- 645.jar jetty-jndi-8.1.9.v20130131.jar javax.mail.glassfish-1.4.1.v20
- 1005082020.jar javax.activation-1.1.0.v201105071233.jar jetty-ajp-8.1
- .9.v20130131.jar jetty-annotations-8.1.9.v20130131.jar javax.annotati
- on-1.1.0.v201108011116.jar org.objectweb.asm-3.1.0.v200803061910.jar 
- jetty-jaspi-8.1.9.v20130131.jar javax.security.auth.message-1.0.0.v20
- 1108011116.jar jetty-rewrite-8.1.9.v20130131.jar jetty-client-8.1.9.v
- 20130131.jar jetty-servlets-8.1.9.v20130131.jar jetty-nested-8.1.9.v2
- 0130131.jar
+Class-Path: deploy.jar javaws.jar jfxrt.jar plugin.jar velocity-1.7.ja
+ r commons-collections-3.2.1.jar commons-lang-2.4.jar jdom-1.0.jar com
+ mons-logging-1.1.jar logkit-2.0.jar log4j-1.2.12.jar ant-1.6.jar werk
+ en-xpath-0.9.4.jar rhino-1.7R4.jar junit-4.9.jar hamcrest-core-1.1.ja
+ r jetty-all-9.0.0.v20130308.jar jetty-client-9.0.0.v20130308.jar jett
+ y-http-9.0.0.v20130308.jar jetty-util-9.0.0.v20130308.jar jetty-io-9.
+ 0.0.v20130308.jar jetty-deploy-9.0.0.v20130308.jar jetty-webapp-9.0.0
+ .v20130308.jar jetty-xml-9.0.0.v20130308.jar jetty-servlet-9.0.0.v201
+ 30308.jar jetty-security-9.0.0.v20130308.jar jetty-server-9.0.0.v2013
+ 0308.jar javax.servlet-3.0.0.v201112011016.jar websocket-server-9.0.0
+ .v20130308.jar websocket-common-9.0.0.v20130308.jar websocket-api-9.0
+ .0.v20130308.jar websocket-servlet-9.0.0.v20130308.jar websocket-clie
+ nt-9.0.0.v20130308.jar spdy-http-server-9.0.0.v20130308.jar spdy-serv
+ er-9.0.0.v20130308.jar spdy-core-9.0.0.v20130308.jar spdy-client-9.0.
+ 0.v20130308.jar jetty-jmx-9.0.0.v20130308.jar jetty-plus-9.0.0.v20130
+ 308.jar javax.transaction-1.1.1.v201105210645.jar jetty-jndi-9.0.0.v2
+ 0130308.jar javax.mail.glassfish-1.4.1.v201005082020.jar javax.activa
+ tion-1.1.0.v201105071233.jar jetty-annotations-9.0.0.v20130308.jar ja
+ vax.annotation-1.1.0.v201108011116.jar org.objectweb.asm-3.1.0.v20080
+ 3061910.jar jetty-jaspi-9.0.0.v20130308.jar javax.security.auth.messa
+ ge-1.0.0.v201108011116.jar jetty-rewrite-9.0.0.v20130308.jar jetty-se
+ rvlets-9.0.0.v20130308.jar jetty-continuation-9.0.0.v20130308.jar jso
+ up-1.7.2.jar
 Main-Class: org.smartly.application.desktopgap.launcher.Main
 

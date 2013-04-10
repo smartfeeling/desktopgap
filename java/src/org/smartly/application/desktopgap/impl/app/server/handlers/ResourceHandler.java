@@ -1,18 +1,12 @@
 package org.smartly.application.desktopgap.impl.app.server.handlers;
 
-import org.eclipse.jetty.http.HttpHeaders;
-import org.eclipse.jetty.http.HttpMethods;
-import org.eclipse.jetty.http.HttpStatus;
-import org.eclipse.jetty.http.MimeTypes;
-import org.eclipse.jetty.io.Buffer;
-import org.eclipse.jetty.io.ByteArrayBuffer;
+import org.eclipse.jetty.http.*;
 import org.eclipse.jetty.io.WriterOutputStream;
-import org.eclipse.jetty.server.AbstractHttpConnection;
 import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Response;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerWrapper;
 import org.eclipse.jetty.util.URIUtil;
-import org.eclipse.jetty.util.resource.FileResource;
 import org.eclipse.jetty.util.resource.Resource;
 import org.smartly.application.desktopgap.impl.app.server.ServletUtils;
 import org.smartly.application.desktopgap.impl.app.server.WebServer;
@@ -21,6 +15,7 @@ import org.smartly.commons.logging.util.LoggingUtils;
 import org.smartly.commons.util.DateUtils;
 import org.smartly.commons.util.PathUtils;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,58 +28,40 @@ import java.net.MalformedURLException;
  */
 public class ResourceHandler extends HandlerWrapper {
 
+    private WebServer _server;
+
     private ContextHandler _context;
     private Resource _baseResource;
     private Resource _defaultStylesheet;
     private Resource _stylesheet;
     private String[] _welcomeFiles = {"index.html"};
     private MimeTypes _mimeTypes = new MimeTypes();
-    private ByteArrayBuffer _cacheControl;
-    private WebServer _server;
-    private boolean _aliases;
     private boolean _directory;
+    private boolean _etags;
+    private String _cacheControl;
 
 
     public ResourceHandler() {
         _mimeTypes.addMimeMapping("vcf", "text/vcard");
     }
 
+    public void setServer(final WebServer server) {
+        _server = server;
+
+    }
+
     // --------------------------------------------------------------------
     //               p u b l i c
     // --------------------------------------------------------------------
 
-    public void setServer(final WebServer server) {
-        _server = server;
-    }
-
+    /* ------------------------------------------------------------ */
     public MimeTypes getMimeTypes() {
         return _mimeTypes;
     }
 
-    public void setMimeTypes(final MimeTypes mimeTypes) {
-        _mimeTypes = mimeTypes;
-    }
-
-
-    /**
-     * @return True if resource aliases are allowed.
-     */
-    public boolean isAliases() {
-        return _aliases;
-    }
-
     /* ------------------------------------------------------------ */
-
-    /**
-     * Set if resource aliases (eg symlink, 8.3 names, case insensitivity) are allowed.
-     * Allowing aliases can significantly increase security vulnerabilities.
-     * If this handler is deployed inside a ContextHandler, then the
-     * {@link org.eclipse.jetty.server.handler.ContextHandler#isAliases()} takes precedent.
-     *
-     * @param aliases True if aliases are supported.
-     */
-    public void setAliases(boolean aliases) {
-        _aliases = aliases;
+    public void setMimeTypes(MimeTypes mimeTypes) {
+        _mimeTypes = mimeTypes;
     }
 
     /* ------------------------------------------------------------ */
@@ -110,22 +87,34 @@ public class ResourceHandler extends HandlerWrapper {
     }
 
     /* ------------------------------------------------------------ */
+
+    /**
+     * @return True if ETag processing is done
+     */
+    public boolean isEtags() {
+        return _etags;
+    }
+
+    /* ------------------------------------------------------------ */
+
+    /**
+     * @param etags True if ETag processing is done
+     */
+    public void setEtags(boolean etags) {
+        _etags = etags;
+    }
+
+    /* ------------------------------------------------------------ */
     @Override
     public void doStart()
             throws Exception {
-        final ContextHandler.Context scontext = ContextHandler.getCurrentContext();
+        ContextHandler.Context scontext = ContextHandler.getCurrentContext();
         _context = (scontext == null ? null : scontext.getContextHandler());
-
-        if (_context != null)
-            _aliases = _context.isAliases();
-
-        if (!_aliases && !FileResource.getCheckAliases())
-            throw new IllegalStateException("Alias checking disabled");
 
         super.doStart();
     }
 
-    /* ------------------------------------------------------------ */
+/* ------------------------------------------------------------ */
 
     /**
      * @return Returns the resourceBase.
@@ -153,7 +142,7 @@ public class ResourceHandler extends HandlerWrapper {
     /**
      * @param base The resourceBase to set.
      */
-    public void setBaseResource(final Resource base) {
+    public void setBaseResource(Resource base) {
         _baseResource = base;
     }
 
@@ -196,7 +185,7 @@ public class ResourceHandler extends HandlerWrapper {
     /**
      * @param stylesheet The location of the stylesheet to be used as a String.
      */
-    public void setStylesheet(final String stylesheet) {
+    public void setStylesheet(String stylesheet) {
         try {
             _stylesheet = Resource.newResource(stylesheet);
             if (!_stylesheet.exists()) {
@@ -205,7 +194,7 @@ public class ResourceHandler extends HandlerWrapper {
             }
         } catch (Exception e) {
             this.getLogger().warning(e.toString());
-            throw new IllegalArgumentException(stylesheet);
+            throw new IllegalArgumentException(stylesheet.toString());
         }
     }
 
@@ -224,20 +213,57 @@ public class ResourceHandler extends HandlerWrapper {
      * @param cacheControl the cacheControl header to set on all static content.
      */
     public void setCacheControl(String cacheControl) {
-        _cacheControl = cacheControl == null ? null : new ByteArrayBuffer(cacheControl);
+        _cacheControl = cacheControl;
     }
 
     /* ------------------------------------------------------------ */
+    /*
+     */
+    public Resource getResource(String path) throws MalformedURLException {
+        if (path == null || !path.startsWith("/"))
+            throw new MalformedURLException(path);
 
-    public Resource getResource(final String path) throws MalformedURLException {
-        return ServletUtils.getResource(_baseResource, _context, path);
+        Resource base = _baseResource;
+        if (base == null) {
+            if (_context == null)
+                return null;
+            base = _context.getBaseResource();
+            if (base == null)
+                return null;
+        }
+
+        try {
+            path = URIUtil.canonicalPath(path);
+            return base.addPath(path);
+        } catch (Exception e) {
+            this.getLogger().warning(e.toString());
+        }
+
+        return null;
     }
 
     /* ------------------------------------------------------------ */
+    protected Resource getResource(HttpServletRequest request) throws MalformedURLException {
+        String servletPath;
+        String pathInfo;
+        Boolean included = request.getAttribute(RequestDispatcher.INCLUDE_REQUEST_URI) != null;
+        if (included != null && included.booleanValue()) {
+            servletPath = (String) request.getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH);
+            pathInfo = (String) request.getAttribute(RequestDispatcher.INCLUDE_PATH_INFO);
 
-    protected String getResourcePath(final HttpServletRequest request) throws MalformedURLException {
-        return ServletUtils.getResourcePath(request);
+            if (servletPath == null && pathInfo == null) {
+                servletPath = request.getServletPath();
+                pathInfo = request.getPathInfo();
+            }
+        } else {
+            servletPath = request.getServletPath();
+            pathInfo = request.getPathInfo();
+        }
+
+        String pathInContext = URIUtil.addPaths(servletPath, pathInfo);
+        return getResource(pathInContext);
     }
+
 
     /* ------------------------------------------------------------ */
     public String[] getWelcomeFiles() {
@@ -250,12 +276,13 @@ public class ResourceHandler extends HandlerWrapper {
     }
 
     /* ------------------------------------------------------------ */
-    protected Resource getWelcome(final Resource directory) throws IOException {
+    protected Resource getWelcome(Resource directory) throws MalformedURLException, IOException {
         for (int i = 0; i < _welcomeFiles.length; i++) {
-            final Resource welcome = directory.addPath(_welcomeFiles[i]);
+            Resource welcome = directory.addPath(_welcomeFiles[i]);
             if (welcome.exists() && !welcome.isDirectory())
                 return welcome;
         }
+
         return null;
     }
 
@@ -263,14 +290,15 @@ public class ResourceHandler extends HandlerWrapper {
     /*
      * @see org.eclipse.jetty.server.Handler#handle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, int)
      */
+    @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (baseRequest.isHandled())
             return;
 
         boolean skipContentBody = false;
 
-        if (!HttpMethods.GET.equals(request.getMethod()) && !HttpMethods.POST.equals(request.getMethod())) {
-            if (!HttpMethods.HEAD.equals(request.getMethod())) {
+        if (!HttpMethod.GET.is(request.getMethod())) {
+            if (!HttpMethod.HEAD.is(request.getMethod())) {
                 //try another handler
                 super.handle(target, baseRequest, request, response);
                 return;
@@ -279,10 +307,14 @@ public class ResourceHandler extends HandlerWrapper {
         }
 
         final String resourcePath = this.getResourcePath(request);
-        Resource resource = this.getResource(resourcePath);
+        Resource resource = getResource(request);
 
-        //-- is css request?--//
         if (resource == null || !resource.exists()) {
+
+            if (this.isCMSPath(request.getPathInfo())) {
+                baseRequest.setHandled(false);
+                return;
+            }
 
             if (target.endsWith("/jetty-dir.css")) {
                 resource = getStylesheet();
@@ -297,13 +329,12 @@ public class ResourceHandler extends HandlerWrapper {
             }
         }
 
-        //-- is Alias? --//
-        if (!_aliases && resource.getAlias() != null) {
-            this.getLogger().info(resource + " aliased to " + resource.getAlias());
-            return;
-        }
-
         if (resource.isDirectory()) {
+
+            if (this.isCMSPath(resourcePath)) {
+                baseRequest.setHandled(false);
+                return;
+            }
 
             if (!request.getPathInfo().endsWith(URIUtil.SLASH)) {
                 if (!this.isServletPath(resourcePath.concat(URIUtil.SLASH))) {
@@ -346,21 +377,37 @@ public class ResourceHandler extends HandlerWrapper {
         baseRequest.setHandled(true);
 
         // set some headers
+        String etag = null;
+        if (_etags) {
+            // simple handling of only a single etag
+            final String ifnm = request.getHeader(HttpHeader.IF_NONE_MATCH.asString());
+            etag = resource.getWeakETag();
+            if (ifnm != null && resource != null && ifnm.equals(etag)) {
+                response.setStatus(HttpStatus.NOT_MODIFIED_304);
+                baseRequest.getResponse().getHttpFields().put(HttpHeader.ETAG, etag);
+                return;
+            }
+        }
+
         final long last_modified = is_servlet_file ? DateUtils.now().getTime() : resource.lastModified();
         if (!is_servlet_file && last_modified > 0) {
-            long if_modified = request.getDateHeader(HttpHeaders.IF_MODIFIED_SINCE);
+            long if_modified = request.getDateHeader(HttpHeader.IF_MODIFIED_SINCE.asString());
             if (if_modified > 0 && last_modified / 1000 <= if_modified / 1000) {
                 response.setStatus(HttpStatus.NOT_MODIFIED_304);
                 return;
             }
         }
 
+
         final String mimeType = this.getMimeType(resource, request);
 
         // set the headers
         this.doResponseHeaders(response, resource, mimeType != null ? mimeType : null);
 
-        response.setDateHeader(HttpHeaders.LAST_MODIFIED, last_modified);
+        response.setDateHeader(HttpHeader.LAST_MODIFIED.asString(), last_modified);
+
+        if (_etags)
+            baseRequest.getResponse().getHttpFields().put(HttpHeader.ETAG, etag);
 
         if (skipContentBody)
             return;
@@ -373,20 +420,17 @@ public class ResourceHandler extends HandlerWrapper {
             out = new WriterOutputStream(response.getWriter());
         }
 
-        // See if a short direct method can be used?
-        if (out instanceof AbstractHttpConnection.Output) {
-            ((AbstractHttpConnection.Output) out).sendContent(resource.getInputStream());
-        } else {
-            // Write content normally
-            resource.writeTo(out, 0, resource.length());
-        }
+
+        // Write content normally
+        resource.writeTo(out, 0, resource.length());
+
     }
 
     /* ------------------------------------------------------------ */
-    protected void doDirectory(final HttpServletRequest request, final HttpServletResponse response, final Resource resource)
+    protected void doDirectory(HttpServletRequest request, HttpServletResponse response, Resource resource)
             throws IOException {
         if (_directory) {
-            final String listing = resource.getListHTML(request.getRequestURI(), request.getPathInfo().lastIndexOf("/") > 0);
+            String listing = resource.getListHTML(request.getRequestURI(), request.getPathInfo().lastIndexOf("/") > 0);
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().println(listing);
         } else
@@ -405,22 +449,46 @@ public class ResourceHandler extends HandlerWrapper {
      * @param mimeType
      */
     protected void doResponseHeaders(HttpServletResponse response, Resource resource, String mimeType) {
-        ServletUtils.doResponseHeaders(response, _cacheControl, resource, mimeType);
+        if (mimeType != null)
+            response.setContentType(mimeType);
+
+        long length = resource.length();
+
+        if (response instanceof Response) {
+            HttpFields fields = ((Response) response).getHttpFields();
+
+            if (length > 0)
+                fields.putLongField(HttpHeader.CONTENT_LENGTH, length);
+
+            if (_cacheControl != null)
+                fields.put(HttpHeader.CACHE_CONTROL, _cacheControl);
+        } else {
+            if (length > 0)
+                response.setHeader(HttpHeader.CONTENT_LENGTH.asString(), Long.toString(length));
+
+            if (_cacheControl != null)
+                response.setHeader(HttpHeader.CACHE_CONTROL.asString(), _cacheControl.toString());
+        }
+
     }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
+    protected String getResourcePath(final HttpServletRequest request) throws MalformedURLException {
+        return ServletUtils.getResourcePath(request);
+    }
+
     private Logger getLogger() {
         return LoggingUtils.getLogger(this);
     }
 
     private String getMimeType(final Resource resource, final HttpServletRequest request) {
-        Buffer mime = _mimeTypes.getMimeByExtension(resource.toString());
+        String mime = _mimeTypes.getMimeByExtension(resource.toString());
         if (mime == null)
             mime = _mimeTypes.getMimeByExtension(request.getPathInfo());
-        return mime.toString();
+        return mime;
     }
 
     private boolean isServletExtension(final String target) {
@@ -433,9 +501,13 @@ public class ResourceHandler extends HandlerWrapper {
 
     private boolean isServletPath(final String target) {
         if (null != _server) {
-            final String path = stripPath(target);
+            final String path = this.stripPath(target);
             return _server.getServletPaths().contains(path);
         }
+        return false;
+    }
+
+    private boolean isCMSPath(final String target) {
         return false;
     }
 
@@ -447,5 +519,6 @@ public class ResourceHandler extends HandlerWrapper {
             return path;
         return path.substring(0, semi);
     }
+
 
 }
