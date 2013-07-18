@@ -13,7 +13,6 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppManife
 import org.smartly.application.desktopgap.impl.app.server.handlers.EndPointServlet;
 import org.smartly.application.desktopgap.impl.app.server.handlers.ResourceHandler;
 import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
-import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
 
 import java.util.HashSet;
@@ -26,7 +25,7 @@ import java.util.Set;
  */
 public final class WebServer {
 
-    private static final int PORT = DesktopGap.getPort();
+    private static int PORT = DesktopGap.getPort();
 
     private final Server _jetty;
     private final String _absoluteBaseResource;
@@ -37,6 +36,11 @@ public final class WebServer {
     private DesktopController _desktopController;
 
     private WebServer() {
+        this(PORT);
+    }
+
+    private WebServer(final int port) {
+        PORT = port;
         _absoluteBaseResource = Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_DIR);
         _jetty = new Server();
         _servletExtensions = new HashSet<String>();
@@ -173,6 +177,14 @@ public final class WebServer {
         return __instance;
     }
 
+    public static WebServer getInstance(final boolean lookupPort) {
+        if (null == __instance) {
+            final int port = getAvailablePort();
+            __instance = new WebServer(port);
+        }
+        return __instance;
+    }
+
     public static String getHttpRoot() {
         return "http://localhost:" + PORT + "/";
     }
@@ -184,5 +196,22 @@ public final class WebServer {
         return URLUtils.addPageParamToUrl(PathUtils.concat(getHttpRoot(), path));
     }
 
-
+    public static int getAvailablePort() {
+        int port = PORT;
+        while (true) {
+            try {
+                final Server jetty = new Server();
+                final ServerConnector http = new ServerConnector(jetty);
+                http.setPort(port);
+                http.setIdleTimeout(100);
+                jetty.setConnectors(new Connector[]{http});
+                jetty.start();
+                jetty.stop();
+                break;
+            } catch (Throwable t) {
+                port++;
+            }
+        }
+        return port;
+    }
 }

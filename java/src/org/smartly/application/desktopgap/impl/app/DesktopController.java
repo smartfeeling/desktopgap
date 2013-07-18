@@ -355,5 +355,14 @@ public final class DesktopController
         }
     }
 
+    public static void open(final boolean allowMultiple) throws Exception {
+        if (!allowMultiple) {
+            open();
+        } else {
+            _webserver = WebServer.getInstance(true);
+            _webserver.start();
+            DesktopController.launch(DesktopController.class);
+        }
+    }
 
 }

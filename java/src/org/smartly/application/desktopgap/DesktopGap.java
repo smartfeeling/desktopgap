@@ -55,9 +55,23 @@ public class DesktopGap extends AbstractPackage {
 
     @Override
     public void ready() {
-        this.init();
+        this.init(false);
         try {
             DesktopController.open();
+        } catch (Throwable t) {
+            super.getLogger().log(Level.SEVERE, null, t);
+        }
+    }
+
+    /**
+     * Call this method if you are developing a java application using DesktopGap
+     * as GUI runtime.
+     */
+    public void initEmbeddable(){
+        Smartly.register(new Deployer(Smartly.getConfigurationPath(), Smartly.isSilent()));
+        this.init(true);
+        try {
+            DesktopController.open(true);
         } catch (Throwable t) {
             super.getLogger().log(Level.SEVERE, null, t);
         }
@@ -67,11 +81,12 @@ public class DesktopGap extends AbstractPackage {
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private void init() {
+    private void init(final boolean embeddable) {
         // deploy html files
         this.deploySysApps();
-        this.deployDefaultStoreApps();
-
+        if(!embeddable){
+            this.deployDefaultStoreApps();
+        }
         this.initDictionary();
 
         // init velocity tools
