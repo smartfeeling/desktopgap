@@ -68,7 +68,7 @@ public final class AppAutorunManager {
         _eventHandlers.add(handler);
     }
 
-    public void run() throws IOException {
+    public void run() {
         if (!_data.isEmpty()) {
             final List<Object> list = _data.values();
             for (final Object item : list) {
@@ -81,7 +81,7 @@ public final class AppAutorunManager {
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private void run(final Object item) throws IOException {
+    private void run(final Object item) {
         if (item instanceof JSONObject) {
             final String id = JsonWrapper.getString(item, APP_ID);
             if(_applications.isInstalled(id)){

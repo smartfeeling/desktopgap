@@ -224,6 +224,13 @@ public final class DesktopController
         }
 
         //-- autorun --//
+        this.initAutorun();
+
+        //-- launch args file --//
+        launchArgFiles();
+    }
+
+    private void initAutorun(){
         _autorun.onAutorun(new AppAutorunManager.OnAutorun() {
             @Override
             public void handle(final String appId) {
@@ -231,9 +238,6 @@ public final class DesktopController
             }
         });
         _autorun.run();
-
-        //-- launch args file --//
-        launchArgFiles();
     }
 
     private AppManifest installPackage(final String packagePath) throws IOException {
