@@ -172,4 +172,8 @@ public class DesktopGap extends AbstractPackage {
     public static Locale getLocale() {
         return LocaleUtils.getCurrent();
     }
+
+    public static String getStoreDir(){
+        return Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_STORE_DIR);
+    }
 }

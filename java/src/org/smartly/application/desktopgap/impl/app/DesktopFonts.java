@@ -2,11 +2,13 @@ package org.smartly.application.desktopgap.impl.app;
 
 import javafx.scene.text.Font;
 import org.smartly.Smartly;
+import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
-import org.smartly.commons.util.CollectionUtils;
-import org.smartly.commons.util.FormatUtils;
+import org.smartly.commons.util.*;
 
+import java.io.File;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import java.util.Set;
 public final class DesktopFonts {
 
     private static final double SIZE = 10.0;
+    private static final String PATH_STORE_FONTS = PathUtils.concat(DesktopGap.getStoreDir(), "/fonts");
 
     private static final String[] FONTS = new String[]{
             "AIRBORNERegular.ttf",
@@ -35,6 +38,9 @@ public final class DesktopFonts {
         this.initFonts();
     }
 
+    /**
+     * Load Default fonts from AppResource folder
+     */
     public void loadDefaultFonts() {
         for (final String font : FONTS) {
             try {
@@ -46,12 +52,29 @@ public final class DesktopFonts {
         }
     }
 
+    public void loadStoreFonts() {
+        final List<File> fonts = new LinkedList<File>();
+        FileUtils.listFiles(fonts, new File(PATH_STORE_FONTS));
+        if (!fonts.isEmpty()) {
+            for (final File font : fonts) {
+                if (StringUtils.hasText(PathUtils.getFilename(font.getAbsolutePath(), false))) {
+                    final String path = "file:".concat(font.getAbsolutePath());
+                    this.loadFont(path);
+                }
+            }
+        }
+    }
+
     public Font loadFont(final String fontPath) {
-        final Font font = Font.loadFont(fontPath, SIZE);
-        final String name = font.getName();
-        _fonts.add(name);
-        _dgfonts.add(name);
-        return font;
+        try {
+            final Font font = Font.loadFont(fontPath, SIZE);
+            final String name = font.getName();
+            _fonts.add(name);
+            _dgfonts.add(name);
+            return font;
+        } catch (Throwable t) {
+            return null;
+        }
     }
 
     public Font getFont(final String fontName, final double size) {
@@ -62,11 +85,11 @@ public final class DesktopFonts {
         return Font.getDefault();
     }
 
-    public String[] getInternalFontNames(){
+    public String[] getInternalFontNames() {
         return _dgfonts.toArray(new String[_dgfonts.size()]);
     }
 
-    public String[] getSystemFontNames(){
+    public String[] getSystemFontNames() {
         return _dgfonts.toArray(new String[_fonts.size()]);
     }
 
@@ -100,13 +123,14 @@ public final class DesktopFonts {
 
     public static void init() {
         getInstance().loadDefaultFonts();
+        getInstance().loadStoreFonts();
     }
 
-    public static String[] getFontNames(){
+    public static String[] getFontNames() {
         return getInstance().getInternalFontNames();
     }
 
-    public static String[] getAllFontNames(){
+    public static String[] getAllFontNames() {
         return getInstance().getSystemFontNames();
     }
 }
