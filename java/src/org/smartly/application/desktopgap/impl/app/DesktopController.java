@@ -9,7 +9,6 @@ import org.smartly.Smartly;
 import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.applications.DesktopControllerApps;
 import org.smartly.application.desktopgap.impl.app.applications.autorun.AppAutorunManager;
-import org.smartly.application.desktopgap.impl.app.applications.autorun.IAutorunListener;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.server.WebServer;
@@ -31,7 +30,7 @@ import java.util.Set;
  */
 public final class DesktopController
         extends Application
-        implements IFileObserverListener, IAutorunListener {
+        implements IFileObserverListener {
 
     private static final String INSTALLED_STORE_DIR = IDesktopConstants.INSTALLED_STORE_DIR;
     private static final String INSTALLED_SYSTEM_DIR = IDesktopConstants.INSTALLED_SYSTEM_DIR;
@@ -54,8 +53,8 @@ public final class DesktopController
         _root_installed_store = Smartly.getAbsolutePath(INSTALLED_STORE_DIR);
         _root_installed_system = Smartly.getAbsolutePath(INSTALLED_SYSTEM_DIR);
         _root_temp = Smartly.getAbsolutePath(TEMP_DIR);
-        _autorun = new AppAutorunManager();
         _applications = new DesktopControllerApps(this);
+        _autorun = new AppAutorunManager(_applications);
         _closed = false;
 
         // inject controller into webserver
@@ -182,27 +181,6 @@ public final class DesktopController
         });
     }
 
-    // --------------------------------------------------------------------
-    //               AppAutorunManager.IListener
-    // --------------------------------------------------------------------
-
-    @Override
-    public void listen(final String appId) {
-        if (this.isClosed()) {
-            return;
-        }
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    launchApp(appId, null);
-                } catch (Throwable t) {
-                    log(Level.SEVERE, null, t);
-                }
-            }
-        });
-    }
-
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
@@ -246,7 +224,13 @@ public final class DesktopController
         }
 
         //-- autorun --//
-        _autorun.run(this);
+        _autorun.onAutorun(new AppAutorunManager.OnAutorun() {
+            @Override
+            public void handle(final String appId) {
+                launchAppLater(appId);
+            }
+        });
+        _autorun.run();
 
         //-- launch args file --//
         launchArgFiles();
@@ -295,6 +279,22 @@ public final class DesktopController
 
         //-- ready to run app --//
         return this.launchApp(manifest.getAppId(), winId);
+    }
+
+    private void launchAppLater(final String appId) {
+        if (this.isClosed()) {
+            return;
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    launchApp(appId, null);
+                } catch (Throwable t) {
+                    log(Level.SEVERE, null, t);
+                }
+            }
+        });
     }
 
     private AppFrame launchApp(final String appId,

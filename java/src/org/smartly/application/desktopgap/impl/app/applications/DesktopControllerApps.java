@@ -9,6 +9,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppInstan
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.util.CollectionUtils;
 import org.smartly.commons.util.JsonWrapper;
 
 import java.io.IOException;
@@ -20,12 +21,20 @@ import java.util.*;
 public final class DesktopControllerApps
         implements IEventListener {
 
+    // ------------------------------------------------------------------------
+    //                      f i e l d s
+    // ------------------------------------------------------------------------
+
     private final DesktopController _desktop;
 
     private final Map<String, AppInstance> _registry_running;
     private final Map<String, AppManifest> _registry_installed;
     private final Map<String, String> _registry_invalid; // invalid applications paths and errors
     private final Set<String> _system_apps; // system apps
+
+    // ------------------------------------------------------------------------
+    //                      c o n s t r u c t o r
+    // ------------------------------------------------------------------------
 
     public DesktopControllerApps(final DesktopController desktop) {
         _desktop = desktop;
@@ -35,13 +44,31 @@ public final class DesktopControllerApps
         _system_apps = Collections.synchronizedSet(new HashSet<String>());
     }
 
-    public AppInstance getApplication(final String appId) throws IOException {
-        if (this.isRunning(appId)) {
-            return this.getRunning(appId);
-        } else {
-            final AppManifest manifest = this.getInstalled(appId);
-            return this.createApp(manifest);
+    // ------------------------------------------------------------------------
+    //                      p u b l i c
+    // ------------------------------------------------------------------------
+
+    public Collection<String> getAppIdByName(final String appName) {
+        final Collection<String> result = new ArrayList<String>();
+        synchronized (_registry_installed) {
+            final Collection<AppManifest> manifests = _registry_installed.values();
+            for (final AppManifest manifest : manifests) {
+                if (manifest.getAppName().equalsIgnoreCase(appName)) {
+                    result.add(manifest.getAppId());
+                }
+            }
         }
+        return result;
+    }
+
+    public AppInstance getApplication(final String appId) throws IOException {
+        // lookup using app_id
+        AppInstance result = this.getApplicationById(appId);
+        if(null==result){
+            // lookup using app_name
+            result = getApplicationById(CollectionUtils.getFirst(this.getAppIdByName(appId)));
+        }
+        return result;
     }
 
     public void closeApplication(final String appId) throws IOException {
@@ -265,5 +292,13 @@ public final class DesktopControllerApps
         }
     }
 
+    public AppInstance getApplicationById(final String appId) throws IOException {
+        if (this.isRunning(appId)) {
+            return this.getRunning(appId);
+        } else {
+            final AppManifest manifest = this.getInstalled(appId);
+            return this.createApp(manifest);
+        }
+    }
 
 }
