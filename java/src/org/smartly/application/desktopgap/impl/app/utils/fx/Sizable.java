@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
-import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.Delegates;
 
 /**
  *
@@ -40,8 +40,8 @@ public class Sizable {
         NW
     }
 
+    private final Delegates.Handlers _eventHandlers;
     private final Pane _parent;
-    private final IEventListener _listener;
     private double _initialScreenX;
     private double _initialScreenY;
     private double _initialSceneX;
@@ -56,8 +56,22 @@ public class Sizable {
     private double _maxWidth;
     private double _maxHeight;
 
-    public Sizable(final Pane pane, final IEventListener listener) {
-        _listener = listener;
+    // --------------------------------------------------------------------
+    //               e v e n t s
+    // --------------------------------------------------------------------
+
+    public static interface OnResize {
+        void handle(final FrameResizeEvent event);
+    }
+
+    private static final Class EVENT_ON_RESIZE = OnResize.class;
+
+    // --------------------------------------------------------------------
+    //               c o n s t r u c t o r
+    // --------------------------------------------------------------------
+
+    public Sizable(final Pane pane) {
+        _eventHandlers = new Delegates.Handlers();
         _minWidth = MIN_WIDTH;
         _minHeight = MIN_HEIGHT;
         _maxWidth = -1;
@@ -79,13 +93,16 @@ public class Sizable {
                    final double minWidth,
                    final double minHeight,
                    final double maxWidth,
-                   final double maxHeight,
-                   final IEventListener listener) {
-        this(pane, listener);
+                   final double maxHeight) {
+        this(pane);
         _minWidth = minWidth;
         _minHeight = minHeight;
         _maxWidth = maxWidth;
         _maxHeight = maxHeight;
+    }
+
+    public void onResize(final OnResize handler) {
+        _eventHandlers.add(handler);
     }
 
     // ------------------------------------------------------------------------
@@ -258,10 +275,10 @@ public class Sizable {
                     stack.getScene().getWindow().setWidth(_minWidth);
                 }
                 // max
-                if(_maxHeight>_minHeight && stack.getScene().getWindow().getHeight()>_maxHeight){
+                if (_maxHeight > _minHeight && stack.getScene().getWindow().getHeight() > _maxHeight) {
                     stack.getScene().getWindow().setHeight(_maxHeight);
                 }
-                if(_maxWidth>_minWidth && stack.getScene().getWindow().getWidth()>_maxWidth){
+                if (_maxWidth > _minWidth && stack.getScene().getWindow().getWidth() > _maxWidth) {
                     stack.getScene().getWindow().setWidth(_maxWidth);
                 }
             }
@@ -270,10 +287,9 @@ public class Sizable {
     }
 
     private void emitResize() {
-        if (null != _listener) {
-            _listener.on(new FrameResizeEvent(_parent));
-        }
+        _eventHandlers.trigger(EVENT_ON_RESIZE, new FrameResizeEvent(_parent));
     }
+
     // ------------------------------------------------------------------------
     //                      TOP
     // ------------------------------------------------------------------------

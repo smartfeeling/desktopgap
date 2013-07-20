@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications.window.controller;
+package org.smartly.application.desktopgap.impl.app.applications.window.webview;
 
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.utils.DOM;

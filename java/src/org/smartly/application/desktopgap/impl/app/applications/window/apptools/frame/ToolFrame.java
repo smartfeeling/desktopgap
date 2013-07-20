@@ -2,8 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.apptools
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
-import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
 import org.smartly.commons.util.ConversionUtils;
 
@@ -19,7 +18,7 @@ public final class ToolFrame extends AbstractTool {
     private static final String BUTTON_MAXIMIZE = IDesktopConstants.BTN_MAXIMIZE;
     private static final String BUTTON_FULLSCREEN = IDesktopConstants.BTN_FULLSCREEN;
 
-    private static final String UNDEFINED = JsEngine.UNDEFINED;
+    private static final String UNDEFINED = JfxJsEngine.UNDEFINED;
 
     private final AppFrame _frame;
 

@@ -2,7 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.appbridg
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.connection.ToolConnection;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.console.ToolConsole;
@@ -22,7 +22,7 @@ public class AppBridge {
     public static final String NAME = "bridge";
 
     private static final String VERSION = IDesktopConstants.VERSION;
-    private static final String UNDEFINED = JsEngine.UNDEFINED;
+    private static final String UNDEFINED = JfxJsEngine.UNDEFINED;
 
     private final AppInstance _app;
     // tools

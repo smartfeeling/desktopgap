@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications.window.controller;
+package org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -9,15 +9,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractScriptEngine;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebView;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebViewAreaManager;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AppWindowUrl;
 import org.smartly.application.desktopgap.impl.app.server.WebServer;
 import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
 import org.smartly.commons.logging.Level;
@@ -29,7 +34,8 @@ import java.util.ResourceBundle;
 /**
  * FX Controller
  */
-public class AppWindowController implements Initializable {
+public class JfxWebView extends AbstractWebView
+        implements Initializable {
 
     // --------------------------------------------------------------------
     //               FX Components
@@ -49,9 +55,8 @@ public class AppWindowController implements Initializable {
     //               fields
     // --------------------------------------------------------------------
 
-    private AppFrame _frame;
-    private AppWindowAreaManager _areaManager;
-    private JsEngine _jsengine;
+    private JfxWebViewAreaManager _areaManager;
+    private JfxJsEngine _jsengine;
     private String _location;
     private String _old_location;
 
@@ -59,7 +64,7 @@ public class AppWindowController implements Initializable {
     //               Constructor
     // --------------------------------------------------------------------
 
-    public AppWindowController() {
+    public JfxWebView() {
 
     }
 
@@ -77,8 +82,8 @@ public class AppWindowController implements Initializable {
         //System.out.println("You clicked me!");
         Stage stage = (Stage) btn_close.getScene().getWindow();
         //stage.close();
-        if (null != _frame) {
-            _frame.close();
+        if (null != super.frame()) {
+            super.frame().close();
         }
     }
 
@@ -87,18 +92,24 @@ public class AppWindowController implements Initializable {
     // --------------------------------------------------------------------
 
     public void initialize(final AppFrame frame) {
-        if (null == _frame) {
-            _frame = frame;
-            _areaManager = new AppWindowAreaManager(_frame, container);
-            _jsengine = frame.getJavascriptEngine();
-
-            this.initBrowser(win_browser);
-            this.navigate(_frame.getIndex());
-        }
+        final AbstractWebView self = this;
+        super.initialize(frame, new OnInitialize() {
+            @Override
+            public void handle() {
+                _jsengine = new JfxJsEngine(frame);
+                _areaManager = new JfxWebViewAreaManager(self, container);
+                initBrowser(win_browser);
+                navigate(frame().getIndex());
+            }
+        });
     }
 
-    public AppWindowAreaManager getAreas() {
+    public AbstractWebViewAreaManager getAreas() {
         return _areaManager;
+    }
+
+    public AbstractScriptEngine getScriptEngine(){
+        return _jsengine;
     }
 
     // ------------------------------------------------------------------------
@@ -106,7 +117,7 @@ public class AppWindowController implements Initializable {
     // ------------------------------------------------------------------------
 
     private Logger getLogger() {
-        return _frame.getApp().getLogger();
+        return super.frame().getApp().getLogger();
     }
 
     private void navigate(final String url) {
@@ -129,8 +140,8 @@ public class AppWindowController implements Initializable {
                 // final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
                 _location = WebServer.getHttpPath(url); //uri.getUrl();
-                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_APPID, _frame.getApp().getId());
-                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_FRAMEID, _frame.getId());
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_APPID, super.frame().getApp().getId());
+                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_FRAMEID, super.frame().getId());
                 win_browser.getEngine().load(_location);
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
@@ -140,7 +151,8 @@ public class AppWindowController implements Initializable {
 
 
     private void initBrowser(final WebView browser) {
-        final AppManifest manifest = _frame.getManifest();
+        final AbstractWebView self = this;
+        final AppManifest manifest = super.frame().getManifest();
 
         // disable/enable context menu
         browser.setContextMenuEnabled(manifest.hasContextMenu());
@@ -156,6 +168,13 @@ public class AppWindowController implements Initializable {
 
         this.handleLoading(engine);
         this.handlePopups(engine);
+
+        browser.setOnScroll(new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent scrollEvent) {
+                self.triggerOnScroll(new FrameScrollEvent(scrollEvent));
+            }
+        });
     }
 
     private void handleAlert(final WebEngine engine) {

@@ -19,9 +19,8 @@ public class FX {
                                   final double minWidth,
                                   final double minHeight,
                                   final double maxWidth,
-                                  final double maxHeight,
-                                  final IEventListener listener) {
-        return new Sizable(node, minWidth, minHeight, maxWidth, maxHeight, listener);
+                                  final double maxHeight) {
+        return new Sizable(node, minWidth, minHeight, maxWidth, maxHeight);
     }
 
     public static Node getRoot(final Node node) {

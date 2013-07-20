@@ -18,9 +18,9 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppInstan
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
-import org.smartly.application.desktopgap.impl.app.applications.window.controller.AppWindowController;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxWebView;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
 import org.smartly.commons.event.Event;
@@ -54,14 +54,17 @@ public final class AppFrame
             "icon_125.png"
     };
 
+    // --------------------------------------------------------------------
+    //               f i e l d s
+    // --------------------------------------------------------------------
+
     private final AppWindows _windows;
-    private final AppWindowController _winctrl;
+    private final JfxWebView _webview;
     private final AppInstance _app;
     private final FXMLLoader _loader;
     private final Parent _fxml;
     private final AppBridgeFrame _bridge_frame;
     private final AppLibsFrame _libs_frame;
-    private final JsEngine _javascript;
 
     private final String _id;
     private Scene _scene;
@@ -71,13 +74,17 @@ public final class AppFrame
 
     private Stage __stage;
 
+    // --------------------------------------------------------------------
+    //               c o n s t r u c t o r
+    // --------------------------------------------------------------------
+
     public AppFrame(final AppWindows windows,
                     final String id) {
         _windows = windows;
         _app = _windows.getApp();
         _loader = new FXMLLoader();
         _fxml = getContent(_loader);
-        _winctrl = _loader.getController();
+        _webview = _loader.getController();
         _id = id;
         _title = _app.getManifest().getTitle();
         _bridge_frame = new AppBridgeFrame(_app.getBridge(), this);
@@ -85,8 +92,6 @@ public final class AppFrame
 
         _maximized = false;
         _old_rect = this.getRegistryRect();
-
-        _javascript = new JsEngine(this, _bridge_frame);
 
         // initializes frame, controller and jsengine
         this.initialize();
@@ -100,8 +105,8 @@ public final class AppFrame
         return _app;
     }
 
-    public JsEngine getJavascriptEngine(){
-        return _javascript;
+    public AppBridgeFrame getBridge() {
+        return _bridge_frame;
     }
 
     public boolean isMain() {
@@ -235,8 +240,8 @@ public final class AppFrame
     public void setTitle(final String title) {
         _title = null != title ? title : "";
 
-        if (null != _javascript) {
-            _javascript.whenReady(JsSnippet.getSetElemValue("title", _title));
+        if (null != _webview && null != _webview.getScriptEngine()) {
+            _webview.getScriptEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
         }
     }
 
@@ -302,16 +307,15 @@ public final class AppFrame
 
     public void setArea(final String name,
                         final double left, final double top, final double right, final double height) {
-        if (null != _winctrl) {
-            _winctrl.getAreas().setArea(name, left, top, right, height);
+        if (null != _webview) {
+            _webview.getAreas().setArea(name, left, top, right, height);
         }
     }
 
 
-
     public void showHideElem(final String elementId, final boolean visible) {
-        if (null != _javascript) {
-            _javascript.whenReady(JsSnippet.getShowHideElem(elementId, visible));
+        if (null != _webview && null != _webview.getScriptEngine()) {
+            _webview.getScriptEngine().whenReady(JsSnippet.getShowHideElem(elementId, visible));
         }
     }
 
@@ -321,8 +325,8 @@ public final class AppFrame
      * @param data Custom data to pass to javascript engine.
      */
     public void putArguments(final Object data) {
-        if (null != _javascript) {
-            _javascript.whenReady(JsSnippet.getDispatchEvent(JsEngine.EVENT_DATA, data));
+        if (null != _webview && null != _webview.getScriptEngine()) {
+            _webview.getScriptEngine().whenReady(JsSnippet.getDispatchEvent(JfxJsEngine.EVENT_DATA, data));
         }
     }
 
@@ -349,7 +353,7 @@ public final class AppFrame
 
     private void initialize() {
         //-- initialize window controller --//
-        _winctrl.initialize(this);
+        _webview.initialize(this);
 
         // add shadow
         if (_app.getManifest().hasShadow()) {
@@ -382,8 +386,8 @@ public final class AppFrame
         final Stage stage = this.getStage();
         if (stage.isShowing()) {
             stage.toFront();
-            if(stage.isIconified()){
-               stage.setIconified(false);
+            if (stage.isIconified()) {
+                stage.setIconified(false);
             }
         } else {
             stage.show();

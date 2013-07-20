@@ -1,15 +1,13 @@
-package org.smartly.application.desktopgap.impl.app.applications.window.controller;
+package org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx;
 
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebView;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebViewAreaManager;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
-import org.smartly.commons.event.Event;
-import org.smartly.commons.event.EventEmitter;
-import org.smartly.commons.event.Events;
+import org.smartly.application.desktopgap.impl.app.utils.fx.Sizable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,33 +15,39 @@ import java.util.Map;
 /**
  * Helper to manage window area
  */
-public class AppWindowAreaManager
-        extends EventEmitter {
+public class JfxWebViewAreaManager
+        extends AbstractWebViewAreaManager {
 
     private static final String DRAG_AREA = "dragbar";
 
-    private final AnchorPane _main_area;
+    private final AbstractWebView _baseView;
+    private final Pane _main_area;
     private final Map<String, StackPane> _areas;
-    private final boolean _sizable;
     private final boolean _draggable;
 
-    public AppWindowAreaManager(final AppFrame frame,
-                                final AnchorPane root) {
+    public JfxWebViewAreaManager(final AbstractWebView baseView,
+                                 final Pane root) {
+        _baseView = baseView;
         _main_area = root;
         _areas = new HashMap<String, StackPane>();
-        _draggable = frame.isDraggable();
-        _sizable = frame.isResizable();
+        _draggable = baseView.frame().isDraggable();
 
-        if(_sizable){
+        if (baseView.frame().isResizable()) {
             FX.sizable(root,
-                    frame.getMinWidth(),
-                    frame.getMinHeight(),
-                    frame.getMaxWidth(),
-                    frame.getMaxHeight(),
-                    frame);
+                    baseView.frame().getMinWidth(),
+                    baseView.frame().getMinHeight(),
+                    baseView.frame().getMaxWidth(),
+                    baseView.frame().getMaxHeight())
+                    .onResize(new Sizable.OnResize() {
+                        @Override
+                        public void handle(final FrameResizeEvent event) {
+                            _baseView.triggerOnResize(event);
+                        }
+                    });
         }
     }
 
+    @Override
     public void setArea(final String name,
                         final double left, final double top, final double right, final double height) {
         if (!_areas.containsKey(name)) {
@@ -53,17 +57,9 @@ public class AppWindowAreaManager
             if (DRAG_AREA.equalsIgnoreCase(name) && _draggable) {
                 // DRAGGABLE AREA
                 FX.draggable(area);
-            } else {
-                // HANDLE CLICK
-                this.handleClick(area);
             }
             _areas.put(name, area);
         }
-    }
-
-    @Override
-    public int emit(final Event event) {
-        return super.emit(event);
     }
 
     // ------------------------------------------------------------------------
@@ -88,19 +84,6 @@ public class AppWindowAreaManager
         } else {
             AnchorPane.setBottomAnchor(stack, 0.0);
         }
-    }
-
-    private void handleClick(final StackPane area) {
-        area.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(final MouseEvent mouseEvent) {
-                final Object source = mouseEvent.getSource();
-                if (source instanceof Node) {
-                    final Event event = new Event(source, Events.ON_CLICK, mouseEvent);
-                    emit(event);
-                }
-            }
-        });
     }
 
 }

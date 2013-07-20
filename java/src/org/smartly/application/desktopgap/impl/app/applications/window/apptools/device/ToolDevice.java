@@ -1,10 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.apptools.device;
 
-import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.JsEngine;
-import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
-import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
 import org.smartly.commons.network.NetworkUtils;
 import org.smartly.commons.util.BeanUtils;
@@ -48,7 +45,7 @@ public final class ToolDevice extends AbstractTool {
     }
 
     public Object get(final String property){
-       return BeanUtils.getValueIfAny(this, property, JsEngine.UNDEFINED);
+       return BeanUtils.getValueIfAny(this, property, JfxJsEngine.UNDEFINED);
     }
 
     public String getToolName(){

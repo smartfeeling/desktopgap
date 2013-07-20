@@ -1,4 +1,4 @@
-package org.smartly.application.desktopgap.impl.app.applications.window.javascript;
+package org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -13,6 +13,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.appbridge
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppBridgeFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractScriptEngine;
 import org.smartly.commons.event.Event;
 import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
@@ -22,7 +23,8 @@ import java.util.*;
 /**
  * Javascript engine helper
  */
-public final class JsEngine {
+public final class JfxJsEngine
+        extends AbstractScriptEngine {
 
     public static final String UNDEFINED = "undefined";
 
@@ -44,12 +46,12 @@ public final class JsEngine {
     private WebEngine _engine;
     private boolean _script_ready;
 
-    public JsEngine(final AppFrame frame, final AppBridgeFrame bridge_frame) {
+    public JfxJsEngine(final AppFrame frame) {
         _app = frame.getApp();
+        _bridge_frame = frame.getBridge();
         _frame = frame;
         _cached_scripts = Collections.synchronizedList(new LinkedList<String>());
         _script_ready = false;
-        _bridge_frame = bridge_frame;
 
         //this.handleWebEngineLoading(engine);
         this.handleFrameEvents(frame);
@@ -76,12 +78,12 @@ public final class JsEngine {
     }
 
     public void emitEvent(final String name, final Object data) {
-        final JsEngine instance = this;
+        final JfxJsEngine self = this;
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 final String script_resize = JsSnippet.getDispatchEvent(name, data);
-                executeScript(instance, script_resize);
+                executeScript(self, script_resize);
             }
         });
     }
@@ -246,7 +248,7 @@ public final class JsEngine {
     //               p r i v a t e
     // --------------------------------------------------------------------
 
-    private static void executeScript(final JsEngine instance, final String script) {
+    private static void executeScript(final JfxJsEngine instance, final String script) {
         synchronized (instance) {
             try {
                 instance._engine.executeScript(script);
