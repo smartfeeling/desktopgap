@@ -1,15 +1,11 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
 import org.smartly.application.desktopgap.impl.app.DesktopController;
-import org.smartly.application.desktopgap.impl.app.applications.events.AppCloseEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.AppOpenEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
-import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.events.*;
 import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
 import org.smartly.application.desktopgap.impl.app.applications.window.applibs.AppLibs;
-import org.smartly.commons.event.Event;
+import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.commons.event.EventEmitter;
-import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.logging.LoggingRepository;
@@ -24,8 +20,7 @@ import java.util.List;
  * Application Wrapper
  */
 public final class AppInstance
-        extends EventEmitter
-        implements IEventListener {
+        extends EventEmitter {
 
     private final DesktopController _controller;
     private final AppManifest _manifest;
@@ -42,7 +37,6 @@ public final class AppInstance
         _manifest = manifest;
         _registry = new AppRegistry(_manifest);
         _windows = new AppWindows(this);
-        _windows.addEventListener(this);
         _children = new ArrayList<AppFrame>();
         _i18n = new AppLocalization(this);
 
@@ -53,6 +47,7 @@ public final class AppInstance
         // register plugins
         _libs = new AppLibs(this, _bridge);
 
+        this.handleWindowEvents(_windows);
         this.initLogger();
     }
 
@@ -75,9 +70,10 @@ public final class AppInstance
     /**
      * Returns plugin/libs manager instance.
      * Use it to register Frame Tools
+     *
      * @return AppLibs.
      */
-    public AppLibs getLibs(){
+    public AppLibs getLibs() {
         return _libs;
     }
 
@@ -182,21 +178,6 @@ public final class AppInstance
         return child;
     }
 
-    // --------------------------------------------------------------------
-    //                      IEventListener
-    // --------------------------------------------------------------------
-
-    @Override
-    public void on(final Event event) {
-        if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_CLOSE)) {
-            // CLOSE
-            this.handleCloseFrame((AppFrame) event.getSender());
-        } else if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_OPEN)) {
-            // OPEN
-            this.handleOpenFrame((AppFrame) event.getSender());
-        }
-    }
-
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
@@ -206,6 +187,24 @@ public final class AppInstance
         final String id = _manifest.getAppId();
         final String installDir = _manifest.getInstallDir();
         LoggingRepository.getInstance().setAbsoluteLogFileName(id, PathUtils.concat(installDir, "application.log"));
+    }
+
+    private void handleWindowEvents(final AppWindows windows) {
+        //-- open --//
+        windows.onEvent(new Handlers.OnOpen() {
+            @Override
+            public void handle(final FrameOpenEvent event) {
+                handleOpenFrame(event.getSender());
+            }
+        });
+
+        //-- close --//
+        windows.onEvent(new Handlers.OnClose() {
+            @Override
+            public void handle(final FrameCloseEvent event) {
+                handleCloseFrame(event.getSender());
+            }
+        });
     }
 
     private void handleCloseFrame(final AppFrame frame) {

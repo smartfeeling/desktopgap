@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +16,7 @@ import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameKeyPressedEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
@@ -139,9 +141,7 @@ public class JfxWebView extends AbstractWebView
 
                 // final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
-                _location = WebServer.getHttpPath(url); //uri.getUrl();
-                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_APPID, super.frame().getApp().getId());
-                _location = URLUtils.addParamToUrl(_location, IDesktopConstants.PARAM_FRAMEID, super.frame().getId());
+                _location = super.getHttpIndex(url, true, null);
                 win_browser.getEngine().load(_location);
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
@@ -151,7 +151,6 @@ public class JfxWebView extends AbstractWebView
 
 
     private void initBrowser(final WebView browser) {
-        final AbstractWebView self = this;
         final AppManifest manifest = super.frame().getManifest();
 
         // disable/enable context menu
@@ -169,10 +168,32 @@ public class JfxWebView extends AbstractWebView
         this.handleLoading(engine);
         this.handlePopups(engine);
 
+        //-- events --//
+        this.handle(browser);
+    }
+
+    private void handle(final WebView browser){
+        final AbstractWebView self = this;
+
+        //-- events --//
         browser.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
                 self.triggerOnScroll(new FrameScrollEvent(scrollEvent));
+            }
+        });
+
+        browser.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent keyEvent) {
+                final FrameKeyPressedEvent event = new FrameKeyPressedEvent(self,
+                        keyEvent.getCharacter(),
+                        keyEvent.getText(),
+                        keyEvent.getCode().toString(),
+                        keyEvent.isShiftDown(),
+                        keyEvent.isControlDown(),
+                        keyEvent.isAltDown());
+                self.triggerOnKeyPressed(event);
             }
         });
     }

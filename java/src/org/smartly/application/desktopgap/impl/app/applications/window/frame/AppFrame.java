@@ -10,39 +10,34 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import org.json.JSONObject;
 import org.smartly.Smartly;
-import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.*;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebView;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
-import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxWebView;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
 import org.smartly.application.desktopgap.impl.resources.AppResources;
-import org.smartly.commons.event.Event;
-import org.smartly.commons.event.EventEmitter;
-import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.Delegates;
+import org.smartly.commons.async.Async;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.util.FormatUtils;
-import org.smartly.commons.util.JsonWrapper;
 import org.smartly.commons.util.PathUtils;
+import org.smartly.commons.util.SystemUtils;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * Window
  */
-public final class AppFrame
-        extends EventEmitter
-        implements IEventListener {
+public final class AppFrame {
 
     private static final double OFF_SET = 10; // border for shadow
 
@@ -57,12 +52,25 @@ public final class AppFrame
     };
 
     // --------------------------------------------------------------------
+    //               e v e n t s
+    // --------------------------------------------------------------------
+
+    private static final Class EVENT_ON_OPEN = Handlers.OnOpen.class;
+    private static final Class EVENT_ON_CLOSE = Handlers.OnClose.class;
+    private static final Class EVENT_ON_HIDDEN = Handlers.OnHidden.class;
+    private static final Class EVENT_ON_SCROLL = Handlers.OnScroll.class;
+    private static final Class EVENT_ON_RESIZE = Handlers.OnResize.class;
+    private static final Class EVENT_ON_KEY_PRESSED = Handlers.OnKeyPressed.class;
+
+    // --------------------------------------------------------------------
     //               f i e l d s
     // --------------------------------------------------------------------
 
+    private final Delegates.Handlers _eventHandlers = new Delegates.Handlers();
+
     private final Parent _fxml;
     private final FXMLLoader _loader;
-    private final JfxWebView _webview;
+    private final AbstractWebView _webview;
 
     private final AppWindows _windows;
     private final AppInstance _app;
@@ -98,7 +106,7 @@ public final class AppFrame
         _old_rect = this.getRegistryRect();
 
         // initializes frame, controller and jsengine
-        this.initialize();
+        this.initialize(_webview);
     }
 
     public String getId() {
@@ -257,7 +265,7 @@ public final class AppFrame
     public void close() {
         if (null != __stage) {
             // close stage and trigger event
-            this.emit(new FrameCloseEvent(this));
+            _eventHandlers.trigger(EVENT_ON_CLOSE, new FrameCloseEvent(this));
             __stage.close();
         }
     }
@@ -340,33 +348,26 @@ public final class AppFrame
     }
 
     // --------------------------------------------------------------------
-    //               IEventListener
+    //               frame  events
     // --------------------------------------------------------------------
 
-    @Override
-    public void on(final Event event) {
-        if (event instanceof FrameResizeEvent) {
-            // set width and height
-            final JsonWrapper data = new JsonWrapper(new JSONObject());
-            data.putSilent(IDesktopConstants.WIDTH, this.getWidth());
-            data.putSilent(IDesktopConstants.HEIGHT, this.getHeight());
-            event.setData(data.getJSONObject());
-
-            this.emit(event);
-        }
+    public void onEvent(final Delegates.Handler handler) {
+        _eventHandlers.add(handler);
     }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
-    private void initialize() {
+    private void initialize(final AbstractWebView webview) {
         //-- initialize window controller --//
-        _webview.initialize(this);
+        webview.initialize(this);
+
+        this.handleWebViewEvents(webview);
 
         // add shadow
         if (_app.getManifest().hasShadow()) {
-            _fxml.getStylesheets().add(this.getStyleSheet());
+            //_fxml.getStylesheets().add(this.getStyleSheet());
         }
 
         // register frame tools
@@ -378,7 +379,7 @@ public final class AppFrame
             __stage = new Stage(StageStyle.TRANSPARENT);
 
             // event handlers
-            this.addStageHandlers(__stage);
+            this.handleStageEvents(__stage);
 
             // init stage bar
             this.initStageBar(__stage);
@@ -401,7 +402,7 @@ public final class AppFrame
         stage.getIcons().addAll(this.getIcons());
     }
 
-    private void initStageSize(final Stage stage){
+    private void initStageSize(final Stage stage) {
         final Rectangle2D rect = this.getRegistryRect();
         stage.setScene(this.createScene(_fxml, rect));
 
@@ -419,7 +420,7 @@ public final class AppFrame
         } else {
             stage.show();
             //-- notify open --//
-            this.onOpen();
+            _eventHandlers.triggerAsync(EVENT_ON_OPEN, new FrameOpenEvent(this));
 
             //_app.getLogger().info("App Window Opened: " + _app.getId());
         }
@@ -507,19 +508,71 @@ public final class AppFrame
         return icons;
     }
 
-    private void addStageHandlers(final Stage stage) {
+    private void handleStageEvents(final Stage stage) {
         final AppFrame self = this;
+
         //-- close event --//
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
-                self.emit(new FrameCloseEvent(self));
+                _eventHandlers.trigger(EVENT_ON_CLOSE, new FrameCloseEvent(self));
+            }
+        });
+
+        //-- hidden event --//
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                _eventHandlers.triggerAsync(EVENT_ON_HIDDEN, new FrameHiddenEvent(self));
             }
         });
     }
 
-    private void onOpen() {
-        this.emit(new FrameOpenEvent(this));
+    private void handleWebViewEvents(final AbstractWebView webview) {
+        final AppFrame self = this;
+
+        //-- onResize --//
+        webview.onResize(new Handlers.OnResize() {
+            @Override
+            public void handle(final FrameResizeEvent event) {
+                _eventHandlers.triggerAsync(EVENT_ON_RESIZE, event);
+            }
+        });
+
+        //-- key pressed --//
+        webview.onKeyPressed(new Handlers.OnKeyPressed() {
+            @Override
+            public void handle(final FrameKeyPressedEvent event) {
+                _eventHandlers.triggerAsync(EVENT_ON_KEY_PRESSED, event);
+                handleCtrlD(event);
+            }
+        });
+
+        //-- onScroll --//
+        webview.onScroll(new Handlers.OnScroll() {
+            @Override
+            public void handle(final FrameScrollEvent event) {
+                _eventHandlers.triggerAsync(EVENT_ON_SCROLL, event);
+            }
+        });
+    }
+
+    private void handleCtrlD(final FrameKeyPressedEvent event) {
+        if (event.isControlDown() && event.getKeyCode().equalsIgnoreCase("D")) {
+            if (this.getManifest().isDebug()) {
+                final String page = _webview.getHttpIndex(false);
+                Async.Action(new Delegates.AsyncActionHandler() {
+                    @Override
+                    public void handle(Object... args) {
+                        try {
+                            SystemUtils.openURL(page);
+                        } catch (Throwable t) {
+                            getApp().getLogger().error(t.toString());
+                        }
+                    }
+                });
+            }
+        }
     }
 
     // --------------------------------------------------------------------

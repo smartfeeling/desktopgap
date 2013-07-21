@@ -1,11 +1,11 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameCloseEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameOpenEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.Handlers;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrameRepository;
-import org.smartly.application.desktopgap.impl.app.applications.events.IDesktopGapEvents;
-import org.smartly.commons.event.Event;
-import org.smartly.commons.event.EventEmitter;
-import org.smartly.commons.event.IEventListener;
+import org.smartly.commons.Delegates;
 import org.smartly.commons.util.StringUtils;
 
 
@@ -13,18 +13,37 @@ import org.smartly.commons.util.StringUtils;
  * Application Window Manager.
  * Each application can host one or more windows.
  */
-public final class AppWindows
-        extends EventEmitter
-        implements IEventListener {
+public final class AppWindows {
+
+    // --------------------------------------------------------------------
+    //               e v e n t s
+    // --------------------------------------------------------------------
+
+    private static final Class EVENT_ON_OPEN = Handlers.OnOpen.class;
+    private static final Class EVENT_ON_CLOSE = Handlers.OnClose.class;
+
+    // --------------------------------------------------------------------
+    //               f i e l d s
+    // --------------------------------------------------------------------
+
+    private final Delegates.Handlers _eventHandler;
 
     private final AppInstance _app;
     private final AppFrameRepository _frames;
 
+    // --------------------------------------------------------------------
+    //               c o n s t r u c t o r
+    // --------------------------------------------------------------------
 
     public AppWindows(final AppInstance app) {
         _app = app;
         _frames = new AppFrameRepository();
+        _eventHandler = new Delegates.Handlers();
     }
+
+    // --------------------------------------------------------------------
+    //               p u b l i c
+    // --------------------------------------------------------------------
 
     public AppInstance getApp() {
         return _app;
@@ -36,6 +55,14 @@ public final class AppWindows
 
     public boolean isEmpty() {
         return _frames.size() == 0;
+    }
+
+    // --------------------------------------------------------------------
+    //               events
+    // --------------------------------------------------------------------
+
+    public void onEvent(final Delegates.Handler handler) {
+        _eventHandler.add(handler);
     }
 
     // --------------------------------------------------------------------
@@ -86,33 +113,16 @@ public final class AppWindows
         }
     }
 
-    // --------------------------------------------------------------------
-    //                      IEventListener
-    // --------------------------------------------------------------------
-
-    @Override
-    public void on(final Event event) {
-        if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_CLOSE)) {
-            // CLOSE
-            this.handleCloseFrame((AppFrame) event.getSender());
-        } else if (event.getName().equalsIgnoreCase(IDesktopGapEvents.FRAME_OPEN)) {
-            // OPEN
-            this.handleOpenFrame((AppFrame) event.getSender());
-        }
-        // emit events for AppInstance to manage application close
-        this.emit(event);
-    }
-
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
 
     private String createWinId(final String winId) {
         final String appId = _app.getId();
-        if(StringUtils.hasText(winId) && !winId.equalsIgnoreCase(appId)){
+        if (StringUtils.hasText(winId) && !winId.equalsIgnoreCase(appId)) {
             return StringUtils.concatDot(appId, winId);
         }
-        return  appId;
+        return appId;
     }
 
     private AppFrame openById(final String id) {
@@ -121,11 +131,30 @@ public final class AppWindows
             frame = _frames.get(id);
         } else {
             frame = new AppFrame(this, id);
-            frame.addEventListener(this);
-
+            this.handleFrameEvents(frame);
         }
         frame.open();
         return frame;
+    }
+
+    private void handleFrameEvents(final AppFrame frame) {
+        //-- open --//
+        frame.onEvent(new Handlers.OnOpen() {
+            @Override
+            public void handle(final FrameOpenEvent event) {
+                handleOpenFrame(frame);
+                _eventHandler.triggerAsync(EVENT_ON_OPEN, event);
+            }
+        });
+
+        //-- close --//
+        frame.onEvent(new Handlers.OnClose() {
+            @Override
+            public void handle(final FrameCloseEvent event) {
+                handleCloseFrame(frame);
+                _eventHandler.trigger(EVENT_ON_CLOSE, event);
+            }
+        });
     }
 
     private void closeAll() {

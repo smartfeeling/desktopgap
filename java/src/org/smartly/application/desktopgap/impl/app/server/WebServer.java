@@ -189,11 +189,16 @@ public final class WebServer {
         return "http://localhost:" + PORT + "/";
     }
 
-    public static String getHttpPath(final String path) {
+    public static String getHttpPath(final String path, final boolean isDesktopGap) {
         if (PathUtils.isAbsolute(path)) {
-            return URLUtils.addPageParamToUrl(path);
+            return URLUtils.addPageParamToUrl(path, isDesktopGap);
         }
-        return URLUtils.addPageParamToUrl(PathUtils.concat(getHttpRoot(), path));
+        return URLUtils.addPageParamToUrl(PathUtils.concat(getHttpRoot(), path), isDesktopGap);
+    }
+
+
+    public static String getHttpPath(final String path) {
+        return getHttpPath(path, true);
     }
 
     public static int getAvailablePort() {

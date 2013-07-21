@@ -7,15 +7,12 @@ import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 import org.json.JSONObject;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppBridgeFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractScriptEngine;
-import org.smartly.commons.event.Event;
-import org.smartly.commons.event.IEventListener;
 import org.smartly.commons.logging.Level;
 
 import java.util.*;
@@ -25,7 +22,6 @@ import java.util.*;
  */
 public final class JfxJsEngine
         extends AbstractScriptEngine {
-
 
 
     private final AppInstance _app;
@@ -43,14 +39,6 @@ public final class JfxJsEngine
         _frame = frame;
         _cached_scripts = Collections.synchronizedList(new LinkedList<String>());
         _script_ready = false;
-
-        //this.handleWebEngineLoading(engine);
-        this.handleFrameEvents(frame);
-    }
-
-    public void handleFrame(final AppFrame frame) {
-        _frame = frame;
-        this.handleFrameEvents(frame);
     }
 
     public void handleLoading(final WebEngine engine) {
@@ -175,8 +163,6 @@ public final class JfxJsEngine
     }
 
 
-
-
     private void handleWebEngineLoading(final WebEngine engine) {
         // process page loading
         engine.getLoadWorker().stateProperty().addListener(
@@ -215,21 +201,6 @@ public final class JfxJsEngine
                 }
         );
 
-    }
-
-    private void handleFrameEvents(final AppFrame frame) {
-        frame.addEventListener(new IEventListener() {
-            @Override
-            public void on(final Event event) {
-                // RESIZE
-                if (event instanceof FrameResizeEvent) {
-                    final Object data = event.getData();
-                    if (data instanceof JSONObject) {
-                        dispatchFrameResize((JSONObject) data);
-                    }
-                }
-            }
-        });
     }
 
     // --------------------------------------------------------------------

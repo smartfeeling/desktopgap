@@ -287,7 +287,7 @@ public class Sizable {
     }
 
     private void emitResize() {
-        _eventHandlers.trigger(EVENT_ON_RESIZE, new FrameResizeEvent(_parent));
+        _eventHandlers.trigger(EVENT_ON_RESIZE, new FrameResizeEvent(_parent, _parent.getWidth(), _parent.getHeight()));
     }
 
     // ------------------------------------------------------------------------

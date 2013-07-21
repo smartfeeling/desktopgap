@@ -372,17 +372,47 @@
     //                  i n i t i a l i z a t i o n
     // ------------------------------------------------------------------------
 
-    document.addEventListener('deviceready', function () {
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + name + "=([^&#]*)";
+        var regex = new RegExp(regexS);
+        var results = regex.exec(window.location.search);
+        if (results == null)
+            return "";
+        else
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function start() {
         init();
 
         var bridge = defined('bridge');
 
         //-- set version --//
-        window.version = bridge.version();
+        window.version = !!bridge ? bridge.version() : '0.1 (debug)';
 
         //-- set ready state --//
         window.deviceready = true;
+    }
 
+    document.addEventListener('deviceready', function () {
+        start();
     }, false);
+
+    /**
+     * check if function is called out of desktopgap runtime
+     * (for debug into external browser)
+     */
+    if (getParameterByName('desktopgap')==='false') {
+        setTimeout(function(){
+            // create the event
+            var evt = document.createEvent('Event');
+            // define that the event name is '[EVENT_NAME]'
+            evt.initEvent('deviceready', true, true);
+            // dispatch the Event
+            document.dispatchEvent(evt);
+        }, 100);
+    }
+
 
 })(this);
