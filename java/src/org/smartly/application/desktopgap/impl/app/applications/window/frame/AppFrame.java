@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.frame;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import org.json.JSONObject;
 import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
@@ -58,16 +60,16 @@ public final class AppFrame
     //               f i e l d s
     // --------------------------------------------------------------------
 
-    private final AppWindows _windows;
-    private final JfxWebView _webview;
-    private final AppInstance _app;
-    private final FXMLLoader _loader;
     private final Parent _fxml;
+    private final FXMLLoader _loader;
+    private final JfxWebView _webview;
+
+    private final AppWindows _windows;
+    private final AppInstance _app;
     private final AppBridgeFrame _bridge_frame;
     private final AppLibsFrame _libs_frame;
 
     private final String _id;
-    private Scene _scene;
     private String _title;
     private boolean _maximized;
     private Rectangle2D _old_rect; // size before maximize
@@ -82,9 +84,11 @@ public final class AppFrame
                     final String id) {
         _windows = windows;
         _app = _windows.getApp();
+
         _loader = new FXMLLoader();
         _fxml = getContent(_loader);
         _webview = _loader.getController();
+
         _id = id;
         _title = _app.getManifest().getTitle();
         _bridge_frame = new AppBridgeFrame(_app.getBridge(), this);
@@ -240,8 +244,13 @@ public final class AppFrame
     public void setTitle(final String title) {
         _title = null != title ? title : "";
 
+        // pass title to javascript
         if (null != _webview && null != _webview.getScriptEngine()) {
             _webview.getScriptEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
+        }
+
+        if (null != __stage) {
+            __stage.setTitle(_title);
         }
     }
 
@@ -366,20 +375,38 @@ public final class AppFrame
 
     private Stage getStage() {
         if (null == __stage) {
-            __stage = new Stage(StageStyle.UTILITY);
-            // init stage
-            __stage.setTitle(this.getTitle());
-            __stage.initStyle(StageStyle.TRANSPARENT); // transparent by default
-            __stage.getIcons().addAll(this.getIcons());
+            __stage = new Stage(StageStyle.TRANSPARENT);
 
-            final Rectangle2D rect = this.getRegistryRect();
-            __stage.setScene(this.createScene(_fxml, rect));
-            //-- size --//
-            this.setCurrRect(rect);
+            // event handlers
+            this.addStageHandlers(__stage);
 
-            this.addStageHandlers();
+            // init stage bar
+            this.initStageBar(__stage);
+
+            // init stage and scene size
+            this.initStageSize(__stage);
         }
         return __stage;
+    }
+
+    private void initStageBar(final Stage stage) {
+        final AppManifest manifest = _app.getManifest();
+
+        stage.setTitle(manifest.getTitle());
+
+        // buttons
+        stage.initStyle(StageStyle.DECORATED);
+
+        // add icons
+        stage.getIcons().addAll(this.getIcons());
+    }
+
+    private void initStageSize(final Stage stage){
+        final Rectangle2D rect = this.getRegistryRect();
+        stage.setScene(this.createScene(_fxml, rect));
+
+        //-- size --//
+        this.setCurrRect(rect);
     }
 
     private void openOrFocus() {
@@ -480,16 +507,15 @@ public final class AppFrame
         return icons;
     }
 
-    private void addStageHandlers() {
-        /*final AppFrame self = this;
+    private void addStageHandlers(final Stage stage) {
+        final AppFrame self = this;
         //-- close event --//
-        _stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {
                 self.emit(new FrameCloseEvent(self));
             }
-        }); */
-
+        });
     }
 
     private void onOpen() {

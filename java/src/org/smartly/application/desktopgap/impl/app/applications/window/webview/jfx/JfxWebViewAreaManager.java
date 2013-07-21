@@ -1,5 +1,9 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -33,6 +37,7 @@ public class JfxWebViewAreaManager
         _draggable = baseView.frame().isDraggable();
 
         if (baseView.frame().isResizable()) {
+            /*
             FX.sizable(root,
                     baseView.frame().getMinWidth(),
                     baseView.frame().getMinHeight(),
@@ -44,6 +49,7 @@ public class JfxWebViewAreaManager
                             _baseView.triggerOnResize(event);
                         }
                     });
+                    */
         }
     }
 
@@ -54,13 +60,19 @@ public class JfxWebViewAreaManager
             final StackPane area = this.createArea(name);
             _main_area.getChildren().add(area);
             this.attachToRoot(area, left, top, right, height);
+
+            // dragarea
             if (DRAG_AREA.equalsIgnoreCase(name) && _draggable) {
                 // DRAGGABLE AREA
                 FX.draggable(area);
             }
+            // ... add here more options ...
+
             _areas.put(name, area);
         }
     }
+
+
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e

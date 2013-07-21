@@ -1,8 +1,10 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.webview;
 
+import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.commons.Delegates;
 
 /**
@@ -57,7 +59,9 @@ public abstract class AbstractWebView {
     }
 
     public abstract void initialize(final AppFrame frame);
+
     public abstract AbstractWebViewAreaManager getAreas();
+
     public abstract AbstractScriptEngine getScriptEngine();
 
     // --------------------------------------------------------------------
@@ -70,6 +74,7 @@ public abstract class AbstractWebView {
 
     public void triggerOnScroll(final FrameScrollEvent event) {
         _eventHandlers.triggerAsync(EVENT_ON_SCROLL, event);
+        this.dispatchFrameScroll(new JSONObject());
     }
 
     public void onResize(final OnResize handler) {
@@ -78,11 +83,23 @@ public abstract class AbstractWebView {
 
     public void triggerOnResize(final FrameResizeEvent event) {
         _eventHandlers.triggerAsync(EVENT_ON_RESIZE, event);
+        dispatchFrameResize(new JSONObject());
     }
 
     // --------------------------------------------------------------------
-    //               p r o t e c t e d
+    //               p r i v a t e
     // --------------------------------------------------------------------
 
+    private void dispatchFrameResize(final JSONObject data) {
+        // resize
+        final String script = JsSnippet.getDispatchEvent(AbstractScriptEngine.EVENT_RESIZE, data);
+        this.getScriptEngine().executeScript(script);
+    }
+
+    private void dispatchFrameScroll(final JSONObject data) {
+        // resize
+        final String script = JsSnippet.getDispatchEvent(AbstractScriptEngine.EVENT_SCROLL, data);
+        this.getScriptEngine().executeScript(script);
+    }
 
 }

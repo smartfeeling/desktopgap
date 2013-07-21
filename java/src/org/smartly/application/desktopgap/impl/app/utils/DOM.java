@@ -12,8 +12,6 @@ import org.smartly.packages.velocity.impl.util.URLEncodeUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 /**
  * DOM utils
@@ -28,9 +26,9 @@ public class DOM {
     }
 
     public String inject(final AppManifest manifest,
-                       final String html_frame,
-                       final String html_page,
-                       final String output) throws IOException {
+                         final String html_frame,
+                         final String html_page,
+                         final String output) throws IOException {
         final boolean isExternal = !html_page.contains("<");
         final HtmlParser frame = new HtmlParser(html_frame);
         final Elements app_elements = frame.select(SELECTOR_APP);
@@ -69,7 +67,7 @@ public class DOM {
 
             final String html = frame.getDocument().outerHtml();
             // save output
-            if(StringUtils.hasText(output)){
+            if (StringUtils.hasText(output)) {
                 FileUtils.writeStringToFile(new File(output),
                         html,
                         Smartly.getCharset());
@@ -81,6 +79,26 @@ public class DOM {
         }
     }
 
+    public String injectDesktopGapScripts(final String html_page,
+                                          final String output)
+            throws IOException {
+        // parse page
+        final HtmlParser page = new HtmlParser(html_page);
+        final boolean isExternal = !html_page.contains("<");
+        if (!isExternal) {
+            // parse page
+            page.getHead().append("<script src=\"desktopgap.js\"></script>");
+        }
+        final String html = page.getDocument().outerHtml();
+        // save output
+        if (StringUtils.hasText(output)) {
+            FileUtils.writeStringToFile(new File(output),
+                    html,
+                    Smartly.getCharset());
+        }
+
+        return html;
+    }
 
     // ------------------------------------------------------------------------
     //                      p r i v a t e
@@ -92,10 +110,6 @@ public class DOM {
                 head.append(element.outerHtml());
             }
         }
-    }
-
-    private void wrapHyperlinks(final Element body) {
-
     }
 
     // --------------------------------------------------------------------
@@ -127,24 +141,29 @@ public class DOM {
     }
 
     public static String insertInFrame(final AppManifest manifest,
-                                            final String html_page,
-                                            final String outputPage) throws IOException {
+                                       final String html_page,
+                                       final String outputPage) throws IOException {
         final String html_frame = read(manifest.getAbsolutePageFrame());
         return getInstance().inject(manifest, html_frame, html_page, outputPage);
     }
 
-    public static String decode(final String text){
-        try{
+    public static String addDesktopGapScripts(final String html_page,
+                                              final String outputPage) throws IOException {
+        return getInstance().injectDesktopGapScripts(html_page, outputPage);
+    }
+
+    public static String decode(final String text) {
+        try {
             return URLEncodeUtils.decodeURI(text);
-        } catch(Throwable t){
+        } catch (Throwable t) {
             return t.toString();
         }
     }
 
-    public static String encode(final String text){
-        try{
+    public static String encode(final String text) {
+        try {
             return URLEncodeUtils.encodeURI(text);
-        } catch(Throwable t){
+        } catch (Throwable t) {
             return t.toString();
         }
     }

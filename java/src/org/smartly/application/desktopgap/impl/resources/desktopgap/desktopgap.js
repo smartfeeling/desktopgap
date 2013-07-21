@@ -305,7 +305,7 @@
         //disableContextMenu();
         disableDragAndDrop();
         initButtons();
-        updateAreas();
+        //updateAreas();
     }
 
     // ------------------------------------------------------------------------

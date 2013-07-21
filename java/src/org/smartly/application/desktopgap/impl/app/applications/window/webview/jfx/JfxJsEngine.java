@@ -26,16 +26,7 @@ import java.util.*;
 public final class JfxJsEngine
         extends AbstractScriptEngine {
 
-    public static final String UNDEFINED = "undefined";
 
-    //-- js events --//
-    public static final String EVENT_READY = "ready";
-    public static final String EVENT_DEVICEREADY = "deviceready";
-    public static final String EVENT_PLUGIN_READY = "pluginready";
-    public static final String EVENT_RESIZE = "resize";
-    public static final String EVENT_DATA = "data";
-
-    private static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
 
     private final AppInstance _app;
     private final AppBridgeFrame _bridge_frame;
@@ -75,6 +66,10 @@ public final class JfxJsEngine
         } else {
             this.executeScript(script);
         }
+    }
+
+    public void executeScript(final String script) {
+        executeScript(this, script);
     }
 
     public void emitEvent(final String name, final Object data) {
@@ -179,14 +174,7 @@ public final class JfxJsEngine
         }
     }
 
-    private void executeScript(final String script) {
-        /*try {
-            _engine.executeScript(script);
-        } catch (Throwable t) {
-            _frame.getApp().getLogger().log(Level.SEVERE, null, t);
-        }*/
-        executeScript(this, script);
-    }
+
 
 
     private void handleWebEngineLoading(final WebEngine engine) {

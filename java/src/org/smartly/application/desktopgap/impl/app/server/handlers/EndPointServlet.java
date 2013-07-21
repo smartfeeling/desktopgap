@@ -158,7 +158,8 @@ public class EndPointServlet
 
                 // merge page with frame
                 if (urlParams.containsKey(IDesktopConstants.PARAM_DESKTOPGAP)) {
-                    result = wrapInFrame(manifest, result);
+                    //result = wrapInFrame(manifest, result);
+                    result = addDesktopGapScripts(result);
                 }
             }
 
@@ -194,12 +195,9 @@ public class EndPointServlet
         return new HashMap<String, String>();
     }
 
-    private String wrapInFrame(final AppManifest manifest, final String pageHtml) {
+    private String addDesktopGapScripts(final String pageHtml) {
         try {
-            if (null != manifest) {
-                return DOM.insertInFrame(manifest, pageHtml, null);
-            }
-
+            return DOM.addDesktopGapScripts(pageHtml, null);
         } catch (Throwable ignored) {
         }
         return "";
@@ -217,6 +215,16 @@ public class EndPointServlet
         return "";
     }
 
+    private String wrapInFrame(final AppManifest manifest, final String pageHtml) {
+        try {
+            if (null != manifest) {
+                return DOM.insertInFrame(manifest, pageHtml, null);
+            }
+
+        } catch (Throwable ignored) {
+        }
+        return "";
+    }
     // --------------------------------------------------------------------
     //               S T A T I C
     // --------------------------------------------------------------------
