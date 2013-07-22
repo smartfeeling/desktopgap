@@ -2,15 +2,13 @@ package org.smartly.application.desktopgap.impl.app.applications.window.webview;
 
 import org.json.JSONObject;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameKeyPressedEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
-import org.smartly.application.desktopgap.impl.app.applications.events.Handlers;
+import org.smartly.application.desktopgap.impl.app.applications.events.*;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
 import org.smartly.application.desktopgap.impl.app.server.WebServer;
 import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
 import org.smartly.commons.Delegates;
+import org.smartly.commons.event.Event;
 
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +31,8 @@ public abstract class AbstractWebView {
     private static final Class EVENT_ON_SCROLL = Handlers.OnScroll.class;
     private static final Class EVENT_ON_RESIZE = Handlers.OnResize.class;
     private static final Class EVENT_ON_KEY_PRESSED = Handlers.OnKeyPressed.class;
+    private static final Class EVENT_ON_DRAG_OVER = Handlers.OnDragOver.class;
+    private static final Class EVENT_ON_DRAG_DROPPED = Handlers.OnDragDropped.class;
 
     // --------------------------------------------------------------------
     //               f i e l d s
@@ -93,46 +93,41 @@ public abstract class AbstractWebView {
     //               events handlers
     // --------------------------------------------------------------------
 
-    public void onScroll(final Handlers.OnScroll handler) {
+    public void onEvent(final Delegates.Handler handler) {
         _eventHandlers.add(handler);
     }
 
-    public void triggerOnScroll(final FrameScrollEvent event) {
+    // --------------------------------------------------------------------
+    //               events triggers
+    // --------------------------------------------------------------------
+
+    protected void triggerOnScroll(final FrameScrollEvent event) {
         _eventHandlers.triggerAsync(EVENT_ON_SCROLL, event);
-        this.dispatchFrameScroll(event.toJSON());
+        dispatchToJsEngine(event);
     }
 
-    public void onResize(final Handlers.OnResize handler) {
-        _eventHandlers.add(handler);
-    }
-
-    public void triggerOnResize(final FrameResizeEvent event) {
+    protected void triggerOnResize(final FrameResizeEvent event) {
         _eventHandlers.triggerAsync(EVENT_ON_RESIZE, event);
-        dispatchFrameResize(event.toJSON());
+        dispatchToJsEngine(event);
     }
 
-    public void onKeyPressed(final Handlers.OnKeyPressed handler) {
-        _eventHandlers.add(handler);
-    }
-
-    public void triggerOnKeyPressed(final FrameKeyPressedEvent event) {
+    protected void triggerOnKeyPressed(final FrameKeyPressedEvent event) {
         _eventHandlers.triggerAsync(EVENT_ON_KEY_PRESSED, event);
-        dispatchFrameResize(event.toJSON());
+        dispatchToJsEngine(event);
+    }
+
+    protected void triggerOnDragDropped(final FrameDragEvent event) {
+        _eventHandlers.triggerAsync(EVENT_ON_DRAG_DROPPED, event);
+        dispatchToJsEngine(event);
     }
 
     // --------------------------------------------------------------------
     //               p r i v a t e
     // --------------------------------------------------------------------
 
-    private void dispatchFrameResize(final JSONObject data) {
+    private void dispatchToJsEngine(final Event event) {
         // resize
-        final String script = JsSnippet.getDispatchEvent(AbstractScriptEngine.EVENT_RESIZE, data);
-        this.getScriptEngine().executeScript(script);
-    }
-
-    private void dispatchFrameScroll(final JSONObject data) {
-        // resize
-        final String script = JsSnippet.getDispatchEvent(AbstractScriptEngine.EVENT_SCROLL, data);
+        final String script = JsSnippet.getDispatchEvent(event.getName(), event.toJSON());
         this.getScriptEngine().executeScript(script);
     }
 

@@ -8,14 +8,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameDragEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameKeyPressedEvent;
 import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppManifest;
@@ -25,12 +23,13 @@ import org.smartly.application.desktopgap.impl.app.applications.window.webview.A
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebView;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebViewAreaManager;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AppWindowUrl;
-import org.smartly.application.desktopgap.impl.app.server.WebServer;
-import org.smartly.application.desktopgap.impl.app.utils.URLUtils;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -110,7 +109,7 @@ public class JfxWebView extends AbstractWebView
         return _areaManager;
     }
 
-    public AbstractScriptEngine getScriptEngine(){
+    public AbstractScriptEngine getScriptEngine() {
         return _jsengine;
     }
 
@@ -172,14 +171,14 @@ public class JfxWebView extends AbstractWebView
         this.handle(browser);
     }
 
-    private void handle(final WebView browser){
+    private void handle(final WebView browser) {
         final AbstractWebView self = this;
 
         //-- events --//
         browser.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
-                self.triggerOnScroll(new FrameScrollEvent(scrollEvent));
+                triggerOnScroll(new FrameScrollEvent(scrollEvent));
             }
         });
 
@@ -193,7 +192,41 @@ public class JfxWebView extends AbstractWebView
                         keyEvent.isShiftDown(),
                         keyEvent.isControlDown(),
                         keyEvent.isAltDown());
-                self.triggerOnKeyPressed(event);
+                triggerOnKeyPressed(event);
+            }
+        });
+
+        browser.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(final DragEvent dragEvent) {
+                Object source = null;
+                final Dragboard db = dragEvent.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    // dragged a file
+                    source = new ArrayList<String>();
+                    success = true;
+                    for (final File file:db.getFiles()) {
+                        ((List)source).add(file.getAbsolutePath());
+                    }
+                } else {
+                    // handle other objects
+                      success = false;
+                }
+                dragEvent.setDropCompleted(success);
+                dragEvent.consume();
+
+                final FrameDragEvent event = new FrameDragEvent(self,
+                        dragEvent.getX(),
+                        dragEvent.getY(),
+                        dragEvent.getScreenX(),
+                        dragEvent.getScreenY(),
+                        dragEvent.getSceneX(),
+                        dragEvent.getSceneY(),
+                        dragEvent.getTransferMode().name(),
+                        source);
+
+                triggerOnDragDropped(event);
             }
         });
     }

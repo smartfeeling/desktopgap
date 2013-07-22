@@ -61,6 +61,7 @@ public final class AppFrame {
     private static final Class EVENT_ON_SCROLL = Handlers.OnScroll.class;
     private static final Class EVENT_ON_RESIZE = Handlers.OnResize.class;
     private static final Class EVENT_ON_KEY_PRESSED = Handlers.OnKeyPressed.class;
+    private static final Class EVENT_ON_DRAG_DROPPED = Handlers.OnDragDropped.class;
 
     // --------------------------------------------------------------------
     //               f i e l d s
@@ -532,7 +533,7 @@ public final class AppFrame {
         final AppFrame self = this;
 
         //-- onResize --//
-        webview.onResize(new Handlers.OnResize() {
+        webview.onEvent(new Handlers.OnResize() {
             @Override
             public void handle(final FrameResizeEvent event) {
                 _eventHandlers.triggerAsync(EVENT_ON_RESIZE, event);
@@ -540,7 +541,7 @@ public final class AppFrame {
         });
 
         //-- key pressed --//
-        webview.onKeyPressed(new Handlers.OnKeyPressed() {
+        webview.onEvent(new Handlers.OnKeyPressed() {
             @Override
             public void handle(final FrameKeyPressedEvent event) {
                 _eventHandlers.triggerAsync(EVENT_ON_KEY_PRESSED, event);
@@ -549,10 +550,18 @@ public final class AppFrame {
         });
 
         //-- onScroll --//
-        webview.onScroll(new Handlers.OnScroll() {
+        webview.onEvent(new Handlers.OnScroll() {
             @Override
             public void handle(final FrameScrollEvent event) {
                 _eventHandlers.triggerAsync(EVENT_ON_SCROLL, event);
+            }
+        });
+
+        //-- drag dropped --//
+        webview.onEvent(new Handlers.OnDragDropped() {
+            @Override
+            public void handle(final FrameDragEvent event) {
+                _eventHandlers.triggerAsync(EVENT_ON_DRAG_DROPPED, event);
             }
         });
     }

@@ -8,6 +8,15 @@ import org.smartly.commons.Delegates;
  */
 public interface Handlers {
 
+
+    public static interface OnDragOver extends Delegates.Handler {
+        void handle(final FrameDragEvent event);
+    }
+
+    public static interface OnDragDropped extends Delegates.Handler {
+        void handle(final FrameDragEvent event);
+    }
+
     public static interface OnHidden extends Delegates.Handler {
         void handle(final FrameHiddenEvent event);
     }
