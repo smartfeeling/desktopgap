@@ -59,7 +59,7 @@ public class AppCompiler {
         final String app_dir = manifest.getAbsoluteAppPath("");
 
         //-- deploy frame --//
-        AppResources.deploy_FRAMES(manifest, app_dir);
+        //AppResources.deploy_FRAMES(manifest, app_dir);
 
         //-- deploy framework --//
         AppResources.deploy_JsFramework(app_dir);

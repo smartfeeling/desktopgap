@@ -20,7 +20,7 @@ import java.io.InputStream;
 public final class AppResources {
 
     private static final String PATH_JSDESKTOPGAP = "/desktopgap";
-    private static final String PATH_FRAMES = "/frames";
+    // private static final String PATH_FRAMES = "/frames";
     private static final String PATH_APP_TEMPLATE = "/app_template";
     private static final String PATH_APP_FRAME = "/app_frame";
     private static final String PATH_BLANK = "/blank";
@@ -85,7 +85,7 @@ public final class AppResources {
         }
     }
 
-    private static void deployScriptFile(final String fileName, final String target){
+    private static void deployScriptFile(final String fileName, final String target) {
         final String script = compileJs(getInstance().getResourceAsString(PathUtils.concat(
                 _root, fileName)));
         save(script, PathUtils.concat(target, fileName));
@@ -125,7 +125,7 @@ public final class AppResources {
     }
 
     //-- DEPLOYERS --//
-
+    /*
     public static void deploy_FRAMES(final AppManifest manifest,
                                      final String target) {
         final String index = manifest.getIndex(); // used to customize run page
@@ -151,6 +151,7 @@ public final class AppResources {
         deployer.getSettings().getPreprocessorValues().put(PRE_INDEX_PAGE, index);
         deployer.deployChildren();
     }
+    */
 
     public static void deploy_JsFramework(final String target) {
         final String source = PATH_JSDESKTOPGAP;

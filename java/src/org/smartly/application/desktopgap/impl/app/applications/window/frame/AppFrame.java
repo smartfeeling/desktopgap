@@ -39,7 +39,7 @@ import java.util.Map;
  */
 public final class AppFrame {
 
-    private static final double OFF_SET = 10; // border for shadow
+    private static final double OFF_SET = 0; // border for shadow (with frame was 10 px)
 
     private final static String STYLE_SHEET = "window.css";
 
@@ -225,6 +225,10 @@ public final class AppFrame {
 
     public double getHeight() {
         if (null != __stage) {
+            if(__stage.getHeight()>0){
+                // height of frame with form title
+                return __stage.getHeight();
+            }
             return __stage.getScene().getHeight();
         }
         return 0.0;
