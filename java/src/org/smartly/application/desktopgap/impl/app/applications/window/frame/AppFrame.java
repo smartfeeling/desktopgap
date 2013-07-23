@@ -413,6 +413,15 @@ public final class AppFrame {
 
         //-- size --//
         this.setCurrRect(rect);
+
+        //-- min size --//
+        try{
+            stage.setMinWidth(this.getMinWidth());
+            stage.setMinHeight(this.getMinHeight());
+        }catch(Throwable ignored){
+
+        }
+
     }
 
     private void openOrFocus() {
