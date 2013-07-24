@@ -6,12 +6,12 @@ import org.smartly.application.desktopgap.DesktopGap;
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppLocalization;
-import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
-import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
+import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
 import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.JsonWrapper;
+import org.smartly.commons.util.RandomUtils;
 import org.smartly.commons.util.StringUtils;
 
 /**
@@ -34,7 +34,7 @@ public final class ToolI18n extends AbstractTool {
         _logger = app.getLogger();
     }
 
-    public String getToolName(){
+    public String getToolName() {
         return NAME;
     }
 
@@ -82,8 +82,7 @@ public final class ToolI18n extends AbstractTool {
         final String result;
         if (dictionary instanceof String) {
             if (!StringUtils.isJSON(dictionary)) {
-                result = _i18n.get(StringUtils.hasText(lang) ? lang : _lang,
-                        (String) dictionary, key);
+                result = this.getLocalization(lang, (String) dictionary, key);
             } else {
                 // dictionary is JSONObject
                 result = this.get(lang, JsonWrapper.wrap((String) dictionary).getJSONObject(), key);
@@ -93,7 +92,7 @@ public final class ToolI18n extends AbstractTool {
         } else {
             result = "";
         }
-        return null!=result ? result.trim():"";
+        return null != result ? result.trim() : "";
     }
 
     // ------------------------------------------------------------------------
@@ -161,4 +160,23 @@ public final class ToolI18n extends AbstractTool {
         return null != result ? result : "";
     }
 
+    private String getLocalization(final String lang, final String dictionary, final String rawKey) {
+        try {
+            final String key = this.getKey(rawKey);
+            return _i18n.get(StringUtils.hasText(lang) ? lang : _lang, dictionary, key);
+        } catch (Throwable t) {
+            this.getLogger().log(Level.SEVERE, null, t);
+        }
+        return "";
+    }
+
+    private String getKey(final String rawKey) {
+        final String[] tokens = StringUtils.split(rawKey.trim(), new String[]{" ", ","});
+        if (tokens.length == 1) {
+            return rawKey.trim();
+        } else {
+            final int index = (int) RandomUtils.rnd(0.0, tokens.length - 1);
+            return tokens[index].trim();
+        }
+    }
 }
