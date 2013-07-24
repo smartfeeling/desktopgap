@@ -3,38 +3,11 @@
     var document = window.document;
 
     // ------------------------------------------------------------------------
-    //                      utility
+    //                      utility - private
     // ------------------------------------------------------------------------
 
-    window.has = function has(obj, key) {
-        return Object.prototype.hasOwnProperty.call(obj, key);
-    };
 
-    window.values = function values(obj) {
-        var values = [];
-        for (var key in obj) if (has(obj, key)) values.push(obj[key]);
-        return values;
-    };
-
-    window.toArray = function toArray(obj) {
-        if (!obj) return [];
-        if (obj.length === +obj.length) return Array.prototype.slice.call(obj);
-        return values(obj);
-    };
-
-    window.isFunction = function isFunction(obj) {
-        return Object.prototype.toString.call(obj) == '[object Function]';
-    };
-
-    window.isString = function isString(obj) {
-        return Object.prototype.toString.call(obj) == '[object String]';
-    };
-
-    window.isElement = function isElement(obj) {
-        return !!(obj && obj.nodeType == 1);
-    };
-
-    function extend(target, source) {
+    function _extend(target, source) {
         var name, copy;
         if (source) {
             for (name in source) {
@@ -48,14 +21,14 @@
         }
     }
 
-    function evalScript(text) {
+    function _evalScript(text) {
         if (!!text) {
             return window[ "eval" ].call(window, text);
         }
         return {};
     }
 
-    function getUrl(url, callback) {
+    function _getUrl(url, callback) {
         var xhr = new XMLHttpRequest(),
             async = isFunction(callback);
         xhr.open("GET", url, async);
@@ -70,7 +43,14 @@
         return xhr.responseText;
     }
 
-    window.getAllElementsWithAttribute = function getAllElementsWithAttribute(attribute, startElem) {
+    function _getJavaTool(name){
+        if(defined('bridge')){
+           return desktopgap.bridge.get(name);
+        }
+        return null;
+    }
+
+    function _getAllElementsWithAttribute(attribute, startElem) {
         var matchingElements = [];
         try {
             startElem = startElem || document;
@@ -85,18 +65,13 @@
             console.error('(desktopgap.js) getAllElementsWithAttribute(): ' + err);
         }
         return matchingElements;
-    };
+    }
 
-    /**
-     * Load script and evaluate returning the result.
-     * @param url Script to load.
-     * @return {*} Result of script evaluation
-     */
-    window.require = function require(url) {
+    function _require(url) {
         try {
-            var script = getUrl(url);
+            var script = _getUrl(url);
             if (!!script) {
-                return evalScript(script);
+                return _evalScript(script);
             }
         } catch (err) {
             return {
@@ -104,17 +79,19 @@
             };
         }
         return {};
-    };
+    }
 
-    /**
-     * Load text file (html, css, ...) and returns the content.
-     * @param url
-     * @return {string} Content of text file, or empty string.
-     */
-    window.load = function load(url) {
+    function _defined(property) {
+        if (typeof desktopgap != 'undefined') {
+            return !!property ? desktopgap[property] : desktopgap;
+        }
+        return false;
+    }
+
+    function _load(url) {
         // console.log('load: ' + url);
         try {
-            var text = getUrl(url);
+            var text = _getUrl(url);
             if (!!text) {
                 return text;
             }
@@ -122,18 +99,79 @@
             return err.toString();
         }
         return '';
-    };
+    }
+
+    function _isElement(obj) {
+        return !!(obj && obj.nodeType == 1);
+    }
+
+    function _has(obj, key) {
+        return Object.prototype.hasOwnProperty.call(obj, key);
+    }
+
+    function _values(obj) {
+        var values = [];
+        for (var key in obj) if (has(obj, key)) values.push(obj[key]);
+        return values;
+    }
+
+    function _toArray(obj) {
+        if (!obj) return [];
+        if (obj.length === +obj.length) return Array.prototype.slice.call(obj);
+        return values(obj);
+    }
+
+    function _isFunction(obj) {
+        return Object.prototype.toString.call(obj) == '[object Function]';
+    }
+
+    function _isString(obj) {
+        return Object.prototype.toString.call(obj) == '[object String]';
+    }
+
+    // ------------------------------------------------------------------------
+    //                      utility
+    // ------------------------------------------------------------------------
+
+    window.has = _has;
+
+    window.values = _values;
+
+    window.toArray = _toArray;
+
+    window.isFunction = _isFunction;
+
+    window.isString = _isString;
+
+    window.isElement = _isElement;
+
+    window.getAllElementsWithAttribute = _getAllElementsWithAttribute;
+
+    /**
+     * Load script and evaluate returning the result.
+     * @param url Script to load.
+     * @return {*} Result of script evaluation
+     */
+    window.require = _require;
+
+    /**
+     * Load text file (html, css, ...) and returns the content.
+     * @param url
+     * @return {string} Content of text file, or empty string.
+     */
+    window.load = _load;
+
+    window.defined = _defined;
+
+    /**
+     * get a java tool registered in java bridge.
+     * usage: java('toolname');
+     */
+    window.java = _getJavaTool;
 
     // ------------------------------------------------------------------------
     //                      initialization
     // ------------------------------------------------------------------------
-
-    window.defined = function defined(property) {
-        if (typeof desktopgap != 'undefined') {
-            return !!property ? desktopgap[property] : desktopgap;
-        }
-        return false;
-    };
 
     //-- buttons --//
 

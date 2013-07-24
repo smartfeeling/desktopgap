@@ -85,10 +85,10 @@
                         }
                     }
                     // console.log('startElem: ' + startElem);
-                    var elems = getAllElementsWithAttribute('data-i18n', startElem);
+                    var elems = getAllElementsWithAttribute(attr, startElem);
                     for (var i = 0; i < elems.length; i++) {
                         var elem = elems[i];
-                        var key = elem.getAttribute('data-i18n');
+                        var key = elem.getAttribute(attr);
                         elem.innerHTML = desktopgap['bridge'].i18n().get(lang || '', key);
                     }
                 } catch (err) {

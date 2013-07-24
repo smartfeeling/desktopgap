@@ -28,10 +28,8 @@ import org.smartly.commons.util.FormatUtils;
 import org.smartly.commons.util.PathUtils;
 import org.smartly.commons.util.SystemUtils;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -583,7 +581,7 @@ public final class AppFrame {
         if (event.isControlDown() && event.getKeyCode().equalsIgnoreCase("D")) {
             if (this.getManifest().isDebug()) {
                 final String page = _webview.getHttpIndex(false);
-                Async.Action(new Delegates.AsyncActionHandler() {
+                Async.Action(new Delegates.Action() {
                     @Override
                     public void handle(Object... args) {
                         try {
