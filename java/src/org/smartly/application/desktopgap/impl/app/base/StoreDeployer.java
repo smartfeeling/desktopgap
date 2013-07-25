@@ -1,5 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.base;
 
+import org.smartly.Smartly;
+import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.compilers.AppCompiler;
 import org.smartly.commons.io.repository.deploy.FileDeployer;
 import org.smartly.commons.lang.compilers.CompilerRegistry;
@@ -19,12 +21,14 @@ import java.util.Map;
 public abstract class StoreDeployer
         extends FileDeployer {
 
+    public static final String STORE_DIR = Smartly.getAbsolutePath(IDesktopConstants.INSTALLED_STORE_DIR);
+    private static final boolean SILENT = Smartly.isSilent();
+
     public final Map<String, Object> _context;
 
-    public StoreDeployer(final String targetFolder,
-                         final boolean silent) {
-        super("", targetFolder,
-                silent, false, false, false);
+    public StoreDeployer() {
+        super("", STORE_DIR,
+                SILENT, false, false, false);
         super.setOverwrite(true);
 
         _context = new HashMap<String, Object>();

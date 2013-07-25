@@ -1,0 +1,51 @@
+#parse('/assets/lib/bootstrap/widgets/advancedcombo/i18n.vm')
+
+<div id="<%= cid %>" class="advancedcombo">
+
+    <!-- HEADER -->
+    <div class="advancedcombo-header">
+        <span id="title-<%= cid %>" class="advancedcombo-title">TITLE</span>
+        <!-- search -->
+        <form id="search-box-<%= cid %>" class="form-search">
+            <div class="input-append">
+                <input id="search-text-<%= cid %>" type="text" class="search-query"
+                       placeholder="$pagedlist_search_placeholder">
+                <button id="search-<%= cid %>" type="submit" class="btn" title="$pagedlist_search"><span class="icon-search"></span></button>
+            </div>
+        </form>
+
+        <!-- FOUND -->
+        <div id="found-<%= cid %>" style="display: inline-block">
+            <span>$pagedlist_found:</span>
+            <span id="total-<%= cid %>" class="badge badge-info">0</span>
+        </div>
+
+        <!-- ADD -->
+        <div id="buttons-<%= cid %>" class="inline pull-right">
+            <a id="remove-<%= cid %>" class="btn btn-mini btn-danger" title="$pagedlist_remove"><span class="icon-minus icon-white"></span></a>
+            <a id="edit-<%= cid %>" class="btn btn-mini btn-success" title="$pagedlist_edit"><span class="icon-pencil icon-white"></span></a>
+            <a id="add-<%= cid %>" class="btn btn-mini btn-primary" title="$pagedlist_add"><span class="icon-plus icon-white"></span></a>
+        </div>
+        <div id="confirm-<%= cid %>" class="hide inline pull-right">
+            <span class="label label-important">$pagedlist_confirm_remove</span>
+            <button id="confirm-remove-<%= cid %>" class="btn btn-mini btn-danger">$pagedlist_confirm</button>
+            <button id="confirm-undo-<%= cid %>" class="btn btn-mini btn-primary">$pagedlist_undo</button>
+        </div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="advancedcombo-body">
+        <div class="input-prepend">
+            <span class="add-on"><i id="icon-<%= cid %>" class=""></i></span><select id="combo-<%= cid %>"></select>
+        </div>
+        <div id="thumb-<%= cid %>" class="hide advancedcombo-balloon" style="margin-left: 15px;margin-right: 15px;">
+            <div class="img">
+                <img id="thumb_image-<%= cid %>" height="72" width="72" src="" alt="" class="img-72">
+            </div>
+
+            <p id="thumb_description-<%= cid %>"></p>
+        </div>
+    </div>
+
+</div>

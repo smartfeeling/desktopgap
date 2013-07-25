@@ -1,0 +1,16 @@
+<div id="item-<%= cid %>" class="pagedlistitem">
+
+    <div class="pagedlistitem-image">
+        <img id="image-<%= cid %>" src="">
+    </div>
+
+    <div>
+        <div id="title-<%= cid %>" class="pagedlistitem-title"></div>
+        <div id="description-<%= cid %>"></div>
+    </div>
+
+    <div class="pagedlistitem-icon">
+        <span class="icon-chevron-right"></span>
+    </div>
+
+</div>

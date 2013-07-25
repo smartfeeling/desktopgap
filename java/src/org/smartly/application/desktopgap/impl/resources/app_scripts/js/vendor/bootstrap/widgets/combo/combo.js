@@ -66,9 +66,13 @@
         $self.html('');
         // creates items
         _.forEach(self['_items'], function (item) {
-            var data = {_id:item[field_id], name:item[field_label]};
-            var $item = $(ly.template(template, data));
-            $item.appendTo($self);
+            try{
+                var data = {_id:item[field_id], name:item[field_label]};
+                var html = ly.template(template, data);
+                $self.append(html);
+            } catch(err){
+                console.error('[ combo.js _init() ] -> Error appending combo item: ' + err);
+            }
         });
 
         // handler
@@ -117,9 +121,8 @@
     function _select(item_or_string, emitevent) {
         var self = this;
         _.delay(function () {
-            var item = _.isString(item_or_string) ? self.bindTo(_itemById)(item_or_string) : item_or_string
-                , item_id = item[self['_field_id']]
-                ;
+            var item = _.isString(item_or_string) ? self.bindTo(_itemById)(item_or_string) : item_or_string;
+            var item_id = item[self['_field_id']];
             self['_selected'] = item;
 
             ly.el.value(self.template(sel_self), item_id);

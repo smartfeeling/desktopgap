@@ -54,7 +54,8 @@
         var count = 0;
         _.forEach(self['_navs'], function (nav) {
             nav['idx']=count;
-            var $item = $(ly.template(template, nav));
+            var tmp = ly.template(template, nav);
+            var $item = $(tmp);
             $item.appendTo($self);
             if(count===0){
                 $item.addClass('active'); // activate first

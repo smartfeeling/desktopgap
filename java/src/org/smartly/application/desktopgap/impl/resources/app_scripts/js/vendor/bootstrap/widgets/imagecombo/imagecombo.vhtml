@@ -2,10 +2,14 @@
     <span class="add-on"><i id="icon-<%= cid %>" class=""></i></span><select id="<%= cid %>"></select>
 </div>
 <div id="thumb-<%= cid %>" class="hide imagecombo-balloon" style="margin-left: 15px;margin-right: 15px;">
-    <img id="thumb_image-<%= cid %>" height="72" width="72" src="" alt="" class="img-72">
+    <div class="img">
+        <img id="thumb_image-<%= cid %>" height="72" width="72" src="" alt="" class="img-72">
+    </div>
 
     <p id="thumb_description-<%= cid %>"></p>
 </div>
+
+
 
 <script id="template-<%= cid %>" type="text/template">
     <option value="{_id}">{name}</option>

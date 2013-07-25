@@ -1,0 +1,11 @@
+
+
+<div id="<%= cid %>">
+
+    <!-- NAV -->
+    <ul id="nav-<%= cid %>" class="nav nav-pills"></ul>
+
+    <!-- TABS -->
+    <div id="tab-<%= cid %>" class="tab-content"></div>
+
+</div>

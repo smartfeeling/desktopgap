@@ -1,0 +1,109 @@
+.pagedlist {
+    position: relative;
+    width: 100%;
+    border: solid 1px #aaaaaa;
+}
+
+.pagedlist-header {
+    background-color: #fcfcfc;
+    padding: 5px;
+    border-bottom: dotted 1px #aaaaaa;
+}
+
+.pagedlist-header>* {
+    display: inline;
+}
+
+.pagedlist-header a {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.pagedlist-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: #0480be;
+}
+
+.pagedlist-body, .pagedlist-loading, .pagedlist-empty {
+    min-height: 100px;
+}
+.pagedlist-loading img, .pagedlist-empty img {
+    margin-top: 20px;
+    margin-left: 50%;
+}
+
+.pagedlist-footer {
+    position: relative;
+    display: block;
+    background-color: #fcfcfc;
+    padding: 5px;
+    border-top: dotted 1px #aaaaaa;
+}
+
+
+
+/* ITEM
+ -------------------------------------*/
+
+.pagedlistitem {
+    position: relative;
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+    min-height: 24px;
+    vertical-align: middle;
+
+}
+
+.pagedlistitem:nth-child(odd) {
+    background-color: #eee;
+}
+
+.pagedlistitem:nth-child(even) {
+    background-color: #fff;
+}
+
+.pagedlistitem:hover {
+    background-image: -ms-linear-gradient(top, #FFFFFF 0%, #BFD6DE 100%);
+    background-image: -moz-linear-gradient(top, #FFFFFF 0%, #BFD6DE 100%);
+    background-image: -o-linear-gradient(top, #FFFFFF 0%, #BFD6DE 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #BFD6DE));
+    background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #BFD6DE 100%);
+    background-image: linear-gradient(to bottom, #FFFFFF 0%, #BFD6DE 100%);
+}
+
+.pagedlistitem>*{
+    display: inline-block;
+}
+
+.pagedlistitem-icon {
+    position: absolute;
+    top: 40%;
+    right: 3px;
+}
+
+.pagedlistitem-image{
+    top: 0;
+}
+
+.pagedlistitem-image img{
+   max-height: 72px;
+}
+
+.pagedlistitem-title {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* MODAL
+ -------------------------------------*/
+
+.pagedlistmodal-body>*{
+    display: inline-block;
+}
+
+.pagedlistmodal-body img {
+    max-height: 128px;
+}

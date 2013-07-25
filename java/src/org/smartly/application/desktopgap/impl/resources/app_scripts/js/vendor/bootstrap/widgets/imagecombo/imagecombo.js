@@ -23,17 +23,19 @@
             view:true
         });
 
-        this['_items'] = options['items'];
-        this['_field_id'] = options['field_id'] || '_id';
-        this['_field_label'] = options['field_label'] || 'name';
-        this['_field_description'] = options['field_description'] || 'description';
-        this['_field_image'] = options['field_image'] || 'image';
-        this['_icon'] = options['icon'] || 'icon-asterisk';
-        this['_size'] = options['size'] || 'input-medium';
-        this['_selected'] = "";
+        options = options ||{}; // avoid error on null options
+
+        self['_items'] = options['items']||[];
+        self['_field_id'] = options['field_id'] || '_id';
+        self['_field_label'] = options['field_label'] || 'name';
+        self['_field_description'] = options['field_description'] || 'description';
+        self['_field_image'] = options['field_image'] || 'image';
+        self['_icon'] = options['icon'] || 'icon-asterisk';
+        self['_size'] = options['size'] || 'input-medium';
+        self['_selected'] = "";
 
         // add listeners
-        this.on('init', _init);
+        self.on('init', _init);
     }
 
     ly.inherits(Imagecombo, ly.Gui);

@@ -1,6 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets;
 
 import org.json.JSONObject;
+import org.smartly.commons.io.serialization.json.JsonSerializer;
 import org.smartly.commons.util.*;
 
 import java.util.HashMap;
@@ -106,20 +107,23 @@ public class JsSnippet {
     //               p r i v a t e
     // --------------------------------------------------------------------
 
-    private static String stringify(final Object object){
-        final String text = toString(object);
+    private static String stringify(final Object object) {
+        final String text = (object instanceof String) ? (String) object : toJsonString(object);
         return StringEscapeUtils.escapeJavaScript(text);
     }
 
-    private static String toString(final Object object){
-        if(null!=object){
-            if(object instanceof JSONObject){
-                return StringUtils.replace(object.toString(), new String[]{"\n"}, "<br>");
+    private static String toJsonString(final Object object) {
+        String result = "";
+        if (null != object) {
+            if (object instanceof String) {
+                return (String) object;
+            } else if (object instanceof JSONObject || StringUtils.isJSON(object)) {
+                result = StringUtils.replace(object.toString(), new String[]{"\n"}, "<br>");
             } else {
-                return object.toString();
+                result = object.toString(); // JsonSerializer.serialize(object);
             }
         }
-        return "";
+        return result;
     }
 
 }

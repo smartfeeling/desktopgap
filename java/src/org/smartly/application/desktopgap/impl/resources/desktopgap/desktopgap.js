@@ -2,10 +2,23 @@
 
     var document = window.document;
 
+
+    // ------------------------------------------------------------------------
+    //                      js document events
+    // ------------------------------------------------------------------------
+
+    var EVENT_ERROR = 'error';
+    var EVENT_DATA = 'data';
+    var EVENT_READY = 'ready';
+    var EVENT_PLUGIN_READY = 'pluginready';
+    var EVENT_DEVICEREADY = 'deviceready';
+    var EVENT_RESIZE = 'frame.onResize';
+    var EVENT_SCROLL = 'frame.onScroll';
+    var EVENT_DRAG_OVER = 'frame.onDragDropped';
+
     // ------------------------------------------------------------------------
     //                      utility - private
     // ------------------------------------------------------------------------
-
 
     function _extend(target, source) {
         var name, copy;
@@ -44,8 +57,8 @@
     }
 
     function _getJavaTool(name){
-        if(defined('bridge')){
-           return desktopgap.bridge.get(name);
+        if(_defined('bridge')){
+           return desktopgap['bridge'].get(name);
         }
         return null;
     }
@@ -129,6 +142,24 @@
         return Object.prototype.toString.call(obj) == '[object String]';
     }
 
+    function _trigger(target, eventName){
+        target=target||document;
+        if(!!eventName){
+            var args = _toArray(arguments);
+            var evt = document.createEvent('Event');
+            // define that the event name is '[EVENT_NAME]'
+            evt.initEvent(eventName, true, true);
+
+            if (args.length>2) {
+                evt.data = evt.data || [];
+                evt.data.push(args.splice(0, 2));
+            }
+
+            // dispatch the Event
+            target.dispatchEvent(evt);
+        }
+    }
+
     // ------------------------------------------------------------------------
     //                      utility
     // ------------------------------------------------------------------------
@@ -167,7 +198,15 @@
      * get a java tool registered in java bridge.
      * usage: java('toolname');
      */
-    window.java = _getJavaTool;
+    window.javaTool = _getJavaTool;
+
+    /**
+     * Trigger Event on document.
+     * Usage:
+     *  trigger(target, 'click', arg1, arg2);   // event on target
+     *  trigger(null, 'click', arg1, arg2);     // event on document
+     */
+    window.trigger = _trigger;
 
     // ------------------------------------------------------------------------
     //                      initialization
@@ -433,7 +472,7 @@
         window.deviceready = true;
     }
 
-    document.addEventListener('deviceready', function () {
+    document.addEventListener(EVENT_DEVICEREADY, function () {
         start();
     }, false);
 
@@ -444,11 +483,7 @@
     if (getParameterByName('desktopgap')==='false') {
         setTimeout(function(){
             // create the event
-            var evt = document.createEvent('Event');
-            // define that the event name is '[EVENT_NAME]'
-            evt.initEvent('deviceready', true, true);
-            // dispatch the Event
-            document.dispatchEvent(evt);
+            _trigger(document, EVENT_DEVICEREADY);
         }, 100);
     }
 

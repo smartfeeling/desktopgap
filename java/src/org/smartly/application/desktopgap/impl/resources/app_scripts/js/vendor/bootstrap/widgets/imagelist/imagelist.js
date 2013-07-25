@@ -3,7 +3,16 @@
     lyb.require('/assets/lib/bootstrap/widgets/imagelist/imagelist.mini.css');
 
     var EVENT_CLICK = 'click'
-
+        , TPL_ITEM =
+            '<li data_id="{_id}" class="span4">' +
+                '<div id="{_id}" class="thumbnail clickable">' +
+                    '<img src="{image}"  alt=""/>' +
+                    '<div class="imagelist-textbox back-gradient">' +
+                        '<div class="imagelist-name">{name}</div>' +
+                        '<div class="imagelist-description">{description}</div>' +
+                    '</div>' +
+                '</div>' +
+            '</li>'
         , sel_self = '#<%= cid %>'
         , sel_thumbbuttons = '#<%= cid %> .clickable'
         , sel_template = '#template-<%= cid %>'
@@ -14,17 +23,19 @@
         var self = this
             ;
 
-        ly.base(this, {
-            template:'/assets/lib/bootstrap/widgets/imagelist/imagelist.vhtml',
-            model:false,
-            view:true
+        ly.base(self, {
+            template: '/assets/lib/bootstrap/widgets/imagelist/imagelist.vhtml',
+            model: false,
+            view: true
         });
 
-        this['_items'] = options['items'];
-        this['_selected'] = "";
+        options = options || {};
+
+        self['_items'] = options['items'];
+        self['_selected'] = "";
 
         // add listeners
-        this.on('init', _init);
+        self.on('init', _init);
     }
 
     ly.inherits(Imagelist, ly.Gui);
@@ -37,6 +48,14 @@
         return this['_selected'];
     };
 
+    Imagelist.prototype.items = function (items) {
+        if (!!items) {
+            this['_items'] = items;
+            this.bindTo(_init)();
+        }
+        return this['_items'];
+    };
+
     // ------------------------------------------------------------------------
     //                      p r i v a t e
     // ------------------------------------------------------------------------
@@ -44,8 +63,10 @@
     function _init() {
         var self = this
             , $self = $(self.template(sel_self))
-            , template = $(self.template(sel_template)).text()
+            , template = TPL_ITEM // $(self.template(sel_template)).text()
             ;
+
+        $self.html('');
 
         // creates items
         _.forEach(self['_items'], function (item) {
@@ -86,17 +107,17 @@
 
     function _select(item_or_string, emitevent) {
         var self = this;
-        _.delay(function(){
+        _.delay(function () {
             var item = _.isString(item_or_string) ? self.bindTo(_itemById)(item_or_string) : item_or_string
                 , $item = $('#' + item['_id'])
                 ;
-            var old_selection =  self['_selected'];
+            var old_selection = self['_selected'];
             self['_selected'] = item;
             // selected
             $(self.template(sel_thumbbuttons)).parent().removeClass('active');
             $item.parent().addClass('active');
 
-            emitevent = !!emitevent ? emitevent : !!old_selection? old_selection['_id']!==item['_id'] :true;
+            emitevent = !!emitevent ? emitevent : !!old_selection ? old_selection['_id'] !== item['_id'] : true;
 
             if (!!emitevent) {
                 self.trigger(EVENT_CLICK, item);

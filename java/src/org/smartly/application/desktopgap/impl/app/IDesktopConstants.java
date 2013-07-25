@@ -1,5 +1,8 @@
 package org.smartly.application.desktopgap.impl.app;
 
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameDragEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameResizeEvent;
+import org.smartly.application.desktopgap.impl.app.applications.events.FrameScrollEvent;
 import org.smartly.commons.util.StringUtils;
 
 /**
@@ -82,4 +85,8 @@ public interface IDesktopConstants {
     public static final String PARAM_DESKTOPGAP = "desktopgap";
     public static final String PARAM_APPID = "appid";
     public static final String PARAM_FRAMEID = "frameid";
+
+    //-- javascript instance --//
+    public static final String DESKTOPGAP_INSTANCE = "window.desktopgap";
+
 }

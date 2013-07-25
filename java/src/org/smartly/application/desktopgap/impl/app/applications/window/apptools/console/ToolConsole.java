@@ -1,6 +1,7 @@
 package org.smartly.application.desktopgap.impl.app.applications.window.apptools.console;
 
 import org.json.JSONObject;
+import org.smartly.Smartly;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
@@ -23,7 +24,6 @@ public final class ToolConsole extends AbstractTool {
     public static final String NAME = "console";
 
     private static final String APP_CONSOLE_ID = "system_console";
-
 
     private final AppInstance _app;
     private final String _id;

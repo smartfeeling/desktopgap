@@ -46,6 +46,7 @@ public final class JfxJsEngine
         this.handleWebEngineLoading(engine);
     }
 
+    @Override
     public void whenReady(final String script) {
         if (!_script_ready) {
             synchronized (_cached_scripts) {
@@ -56,10 +57,12 @@ public final class JfxJsEngine
         }
     }
 
+    @Override
     public void executeScript(final String script) {
         executeScript(this, script);
     }
 
+    @Override
     public void emitEvent(final String name, final Object data) {
         final JfxJsEngine self = this;
         Platform.runLater(new Runnable() {

@@ -17,6 +17,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.AppManife
 import org.smartly.application.desktopgap.impl.app.applications.window.AppRegistry;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppWindows;
 import org.smartly.application.desktopgap.impl.app.applications.window.javascript.snippets.JsSnippet;
+import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractScriptEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AbstractWebView;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
 import org.smartly.application.desktopgap.impl.app.utils.fx.FX;
@@ -107,6 +108,10 @@ public final class AppFrame {
         // initializes frame, controller and jsengine
         this.initialize(_webview);
     }
+
+    // --------------------------------------------------------------------
+    //               p u b l i c
+    // --------------------------------------------------------------------
 
     public String getId() {
         return _id;
@@ -223,7 +228,7 @@ public final class AppFrame {
 
     public double getHeight() {
         if (null != __stage) {
-            if(__stage.getHeight()>0){
+            if (__stage.getHeight() > 0) {
                 // height of frame with form title
                 return __stage.getHeight();
             }
@@ -245,6 +250,29 @@ public final class AppFrame {
     }
 
     // --------------------------------------------------------------------
+    //               script engine
+    // --------------------------------------------------------------------
+
+
+    public void scriptExecute(final String script) throws Exception {
+        final AbstractScriptEngine engine = this.getScriptEngine();
+        if (null != engine) {
+            engine.whenReady(script);
+        } else {
+            throw new Exception("ScriptEngine or WebView not initialized");
+        }
+    }
+
+    public void scriptTriggerEvent(final String eventName, final Object data) throws Exception {
+        final AbstractScriptEngine engine = this.getScriptEngine();
+        if (null != engine) {
+            engine.emitEvent(eventName, data);
+        } else {
+            throw new Exception("ScriptEngine or WebView not initialized");
+        }
+    }
+
+    // --------------------------------------------------------------------
     //               frame
     // --------------------------------------------------------------------
 
@@ -256,8 +284,9 @@ public final class AppFrame {
         _title = null != title ? title : "";
 
         // pass title to javascript
-        if (null != _webview && null != _webview.getScriptEngine()) {
-            _webview.getScriptEngine().whenReady(JsSnippet.getSetElemValue("title", _title));
+        try{
+            this.scriptExecute(JsSnippet.getSetElemValue("title", _title));
+        } catch(Throwable ignored){
         }
 
         if (null != __stage) {
@@ -413,10 +442,10 @@ public final class AppFrame {
         this.setCurrRect(rect);
 
         //-- min size --//
-        try{
+        try {
             stage.setMinWidth(this.getMinWidth());
             stage.setMinHeight(this.getMinHeight());
-        }catch(Throwable ignored){
+        } catch (Throwable ignored) {
 
         }
 
@@ -593,6 +622,10 @@ public final class AppFrame {
                 });
             }
         }
+    }
+
+    private AbstractScriptEngine getScriptEngine() {
+        return null != _webview ? _webview.getScriptEngine() : null;
     }
 
     // --------------------------------------------------------------------

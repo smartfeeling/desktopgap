@@ -1,0 +1,78 @@
+#parse('/assets/lib/bootstrap/widgets/pagedlist/i18n.vm')
+
+<!-- REMOVE COMMENT FOR DEBUG
+$script.requireCss('/assets/lib/bootstrap/widgets/pagedlist/pagedlist.mini.css')
+$script.requireJs('/assets/lib/bootstrap/widgets/pagedlist/pagedlistitem.js')
+-->
+
+<div class="pagedlist ly_box">
+
+    <div class="pagedlist-header">
+        <span id="title-<%= cid %>" class="pagedlist-title">TITLE</span>
+        <!-- search -->
+        <form id="search-box-<%= cid %>" class="form-search">
+            <div class="input-append">
+                <input id="search-text-<%= cid %>" type="text" class="search-query"
+                       placeholder="$pagedlist_search_placeholder">
+                <button id="search-<%= cid %>" type="submit" class="btn" title="$pagedlist_search"><span class="icon-search"></span></button>
+            </div>
+        </form>
+
+        <!-- FOUND -->
+        <div style="display: inline-block">
+            <span>$pagedlist_found:</span>
+            <span id="total-<%= cid %>" class="badge badge-info">0</span>
+        </div>
+
+        <!-- ADD -->
+        <a id="add-<%= cid %>" class="btn btn-mini btn-primary" title="$pagedlist_add"><span class="icon-plus icon-white"></span></a>
+    </div>
+
+    <div id="items-<%= cid %>" class="pagedlist-body hide">
+
+    </div>
+
+    <div id="loading-<%= cid %>" class="pagedlist-loading">
+        <img width="31" height="31" title="" alt="" src="data:image/gif;base64,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" />
+    </div>
+
+    <div id="empty-<%= cid %>" class="pagedlist-empty hide">
+        <img width="70" height="70" title="" alt="" src="data:image/png;base64,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" />
+    </div>
+
+    <div class="pagedlist-footer">
+        <ul id="pager-<%= cid %>" class="pager hide">
+            <li class="previous">
+                <a id="prev-<%= cid %>" href="#">&larr; $pagedlist_prev</a>
+            </li>
+            <span id="count-<%= cid %>">1/2</span>
+            <li class="next">
+                <a id="next-<%= cid %>" href="#">$pagedlist_next &rarr;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-<%= cid %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="item-name-<%= cid %>" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="item-name-<%= cid %>">...</h3>
+    </div>
+    <div class="modal-body pagedlistmodal-body">
+        <img id="item-image-<%= cid %>" src="">
+        <p id="item-description-<%= cid %>">…</p>
+    </div>
+    <div class="modal-footer">
+        <div id="modal-actions-<%= cid %>">
+            <button id="modal-remove-<%= cid %>" class="btn" aria-hidden="true">$pagedlist_remove</button>
+            <button id="modal-edit-<%= cid %>" class="btn btn-success" aria-hidden="true">$pagedlist_edit</button>
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">$pagedlist_close</button>
+        </div>
+        <div id="modal-confirm-<%= cid %>" class="hide">
+            <span class="label label-important">$pagedlist_confirm_remove</span>
+            <button id="modal-confirm-remove-<%= cid %>" class="btn" aria-hidden="true">$pagedlist_confirm</button>
+            <button id="modal-undo-<%= cid %>" class="btn btn-primary" aria-hidden="true">$pagedlist_undo</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+#set($pagedlist_add = $dic.get($lang, 'i18n-widgets', 'pagedlist_add'))
+#set($pagedlist_empty = $dic.get($lang, 'i18n-widgets', 'pagedlist_empty'))
+#set($pagedlist_found = $dic.get($lang, 'i18n-widgets', 'pagedlist_found'))
+#set($pagedlist_next = $dic.get($lang, 'i18n-widgets', 'pagedlist_next'))
+#set($pagedlist_prev = $dic.get($lang, 'i18n-widgets', 'pagedlist_prev'))
+#set($pagedlist_search = $dic.get($lang, 'i18n-widgets', 'pagedlist_search'))
+#set($pagedlist_search_placeholder = $dic.get($lang, 'i18n-widgets', 'pagedlist_search_placeholder'))
+#set($pagedlist_edit = $dic.get($lang, 'i18n-widgets', 'pagedlist_edit'))
+#set($pagedlist_remove = $dic.get($lang, 'i18n-widgets', 'pagedlist_remove'))
+#set($pagedlist_close = $dic.get($lang, 'i18n-widgets', 'pagedlist_close'))
+#set($pagedlist_confirm = $dic.get($lang, 'i18n-widgets', 'pagedlist_confirm'))
+#set($pagedlist_undo = $dic.get($lang, 'i18n-widgets', 'pagedlist_undo'))
+#set($pagedlist_confirm_remove = $dic.get($lang, 'i18n-widgets', 'pagedlist_confirm_remove'))
+
+

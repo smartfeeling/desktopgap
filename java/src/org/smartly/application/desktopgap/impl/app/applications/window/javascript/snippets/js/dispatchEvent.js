@@ -21,7 +21,7 @@
         try {
             return JSON.parse(data)
         } catch (err) {
-            console.error(err);
+            console.error ('(dispatchEvent.js): "' + err + '" parsing "' + data + '"');
         }
         return data;
     }

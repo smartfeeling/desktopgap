@@ -1,5 +1,38 @@
+.advancedcombo {
+    position: relative;
+    width: 100%;
+    border: none;
+}
 
-.imagecombo-balloon {
+/* HEADER
+ --------------------------- */
+
+.advancedcombo-header {
+    background-color: #fcfcfc;
+    padding: 5px;
+    border-bottom: dotted 1px #aaaaaa;
+}
+
+.advancedcombo-header>* {
+    display: inline;
+}
+
+.advancedcombo-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: #0480be;
+}
+
+/* BODY
+ --------------------------- */
+.advancedcombo-body {
+    padding: 5px;
+}
+
+/* BALLOON
+ --------------------------- */
+
+.advancedcombo-balloon {
     position: relative;
     min-height: 70px;
     clear: both;
@@ -14,18 +47,18 @@
     border-radius: 10px;
 }
 
-.imagecombo-balloon p {
+.advancedcombo-balloon p {
     font-size: 15px;
     line-height: 1.25em;
 }
 
-.imagecombo-balloon .img {
+.advancedcombo-balloon .img {
     float: left;
     padding-right: 5px;
 }
 
 /* creates the triangle */
-.imagecombo-balloon:after {
+.advancedcombo-balloon:after {
     content: "";
     position: absolute;
     top: -30px;
@@ -38,7 +71,7 @@
 }
 
 /* display of quote author (alternatively use a class on the element following the blockquote) */
-.imagecombo-balloon + p {
+.advancedcombo-balloon + p {
     padding-left: 15px;
     font: 14px Arial, sans-serif;
     clear: both;

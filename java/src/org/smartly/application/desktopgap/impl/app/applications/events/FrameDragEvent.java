@@ -11,7 +11,7 @@ import org.smartly.commons.util.StringUtils;
  */
 public class FrameDragEvent extends Event {
 
-    public static final String NAME = IDesktopGapEvents.FRAME_DRAG;
+    public static final String NAME = IDesktopGapEvents.FRAME_DRAG_DROPPED;
 
     // ------------------------------------------------------------------------
     //                      f i e l d s
