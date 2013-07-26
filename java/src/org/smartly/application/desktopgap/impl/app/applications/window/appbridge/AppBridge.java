@@ -2,6 +2,7 @@ package org.smartly.application.desktopgap.impl.app.applications.window.appbridg
 
 import org.smartly.application.desktopgap.impl.app.IDesktopConstants;
 import org.smartly.application.desktopgap.impl.app.applications.window.AppInstance;
+import org.smartly.application.desktopgap.impl.app.applications.window.apptools.storejson.ToolJsonDB;
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.jfx.JfxJsEngine;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.AbstractTool;
 import org.smartly.application.desktopgap.impl.app.applications.window.apptools.connection.ToolConnection;
@@ -79,6 +80,7 @@ public class AppBridge {
         _tools.put(ToolI18n.NAME, new ToolI18n(_app));
         _tools.put(ToolRuntime.NAME, new ToolRuntime(_app));
         _tools.put(ToolRegistry.NAME, new ToolRegistry(_app));
+        _tools.put(ToolJsonDB.NAME, new ToolJsonDB(_app));
     }
 
     // --------------------------------------------------------------------

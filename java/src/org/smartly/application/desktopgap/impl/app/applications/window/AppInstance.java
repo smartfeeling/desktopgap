@@ -5,6 +5,7 @@ import org.smartly.application.desktopgap.impl.app.applications.events.*;
 import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;
 import org.smartly.application.desktopgap.impl.app.applications.window.applibs.AppLibs;
 import org.smartly.application.desktopgap.impl.app.applications.window.frame.AppFrame;
+import org.smartly.application.desktopgap.impl.app.base.AppMappedErrors;
 import org.smartly.commons.event.EventEmitter;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
@@ -30,6 +31,7 @@ public final class AppInstance
     private final List<AppFrame> _children; // children frames
     private final AppBridge _bridge;
     private final AppLibs _libs; // external tools and plugins
+    private final AppMappedErrors _errorsMap; // errors mapped for smart localization
 
     public AppInstance(final DesktopController controller,
                        final AppManifest manifest) throws IOException {
@@ -46,6 +48,8 @@ public final class AppInstance
 
         // register plugins
         _libs = new AppLibs(this, _bridge);
+
+        _errorsMap = new AppMappedErrors();
 
         this.handleWindowEvents(_windows);
         this.initLogger();
@@ -65,6 +69,10 @@ public final class AppInstance
 
     public DesktopController getDesktop() {
         return _controller;
+    }
+
+    public AppMappedErrors getErrorsMap(){
+        return _errorsMap;
     }
 
     /**

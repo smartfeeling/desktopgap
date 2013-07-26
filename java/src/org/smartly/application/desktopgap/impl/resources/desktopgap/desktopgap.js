@@ -87,6 +87,7 @@
                 return _evalScript(script);
             }
         } catch (err) {
+            console.error(url + ': ' + err);
             return {
                 error: err
             };
@@ -198,7 +199,7 @@
      * get a java tool registered in java bridge.
      * usage: java('toolname');
      */
-    window.javaTool = _getJavaTool;
+    window.java = _getJavaTool;
 
     /**
      * Trigger Event on document.
@@ -405,6 +406,9 @@
 
     //-- REGISTRY --//
     exports.registry = require('desktopgap_registry.js');
+
+    //-- JSON DB --//
+    exports.jsondb = require('desktopgap_jsondb.js');
 
     //-- CONNECTION --//
     exports.connection = require('desktopgap_connection.js');
