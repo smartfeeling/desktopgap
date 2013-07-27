@@ -10,6 +10,13 @@
     //                      DB Connection
     // ------------------------------------------------------------------------
 
+    /**
+     * Usage:
+     * var DB = tool.create('database');
+     * var users = DB.collection('users');
+     * var user = users.findOne('_id', '1234');
+     *
+     */
     var module = {
 
         toString: function () {
@@ -58,9 +65,9 @@
             var result = '';
             var args = toArray(arguments);
             if (args.length === 1) {
-                result = this['_java'].findOneAsString('_id', args[0]);
+                result = this['_java'].findOne('_id', args[0]);
             } else if (args.length === 2) {
-                result = this['_java'].findOneAsString(args[0], args[1]);
+                result = this['_java'].findOne(args[0], args[1]);
             }
             return null != result ? JSON.parse(result.toString()) : null;
         } catch (err) {
