@@ -77,7 +77,12 @@ public final class AppLocalization {
     }
 
     private boolean isFile(final String resValue) {
-        return PathUtils.isFile(resValue);
+        try {
+            final File file = new File(PathUtils.concat(_root, resValue));
+            return file.isFile() || file.exists();
+        } catch (Throwable ignored) {
+            return false;
+        }
     }
 
     private String[] splitNameLang(final String fileName) {
@@ -97,14 +102,18 @@ public final class AppLocalization {
                 final String lang = name_lang[1];
                 final Map<String, String> dictionary = this.getDictionary(lang);
                 final Properties props = new Properties();
-                props.load(new InputStreamReader( new FileInputStream(file), Smartly.getCharset()) );
+                props.load(new InputStreamReader(new FileInputStream(file), Smartly.getCharset()));
                 final Set<Object> keys = props.keySet();
                 for (final Object key : keys) {
                     if (null != key) {
-                        this.load(dictionary,
-                                name,
-                                key.toString(),
-                                props.getProperty(key.toString()));
+                        try {
+                            this.load(dictionary,
+                                    name,
+                                    key.toString(),
+                                    props.getProperty(key.toString()));
+                        } catch (Throwable t) {
+                            _app.getLogger().log(Level.SEVERE, null, t);
+                        }
                     }
                 }
             }
