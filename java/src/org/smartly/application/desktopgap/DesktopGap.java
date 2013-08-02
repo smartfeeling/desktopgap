@@ -68,10 +68,21 @@ public class DesktopGap extends AbstractPackage {
      * as GUI runtime.
      */
     public void initEmbeddable(){
+        this.initEmbeddable(true);
+    }
+
+    /**
+     * Call this method if you are developing a java application using DesktopGap
+     * as GUI runtime.
+     * @param launchGUI Pass false if you are launching DesktopGap in Test Unit and don't need GUI is launched.
+     */
+    public void initEmbeddable(final boolean launchGUI){
         Smartly.register(new Deployer(Smartly.getConfigurationPath(), Smartly.isSilent()));
         this.init(true);
         try {
-            DesktopController.open(true);
+            if(launchGUI){
+                DesktopController.open(true);
+            }
         } catch (Throwable t) {
             super.getLogger().log(Level.SEVERE, null, t);
         }
