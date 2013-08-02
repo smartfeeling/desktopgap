@@ -1,5 +1,7 @@
 (function (window) {
 
+    'use strict';
+
     var defined = window.defined // func defined()
         , getAllElementsWithAttribute = window.getAllElementsWithAttribute
         , isString = window.isString
@@ -85,11 +87,23 @@
                         }
                     }
                     // console.log('startElem: ' + startElem);
+                    //-- translate data-i18n --//
                     var elems = getAllElementsWithAttribute(attr, startElem);
                     for (var i = 0; i < elems.length; i++) {
                         var elem = elems[i];
                         var key = elem.getAttribute(attr);
                         elem.innerHTML = desktopgap['bridge'].i18n().get(lang || '', key);
+                    }
+
+                    //-- translate placeholder --//
+                    var elems = getAllElementsWithAttribute('placeholder', startElem);
+                    for (var i = 0; i < elems.length; i++) {
+                        var elem = elems[i];
+                        var key = elem.getAttribute('placeholder');
+                        var text = desktopgap['bridge'].i18n().get(lang || '', key);
+                        if(!!text){
+                            elem.setAttribute('placeholder', text);
+                        }
                     }
                 } catch (err) {
                     console.error('(desktopgap_i18n.js) transalte(): ' + err);
