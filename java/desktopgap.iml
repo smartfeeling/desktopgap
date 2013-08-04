@@ -11,7 +11,7 @@
     <orderEntry type="library" exported="" name="org.mozilla:rhino:1.7R4" level="application" />
     <orderEntry type="library" exported="" name="org.apache.velocity:velocity:1.7" level="application" />
     <orderEntry type="library" exported="" name="org.jsoup:jsoup:1.7.2" level="application" />
-    <orderEntry type="library" exported="" name="org.eclipse.jetty.aggregate:jetty-all:9.0.0.v20130308" level="application" />
+    <orderEntry type="library" exported="" name="org.eclipse.jetty.aggregate:jetty-all:9.0.4.v20130625" level="application" />
     <orderEntry type="library" exported="" name="jfxrt" level="application" />
     <orderEntry type="module" module-name="smartly_core" />
     <orderEntry type="module" module-name="smartly_package_01_htmldeployer" />
