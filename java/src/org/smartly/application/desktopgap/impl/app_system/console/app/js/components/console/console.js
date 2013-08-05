@@ -1,7 +1,10 @@
 (function (window) {
 
+    'use strict';
+
     var EVENT_CLICK = 'click'
         , sel_self = '#<%= cid %>'
+        , sel_footer = '#footer-<%= cid %>'
 
     //-- tabs --//
         , sel_tabs = '#tab-<%= cid %> a'
@@ -35,6 +38,7 @@
         if (!!items) {
             ly.deepExtend(this['_items'], items);
             this.bindTo(_load)(items);
+            this.bindTo(_scrollBottom)();
         }
     };
 
@@ -105,6 +109,18 @@
             panels[tab_selector].appendTo(tab_selector);
         }
         return panels[tab_selector];
+    }
+
+    function _scrollBottom(){
+        var self = this;
+        _.debounce(function(){
+            try{
+                var $bottom = $(self.template(sel_footer));
+                ly.el.scrollTo($bottom);
+            }catch(err){
+                console.error('(console.js) _scrollBottom(): ' + err);
+            }
+        }, 500, false)();
     }
 
     // ------------------------------------------------------------------------
