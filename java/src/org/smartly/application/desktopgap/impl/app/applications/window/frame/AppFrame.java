@@ -276,6 +276,10 @@ public final class AppFrame {
     //               frame
     // --------------------------------------------------------------------
 
+    public Stage stage(){
+        return this.getStage();
+    }
+
     public String getTitle() {
         return _title;
     }

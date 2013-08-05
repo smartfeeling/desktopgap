@@ -1,5 +1,6 @@
 package org.smartly.application.desktopgap.impl.app.applications.window;
 
+import javafx.stage.Stage;
 import org.smartly.application.desktopgap.impl.app.DesktopController;
 import org.smartly.application.desktopgap.impl.app.applications.events.*;
 import org.smartly.application.desktopgap.impl.app.applications.window.appbridge.AppBridge;

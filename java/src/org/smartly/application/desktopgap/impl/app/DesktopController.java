@@ -45,6 +45,7 @@ public final class DesktopController
     private final DesktopControllerApps _applications;
     private FileObserver _installObserver;
     private boolean _closed;
+    private Stage _stage;
 
     private Text _text;
 
@@ -63,6 +64,8 @@ public final class DesktopController
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
+        _stage = primaryStage;
 
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
 
@@ -116,6 +119,14 @@ public final class DesktopController
 
     public boolean isClosed() {
         return _closed;
+    }
+
+    /**
+     * Returns Application Primary Stage
+     * @return
+     */
+    public Stage getStage() {
+        return _stage;
     }
 
     /**
@@ -230,7 +241,7 @@ public final class DesktopController
         launchArgFiles();
     }
 
-    private void initAutorun(){
+    private void initAutorun() {
         _autorun.onAutorun(new AppAutorunManager.OnAutorun() {
             @Override
             public void handle(final String appId) {

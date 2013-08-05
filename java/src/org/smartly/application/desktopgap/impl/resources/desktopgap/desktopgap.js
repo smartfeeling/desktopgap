@@ -1,5 +1,7 @@
 !(function (window) {
 
+    // 'use strict';
+
     var document = window.document;
 
 
@@ -139,6 +141,10 @@
         return Object.prototype.toString.call(obj) == '[object Function]';
     }
 
+    function _isArray (obj) {
+        return Object.prototype.toString.call(obj) == '[object Array]';
+    }
+
     function _isString(obj) {
         return Object.prototype.toString.call(obj) == '[object String]';
     }
@@ -161,6 +167,44 @@
         }
     }
 
+    /**
+     * call a function
+     * Params: func, context, parameters[]
+     * Params: func, parameters[]
+     **/
+    function _call() {
+        var args = _toArray(arguments);
+        if (_isFunction(args[0])) {
+            var func = args[0];
+            if (args.length === 1) {
+                func();
+            } else if (args.length === 2) {
+                if (_isArray(args[1])) {
+                    func.apply(this, args[1]);
+                } else {
+                    func.apply(args[1]);
+                }
+            } else {
+                if (_isArray(args[2])) {
+                    func.apply(args[1], args[2]);
+                } else if (_isArray(args[1])) {
+                    func.apply(args[2], args[1]);
+                } else {
+                    func();
+                }
+            }
+        }
+    }
+
+    // Delays a function for the given number of milliseconds, and then calls
+    // it with the arguments supplied.
+    function _delay (func, wait) {
+        var args = Array.prototype.slice.call(arguments, 2);
+        return setTimeout(function () {
+            return func.apply(null, args);
+        }, wait);
+    }
+
     // ------------------------------------------------------------------------
     //                      utility
     // ------------------------------------------------------------------------
@@ -174,6 +218,8 @@
     window.isFunction = _isFunction;
 
     window.isString = _isString;
+
+    window.isArray = _isArray;
 
     window.isElement = _isElement;
 
@@ -208,6 +254,10 @@
      *  trigger(null, 'click', arg1, arg2);     // event on document
      */
     window.trigger = _trigger;
+
+    window.call = _call;
+
+    window.delay = _delay;
 
     // ------------------------------------------------------------------------
     //                      initialization
@@ -419,6 +469,7 @@
 
     //-- FILE --//
     exports.fileSystem = require('desktopgap_file.js');
+    exports.fileUtils = require('desktopgap_fileUtils.js');
 
     //-- LOCALSTORE --//
     exports.LocalStore = require('desktopgap_localstore.js');
@@ -448,6 +499,7 @@
     window.Connections = exports.Connections;
 
     window.LocalStore = exports.LocalStore;
+
 
     // ------------------------------------------------------------------------
     //                  i n i t i a l i z a t i o n
