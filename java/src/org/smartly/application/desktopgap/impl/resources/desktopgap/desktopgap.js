@@ -173,26 +173,30 @@
      * Params: func, parameters[]
      **/
     function _call() {
-        var args = _toArray(arguments);
-        if (_isFunction(args[0])) {
-            var func = args[0];
-            if (args.length === 1) {
-                func();
-            } else if (args.length === 2) {
-                if (_isArray(args[1])) {
-                    func.apply(this, args[1]);
-                } else {
-                    func.apply(args[1]);
-                }
-            } else {
-                if (_isArray(args[2])) {
-                    func.apply(args[1], args[2]);
-                } else if (_isArray(args[1])) {
-                    func.apply(args[2], args[1]);
-                } else {
+        try{
+            var args = _toArray(arguments);
+            if (_isFunction(args[0])) {
+                var func = args[0];
+                if (args.length === 1) {
                     func();
+                } else if (args.length === 2) {
+                    if (_isArray(args[1])) {
+                        func.apply(this, args[1]);
+                    } else {
+                        func.apply(args[1]);
+                    }
+                } else {
+                    if (_isArray(args[2])) {
+                        func.apply(args[1], args[2]);
+                    } else if (_isArray(args[1])) {
+                        func.apply(args[2], args[1]);
+                    } else {
+                        func();
+                    }
                 }
             }
+        }catch(err){
+            // error running function
         }
     }
 
