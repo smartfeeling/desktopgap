@@ -58,9 +58,9 @@
         return xhr.responseText;
     }
 
-    function _getJavaTool(name){
-        if(_defined('bridge')){
-           return desktopgap['bridge'].get(name);
+    function _getJavaTool(name) {
+        if (_defined('bridge')) {
+            return desktopgap['bridge'].get(name);
         }
         return null;
     }
@@ -82,15 +82,29 @@
         return matchingElements;
     }
 
+    function _is404Error(script){
+        if(!!script){
+           if(script.indexOf('<html>')===0){
+              return script.indexOf('404')>0;
+           }
+        }
+        return false;
+    }
+
     function _require(url) {
+        var script = '';
         try {
-            var script = _getUrl(url);
-            if (!!script) {
+            script = _getUrl(url);
+            if (!!script && !_is404Error(script)) {
                 return _evalScript(script);
+            } else {
+                throw 'File not found: ' + url;
             }
         } catch (err) {
-            console.error(url + ': ' + err);
+            var message = 'desktopgap.require ERROR: ' + err + '.\n<br> URL:' + url + '\n<br> SCRIPT: ' + script;
+            console.error(message);
             return {
+                message: message,
                 error: err
             };
         }
@@ -141,7 +155,7 @@
         return Object.prototype.toString.call(obj) == '[object Function]';
     }
 
-    function _isArray (obj) {
+    function _isArray(obj) {
         return Object.prototype.toString.call(obj) == '[object Array]';
     }
 
@@ -149,15 +163,15 @@
         return Object.prototype.toString.call(obj) == '[object String]';
     }
 
-    function _trigger(target, eventName){
-        target=target||document;
-        if(!!eventName){
+    function _trigger(target, eventName) {
+        target = target || document;
+        if (!!eventName) {
             var args = _toArray(arguments);
             var evt = document.createEvent('Event');
             // define that the event name is '[EVENT_NAME]'
             evt.initEvent(eventName, true, true);
 
-            if (args.length>2) {
+            if (args.length > 2) {
                 evt.data = evt.data || [];
                 evt.data.push(args.splice(0, 2));
             }
@@ -173,7 +187,7 @@
      * Params: func, parameters[]
      **/
     function _call() {
-        try{
+        try {
             var args = _toArray(arguments);
             if (_isFunction(args[0])) {
                 var func = args[0];
@@ -195,14 +209,14 @@
                     }
                 }
             }
-        }catch(err){
+        } catch (err) {
             // error running function
         }
     }
 
     // Delays a function for the given number of milliseconds, and then calls
     // it with the arguments supplied.
-    function _delay (func, wait) {
+    function _delay(func, wait) {
         var args = Array.prototype.slice.call(arguments, 2);
         return setTimeout(function () {
             return func.apply(null, args);
@@ -540,8 +554,8 @@
      * check if function is called out of desktopgap runtime
      * (for debug into external browser)
      */
-    if (getParameterByName('desktopgap')==='false') {
-        setTimeout(function(){
+    if (getParameterByName('desktopgap') === 'false') {
+        setTimeout(function () {
             // create the event
             _trigger(document, EVENT_DEVICEREADY);
         }, 100);
