@@ -16,6 +16,7 @@ public class AppMappedErrors {
     // ------------------------------------------------------------------------
 
     public static final String CONNECTION_REFUSED = "connection_refused";
+    public static final String SERVER_GONE_DOWN = "server_gone_down";
 
     // ------------------------------------------------------------------------
     //                      f i e l d s
@@ -54,6 +55,7 @@ public class AppMappedErrors {
     private void init() {
         //-- map defaults --//
         this.register(java.net.ConnectException.class, CONNECTION_REFUSED);
+        this.register(java.lang.NullPointerException.class, SERVER_GONE_DOWN);
     }
 
 }
