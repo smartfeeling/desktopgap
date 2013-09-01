@@ -25,6 +25,7 @@ import org.smartly.application.desktopgap.impl.app.applications.window.webview.A
 import org.smartly.application.desktopgap.impl.app.applications.window.webview.AppWindowUrl;
 import org.smartly.commons.logging.Level;
 import org.smartly.commons.logging.Logger;
+import org.smartly.commons.util.StringUtils;
 
 import java.io.File;
 import java.net.URL;
@@ -141,7 +142,9 @@ public class JfxWebView extends AbstractWebView
                 // final AppWindowUrl uri = new AppWindowUrl(_frame, url);
                 // navigate page
                 _location = super.getHttpIndex(url, true, null);
-                win_browser.getEngine().load(_location);
+                if(StringUtils.hasText(_location)){
+                    win_browser.getEngine().load(_location);
+                }
             } catch (Throwable t) {
                 this.getLogger().log(Level.SEVERE, null, t);
             }
