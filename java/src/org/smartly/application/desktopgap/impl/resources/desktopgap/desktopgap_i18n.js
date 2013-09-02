@@ -106,7 +106,7 @@
                         }
                     }
                 } catch (err) {
-                    console.error('(desktopgap_i18n.js) transalte(): ' + err);
+                    console.error('(desktopgap_i18n.js) translate(): ' + err);
                 }
             }
         }
