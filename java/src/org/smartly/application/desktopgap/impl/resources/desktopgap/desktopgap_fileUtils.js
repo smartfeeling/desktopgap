@@ -45,6 +45,28 @@
         }
     };
 
+    FileUtils.prototype.selectDir = function (callback) {
+        var self = this;
+        var tool = _tool();
+        if (!!tool) {
+            delay(function () {
+                var dirPath = tool.selectDir();
+                if (!!dirPath) {
+                    try {
+                        call(callback, self, [dirPath]);
+                    } catch (err) {
+                        call(callback, self, ['']);
+                    }
+                } else {
+                    // console.log('NOTHING SELECTED');
+                    call(callback, self, ['']);
+                }
+            }, 10);
+        } else {
+            call(callback, self, ['']);
+        }
+    };
+
     // --------------------------------------------------------------------
     //               exports
     // --------------------------------------------------------------------

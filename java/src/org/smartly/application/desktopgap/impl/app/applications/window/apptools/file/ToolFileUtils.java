@@ -56,6 +56,18 @@ public class ToolFileUtils
         return "";
     }
 
+    public String selectDir() {
+        try {
+            final File dir = openDirectoryChooser(super.getApp().getDesktop().getStage(), PathUtils.USER_HOME);
+            if (null != dir) {
+                return dir.getAbsolutePath();
+            }
+        } catch (Throwable t) {
+            super.getLogger().log(Level.SEVERE, null, t);
+        }
+        return "";
+    }
+
     // --------------------------------------------------------------------
     //               S T A T I C
     // --------------------------------------------------------------------
