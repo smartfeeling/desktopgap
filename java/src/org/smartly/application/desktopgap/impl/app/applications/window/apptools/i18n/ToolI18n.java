@@ -161,13 +161,18 @@ public final class ToolI18n extends AbstractTool {
     }
 
     private String getLocalization(final String lang, final String dictionary, final String rawKey) {
+        String result = "";
         try {
+
             final String key = this.getKey(rawKey);
-            return _i18n.get(StringUtils.hasText(lang) ? lang : _lang, dictionary, key);
+            result =  _i18n.get(StringUtils.hasText(lang) ? lang : _lang, dictionary, key);
+            if(!StringUtils.hasText(result)){
+                result = _i18n.get(StringUtils.hasText(lang) ? lang : _lang, dictionary, this.getKey(rawKey));
+            }
         } catch (Throwable t) {
             this.getLogger().log(Level.SEVERE, null, t);
         }
-        return "";
+        return result;
     }
 
     private String getKey(final String rawKey) {
@@ -175,8 +180,12 @@ public final class ToolI18n extends AbstractTool {
         if (tokens.length == 1) {
             return rawKey.trim();
         } else {
-            final int index = (int) RandomUtils.rnd(0.0, tokens.length - 1);
-            return tokens[index].trim();
+            String key = "";
+            while(!StringUtils.hasText(key)){
+                final int index = (int) RandomUtils.rnd(0.0, tokens.length - 1);
+                key = tokens[index].trim();
+            }
+            return key;
         }
     }
 }
