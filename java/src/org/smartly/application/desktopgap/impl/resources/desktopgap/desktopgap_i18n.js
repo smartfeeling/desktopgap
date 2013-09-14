@@ -9,6 +9,9 @@
         , toArray = window.toArray
         , attr = 'data-i18n'
         ;
+
+    var EVENT_CHANGE = 'change';
+
     // ------------------------------------------------------------------------
     //                      D E V I C E
     // ------------------------------------------------------------------------
@@ -16,15 +19,50 @@
     var module = {
 
         init: function () {
-
+            this['_listeners'] = {};
             return this;
         },
 
-        lang: function(opt_lang){
+        on: function (eventname, func) {
+            if (!!eventname && isFunction(func)) {
+                this['_listeners'][eventname] = this['_listeners'][eventname] || [];
+                this['_listeners'][eventname].push(func);
+            }
+        },
+
+        off: function (eventname) {
+            if (!!eventname ) {
+                this['_listeners'][eventname] = [];
+            } else {
+                // remove all handlers
+                this['_listeners'] = {};
+            }
+        },
+
+        trigger: function () {
+            var args = toArray(arguments);
+            if (args.length > 0) {
+                var listeners = this['_listeners'][args[0]] || [];
+                if (listeners.length > 0) {
+                    for (var i = 0; i < listeners.length; i++) {
+                        var func = listeners[i];
+                        if (isFunction(func)) {
+                            try{
+                                func.apply(this, args.splice(1));
+                            }catch(ignored){
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        lang: function (opt_lang) {
             try {
                 if (defined('bridge')) {
-                    if(isString(opt_lang)){
+                    if (isString(opt_lang)) {
                         desktopgap['bridge'].i18n().setLang(opt_lang);
+                        this.trigger(EVENT_CHANGE, opt_lang);
                     }
                     return desktopgap['bridge'].i18n().getLang();
                 }
@@ -68,7 +106,7 @@
             if (defined('bridge')) {
                 try {
                     // parse args
-                    var args =  toArray(arguments)
+                    var args = toArray(arguments)
                         , lang
                         , startElem
                         ;
@@ -101,7 +139,7 @@
                         var elem = elems[i];
                         var key = elem.getAttribute('placeholder');
                         var text = desktopgap['bridge'].i18n().get(lang || '', key);
-                        if(!!text){
+                        if (!!text) {
                             elem.setAttribute('placeholder', text);
                         }
                     }
